@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { updateSnippet } from '@/lib/actions/snippets'
 import { LANGUAGES } from '@/lib/constants'
+import { SPACING } from '@/lib/constants/styles'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -55,9 +56,9 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="form-container form-section">
             {/* Header */}
-            <div className="flex items-center gap-4">
+            <div className="flex-center gap-4">
                 <Button variant="ghost" size="icon" asChild>
                     <Link href={`/snippets/${snippet.id}`}>
                         <ArrowLeft className="h-5 w-5" />
@@ -69,14 +70,14 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className={SPACING.md}>
                 <Card>
                     <CardHeader>
                         <CardTitle>Snippet Details</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className={SPACING.sm}>
                         {/* Title */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="title">Title *</Label>
                             <Input
                                 id="title"
@@ -88,7 +89,7 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
                         </div>
 
                         {/* Type */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="type">Type</Label>
                             <Select value={type} onValueChange={(v) => setType(v as 'code' | 'prompt')}>
                                 <SelectTrigger>
@@ -103,7 +104,7 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
 
                         {/* Language (only for code) */}
                         {type === 'code' && (
-                            <div className="space-y-2">
+                            <div className="form-field">
                                 <Label htmlFor="language">Language</Label>
                                 <Select value={language} onValueChange={setLanguage}>
                                     <SelectTrigger>
@@ -121,7 +122,7 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
                         )}
 
                         {/* Description */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="description">Description</Label>
                             <Input
                                 id="description"
@@ -132,7 +133,7 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
                         </div>
 
                         {/* Content */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="content">Content *</Label>
                             <Textarea
                                 id="content"
@@ -147,7 +148,7 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
                 </Card>
 
                 {/* Actions */}
-                <div className="flex justify-end gap-4">
+                <div className="button-group">
                     <Button type="button" variant="outline" onClick={() => router.back()}>
                         Cancel
                     </Button>

@@ -1,18 +1,14 @@
-import type { Tag } from './note'
+import type { BaseEntity, TaggableEntity, Tag } from './base'
 
+export type { Tag }
 export type SnippetType = 'code' | 'prompt'
 
-export interface Snippet {
-    id: string
-    user_id: string
+export interface Snippet extends BaseEntity, TaggableEntity {
     title: string
     content: string
     language: string
     type: SnippetType
     description: string | null
-    created_at: string
-    updated_at: string
-    tags?: Tag[]
 }
 
 export interface CreateSnippetInput {

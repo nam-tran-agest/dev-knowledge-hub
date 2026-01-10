@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { updateBug } from '@/lib/actions/bugs'
+import { SPACING } from '@/lib/constants/styles'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -47,9 +48,9 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="form-container form-section">
             {/* Header */}
-            <div className="flex items-center gap-4">
+            <div className="flex-center gap-4">
                 <Button variant="ghost" size="icon" asChild>
                     <Link href={`/bugs/${bug.id}`}>
                         <ArrowLeft className="h-5 w-5" />
@@ -61,14 +62,14 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className={SPACING.md}>
                 <Card>
                     <CardHeader>
                         <CardTitle>Bug Details</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className={SPACING.sm}>
                         {/* Title */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="title">Title *</Label>
                             <Input
                                 id="title"
@@ -80,7 +81,7 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                         </div>
 
                         {/* Error Message */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="errorMessage">Error Message</Label>
                             <Textarea
                                 id="errorMessage"
@@ -92,7 +93,7 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                         </div>
 
                         {/* Stack Trace */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="stackTrace">Stack Trace</Label>
                             <Textarea
                                 id="stackTrace"
@@ -104,7 +105,7 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                         </div>
 
                         {/* Root Cause */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="rootCause">Root Cause</Label>
                             <Textarea
                                 id="rootCause"
@@ -116,7 +117,7 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                         </div>
 
                         {/* Solution */}
-                        <div className="space-y-2">
+                        <div className="form-field">
                             <Label htmlFor="solution">Solution</Label>
                             <Textarea
                                 id="solution"
@@ -130,7 +131,7 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                 </Card>
 
                 {/* Actions */}
-                <div className="flex justify-end gap-4">
+                <div className="button-group">
                     <Button type="button" variant="outline" onClick={() => router.back()}>
                         Cancel
                     </Button>

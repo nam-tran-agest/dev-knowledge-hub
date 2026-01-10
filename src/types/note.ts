@@ -1,28 +1,12 @@
-export interface Category {
-    id: string
-    user_id: string
-    name: string
-    color: string
-    created_at: string
-}
+import type { BaseEntity, TaggableEntity, Tag, Category } from './base'
 
-export interface Tag {
-    id: string
-    user_id: string
-    name: string
-    created_at: string
-}
+export type { Tag, Category }
 
-export interface Note {
-    id: string
-    user_id: string
+export interface Note extends BaseEntity, TaggableEntity {
     category_id: string | null
     title: string
     content: string | null
-    created_at: string
-    updated_at: string
     category?: Category | null
-    tags?: Tag[]
 }
 
 export interface CreateNoteInput {

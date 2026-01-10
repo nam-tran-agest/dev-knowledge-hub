@@ -14,6 +14,12 @@ interface EditorProps {
 export default function Editor({ initialContent, onChange, editable = true }: EditorProps) {
     const editor = useCreateBlockNote()
     const isInitializedRef = useRef(false)
+    const onChangeRef = useRef(onChange)
+
+    // Keep onChange ref updated
+    useEffect(() => {
+        onChangeRef.current = onChange
+    }, [onChange])
 
     useEffect(() => {
         async function loadContent() {
@@ -30,12 +36,12 @@ export default function Editor({ initialContent, onChange, editable = true }: Ed
         loadContent()
     }, [editor, initialContent])
 
-    const handleChange = () => {
-        if (onChange && editor) {
+    const handleChange = async () => {
+        if (onChangeRef.current && editor) {
             try {
-                (editor as any).blocksToMarkdownLossy(editor.document).then((markdown: string) => {
-                    onChange(markdown)
-                })
+                const markdown = await (editor as any).blocksToMarkdownLossy(editor.document)
+                console.log('📄 Editor onChange:', markdown.substring(0, 100) + (markdown.length > 100 ? '...' : ''))
+                onChangeRef.current(markdown)
             } catch (error) {
                 console.error('Failed to convert to markdown:', error)
             }
@@ -48,7 +54,7 @@ export default function Editor({ initialContent, onChange, editable = true }: Ed
             editable={editable}
             theme="dark"
             onChange={handleChange}
-            className="min-h-[400px]"
+            className="min-h-[300px] md:min-h-[400px] w-full max-w-full overflow-x-auto"
         />
     )
 }

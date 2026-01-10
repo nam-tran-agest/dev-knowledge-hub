@@ -102,7 +102,7 @@ export function SearchModal() {
             {/* Search Trigger Button - Modern Input Style */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="group relative flex items-center gap-3 px-4 py-2.5 w-full md:w-80 lg:w-96 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 shadow-sm"
+                className="group relative flex items-center gap-3 px-3 md:px-4 py-2.5 w-full max-w-[280px] md:max-w-xs lg:max-w-sm bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 shadow-sm"
             >
                 <Search className="h-4 w-4 text-slate-400 group-hover:text-white transition-colors" />
                 <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Search anything...</span>
@@ -115,7 +115,7 @@ export function SearchModal() {
 
             {/* Search Modal */}
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogContent className="sm:max-w-2xl p-0 gap-0 overflow-hidden border border-white/10 bg-[#0f172a]/95 backdrop-blur-2xl shadow-2xl rounded-xl ring-1 ring-white/10">
+                <DialogContent className="w-[95vw] max-w-2xl p-0 gap-0 overflow-hidden border border-white/10 bg-[#0f172a]/95 backdrop-blur-2xl shadow-2xl rounded-xl ring-1 ring-white/10">
                     <DialogTitle className="sr-only">Search</DialogTitle>
 
                     {/* Search Input Area */}

@@ -1,4 +1,5 @@
-export type { Category, Tag, Note, CreateNoteInput, UpdateNoteInput } from './note'
+export type { BaseEntity, TaggableEntity, Tag, Category, ApiResponse, PaginatedResponse } from './base'
+export type { Note, CreateNoteInput, UpdateNoteInput } from './note'
 export type { Snippet, SnippetType, CreateSnippetInput, UpdateSnippetInput } from './snippet'
 export type { Task, TaskStatus, TaskColumn, CreateTaskInput, UpdateTaskInput } from './task'
 export type { Bug, CreateBugInput, UpdateBugInput } from './bug'

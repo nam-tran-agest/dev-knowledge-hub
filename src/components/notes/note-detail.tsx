@@ -2,13 +2,12 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-import { ArrowLeft, Edit, Trash2, Calendar, Loader2 } from 'lucide-react'
+import { ArrowLeft, Edit, Trash2, Calendar } from 'lucide-react'
 import { formatDate } from '@/lib/utils/date'
 import { Note as NoteType } from '@/types'
 import { deleteNote } from '@/lib/actions/notes'
-import { cn } from '@/lib/utils'
+import { SPACING } from '@/lib/constants/styles'
 import { CategoryBadge } from './category-badge'
 import { NoteTags } from './note-tags'
 import Editor from './editor'
@@ -19,19 +18,19 @@ interface NoteDetailProps {
 
 export function NoteDetail({ note }: NoteDetailProps) {
     return (
-        <div className="space-y-6">
+        <div className={SPACING.md}>
             {/* Header */}
-            <div className="flex items-start justify-between gap-4">
-                <div className="flex items-start gap-4">
+            <div className="flex-between gap-4">
+                <div className="flex-start gap-4">
                     <Button variant="ghost" size="icon" asChild>
                         <Link href="/notes">
                             <ArrowLeft className="h-5 w-5" />
                         </Link>
                     </Button>
-                    <div className="space-y-2">
+                    <div className="form-field">
                         <h1 className="text-3xl font-bold">{note.title}</h1>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1">
+                        <div className="flex-center gap-4 text-sm text-muted-foreground">
+                            <span className="flex-center gap-1">
                                 <Calendar className="h-4 w-4" />
                                 {formatDate(note.created_at)}
                             </span>

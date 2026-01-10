@@ -38,9 +38,9 @@ export default function RootLayout({
           <MobileNav />
 
           {/* Main Content */}
-          <div className="flex-1 lg:ml-64">
+          <div className="flex-1 lg:ml-64 min-w-0">
             <Header />
-            <main className="p-6">
+            <main className="p-4 md:p-6 max-w-[100vw] lg:max-w-[calc(100vw-16rem)] overflow-x-hidden">
               {children}
             </main>
           </div>
