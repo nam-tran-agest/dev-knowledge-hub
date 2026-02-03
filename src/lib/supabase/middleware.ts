@@ -33,21 +33,22 @@ export async function updateSession(request: NextRequest) {
     } = await supabase.auth.getUser()
 
     // Protect routes - redirect to login if not authenticated
-    const isAuthPage = request.nextUrl.pathname.startsWith('/login')
-    const isCallbackPage = request.nextUrl.pathname.startsWith('/callback')
-    const isPublicPage = isAuthPage || isCallbackPage
+    // DISABLED for "No Login" mode requested by user
+    // const isAuthPage = request.nextUrl.pathname.startsWith('/login')
+    // const isCallbackPage = request.nextUrl.pathname.startsWith('/callback')
+    // const isPublicPage = isAuthPage || isCallbackPage
 
-    if (!user && !isPublicPage) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/login'
-        return NextResponse.redirect(url)
-    }
+    // if (!user && !isPublicPage) {
+    //     const url = request.nextUrl.clone()
+    //     url.pathname = '/login'
+    //     return NextResponse.redirect(url)
+    // }
 
-    if (user && isAuthPage) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/'
-        return NextResponse.redirect(url)
-    }
+    // if (user && isAuthPage) { // Fixed: isAuthPage was undefined in original context if commented out above, but here I'm commenting it all out so it's fine.
+    //     const url = request.nextUrl.clone()
+    //     url.pathname = '/'
+    //     return NextResponse.redirect(url)
+    // }
 
     return supabaseResponse
 }

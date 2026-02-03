@@ -17,17 +17,30 @@ interface CRUDConfig<T> {
   revalidatePaths?: string[]
 }
 
+// Mock "Guest" user for no-login mode
+const GUEST_ID = '00000000-0000-0000-0000-000000000000'
+
 /**
  * Get authenticated user
  */
 async function getAuthUser() {
   const supabase = await createClient()
   const { data: { user }, error } = await supabase.auth.getUser()
-  
+
+  // If no user/error, return a Guest user instead of throwing
   if (error || !user) {
-    throw new Error(ERROR_MESSAGES.UNAUTHORIZED)
+    // console.warn('Returning GUEST user (No Login Mode)')
+    return {
+      id: GUEST_ID,
+      email: 'guest@example.com',
+      aud: 'authenticated',
+      role: 'authenticated',
+      app_metadata: {},
+      user_metadata: {},
+      created_at: new Date().toISOString()
+    } as any // Cast to any to avoid complex User type matching
   }
-  
+
   return user
 }
 
@@ -54,12 +67,12 @@ export async function getAll<T extends BaseEntity>(
   }
 ): Promise<{ data: T[]; count: number }> {
   const supabase = await createClient()
-  
+
   let selectQuery = '*'
   if (config.tagJunctionTable) {
     selectQuery += `, tags:${config.tagJunctionTable}(tag:tags(*))`
   }
-  
+
   // Add category if applicable
   if (params?.categoryId !== undefined) {
     selectQuery += ', category:categories(*)'
@@ -112,11 +125,11 @@ export async function getAll<T extends BaseEntity>(
     if (typeof item !== 'object' || item === null) return item
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const transformed = Object.assign({}, item) as any
-    
+
     if (config.tagJunctionTable && 'tags' in transformed && transformed.tags) {
       transformed.tags = transformTags(transformed.tags as unknown[])
     }
-    
+
     return config.transformData ? config.transformData(transformed) : transformed
   }) || []
 
@@ -131,7 +144,7 @@ export async function getById<T extends BaseEntity>(
   id: string
 ): Promise<T | null> {
   const supabase = await createClient()
-  
+
   let selectQuery = '*'
   if (config.tagJunctionTable) {
     selectQuery += `, tags:${config.tagJunctionTable}(tag:tags(*))`
@@ -166,7 +179,7 @@ export async function create<T extends BaseEntity>(
   const supabase = await createClient()
 
   const { tagIds, ...insertData } = input
-  
+
   const dataToInsert = {
     ...insertData,
     user_id: user.id
@@ -216,7 +229,7 @@ export async function update<T extends BaseEntity>(
   const supabase = await createClient()
 
   const { tagIds, ...updateFields } = input
-  
+
   // Build update object dynamically
   const updateData: Record<string, unknown> = {}
   Object.entries(updateFields).forEach(([key, value]) => {
@@ -241,7 +254,7 @@ export async function update<T extends BaseEntity>(
   // Handle tags if provided and config supports it
   if (tagIds !== undefined && config.tagJunctionTable) {
     const junctionIdColumn = `${config.tagColumn || config.tableName.slice(0, -1)}_id`
-    
+
     // Delete existing tags
     await supabase
       .from(config.tagJunctionTable)
