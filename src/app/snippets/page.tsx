@@ -17,8 +17,8 @@ interface SnippetsPageProps {
 export default async function SnippetsPage({ searchParams }: SnippetsPageProps) {
     const params = await searchParams
     const [{ data: codeSnippets }, { data: promptSnippets }] = await Promise.all([
-        getSnippets({ type: 'code', limit: 50 }),
-        getSnippets({ type: 'prompt', limit: 50 }),
+        getSnippets({ filters: { type: 'code' }, limit: 50 }),
+        getSnippets({ filters: { type: 'prompt' }, limit: 50 }),
     ])
 
     return (

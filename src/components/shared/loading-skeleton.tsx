@@ -32,10 +32,24 @@ export function LoadingSkeleton({ count = 6, className }: LoadingSkeletonProps) 
     )
 }
 
-export function LoadingSpinner({ className }: { className?: string }) {
+interface LoadingSpinnerProps {
+    className?: string
+    size?: "default" | "sm" | "lg" | "icon"
+    text?: string
+}
+
+export function LoadingSpinner({ className, size = "default", text }: LoadingSpinnerProps) {
+    const sizeClasses = {
+        default: "h-8 w-8 border-4",
+        sm: "h-4 w-4 border-2",
+        lg: "h-12 w-12 border-4",
+        icon: "h-6 w-6 border-2"
+    }
+
     return (
-        <div className={cn("flex items-center justify-center py-8", className)}>
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-muted border-t-primary" />
+        <div className={cn("flex flex-col items-center justify-center py-8 gap-4", className)}>
+            <div className={cn("animate-spin rounded-full border-muted border-t-primary", sizeClasses[size])} />
+            {text && <p className="text-sm text-muted-foreground animate-pulse">{text}</p>}
         </div>
     )
 }

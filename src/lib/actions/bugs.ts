@@ -47,7 +47,7 @@ export async function updateBug(id: string, input: UpdateBugInput): Promise<Bug>
   if (input.solution !== undefined) updateData.solution = input.solution
   if (input.resolved !== undefined) updateData.resolved = input.resolved
   if (input.tagIds !== undefined) updateData.tagIds = input.tagIds
-  
+
   return update<Bug>(bugConfig, id, updateData)
 }
 
@@ -77,6 +77,6 @@ export async function toggleBugResolved(id: string): Promise<Bug> {
 
 // Custom delete with redirect
 export async function deleteBug(id: string): Promise<void> {
-  await bugCRUD.delete(id)
+  await deleteEntity(bugConfig, id)
   redirect('/bugs')
 }

@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { FileText, Code, CheckSquare, Bug, TrendingUp, Clock, Sparkles } from 'lucide-react'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { FileText, Code, CheckSquare, Bug, TrendingUp, Clock, Sparkles, ArrowRight } from 'lucide-react'
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { ICON_COLORS, ANIMATIONS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { getNotes } from '@/lib/actions/notes'
@@ -34,17 +35,19 @@ function StatsCard({ title, icon: Icon, description, href, color, value = 0 }: {
   value?: number
 }) {
   return (
-    <Link href={href}>
-      <Card className="hover:-translate-y-1 transition-transform duration-300">
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium text-gray-400">{title}</CardTitle>
-          <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center', color)}>
-            <Icon className="h-5 w-5 text-white" />
+    <Link href={href} className="block group">
+      <Card className="hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+          <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
+            {title}
+          </CardTitle>
+          <div className={cn('w-8 h-8 rounded-full flex items-center justify-center bg-muted group-hover:bg-primary/10 transition-colors', color.replace('text-', 'text-opacity-100 text-'))}>
+            <Icon className={cn("h-4 w-4", color)} />
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-3xl font-bold text-white">{value}</div>
-          <p className="text-xs text-gray-500 mt-1">{description}</p>
+          <div className="text-2xl font-bold">{value}</div>
+          <p className="text-xs text-muted-foreground mt-1">{description}</p>
         </CardContent>
       </Card>
     </Link>
@@ -57,7 +60,7 @@ export default async function Dashboard() {
     getNotes({ limit: 1 }),
     getSnippets({ limit: 1 }),
     getTasks(),
-    getBugs({ resolved: false, limit: 1 })
+    getBugs({ filters: { resolved: false }, limit: 1 })
   ])
 
   const activeTasks = tasksData.filter(task => task.status === 'doing').length
@@ -70,20 +73,35 @@ export default async function Dashboard() {
   ]
 
   return (
-    <div className={cn('space-y-6', ANIMATIONS.fadeIn)}>
-      {/* Hero Banner - Adobe CC style */}
-      <div className="cc-hero p-6 relative overflow-hidden">
-        <div className="relative z-10">
-          <h1 className="text-2xl font-bold text-white mb-2">Welcome to DevKnowledge</h1>
-          <p className="text-gray-300 text-sm max-w-md">
-            Your personal knowledge hub for notes, code snippets, tasks, and bug tracking.
-            Press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-xs">⌘ K</kbd> to search everything.
-          </p>
-          <Button className="mt-4" size="sm" asChild>
-            <Link href="/notes/new">Get Started</Link>
-          </Button>
-        </div>
-      </div>
+    <div className={cn('space-y-8', ANIMATIONS.fadeIn)}>
+      {/* Hero Banner - Replaced custom CSS with Tailwind/Shadcn */}
+      <Card className="relative overflow-hidden border-none shadow-xl bg-gradient-to-br from-blue-600/20 via-primary/10 to-purple-600/20">
+        <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+        <CardContent className="p-8 md:p-10 flex flex-col items-start gap-4 z-10 relative">
+          <Badge variant="secondary" className="bg-background/50 backdrop-blur-sm border-primary/20 text-primary">
+            v1.0.0 Beta
+          </Badge>
+          <div className="space-y-2">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+              Welcome to DevKnowledge
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+              Your personal knowledge hub for notes, code snippets, tasks, and bug tracking.
+              Designed for developers, by developers.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 mt-2">
+            <Button size="lg" className="gap-2 shadow-lg shadow-primary/25" asChild>
+              <Link href="/notes/new">
+                Create Note <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-background/30 backdrop-blur-sm border border-white/10 text-sm text-muted-foreground">
+              Press <kbd className="hidden sm:inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">⌘ K</kbd> to search
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -95,35 +113,46 @@ export default async function Dashboard() {
       {/* Two Column Layout */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* Recent Activity */}
-        <Card>
+        <Card className="h-full">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Clock className="h-4 w-4 text-blue-400" />
+            <CardTitle className="flex items-center gap-2">
+              <Clock className="h-5 w-5 text-primary" />
               Recent Activity
             </CardTitle>
+            <CardDescription>What you've been working on lately</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-6 text-gray-500">
-              <Sparkles className="h-10 w-10 mx-auto mb-3 text-gray-600" />
-              <p className="text-sm">No recent activity</p>
-              <p className="text-xs mt-1 text-gray-600">Start by creating your first note</p>
+            <div className="h-[200px] flex flex-col items-center justify-center text-center p-6 border-2 border-dashed rounded-xl border-muted bg-muted/20">
+              <Sparkles className="h-10 w-10 text-muted-foreground mb-3 opacity-50" />
+              <p className="text-muted-foreground font-medium">No recent activity</p>
+              <Button variant="link" className="mt-2 text-primary" asChild>
+                <Link href="/notes/new">Start by creating a note</Link>
+              </Button>
             </div>
           </CardContent>
         </Card>
 
         {/* Quick Actions */}
-        <Card>
+        <Card className="h-full">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <TrendingUp className="h-4 w-4 text-blue-400" />
+            <CardTitle className="flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-primary" />
               Quick Actions
             </CardTitle>
+            <CardDescription>Common tasks you might want to perform</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="grid gap-3">
             {QUICK_ACTIONS.map((action) => (
-              <Button key={action.label} asChild variant={action.variant} size="sm" className="w-full justify-start">
+              <Button
+                key={action.label}
+                asChild
+                variant="outline"
+                className="w-full justify-start h-12 text-base hover:bg-muted/50 hover:border-primary/50 transition-all group"
+              >
                 <Link href={action.href}>
-                  <action.icon className="mr-2 h-4 w-4" />
+                  <div className={cn("mr-3 p-1.5 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-colors", action.label.includes('Bug') ? 'text-red-500' : 'text-primary')}>
+                    <action.icon className="h-5 w-5" />
+                  </div>
                   {action.label}
                 </Link>
               </Button>
@@ -135,16 +164,18 @@ export default async function Dashboard() {
       {/* Keyboard Shortcuts */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">⌨️ Keyboard Shortcuts</CardTitle>
+          <CardTitle className="text-base font-medium flex items-center gap-2">
+            <span className="text-xl">⌨️</span> Keyboard Shortcuts
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-3">
             {KEYBOARD_SHORTCUTS.map((shortcut) => (
-              <div key={shortcut.key} className="flex items-center gap-3">
-                <kbd className="px-2.5 py-1 rounded-md bg-white/5 text-xs font-mono text-gray-400 border border-white/10">
+              <div key={shortcut.key} className="flex items-center justify-between p-2 rounded-lg bg-muted/30 border border-transparent hover:border-muted transition-colors">
+                <span className="text-sm text-muted-foreground">{shortcut.description}</span>
+                <kbd className="inline-flex h-6 items-center gap-1 rounded border bg-muted px-2 font-mono text-xs font-medium text-foreground opacity-100">
                   {shortcut.key}
                 </kbd>
-                <span className="text-sm text-gray-500">{shortcut.description}</span>
               </div>
             ))}
           </div>

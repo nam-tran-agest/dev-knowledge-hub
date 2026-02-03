@@ -15,8 +15,8 @@ interface BugsPageProps {
 export default async function BugsPage({ searchParams }: BugsPageProps) {
     const params = await searchParams
     const [{ data: openBugs }, { data: resolvedBugs }] = await Promise.all([
-        getBugs({ resolved: false, limit: 50 }),
-        getBugs({ resolved: true, limit: 50 }),
+        getBugs({ filters: { resolved: false }, limit: 50 }),
+        getBugs({ filters: { resolved: true }, limit: 50 }),
     ])
 
     return (
