@@ -38,7 +38,7 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                 </div>
 
                 {/* Features Loop */}
-                <div className="flex flex-col gap-12 bg-gradient-to-b from-blue-50/30 to-blue-100/30 rounded-[40px] p-8 md:p-12">
+                <div className="flex flex-col gap-12 p-8 md:p-12">
                     {items.map((feature, idx) => {
                         const isEven = idx % 2 === 0;
                         const imageUrl = (feature.image ? getStrapiMedia(feature.image.url) : null) || FALLBACK_SHOWCASE_IMAGES[idx % FALLBACK_SHOWCASE_IMAGES.length];

@@ -47,7 +47,7 @@ export default function RootLayout({
 
               <MainNav />
             </header>
-            <main className="max-w-7xl mx-auto">
+            <main className="w-full">
               {children}
             </main>
             <Footer footer={tObject<FooterData>("footer")} />
