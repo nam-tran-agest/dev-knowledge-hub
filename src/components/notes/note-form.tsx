@@ -42,7 +42,7 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
   const [content, setContent] = useState(note?.content || null);
   const [categoryId, setCategoryId] = useState<string>(note?.category_id || "");
   const [selectedTags, setSelectedTags] = useState<string[]>(
-    note?.tags?.map((t) => t.id) || []
+    note?.tags?.map((t) => String(t.id)) || []
   );
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -69,7 +69,7 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
             tagIds: selectedTags,
           };
           console.log("🔄 Updating note:", updateData);
-          await updateNote(note.id, updateData);
+          await updateNote(String(note.id), updateData);
           router.refresh();
         } else {
           const createData = {
@@ -134,13 +134,13 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
+                    <SelectItem key={category.id} value={String(category.id)}>
                       <div className="flex-center gap-2">
                         <div
                           className="category-dot"
-                          style={{ backgroundColor: category.color }}
+                          style={{ backgroundColor: category.color || '#888' }}
                         />
-                        {category.name}
+                        {category.name || category.label}
                       </div>
                     </SelectItem>
                   ))}
@@ -168,15 +168,15 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
                 <button
                   key={tag.id}
                   type="button"
-                  onClick={() => toggleTag(tag.id)}
+                  onClick={() => toggleTag(String(tag.id))}
                   className={cn(
                     "px-3 py-1 rounded-full text-sm transition-all duration-200 border",
-                    selectedTags.includes(tag.id)
+                    selectedTags.includes(String(tag.id))
                       ? "bg-blue-500/20 text-blue-300 border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
                       : "bg-gray-800/40 text-gray-400 border-gray-700/50 hover:bg-gray-800 hover:border-gray-600"
                   )}
                 >
-                  #{tag.name}
+                  #{tag.name || tag.label}
                 </button>
               ))}
             </div>

@@ -27,8 +27,8 @@ export function TagInput({
 
     const filteredSuggestions = availableTags.filter(
         (tag) =>
-            tag.name.toLowerCase().includes(inputValue.toLowerCase()) &&
-            !value.includes(tag.id)
+            (tag.name || tag.label).toLowerCase().includes(inputValue.toLowerCase()) &&
+            !value.includes(String(tag.id))
     )
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -36,10 +36,10 @@ export function TagInput({
             e.preventDefault()
             // Check if it matches an existing tag
             const matchingTag = availableTags.find(
-                (tag) => tag.name.toLowerCase() === inputValue.toLowerCase()
+                (tag) => (tag.name || tag.label).toLowerCase() === inputValue.toLowerCase()
             )
-            if (matchingTag && !value.includes(matchingTag.id)) {
-                onChange([...value, matchingTag.id])
+            if (matchingTag && !value.includes(String(matchingTag.id))) {
+                onChange([...value, String(matchingTag.id)])
             }
             setInputValue('')
             setShowSuggestions(false)
@@ -61,7 +61,8 @@ export function TagInput({
     }
 
     const getTagName = (tagId: string) => {
-        return availableTags.find((t) => t.id === tagId)?.name || tagId
+        const tag = availableTags.find((t) => String(t.id) === tagId)
+        return tag ? (tag.name || tag.label) : tagId
     }
 
     return (
@@ -99,10 +100,10 @@ export function TagInput({
                         <button
                             key={tag.id}
                             type="button"
-                            onClick={() => addTag(tag.id)}
+                            onClick={() => addTag(String(tag.id))}
                             className="w-full px-3 py-2 text-left text-sm hover:bg-accent transition-colors"
                         >
-                            {tag.name}
+                            {tag.name || tag.label}
                         </button>
                     ))}
                 </div>

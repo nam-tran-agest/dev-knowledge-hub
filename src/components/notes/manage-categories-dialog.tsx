@@ -28,9 +28,9 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
     const router = useRouter()
 
     const startEdit = (category: Category) => {
-        setEditingId(category.id)
-        setEditName(category.name)
-        setEditColor(category.color)
+        setEditingId(String(category.id))
+        setEditName(category.name || category.label || '')
+        setEditColor(category.color || '#888888')
     }
 
     const cancelEdit = () => {
@@ -72,7 +72,7 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
                 <div className="space-y-2 mt-4">
                     {categories.map((category) => (
                         <div key={category.id} className="flex items-center gap-2 p-2 border rounded-md group">
-                            {editingId === category.id ? (
+                            {editingId === String(category.id) ? (
                                 <div className="flex-1 flex gap-2 items-center">
                                     <Input
                                         value={editName}
@@ -88,7 +88,7 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
                                     <Button
                                         size="icon"
                                         variant="ghost"
-                                        onClick={() => handleUpdate(category.id)}
+                                        onClick={() => handleUpdate(String(category.id))}
                                         disabled={isPending}
                                         className="h-8 w-8 text-green-500 hover:text-green-600"
                                     >
@@ -110,7 +110,7 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
                                         className="w-3 h-3 rounded-full shrink-0"
                                         style={{ backgroundColor: category.color }}
                                     />
-                                    <span className="flex-1 text-sm font-medium truncate">{category.name}</span>
+                                    <span className="flex-1 text-sm font-medium truncate">{category.name || category.label}</span>
                                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <Button
                                             size="icon"
@@ -123,7 +123,7 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
                                         <Button
                                             size="icon"
                                             variant="ghost"
-                                            onClick={() => handleDelete(category.id)}
+                                            onClick={() => handleDelete(String(category.id))}
                                             disabled={isPending}
                                             className="h-7 w-7 text-destructive hover:text-destructive"
                                         >

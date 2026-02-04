@@ -77,13 +77,13 @@ export function FilterBar({
                 <SelectContent>
                     <SelectItem value="all">All Categories</SelectItem>
                     {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
+                        <SelectItem key={category.id} value={String(category.id)}>
                             <div className="flex items-center gap-2">
                                 <div
                                     className="w-3 h-3 rounded-full"
-                                    style={{ backgroundColor: category.color }}
+                                    style={{ backgroundColor: category.color || '#888' }}
                                 />
-                                {category.name}
+                                {category.name || category.label}
                             </div>
                         </SelectItem>
                     ))}
@@ -101,8 +101,8 @@ export function FilterBar({
                 <SelectContent>
                     <SelectItem value="all">All Tags</SelectItem>
                     {tags.map((tag) => (
-                        <SelectItem key={tag.id} value={tag.id}>
-                            {tag.name}
+                        <SelectItem key={tag.id} value={String(tag.id)}>
+                            {tag.name || tag.label}
                         </SelectItem>
                     ))}
                 </SelectContent>

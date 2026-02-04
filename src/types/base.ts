@@ -1,50 +1,87 @@
-/**
- * Base interfaces for all entities in the system
- */
 
 export interface BaseEntity {
-  id: string
-  user_id: string
-  created_at: string
-  updated_at: string
+  id: number | string; // Allow both number and string IDs to fix cast errors
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface Tag extends BaseEntity {
+  label: string;
+  name?: string; // Add name alias
+  slug: string;
+  color?: string;
+}
+
+export interface Category extends BaseEntity {
+  label: string;
+  name?: string; // Add name alias
+  slug: string;
+  description?: string;
+  color?: string; // Add missing color
 }
 
 export interface TaggableEntity {
-  tags?: Tag[]
+  tags?: Tag[];
+  category?: Category | null; // Allow null
 }
 
-export interface Tag {
-  id: string
-  user_id: string
-  name: string
-  created_at: string
+export interface Meta {
+  pagination: {
+    start: number;
+    limit: number;
+    total: number;
+  };
 }
 
-export interface Category {
-  id: string
-  user_id: string
-  name: string
-  color: string
-  created_at: string
-}
-
-/**
- * Generic CRUD operation types
- */
-export type CreateInput<T> = Omit<T, keyof BaseEntity>
-export type UpdateInput<T> = Partial<CreateInput<T>>
-
-/**
- * API Response types
- */
 export interface ApiResponse<T> {
-  data?: T
-  error?: string
+  data: T;
+  meta: Meta;
 }
 
 export interface PaginatedResponse<T> {
-  data: T[]
-  total: number
-  page: number
-  pageSize: number
+  data: T[];
+  meta: Meta;
+}
+
+export interface StrapiImageDataType {
+  documentId?: string;
+  url: string;
+  alternativeText?: string;
+}
+
+export interface FooterLink {
+  label: string;
+  url: string;
+}
+
+export interface SocialLink extends FooterLink {
+  icon?: StrapiImageDataType;
+}
+
+export interface FooterAddress {
+  id: string;
+  title: string;
+  content: string;
+}
+
+export interface FooterData {
+  logo?: StrapiImageDataType;
+  email: string;
+  phone: string;
+  copyright: string;
+  social_links: SocialLink[];
+  footer_sections: FooterLink[];
+  addresses: FooterAddress[];
+  certifications?: {
+    url: string;
+    icon?: StrapiImageDataType;
+  }[];
+  policy_links?: FooterLink[];
+  partners?: {
+    icon?: StrapiImageDataType;
+  }[];
 }

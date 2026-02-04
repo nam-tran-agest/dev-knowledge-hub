@@ -62,12 +62,12 @@ export function BugCard({ bug }: BugCardProps) {
                     <div className="flex flex-wrap gap-1">
                         {bug.tags?.slice(0, 3).map((tag) => (
                             <Badge key={tag.id} variant="outline" className="text-[10px] h-5 border-white/10 text-gray-400">
-                                {tag.name}
+                                {tag.name || tag.label}
                             </Badge>
                         ))}
                     </div>
                     <span className="text-xs text-gray-500">
-                        {formatRelative(bug.created_at)}
+                        {bug.created_at ? formatRelative(bug.created_at) : 'No date'}
                     </span>
                 </CardFooter>
             </Card>

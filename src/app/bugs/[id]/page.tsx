@@ -34,7 +34,7 @@ export default async function BugDetailPage({ params }: BugDetailPageProps) {
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
                             <span className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
-                                {formatDate(bug.created_at)}
+                                {bug.created_at ? formatDate(bug.created_at) : 'No date'}
                             </span>
                             <Badge variant={bug.resolved ? 'default' : 'destructive'} className="gap-1">
                                 {bug.resolved ? (

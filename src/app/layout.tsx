@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { MobileNav } from "@/components/layout/mobile-nav";
+import Link from "next/link";
+import { CC_STYLES } from "@/lib/constants";
+import { MainNav } from "@/components/layout/main-nav";
+import { FooterData } from '@/types/base';
+import Footer from '@/components/layout/footer';
+import ScrollToTop from '@/components/common/ui/navigation/ScrollToTop';
+import Image from "next/image";
+import { t, tObject } from "@/lib/i18n";
 
-const inter = Inter({
+
+
+
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
-  title: "Dev Knowledge Hub",
-  description: "Personal knowledge base, snippets, tasks, and bug tracker for developers",
+  title: t("layout.metadata.title"),
+  description: t("layout.metadata.description"),
 };
 
 export default function RootLayout({
@@ -21,22 +30,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        {/* Decorative blobs */}
-        <div className="blob blob-1" />
-        <div className="blob blob-2" />
-        <div className="blob blob-3" />
-
+      <body className={`${playfair.variable} font-serif antialiased bg-main-gradient`}>
         <div className="flex min-h-screen">
-          {/* Mobile Navigation */}
-          <MobileNav />
-
           {/* Main Content */}
           <div className="flex-1 min-w-0">
-            <Header />
-            <main className="p-4 md:p-6 max-w-7xl mx-auto">
+            <header className={`fixed top-0 z-30 flex h-16 w-full items-center justify-center border-b border-white/5 bg-background/50 px-6 backdrop-blur-xl ${CC_STYLES.header}`}>
+              <Link href="/" className="absolute left-6 flex h-16 items-center gap-3">
+                <Image
+                  src="/img/home/nav_ico.svg"
+                  alt="Dev Hub Logo"
+                  width={32}
+                  height={32}
+                  className="rounded-lg shadow-lg"
+                />
+              </Link>
+
+              <MainNav />
+            </header>
+            <main className="max-w-7xl mx-auto">
               {children}
             </main>
+            <Footer footer={tObject<FooterData>("footer")} />
+            <ScrollToTop />
           </div>
         </div>
       </body>

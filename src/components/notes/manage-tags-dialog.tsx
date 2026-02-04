@@ -27,8 +27,8 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
     const router = useRouter()
 
     const startEdit = (tag: Tag) => {
-        setEditingId(tag.id)
-        setEditName(tag.name)
+        setEditingId(String(tag.id))
+        setEditName(tag.name || tag.label || '')
     }
 
     const cancelEdit = () => {
@@ -69,7 +69,7 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
                 <div className="space-y-2 mt-4">
                     {tags.map((tag) => (
                         <div key={tag.id} className="flex items-center gap-2 p-2 border rounded-md group">
-                            {editingId === tag.id ? (
+                            {editingId === String(tag.id) ? (
                                 <div className="flex-1 flex gap-2 items-center">
                                     <Input
                                         value={editName}
@@ -79,7 +79,7 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
                                     <Button
                                         size="icon"
                                         variant="ghost"
-                                        onClick={() => handleUpdate(tag.id)}
+                                        onClick={() => handleUpdate(String(tag.id))}
                                         disabled={isPending}
                                         className="h-8 w-8 text-green-500 hover:text-green-600"
                                     >
@@ -97,7 +97,7 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
                                 </div>
                             ) : (
                                 <>
-                                    <span className="flex-1 text-sm font-medium truncate">#{tag.name}</span>
+                                    <span className="flex-1 text-sm font-medium truncate">#{tag.name || tag.label}</span>
                                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <Button
                                             size="icon"
@@ -110,7 +110,7 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
                                         <Button
                                             size="icon"
                                             variant="ghost"
-                                            onClick={() => handleDelete(tag.id)}
+                                            onClick={() => handleDelete(String(tag.id))}
                                             disabled={isPending}
                                             className="h-7 w-7 text-destructive hover:text-destructive"
                                         >

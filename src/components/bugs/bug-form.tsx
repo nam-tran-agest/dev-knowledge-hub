@@ -32,7 +32,7 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
 
         startTransition(async () => {
             try {
-                await updateBug(bug.id, {
+                await updateBug(String(bug.id), {
                     title: title.trim(),
                     error_message: errorMessage.trim() || undefined,
                     stack_trace: stackTrace.trim() || undefined,

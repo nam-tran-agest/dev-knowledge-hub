@@ -40,7 +40,7 @@ export default function EditSnippetForm({ snippet }: EditSnippetFormProps) {
 
         startTransition(async () => {
             try {
-                await updateSnippet(snippet.id, {
+                await updateSnippet(String(snippet.id), {
                     title: title.trim(),
                     content,
                     language,

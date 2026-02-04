@@ -16,11 +16,22 @@ interface TaskBoardProps {
     initialTasks: Task[]
 }
 
+import { t } from '@/lib/i18n'
+
 export function TaskBoard({ initialTasks }: TaskBoardProps) {
     const [tasks, setTasks] = useState(initialTasks)
     const [newTaskTitle, setNewTaskTitle] = useState('')
     const [addingToColumn, setAddingToColumn] = useState<TaskStatus | null>(null)
     const [isPending, startTransition] = useTransition()
+
+    const getColumnTitle = (id: string) => {
+        switch (id) {
+            case 'todo': return t('tasks.columns.todo');
+            case 'doing': return t('tasks.columns.doing');
+            case 'done': return t('tasks.columns.done');
+            default: return id;
+        }
+    }
 
     const getTasksByStatus = (status: TaskStatus) =>
         tasks.filter((task) => task.status === status)
@@ -63,7 +74,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                             <div className={`w-2.5 h-2.5 rounded-full ${column.color}`} />
-                            <h2 className="font-semibold text-gray-200">{column.title}</h2>
+                            <h2 className="font-semibold text-gray-200">{getColumnTitle(column.id)}</h2>
                             <Badge variant="secondary" className="ml-1 bg-white/10 text-gray-400">
                                 {getTasksByStatus(column.id).length}
                             </Badge>
@@ -86,7 +97,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
                                     <Input
                                         value={newTaskTitle}
                                         onChange={(e) => setNewTaskTitle(e.target.value)}
-                                        placeholder="Task title..."
+                                        placeholder={t('tasks.placeholder')}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') handleAddTask(column.id)
                                             if (e.key === 'Escape') setAddingToColumn(null)
@@ -101,7 +112,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
                                             disabled={isPending || !newTaskTitle.trim()}
                                             className="h-7 text-xs"
                                         >
-                                            {isPending ? <Loader2 className="h-3 w-3 animate-spin" /> : 'Add'}
+                                            {isPending ? <Loader2 className="h-3 w-3 animate-spin" /> : t('tasks.buttons.add')}
                                         </Button>
                                         <Button
                                             size="sm"
@@ -112,7 +123,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
                                             }}
                                             className="h-7 text-xs"
                                         >
-                                            Cancel
+                                            {t('tasks.buttons.cancel')}
                                         </Button>
                                     </div>
                                 </CardContent>
@@ -157,7 +168,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
                                                     key={targetColumn.id}
                                                     className={`w-2 h-2 rounded-full ${targetColumn.color} cursor-pointer opacity-0 group-hover:opacity-50 hover:!opacity-100 transition-all`}
                                                     onClick={() => handleMoveTask(task.id, targetColumn.id)}
-                                                    title={`Move to ${targetColumn.title}`}
+                                                    title={`${t('tasks.move_to')} ${getColumnTitle(targetColumn.id)}`}
                                                 />
                                             ))}
                                         </div>

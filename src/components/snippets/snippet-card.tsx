@@ -54,12 +54,12 @@ export function SnippetCard({ snippet }: SnippetCardProps) {
                     <div className="flex flex-wrap gap-1">
                         {snippet.tags?.slice(0, 3).map((tag) => (
                             <Badge key={tag.id} variant="secondary" className="text-[10px] h-5 bg-white/5 text-gray-400">
-                                #{tag.name}
+                                #{tag.name || tag.label}
                             </Badge>
                         ))}
                     </div>
                     <span className="text-xs text-gray-500">
-                        {formatRelative(snippet.created_at)}
+                        {snippet.created_at ? formatRelative(snippet.created_at) : 'No date'}
                     </span>
                 </CardFooter>
             </Card>

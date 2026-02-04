@@ -37,7 +37,7 @@ export default async function SnippetDetailPage({ params }: SnippetDetailPagePro
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
                             <span className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
-                                {formatDate(snippet.created_at)}
+                                {snippet.created_at ? formatDate(snippet.created_at) : 'No date'}
                             </span>
                             <Badge variant="secondary" className="gap-1">
                                 <Icon className="h-3 w-3" />

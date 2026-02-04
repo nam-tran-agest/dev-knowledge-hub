@@ -35,7 +35,7 @@ export function NoteCard({ note }: NoteCardProps) {
                     <NoteTags tags={note.tags} limit={2} />
                     <div className="flex items-center gap-1.5 text-xs text-gray-500">
                         <FileText className="h-3 w-3" />
-                        {formatRelative(note.updated_at)}
+                        {note.updated_at ? formatRelative(note.updated_at) : 'No date'}
                     </div>
                 </CardFooter>
             </Card>

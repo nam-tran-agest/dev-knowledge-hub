@@ -32,7 +32,7 @@ export function NoteDetail({ note }: NoteDetailProps) {
                         <div className="flex-center gap-4 text-sm text-muted-foreground">
                             <span className="flex-center gap-1">
                                 <Calendar className="h-4 w-4" />
-                                {formatDate(note.created_at)}
+                                {note.created_at ? formatDate(note.created_at) : 'No date'}
                             </span>
                             {note.category && <CategoryBadge category={note.category} />}
                         </div>
@@ -48,7 +48,7 @@ export function NoteDetail({ note }: NoteDetailProps) {
                     </Button>
                     <form
                         action={async () => {
-                            await deleteNote(note.id)
+                            await deleteNote(String(note.id))
                         }}
                     >
                         <Button variant="destructive" type="submit">

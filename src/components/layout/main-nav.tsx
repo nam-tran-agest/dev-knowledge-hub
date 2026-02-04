@@ -14,38 +14,48 @@ import {
 } from '@/components/ui/navigation-menu'
 import { MAIN_NAVIGATION, NavItem } from '@/lib/constants'
 
-// Grouping logic (similar to sidebar)
-const SECTIONS = [
-    {
-        label: 'Knowledge',
-        items: MAIN_NAVIGATION.filter(item => ['Notes', 'Snippets'].includes(item.name)),
-    },
-    {
-        label: 'Work',
-        items: MAIN_NAVIGATION.filter(item => ['Tasks', 'Bugs'].includes(item.name)),
-    }
-]
-const DASHBOARD = MAIN_NAVIGATION.find(item => item.name === 'Dashboard')
+import { t } from '@/lib/i18n'
 
 export function MainNav() {
     const pathname = usePathname()
 
+    const sections = [
+        {
+            label: t('navigation.sections.knowledge'),
+            items: MAIN_NAVIGATION.filter(item => ['Notes', 'Snippets'].includes(item.name)),
+        },
+        {
+            label: t('navigation.sections.work'),
+            items: MAIN_NAVIGATION.filter(item => ['Tasks', 'Bugs'].includes(item.name)),
+        }
+    ]
+
+    const getItemLabel = (name: string) => {
+        switch (name) {
+            case 'Dashboard': return t('navigation.items.dashboard');
+            case 'Notes': return t('navigation.items.notes.label');
+            case 'Snippets': return t('navigation.items.snippets.label');
+            case 'Tasks': return t('navigation.items.tasks.label');
+            case 'Bugs': return t('navigation.items.bugs.label');
+            default: return name;
+        }
+    }
+
+    const getItemDescription = (name: string) => {
+        switch (name) {
+            case 'Notes': return t('navigation.items.notes.description');
+            case 'Snippets': return t('navigation.items.snippets.description');
+            case 'Tasks': return t('navigation.items.tasks.description');
+            case 'Bugs': return t('navigation.items.bugs.description');
+            default: return '';
+        }
+    }
+
     return (
         <NavigationMenu>
             <NavigationMenuList>
-                {/* Dashboard Link */}
-                {DASHBOARD && (
-                    <NavigationMenuItem>
-                        <Link href={DASHBOARD.href} legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                {DASHBOARD.name}
-                            </NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
-                )}
-
                 {/* Groups */}
-                {SECTIONS.map((section) => (
+                {sections.map((section) => (
                     <NavigationMenuItem key={section.label}>
                         <NavigationMenuTrigger>{section.label}</NavigationMenuTrigger>
                         <NavigationMenuContent>
@@ -53,15 +63,12 @@ export function MainNav() {
                                 {section.items.map((item) => (
                                     <ListItem
                                         key={item.href}
-                                        title={item.name}
+                                        title={getItemLabel(item.name)}
                                         href={item.href}
                                         icon={item.icon}
                                         active={pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))}
                                     >
-                                        {item.name === 'Notes' && 'Manage your personal knowledge base.'}
-                                        {item.name === 'Snippets' && 'Save and organize code snippets.'}
-                                        {item.name === 'Tasks' && 'Track your todos and progress.'}
-                                        {item.name === 'Bugs' && 'Log and resolve software issues.'}
+                                        {getItemDescription(item.name)}
                                     </ListItem>
                                 ))}
                             </ul>
@@ -69,13 +76,13 @@ export function MainNav() {
                     </NavigationMenuItem>
                 ))}
 
-                {/* Settings (Footer items moved to top) */}
+                {/* Settings */}
                 <NavigationMenuItem>
-                    <Link href="/settings" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Settings
-                        </NavigationMenuLink>
-                    </Link>
+                    <NavigationMenuLink asChild>
+                        <Link href="/settings" className={navigationMenuTriggerStyle()}>
+                            {t('navigation.settings')}
+                        </Link>
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>

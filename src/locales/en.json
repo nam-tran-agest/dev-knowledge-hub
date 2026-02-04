@@ -1,0 +1,294 @@
+{
+    "home": {
+        "hero": {
+            "title": "EXPLORE",
+            "subtitle": "A unified space to organize your creative assets, track your projects, and manage your digital life.",
+            "ctaLabel": "Get Started",
+            "ctaUrl": "/notes"
+        },
+        "features": {
+            "title": "What can you do?",
+            "items": [
+                {
+                    "title": "Notes",
+                    "slug": "/notes",
+                    "icon": "Notes",
+                    "features": "Capture ideas, document code, and keep your knowledge base organized."
+                },
+                {
+                    "title": "Snippets",
+                    "slug": "/snippets",
+                    "icon": "Snippets",
+                    "features": "Save reusable code blocks. Syntax highlighting for all major languages."
+                },
+                {
+                    "title": "Tasks",
+                    "slug": "/tasks",
+                    "icon": "Tasks",
+                    "features": "Track your daily to-dos. Simple, focused task management."
+                },
+                {
+                    "title": "Bugs",
+                    "slug": "/bugs",
+                    "icon": "Bugs",
+                    "features": "Log issues found during development. Priority tracking and status workflow."
+                }
+            ]
+        },
+        "showcase": {
+            "title1": "Why use Dev Hub?",
+            "title2": "Built for efficiency.",
+            "cta": {
+                "label": "Start Organizing",
+                "url": "/notes"
+            },
+            "items": [
+                {
+                    "title": "Centralized Knowledge",
+                    "sub_title": "Stop searching through scattered text files and Slack messages. Keep all your documentation, decisions, and references in one searchable, structured place."
+                },
+                {
+                    "title": "Workflow Automation",
+                    "sub_title": "Automate your daily routine with smart snippets and task templates. Spend less time on setup and more time coding."
+                }
+            ]
+        },
+        "gridLinks": {
+            "title": "Quick Resources",
+            "items": [
+                {
+                    "label": "Documentation",
+                    "url": "/docs"
+                },
+                {
+                    "label": "Stack Overflow",
+                    "url": "https://stackoverflow.com"
+                },
+                {
+                    "label": "GitHub",
+                    "url": "https://github.com"
+                },
+                {
+                    "label": "Cloudflare",
+                    "url": "https://dash.cloudflare.com"
+                }
+            ]
+        },
+        "marquee": {
+            "title": "Powered By",
+            "logos": [
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+                    "alt": "React"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
+                    "alt": "Next.js"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
+                    "alt": "Tailwind"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
+                    "alt": "TypeScript"
+                }
+            ]
+        },
+        "caseStudy": {
+            "title": "Featured Projects",
+            "readMoreLabel": "View Project",
+            "items": [
+                {
+                    "title": "Project Alpha",
+                    "slug": "/cases/alpha",
+                    "description": "A scalable e-commerce platform built with Next.js 14 and Stripe Connect."
+                },
+                {
+                    "title": "Project Beta",
+                    "slug": "/cases/beta",
+                    "description": "Internal dashboard for analytics and reporting using Tremor and Shadcn UI."
+                }
+            ]
+        },
+        "whyChooseUsSection": {
+            "title": "Why Choose Dev Hub?",
+            "items": [
+                {
+                    "id": 1,
+                    "title": "All-in-One Platform",
+                    "subTitle": "Manage notes, snippets, tasks, and bugs in a single unified workspace."
+                },
+                {
+                    "id": 2,
+                    "title": "Developer-First Design",
+                    "subTitle": "Built by developers for developers with syntax highlighting and code-friendly features."
+                },
+                {
+                    "id": 3,
+                    "title": "Fast & Lightweight",
+                    "subTitle": "Optimized performance ensures your workflow stays smooth and responsive."
+                },
+                {
+                    "id": 4,
+                    "title": "Privacy Focused",
+                    "subTitle": "Your data stays yours. No tracking, no ads, full control."
+                }
+            ]
+        },
+        "statSection": {
+            "title": "Why Dev Hub?",
+            "stats": [
+                {
+                    "id": 1,
+                    "value": 300,
+                    "suffix": "+",
+                    "title": "Projects Delivered"
+                },
+                {
+                    "id": 2,
+                    "value": 50,
+                    "suffix": "+",
+                    "title": "Experts"
+                },
+                {
+                    "id": 3,
+                    "value": 10,
+                    "suffix": "+ Years",
+                    "title": "Experience"
+                },
+                {
+                    "id": 4,
+                    "value": 98,
+                    "suffix": "%",
+                    "title": "Client Satisfaction"
+                }
+            ],
+            "features": [
+                {
+                    "title": "Quality First",
+                    "sub_title": "We ensure top-tier code quality in every delivery."
+                },
+                {
+                    "title": "Agile Process",
+                    "sub_title": "Faster iterations and continuous feedback loops."
+                },
+                {
+                    "title": "Expert Team",
+                    "sub_title": "Seasoned professionals with deep domain knowledge."
+                },
+                {
+                    "title": "Scalable Tech",
+                    "sub_title": "Architectures built to grow with your business."
+                }
+            ],
+            "cta": {
+                "label": "Contact Us",
+                "url": "/contact"
+            }
+        }
+    },
+    "layout": {
+        "metadata": {
+            "title": "Main Hub",
+            "description": "Personal knowledge base, snippets, tasks, and bug tracker for developers"
+        }
+    },
+    "footer": {
+        "email": "hello@devhub.com",
+        "phone": "+1 (555) 123-4567",
+        "copyright": "© 2024 Dev Knowledge Hub. All rights reserved.",
+        "social_links": [
+            {
+                "label": "Twitter",
+                "url": "https://twitter.com"
+            },
+            {
+                "label": "LinkedIn",
+                "url": "https://linkedin.com"
+            },
+            {
+                "label": "GitHub",
+                "url": "https://github.com"
+            }
+        ],
+        "footer_sections": [
+            {
+                "label": "Home",
+                "url": "/"
+            },
+            {
+                "label": "Notes",
+                "url": "/notes"
+            },
+            {
+                "label": "Snippets",
+                "url": "/snippets"
+            },
+            {
+                "label": "Tasks",
+                "url": "/tasks"
+            },
+            {
+                "label": "Bugs",
+                "url": "/bugs"
+            }
+        ],
+        "addresses": [
+            {
+                "id": "1",
+                "title": "Main Office",
+                "content": "123 Code Street, Tech City, TC 94043"
+            }
+        ],
+        "policy_links": [
+            {
+                "label": "Privacy Policy",
+                "url": "/privacy"
+            },
+            {
+                "label": "Terms of Service",
+                "url": "/terms"
+            }
+        ]
+    },
+    "navigation": {
+        "sections": {
+            "knowledge": "Knowledge",
+            "work": "Work"
+        },
+        "items": {
+            "dashboard": "Dashboard",
+            "notes": {
+                "label": "Notes",
+                "description": "Manage your personal knowledge base."
+            },
+            "snippets": {
+                "label": "Snippets",
+                "description": "Save and organize code snippets."
+            },
+            "tasks": {
+                "label": "Tasks",
+                "description": "Track your todos and progress."
+            },
+            "bugs": {
+                "label": "Bugs",
+                "description": "Log and resolve software issues."
+            }
+        },
+        "settings": "Settings"
+    },
+    "tasks": {
+        "columns": {
+            "todo": "To Do",
+            "doing": "In Progress",
+            "done": "Done"
+        },
+        "placeholder": "Task title...",
+        "move_to": "Move to",
+        "buttons": {
+            "add": "Add",
+            "cancel": "Cancel"
+        }
+    }
+}
