@@ -67,7 +67,8 @@ export function HeroSection({
                         <CTAButton
                             href={ctaUrl}
                             label={ctaLabel}
-                            className="text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                            variant="premium"
+                            className="text-lg px-8 py-6"
                         />
                     </motion.div>
                 )}

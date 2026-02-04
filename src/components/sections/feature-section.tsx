@@ -135,7 +135,7 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
 
                                         <Link
                                             href={service.slug}
-                                            className="group inline-flex items-center gap-2 py-2 text-primary transition-all font-medium"
+                                            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold transition-all w-fit hover:bg-gray-100"
                                         >
                                             <span>Explore {service.title}</span>
                                             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

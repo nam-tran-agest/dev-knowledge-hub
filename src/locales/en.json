@@ -50,6 +50,10 @@
                 {
                     "title": "Workflow Automation",
                     "sub_title": "Automate your daily routine with smart snippets and task templates. Spend less time on setup and more time coding."
+                },
+                {
+                    "title": "Effortless Organization",
+                    "sub_title": "Effortless organization of your creative assets, projects, and digital life."
                 }
             ]
         },
@@ -112,7 +116,7 @@
             ]
         },
         "whyChooseUsSection": {
-            "title": "Why Choose Dev Hub?",
+            "title": "Fast & Lightweight",
             "items": [
                 {
                     "id": 1,
@@ -137,7 +141,7 @@
             ]
         },
         "statSection": {
-            "title": "Why Dev Hub?",
+            "title": "All-in-One Platform",
             "stats": [
                 {
                     "id": 1,
@@ -154,8 +158,8 @@
                 {
                     "id": 3,
                     "value": 10,
-                    "suffix": "+ Years",
-                    "title": "Experience"
+                    "suffix": "+",
+                    "title": "Years of Experience"
                 },
                 {
                     "id": 4,

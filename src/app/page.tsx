@@ -53,15 +53,6 @@ export default function Dashboard() {
         }))}
       />
 
-      <CaseStudySection
-        title={homeData.caseStudy.title}
-        caseStudies={homeData.caseStudy.items.map((item: any) => ({
-          ...item,
-          image: ''
-        }))}
-        readMoreLabel={homeData.caseStudy.readMoreLabel}
-      />
-
       <WhyChooseUsSection
         title={homeData.whyChooseUsSection.title}
         items={homeData.whyChooseUsSection.items}
@@ -73,6 +64,16 @@ export default function Dashboard() {
         features={homeData.statSection.features}
         cta={homeData.statSection.cta}
       />
+
+      <CaseStudySection
+        title={homeData.caseStudy.title}
+        caseStudies={homeData.caseStudy.items.map((item: any) => ({
+          ...item,
+          image: ''
+        }))}
+        readMoreLabel={homeData.caseStudy.readMoreLabel}
+      />
+
     </div>
   )
 }

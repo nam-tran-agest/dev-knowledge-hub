@@ -10,7 +10,7 @@ export const TYPOGRAPHY = {
 
     // Titles
     heroTitle: 'font-serif text-4xl md:text-6xl font-bold tracking-tight leading-tight text-gradient',
-    sectionTitle: 'font-serif text-3xl md:text-5xl font-semibold tracking-tight text-gradient',
+    sectionTitle: 'font-serif text-3xl md:text-5xl font-semibold tracking-tight text-gradient pb-2 leading-relaxed',
     cardTitle: 'font-serif text-2xl md:text-3xl font-bold text-slate-900',
 
     // Body & Labels
@@ -39,7 +39,7 @@ export const EFFECTS = {
 // Adobe CC Style Classes (Mapped to new Design System)
 export const CC_STYLES = {
     // Layout
-    header: 'bg-white/50 backdrop-blur-xl border-b border-slate-200/50',
+    header: 'bg-gray-200/30 backdrop-blur-md border-b border-slate-200/50 shadow-md',
     sidebar: 'bg-slate-50/80 backdrop-blur-lg border-r border-slate-200',
     sidebarSection: 'space-y-4 p-4',
     sidebarItem: 'flex items-center gap-3 px-4 py-2 rounded-lg transition-colors hover:bg-slate-100 text-slate-600',

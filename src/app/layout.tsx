@@ -34,7 +34,7 @@ export default function RootLayout({
         <div className="flex min-h-screen">
           {/* Main Content */}
           <div className="flex-1 min-w-0">
-            <header className={`fixed top-0 z-30 flex h-16 w-full items-center justify-center border-b border-white/5 bg-background/50 px-6 backdrop-blur-xl ${CC_STYLES.header}`}>
+            <header className={`fixed top-0 z-30 flex h-16 w-full items-center justify-center px-6 ${CC_STYLES.header}`}>
               <Link href="/" className="absolute left-6 flex h-16 items-center gap-3">
                 <Image
                   src="/img/home/nav_ico.svg"

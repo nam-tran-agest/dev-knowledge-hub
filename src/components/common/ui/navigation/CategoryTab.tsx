@@ -2,7 +2,7 @@
 
 import { Service } from "@/types/section/service";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRef, useTransition } from "react";
+import { useRef, useState, useTransition, useEffect } from "react";
 import TabButton from "@/components/common/ui/navigation/TabButton";
 import { useScrollToCenter } from "@/hooks/useScrollToCenter";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,13 @@ export default function CategoryTab({
     const router = useRouter();
     const searchParams = useSearchParams();
     const [isPending, startTransition] = useTransition();
+    const [activeTab, setActiveTab] = useState(selected);
     const { containerRef, scrollToCenter, setItemRef } = useScrollToCenter<HTMLButtonElement>();
+
+    // Sync local state with prop when it changes (e.g. back/forward navigation)
+    useEffect(() => {
+        setActiveTab(selected);
+    }, [selected]);
 
     // Dispatch loading event when isPending changes
     if (typeof window !== 'undefined' && syncId) {
@@ -34,7 +40,8 @@ export default function CategoryTab({
     }
 
     const handleClick = (value: string, buttonIndex: number) => {
-        // Instant visual feedback
+        // Optimistic UI update - Instant feedback
+        setActiveTab(value);
         scrollToCenter(buttonIndex);
 
         const params = new URLSearchParams(searchParams.toString());
@@ -77,7 +84,7 @@ export default function CategoryTab({
                     key="all"
                     ref={setItemRef(0)}
                     onClick={() => handleClick("all", 0)}
-                    isActive={selected === "all"}
+                    isActive={activeTab === "all"}
                 >
                     All
                 </TabButton>
@@ -86,7 +93,7 @@ export default function CategoryTab({
                         key={category.id}
                         ref={setItemRef(idx + 1)}
                         onClick={() => handleClick(category.slug, idx + 1)}
-                        isActive={selected === category.slug || (category.slug === "all" && !selected)}
+                        isActive={activeTab === category.slug || (category.slug === "all" && !activeTab)}
                         icon={category.icon ? iconsMap[category.icon] : undefined}
                     >
                         {category.title}

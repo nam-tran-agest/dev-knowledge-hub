@@ -11,10 +11,9 @@ import { TYPOGRAPHY, LAYOUT, EFFECTS } from "@/lib/constants";
 
 const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) => {
 
-
     return (
-        <section className="relative overflow-hidden my-1 py-10 bg-gradient-landing-blue">
-            <div className={LAYOUT.container}>
+        <section className="relative overflow-hidden py-10 bg-gradient-landing-blue">
+            <div className={LAYOUT.container + " max-w-6xl xl:max-w-[1400px] mx-auto"}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -22,12 +21,12 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                     viewport={{ once: true }}
                 >
                     {/* Title */}
-                    <h2 className={TYPOGRAPHY.sectionTitle + " text-center mb-16 w-full max-w-4xl mx-auto flex items-center justify-center"}>
+                    <h2 className={TYPOGRAPHY.sectionTitle + " text-center mb-8 w-full max-w-4xl mx-auto"}>
                         {title}
                     </h2>
 
                     {/* Stats Grid */}
-                    <div className="grid grid-cols-2 xl:grid-cols-4 gap-8 md:gap-12 mb-20 md:mb-24">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-20 md:mb-24">
                         {stats.map((stat, idx) => (
                             <motion.div
                                 key={stat.id || idx}
@@ -49,7 +48,7 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                     </div>
 
                     {/* Features Grid (Cards) */}
-                    <div className="grid md:grid-cols-2 2xl:grid-cols-4 gap-8 mb-16 justify-items-center">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-8 mb-16 justify-items-center">
                         {features.map((feature, idx) => {
                             const iconUrl = feature.image ? getStrapiMedia(feature.image.url) : null;
 
@@ -60,9 +59,10 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: idx * 0.1 + 0.2 }}
                                     viewport={{ once: true }}
+                                    className="w-full h-full"
                                 >
                                     <Card
-                                        className={`w-full md:w-[297px] h-[300px] xl:w-[320px] xl:h-[340px] p-6 flex flex-col items-start text-left ${EFFECTS.glass}`}
+                                        className={`w-full min-h-[300px] xl:min-h-[340px] h-full p-6 flex flex-col items-start text-left ${EFFECTS.glass}`}
                                     >
                                         <div className="mb-2 w-full">
                                             <div className="pb-2">
@@ -101,6 +101,8 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                                 id={cta.id}
                                 label={cta.label}
                                 href={cta.url || cta.Url || '#'}
+                                variant="premium"
+                                className="text-lg px-8 py-6"
                             />
                         </div>
                     )}

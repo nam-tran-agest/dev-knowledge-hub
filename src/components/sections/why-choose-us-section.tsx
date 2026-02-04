@@ -1,6 +1,6 @@
 "use client";
 
-import StrapiImage from "@/components/common/media/StrapiImage";
+import { getStrapiMedia } from "@/components/common/media/StrapiImage";
 import { cn } from "@/lib/utils";
 import { Plus, Minus } from "lucide-react";
 import { ServiceWhyChooseUsProps } from "@/types/service/service";
@@ -50,15 +50,13 @@ export default function WhyChooseUsSection({ title = "Why Choose Us", image, ite
 
                 {/* Left side - Image */}
                 <div className="relative w-full md:w-[50%] flex justify-center self-start">
-                    <div className="max-w-[625px] w-full h-[300px] sm:h-[400px] md:h-[500px]">
-                        {image?.url && (
-                            <StrapiImage
-                                documentId={image.documentId}
-                                url={image.url}
-                                alternativeText={image.alternativeText || "Why Choose Us"}
-                                className="object-cover w-full h-full rounded-2xl md:rounded-none"
-                            />
-                        )}
+                    <div className="max-w-[625px] w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-2xl md:rounded-3xl shadow-lg border border-slate-100">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={getStrapiMedia(image?.url) || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"}
+                            alt={image?.alternativeText || "Why Choose Us"}
+                            className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-700"
+                        />
                     </div>
                 </div>
             </div>
