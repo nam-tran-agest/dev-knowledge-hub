@@ -15,5 +15,9 @@
         "logs": {
             "enabled": true
         }
+    },
+    "vars": {
+        "NEXT_PUBLIC_SUPABASE_URL": "https://mjbwzeivfkeynlvkcogl.supabase.co",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qYnd6ZWl2ZmtleW5sdmtjb2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5OTkwMTksImV4cCI6MjA4MjU3NTAxOX0.VSG-tEeWIi48H3zLyxMNEMdmeZvb9K047cH6utiSLxQ"
     }
 }
