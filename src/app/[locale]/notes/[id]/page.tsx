@@ -1,22 +1,21 @@
-import { notFound } from 'next/navigation'
-import { getNote } from '@/lib/actions/notes'
-import { NoteDetail } from '@/components/notes/note-detail'
 
-interface NoteDetailPageProps {
-    params: Promise<{ id: string }>
+
+interface NotePageProps {
+    params: Promise<{ id: string; locale: string }>
+    searchParams: Promise<{
+        tag?: string
+        search?: string
+        page?: string
+    }>
 }
 
-export default async function NoteDetailPage({ params }: NoteDetailPageProps) {
-    const { id } = await params
-    const note = await getNote(id)
-
-    if (!note) {
-        notFound()
-    }
+export default async function NotePage({ params, searchParams }: NotePageProps) {
+    const { id, locale } = await params
+    const sParams = await searchParams
 
     return (
-        <div className="max-w-4xl mx-auto">
-            <NoteDetail note={note} />
+        <div>
+            <h1>Note Page</h1>
         </div>
     )
 }
