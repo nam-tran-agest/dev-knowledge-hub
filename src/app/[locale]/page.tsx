@@ -6,12 +6,12 @@ import MarqueeSection from '@/components/sections/marquee-section';
 import CaseStudySection from '@/components/sections/case-study-section';
 import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
 import StatSection from '@/components/sections/stat-section';
-import { tObject } from '@/lib/i18n';
+import { getMessages } from 'next-intl/server';
 
-// Fetch home page data from i18n
-const homeData = tObject<any>("home");
+export default async function Dashboard() {
+  const messages = await getMessages();
+  const homeData = messages.home as any;
 
-export default function Dashboard() {
   return (
     <div>
       <HeroSection

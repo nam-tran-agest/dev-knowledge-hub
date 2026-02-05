@@ -1,0 +1,298 @@
+{
+    "home": {
+        "hero": {
+            "title": "KHÁM PHÁ",
+            "subtitle": "Một không gian thống nhất để tổ chức tài sản sáng tạo, theo dõi dự án và quản lý cuộc sống số của bạn.",
+            "ctaLabel": "Bắt đầu ngay",
+            "ctaUrl": "/notes"
+        },
+        "features": {
+            "title": "Bạn có thể làm gì?",
+            "items": [
+                {
+                    "title": "Ghi chú",
+                    "slug": "/notes",
+                    "icon": "Notes",
+                    "features": "Lưu trữ ý tưởng, tài liệu code và tổ chức cơ sở kiến thức của bạn."
+                },
+                {
+                    "title": "Snippets",
+                    "slug": "/snippets",
+                    "icon": "Snippets",
+                    "features": "Lưu các đoạn code tái sử dụng. Hỗ trợ highlight cú pháp cho mọi ngôn ngữ phổ biến."
+                },
+                {
+                    "title": "Công việc",
+                    "slug": "/tasks",
+                    "icon": "Tasks",
+                    "features": "Theo dõi việc cần làm hàng ngày. Quản lý tác vụ đơn giản, tập trung."
+                },
+                {
+                    "title": "Lỗi",
+                    "slug": "/bugs",
+                    "icon": "Bugs",
+                    "features": "Ghi lại vấn đề phát sinh. Theo dõi mức độ ưu tiên và quy trình xử lý."
+                }
+            ]
+        },
+        "showcase": {
+            "title1": "Tại sao dùng Dev Hub?",
+            "title2": "Xây dựng cho hiệu suất.",
+            "cta": {
+                "label": "Bắt đầu sắp xếp",
+                "url": "/notes"
+            },
+            "items": [
+                {
+                    "title": "Kiến thức tập trung",
+                    "sub_title": "Ngừng tìm kiếm trong các file text rời rạc hay tin nhắn Slack. Giữ mọi tài liệu, quyết định và tham khảo ở một nơi có cấu trúc, dễ tìm kiếm."
+                },
+                {
+                    "title": "Tự động hóa quy trình",
+                    "sub_title": "Tự động hóa thói quen hàng ngày với snippet thông minh và mẫu task. Tốn ít thời gian setup, nhiều thời gian code hơn."
+                },
+                {
+                    "title": "Tổ chức dễ dàng",
+                    "sub_title": "Dễ dàng tổ chức tài sản sáng tạo, dự án và cuộc sống số của bạn."
+                }
+            ]
+        },
+        "gridLinks": {
+            "title": "Tài nguyên nhanh",
+            "items": [
+                {
+                    "label": "Tài liệu",
+                    "url": "/docs"
+                },
+                {
+                    "label": "Stack Overflow",
+                    "url": "https://stackoverflow.com"
+                },
+                {
+                    "label": "GitHub",
+                    "url": "https://github.com"
+                },
+                {
+                    "label": "Cloudflare",
+                    "url": "https://dash.cloudflare.com"
+                }
+            ]
+        },
+        "marquee": {
+            "title": "Sử dụng công nghệ",
+            "logos": [
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+                    "alt": "React"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
+                    "alt": "Next.js"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
+                    "alt": "Tailwind"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
+                    "alt": "TypeScript"
+                }
+            ]
+        },
+        "caseStudy": {
+            "title": "Dự án nổi bật",
+            "readMoreLabel": "Xem dự án",
+            "items": [
+                {
+                    "title": "Dự án Alpha",
+                    "slug": "/cases/alpha",
+                    "description": "Nền tảng thương mại điện tử mở rộng xây dựng bằng Next.js 14 và Stripe Connect."
+                },
+                {
+                    "title": "Dự án Beta",
+                    "slug": "/cases/beta",
+                    "description": "Dashboard nội bộ cho phân tích và báo cáo sử dụng Tremor và Shadcn UI."
+                }
+            ]
+        },
+        "whyChooseUsSection": {
+            "title": "Nhanh & Nhẹ",
+            "items": [
+                {
+                    "id": 1,
+                    "title": "Nền tảng tất cả trong một",
+                    "subTitle": "Quản lý ghi chú, snippet, công việc và lỗi trong một không gian thống nhất."
+                },
+                {
+                    "id": 2,
+                    "title": "Thiết kế cho Developer",
+                    "subTitle": "Được xây dựng bởi developer cho developer với highlight cú pháp và tính năng thân thiện code."
+                },
+                {
+                    "id": 3,
+                    "title": "Nhanh & Nhẹ",
+                    "subTitle": "Hiệu suất tối ưu đảm bảo quy trình làm việc của bạn mượt mà và phản hồi nhanh."
+                },
+                {
+                    "id": 4,
+                    "title": "Tập trung quyền riêng tư",
+                    "subTitle": "Dữ liệu của bạn là của bạn. Không theo dõi, không quảng cáo, toàn quyền kiểm soát."
+                }
+            ]
+        },
+        "statSection": {
+            "title": "Nền tảng tất cả trong một",
+            "stats": [
+                {
+                    "id": 1,
+                    "value": 300,
+                    "suffix": "+",
+                    "title": "Dự án hoàn thành"
+                },
+                {
+                    "id": 2,
+                    "value": 50,
+                    "suffix": "+",
+                    "title": "Chuyên gia"
+                },
+                {
+                    "id": 3,
+                    "value": 10,
+                    "suffix": "+",
+                    "title": "Năm kinh nghiệm"
+                },
+                {
+                    "id": 4,
+                    "value": 98,
+                    "suffix": "%",
+                    "title": "Khách hàng hài lòng"
+                }
+            ],
+            "features": [
+                {
+                    "title": "Chất lượng hàng đầu",
+                    "sub_title": "Chúng tôi đảm bảo chất lượng code cao nhất trong mỗi lần bàn giao."
+                },
+                {
+                    "title": "Quy trình Agile",
+                    "sub_title": "Vòng lặp nhanh hơn và phản hồi liên tục."
+                },
+                {
+                    "title": "Đội ngũ chuyên gia",
+                    "sub_title": "Các chuyên gia dày dạn kinh nghiệm với kiến thức sâu rộng."
+                },
+                {
+                    "title": "Công nghệ mở rộng",
+                    "sub_title": "Kiến trúc được xây dựng để phát triển cùng doanh nghiệp của bạn."
+                }
+            ],
+            "cta": {
+                "label": "Liên hệ ngay",
+                "url": "/contact"
+            }
+        }
+    },
+    "layout": {
+        "metadata": {
+            "title": "Main Hub",
+            "description": "Cơ sở kiến thức cá nhân, snippets, tasks và bug tracker cho lập trình viên"
+        }
+    },
+    "footer": {
+        "email": "hello@devhub.com",
+        "phone": "+1 (555) 123-4567",
+        "copyright": "© 2024 Dev Knowledge Hub. All rights reserved.",
+        "social_links": [
+            {
+                "label": "Twitter",
+                "url": "https://twitter.com"
+            },
+            {
+                "label": "LinkedIn",
+                "url": "https://linkedin.com"
+            },
+            {
+                "label": "GitHub",
+                "url": "https://github.com"
+            }
+        ],
+        "footer_sections": [
+            {
+                "label": "Trang chủ",
+                "url": "/"
+            },
+            {
+                "label": "Ghi chú",
+                "url": "/notes"
+            },
+            {
+                "label": "Snippets",
+                "url": "/snippets"
+            },
+            {
+                "label": "Công việc",
+                "url": "/tasks"
+            },
+            {
+                "label": "Lỗi",
+                "url": "/bugs"
+            }
+        ],
+        "addresses": [
+            {
+                "id": "1",
+                "title": "Văn phòng chính",
+                "content": "123 Code Street, Tech City, TC 94043"
+            }
+        ],
+        "policy_links": [
+            {
+                "label": "Chính sách bảo mật",
+                "url": "/privacy"
+            },
+            {
+                "label": "Điều khoản dịch vụ",
+                "url": "/terms"
+            }
+        ]
+    },
+    "navigation": {
+        "sections": {
+            "knowledge": "Kiến thức",
+            "work": "Công việc"
+        },
+        "items": {
+            "dashboard": "Dashboard",
+            "notes": {
+                "label": "Ghi chú",
+                "description": "Quản lý cơ sở kiến thức cá nhân."
+            },
+            "snippets": {
+                "label": "Snippets",
+                "description": "Lưu và tổ chức các đoạn mã."
+            },
+            "tasks": {
+                "label": "Công việc",
+                "description": "Theo dõi việc cần làm và tiến độ."
+            },
+            "bugs": {
+                "label": "Lỗi",
+                "description": "Ghi lại và xử lý các vấn đề phần mềm."
+            }
+        },
+        "settings": "Cài đặt"
+    },
+    "tasks": {
+        "columns": {
+            "todo": "Cần làm",
+            "doing": "Đang làm",
+            "done": "Hoàn thành"
+        },
+        "placeholder": "Tiêu đề công việc...",
+        "move_to": "Di chuyển tới",
+        "buttons": {
+            "add": "Thêm",
+            "cancel": "Hủy"
+        }
+    }
+}

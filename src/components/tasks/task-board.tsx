@@ -16,9 +16,11 @@ interface TaskBoardProps {
     initialTasks: Task[]
 }
 
-import { t } from '@/lib/i18n'
+import { useTranslations } from 'next-intl';
 
 export function TaskBoard({ initialTasks }: TaskBoardProps) {
+    const t = useTranslations();
+
     const [tasks, setTasks] = useState(initialTasks)
     const [newTaskTitle, setNewTaskTitle] = useState('')
     const [addingToColumn, setAddingToColumn] = useState<TaskStatus | null>(null)

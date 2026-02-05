@@ -1,7 +1,6 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/routing' // Localized navigation
 import { cn } from '@/lib/utils'
 import {
     NavigationMenu,
@@ -12,12 +11,12 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import { MAIN_NAVIGATION, NavItem } from '@/lib/constants'
-
-import { t } from '@/lib/i18n'
+import { MAIN_NAVIGATION } from '@/lib/constants'
+import { useTranslations } from 'next-intl'
 
 export function MainNav() {
     const pathname = usePathname()
+    const t = useTranslations()
 
     const sections = [
         {
@@ -64,7 +63,7 @@ export function MainNav() {
                                     <ListItem
                                         key={item.href}
                                         title={getItemLabel(item.name)}
-                                        href={item.href}
+                                        href={item.href} // Link automatically prefixes locale
                                         icon={item.icon}
                                         active={pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))}
                                     >
@@ -95,11 +94,12 @@ import { LucideIcon } from 'lucide-react'
 const ListItem = React.forwardRef<
     React.ElementRef<'a'>,
     React.ComponentPropsWithoutRef<'a'> & { icon?: LucideIcon, active?: boolean }
->(({ className, title, children, icon: Icon, active, ...props }, ref) => {
+>(({ className, title, children, icon: Icon, active, href, ...props }, ref) => {
     return (
         <li>
             <NavigationMenuLink asChild>
-                <a
+                <Link
+                    href={href as string}
                     ref={ref}
                     className={cn(
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
@@ -115,7 +115,7 @@ const ListItem = React.forwardRef<
                     <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
                         {children}
                     </p>
-                </a>
+                </Link>
             </NavigationMenuLink>
         </li>
     )
