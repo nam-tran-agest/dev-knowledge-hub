@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CTAButton } from "@/components/common/ui/other/CTABtn";
 import { ShowcaseSectionProps } from "@/types/section/showcase";
-import { getStrapiMedia } from "@/components/common/media/StrapiImage";
+import { getMediaUrl } from "@/components/common/media/AppImage";
 import Image from "next/image";
 import { TYPOGRAPHY, LAYOUT } from "@/lib/constants";
 
@@ -41,7 +41,7 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                 <div className="flex flex-col gap-12 p-8 md:p-12">
                     {items.map((feature, idx) => {
                         const isEven = idx % 2 === 0;
-                        const imageUrl = (feature.image ? getStrapiMedia(feature.image.url) : null) || FALLBACK_SHOWCASE_IMAGES[idx % FALLBACK_SHOWCASE_IMAGES.length];
+                        const imageUrl = (feature.image ? getMediaUrl(feature.image.url) : null) || FALLBACK_SHOWCASE_IMAGES[idx % FALLBACK_SHOWCASE_IMAGES.length];
 
                         return (
                             <motion.div

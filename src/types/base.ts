@@ -47,7 +47,7 @@ export interface PaginatedResponse<T> {
   meta: Meta;
 }
 
-export interface StrapiImageDataType {
+export interface AppImageDataType {
   documentId?: string;
   url: string;
   alternativeText?: string;
@@ -59,7 +59,7 @@ export interface FooterLink {
 }
 
 export interface SocialLink extends FooterLink {
-  icon?: StrapiImageDataType;
+  icon?: AppImageDataType;
 }
 
 export interface FooterAddress {
@@ -69,7 +69,7 @@ export interface FooterAddress {
 }
 
 export interface FooterData {
-  logo?: StrapiImageDataType;
+  logo?: AppImageDataType;
   email: string;
   phone: string;
   copyright: string;
@@ -78,10 +78,10 @@ export interface FooterData {
   addresses: FooterAddress[];
   certifications?: {
     url: string;
-    icon?: StrapiImageDataType;
+    icon?: AppImageDataType;
   }[];
   policy_links?: FooterLink[];
   partners?: {
-    icon?: StrapiImageDataType;
+    icon?: AppImageDataType;
   }[];
 }

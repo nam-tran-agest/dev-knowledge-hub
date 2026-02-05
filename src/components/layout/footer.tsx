@@ -3,7 +3,7 @@
 import React from "react";
 import { FooterData } from "@/types/base";
 import { Mail, MapPin, Phone } from "lucide-react";
-import StrapiImage from "@/components/common/media/StrapiImage";
+import AppImage from "@/components/common/media/AppImage";
 import Link from "next/link"; // Changed from i18n/navigation
 
 type FooterProps = {
@@ -21,7 +21,7 @@ export default function Footer({ footer }: FooterProps) {
                             <div className="w-34 h-8 relative flex mb-10 items-center">
                                 {/* Fallback Logo if missing */}
                                 {footer.logo ? (
-                                    <StrapiImage
+                                    <AppImage
                                         documentId={footer.logo?.documentId}
                                         url={footer.logo?.url}
                                         alternativeText={footer.logo?.alternativeText || "agest-logo"}
@@ -52,7 +52,7 @@ export default function Footer({ footer }: FooterProps) {
                                 {footer.social_links.map((link, idx) => (
                                     <a key={idx} href={link.url} aria-label={link.label} className="relative w-5 h-5 opacity-70 hover:opacity-100 transition-opacity">
                                         {link.icon ? (
-                                            <StrapiImage
+                                            <AppImage
                                                 documentId={link.icon?.documentId}
                                                 url={link.icon?.url}
                                                 alternativeText={link.icon?.alternativeText || link.label}
@@ -113,7 +113,7 @@ export default function Footer({ footer }: FooterProps) {
                                         aria-label={cert.icon?.alternativeText || "Certification badge"}
                                         className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 block"
                                     >
-                                        <StrapiImage
+                                        <AppImage
                                             documentId={cert.icon?.documentId}
                                             url={cert.icon?.url}
                                             alternativeText={cert.icon?.alternativeText || "Certification"}

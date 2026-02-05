@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-interface StrapiImageProps {
+interface AppImageProps {
     documentId?: string;
     url?: string;
     alternativeText?: string;
@@ -12,12 +12,12 @@ interface StrapiImageProps {
     fill?: boolean;
 }
 
-export const getStrapiMedia = (url: string | null | undefined) => {
+export const getMediaUrl = (url: string | null | undefined) => {
     if (!url) return null;
     return url;
 };
 
-const StrapiImage: React.FC<StrapiImageProps> = ({
+const AppImage: React.FC<AppImageProps> = ({
     documentId,
     url,
     alternativeText,
@@ -26,7 +26,7 @@ const StrapiImage: React.FC<StrapiImageProps> = ({
     height,
     fill
 }) => {
-    const imageUrl = getStrapiMedia(url);
+    const imageUrl = getMediaUrl(url);
 
     if (!imageUrl) return null;
 
@@ -53,4 +53,4 @@ const StrapiImage: React.FC<StrapiImageProps> = ({
     );
 };
 
-export default StrapiImage;
+export default AppImage;

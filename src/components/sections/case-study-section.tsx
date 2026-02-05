@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { getStrapiMedia } from "@/components/common/media/StrapiImage";
+import { getMediaUrl } from "@/components/common/media/AppImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -81,7 +81,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                 <Link href={caseStudy.slug} className="w-full rounded-3xl overflow-hidden shadow-lg block aspect-video relative">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
-                                        src={getStrapiMedia(caseStudy.image) || FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length]}
+                                        src={getMediaUrl(caseStudy.image) || FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length]}
                                         alt={caseStudy.title}
                                         className="w-full h-full object-cover"
                                     />
@@ -134,7 +134,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                             <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10" />
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                                src={getStrapiMedia(imageUrl) || FALLBACK_IMAGES[currentIndex % FALLBACK_IMAGES.length]}
+                                src={getMediaUrl(imageUrl) || FALLBACK_IMAGES[currentIndex % FALLBACK_IMAGES.length]}
                                 alt={currentCase.title}
                                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                             />

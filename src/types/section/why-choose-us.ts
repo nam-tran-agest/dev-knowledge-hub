@@ -1,4 +1,4 @@
-import { StrapiImageDataType } from "@/types/base";
+import { AppImageDataType } from "@/types/base";
 
 export interface WhyChooseUsStat {
     id?: string | number;
@@ -11,7 +11,7 @@ export interface WhyChooseUsFeature {
     id?: string | number;
     title: string;
     sub_title: string;
-    image?: StrapiImageDataType;
+    image?: AppImageDataType;
 }
 
 export interface WhyChooseUsSection {

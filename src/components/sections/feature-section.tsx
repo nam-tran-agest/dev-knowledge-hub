@@ -10,8 +10,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { iconsMap } from "@/components/common/icon";
-import { getStrapiMedia } from "@/components/common/media/StrapiImage";
-import StrapiImage from "@/components/common/media/StrapiImage";
+import { getMediaUrl } from "@/components/common/media/AppImage";
+import AppImage from "@/components/common/media/AppImage";
 import { Plus, Minus } from "lucide-react";
 import RichTextRenderer from "@/components/common/ui/data-display/RichTextRenderer";
 import CarouselDot from "@/components/common/ui/data-display/CarouselDot";
@@ -92,7 +92,7 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
                                     muted
                                     playsInline
                                 >
-                                    <source src={getStrapiMedia(services[selected]?.background_media?.url) ?? ""} type="video/mp4" />
+                                    <source src={getMediaUrl(services[selected]?.background_media?.url) ?? ""} type="video/mp4" />
                                 </motion.video>
                             ) : (
                                 <motion.div
@@ -189,9 +189,6 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
                             key={`${idx}-dot-service`}
                             isActive={selected === idx}
                             onClick={() => {
-                                // For mobile dots, we don't necessarily update URL 
-                                // unless we want dots to also be URL-synced. 
-                                // Let's keep it simple and just slide the Swiper.
                                 swiperRef.current?.swiper.slideTo(idx);
                             }}
                         />

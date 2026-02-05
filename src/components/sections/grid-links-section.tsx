@@ -1,7 +1,7 @@
 "use client";
 
 import { GridLinksSectionProps } from "@/types/section/grid-links";
-import StrapiImage from "@/components/common/media/StrapiImage";
+import AppImage from "@/components/common/media/AppImage";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -45,7 +45,7 @@ export default function GridLinksSection({ title, items }: GridLinksSectionProps
                                 <div className="w-16 h-16 flex items-center justify-center relative">
                                     {/* Fallback icon or image */}
                                     {item.image ? (
-                                        <StrapiImage
+                                        <AppImage
                                             documentId={item.image.documentId}
                                             url={item.image.url}
                                             alternativeText={item.image.alternativeText || item.label}

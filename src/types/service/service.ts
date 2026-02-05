@@ -1,4 +1,4 @@
-import { StrapiImageDataType } from '../base';
+import { AppImageDataType } from '../base';
 
 export interface ServiceWhyChooseUsItem {
     id: string | number;
@@ -8,6 +8,6 @@ export interface ServiceWhyChooseUsItem {
 
 export interface ServiceWhyChooseUsProps {
     title?: string;
-    image?: StrapiImageDataType;
+    image?: AppImageDataType;
     items: ServiceWhyChooseUsItem[];
 }

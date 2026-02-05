@@ -5,7 +5,7 @@ import AnimatedCounter from "@/components/common/ui/other/AnimatedCounter";
 import { CTABtnV2 as CTABtn } from "@/components/common/ui/other/CTABtn";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { WhyChooseUsSection as WhyChooseUsSectionProps } from "@/types/section/why-choose-us";
-import { getStrapiMedia } from "@/components/common/media/StrapiImage";
+import { getMediaUrl } from "@/components/common/media/AppImage";
 import Image from "next/image";
 import { TYPOGRAPHY, LAYOUT, EFFECTS } from "@/lib/constants";
 
@@ -50,7 +50,7 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                     {/* Features Grid (Cards) */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-8 mb-16 justify-items-center">
                         {features.map((feature, idx) => {
-                            const iconUrl = feature.image ? getStrapiMedia(feature.image.url) : null;
+                            const iconUrl = feature.image ? getMediaUrl(feature.image.url) : null;
 
                             return (
                                 <motion.div

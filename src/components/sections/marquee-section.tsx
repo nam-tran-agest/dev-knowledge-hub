@@ -1,7 +1,7 @@
 "use client";
 
 import { MarqueeSectionProps } from "@/types/section/marquee";
-import StrapiImage from "@/components/common/media/StrapiImage";
+import AppImage from "@/components/common/media/AppImage";
 import Marquee from "react-fast-marquee";
 import { cn } from "@/lib/utils";
 import { TYPOGRAPHY } from "@/lib/constants";
@@ -17,7 +17,7 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
             {background_image && (
                 <div className="absolute inset-0 w-full h-full -z-10 opacity-30">
                     <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50 z-10" />
-                    <StrapiImage
+                    <AppImage
                         documentId={background_image.documentId}
                         url={background_image.url}
                         alternativeText={background_image.alternativeText || title}
@@ -41,7 +41,7 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
                                     <div
                                         className="relative h-12 w-24 md:h-24 md:w-48 transition-all duration-300 hover:scale-110 cursor-pointer flex items-center justify-center filter mix-blend-multiply"
                                     >
-                                        <StrapiImage
+                                        <AppImage
                                             url={item.url}
                                             documentId={item.documentId}
                                             alternativeText={item.alternativeText || `Logo-${idx}`}
