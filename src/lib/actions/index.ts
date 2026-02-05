@@ -1,6 +1,4 @@
 export { getNotes, getNote, createNote, updateNote, deleteNote } from './notes'
-export { getSnippets, getSnippet, createSnippet, updateSnippet, deleteSnippet } from './snippets'
-export { getTasks, getTask, createTask, updateTask, updateTaskStatus, reorderTasks, deleteTask } from './tasks'
 export { getBugs, getBug, createBug, updateBug, toggleBugResolved, deleteBug } from './bugs'
 export { globalSearch } from './search'
 export { getCategories, createCategory, deleteCategory, getTags, createTag, deleteTag } from './categories'

@@ -1,13 +1,11 @@
 'use client'
 
-import { LoadingSpinner } from '@/components/shared'
-import { useTranslations } from 'next-intl'
 
 export default function Loading() {
-  const t = useTranslations('common')
   return (
-    <div className="min-h-100 flex items-center justify-center">
-      <LoadingSpinner size="lg" text={t('loading')} />
+    <div className="min-h-[100vh] flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
     </div>
   )
 }
+
