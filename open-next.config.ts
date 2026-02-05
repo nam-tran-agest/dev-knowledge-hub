@@ -2,13 +2,26 @@ import type { OpenNextConfig } from '@opennextjs/cloudflare';
 
 const config: OpenNextConfig = {
     default: {
-        // Enable incremental cache if needed, currently disabled in sample
-        // incrementalCache: () => ({
-        //   loader: "s3-lite",
-        //   options: {
-        //     // ...
-        //   }
-        // }),
+        override: {
+            wrapper: "cloudflare-node",
+            converter: "edge",
+            proxyExternalRequest: "fetch",
+            incrementalCache: "dummy",
+            tagCache: "dummy",
+            queue: "dummy",
+        },
+    },
+
+    middleware: {
+        external: true,
+        override: {
+            wrapper: "cloudflare-edge",
+            converter: "edge",
+            proxyExternalRequest: "fetch",
+            incrementalCache: "dummy",
+            tagCache: "dummy",
+            queue: "dummy",
+        },
     },
 };
 
