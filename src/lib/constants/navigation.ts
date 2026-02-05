@@ -6,6 +6,10 @@ import {
     Bug,
     Settings,
     Sparkles,
+    Briefcase,
+    Image,
+    Calendar,
+    Bookmark,
     type LucideIcon
 } from 'lucide-react'
 
@@ -13,15 +17,61 @@ import {
 export interface NavItem {
     name: string
     href: string
-    icon: LucideIcon
+    icon?: LucideIcon
+    items?: { name: string; href: string }[]
 }
 
 export const MAIN_NAVIGATION: NavItem[] = [
-    { name: 'Dashboard', href: '/', icon: Home },
-    { name: 'Notes', href: '/notes', icon: FileText },
-    { name: 'Snippets', href: '/snippets', icon: Code },
-    { name: 'Tasks', href: '/tasks', icon: CheckSquare },
-    { name: 'Bugs', href: '/bugs', icon: Bug },
+    {
+        name: 'Working',
+        href: '/working',
+        items: [
+            { name: 'Active', href: '/working/active' },
+            { name: 'Paused', href: '/working/paused' },
+            { name: 'Blocked', href: '/working/blocked' },
+        ]
+    },
+    {
+        name: 'Media',
+        href: '/media',
+        items: [
+            { name: 'Movies', href: '/media/movies' },
+            { name: 'Series', href: '/media/series' },
+            { name: 'Anime', href: '/media/anime' },
+            { name: 'Games', href: '/media/games' },
+            { name: 'Music', href: '/media/music' },
+        ]
+    },
+    {
+        name: 'Notes',
+        href: '/notes',
+        items: [
+            { name: 'Work', href: '/notes/work' },
+            { name: 'Learn', href: '/notes/learn' },
+            { name: 'Ideas', href: '/notes/ideas' },
+            { name: 'Life', href: '/notes/life' },
+        ]
+    },
+    {
+        name: 'Planner',
+        href: '/planner',
+        items: [
+            { name: 'Today', href: '/planner/today' },
+            { name: 'Week', href: '/planner/week' },
+            { name: 'Someday', href: '/planner/someday' },
+        ]
+    },
+    {
+        name: 'Bookmarks',
+        href: '/bookmarks',
+        items: [
+            { name: 'Work', href: '/bookmarks/work' },
+            { name: 'Learn', href: '/bookmarks/learn' },
+            { name: 'Inspire', href: '/bookmarks/inspire' },
+            { name: 'Life', href: '/bookmarks/life' },
+            { name: 'Fun', href: '/bookmarks/fun' },
+        ]
+    },
 ]
 
 export const FOOTER_NAVIGATION: NavItem[] = [

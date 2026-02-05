@@ -15,7 +15,10 @@ import {
 } from '@/components/ui/dialog'
 import { Plus, Loader2 } from 'lucide-react'
 
+import { useTranslations } from 'next-intl'
+
 export function CreateTagDialog() {
+    const t = useTranslations('notes.dialogs.createTag')
     const [open, setOpen] = useState(false)
     const [name, setName] = useState('')
     const [isPending, startTransition] = useTransition()
@@ -38,31 +41,31 @@ export function CreateTagDialog() {
             <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="h-8">
                     <Plus className="mr-2 h-3 w-3" />
-                    New Tag
+                    {t('trigger')}
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Create Tag</DialogTitle>
+                    <DialogTitle>{t('title')}</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <Label htmlFor="tag-name">Name</Label>
+                        <Label htmlFor="tag-name">{t('nameLabel')}</Label>
                         <Input
                             id="tag-name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="e.g. react, typescript"
+                            placeholder={t('namePlaceholder')}
                             required
                         />
                     </div>
                     <div className="flex justify-end gap-2">
                         <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
-                            Cancel
+                            {t('cancel')}
                         </Button>
                         <Button type="submit" disabled={isPending || !name.trim()}>
                             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Create
+                            {t('submit')}
                         </Button>
                     </div>
                 </form>

@@ -262,37 +262,179 @@
             "work": "Công việc"
         },
         "items": {
-            "dashboard": "Dashboard",
+            "working": {
+                "label": "Làm Việc",
+                "items": {
+                    "active": "Đang làm",
+                    "paused": "Tạm dừng",
+                    "blocked": "Bị chặn"
+                }
+            },
+            "media": {
+                "label": "Giải Trí",
+                "items": {
+                    "movies": "Phim Lẻ",
+                    "series": "Phim Bộ",
+                    "anime": "Anime",
+                    "games": "Game",
+                    "music": "Nhạc"
+                }
+            },
             "notes": {
-                "label": "Ghi chú",
-                "description": "Quản lý cơ sở kiến thức cá nhân."
+                "label": "Ghi Chú",
+                "items": {
+                    "work": "Công việc",
+                    "learn": "Học tập",
+                    "ideas": "Ý tưởng",
+                    "life": "Đời sống"
+                }
             },
-            "snippets": {
-                "label": "Snippets",
-                "description": "Lưu và tổ chức các đoạn mã."
+            "planner": {
+                "label": "Lập Kế Hoạch",
+                "items": {
+                    "today": "Hôm nay",
+                    "week": "Tuần này",
+                    "someday": "Khi nào đó"
+                }
             },
-            "tasks": {
-                "label": "Công việc",
-                "description": "Theo dõi việc cần làm và tiến độ."
-            },
-            "bugs": {
-                "label": "Lỗi",
-                "description": "Ghi lại và xử lý các vấn đề phần mềm."
+            "bookmarks": {
+                "label": "Dấu Trang",
+                "items": {
+                    "work": "Công việc",
+                    "learn": "Học tập",
+                    "inspire": "Cảm hứng",
+                    "life": "Đời sống",
+                    "fun": "Vui vẻ"
+                }
             }
         },
-        "settings": "Cài đặt"
+        "settings": "Cài đặt",
+        "tasks": {
+            "columns": {
+                "todo": "Cần làm",
+                "doing": "Đang làm",
+                "done": "Hoàn thành"
+            },
+            "placeholder": "Tiêu đề công việc...",
+            "move_to": "Di chuyển tới",
+            "buttons": {
+                "add": "Thêm",
+                "cancel": "Hủy"
+            }
+        }
     },
-    "tasks": {
-        "columns": {
-            "todo": "Cần làm",
-            "doing": "Đang làm",
-            "done": "Hoàn thành"
+    "common": {
+        "error": {
+            "title": "Đã có lỗi xảy ra!",
+            "description": "Đã xảy ra lỗi không mong muốn",
+            "unknown": "Lỗi không xác định",
+            "errorId": "ID Lỗi",
+            "retry": "Thử lại",
+            "home": "Về trang chủ"
         },
-        "placeholder": "Tiêu đề công việc...",
-        "move_to": "Di chuyển tới",
-        "buttons": {
-            "add": "Thêm",
-            "cancel": "Hủy"
+        "notFound": {
+            "title": "Không tìm thấy trang",
+            "description": "Trang bạn tìm kiếm không tồn tại",
+            "back": "Về trang chủ"
+        },
+        "loading": "Đang tải...",
+        "dialog": {
+            "confirm": "Xác nhận",
+            "cancel": "Hủy",
+            "loading": "Đang xử lý..."
+        },
+        "errorBoundary": {
+            "title": "Đã có lỗi xảy ra",
+            "description": "Đã xảy ra lỗi khi hiển thị thành phần này",
+            "retry": "Thử lại"
+        }
+    },
+    "notes": {
+        "form": {
+            "createTitle": "Tạo Ghi Chú Mới",
+            "editTitle": "Chỉnh Sửa Ghi Chú",
+            "fields": {
+                "title": "Tiêu đề",
+                "category": "Danh mục",
+                "tags": "Thẻ",
+                "content": "Nội dung"
+            },
+            "placeholders": {
+                "title": "Nhập tiêu đề ghi chú...",
+                "category": "Chọn danh mục",
+                "content": "Viết nội dung ghi chú ở đây..."
+            },
+            "emptyTags": "Chưa có thẻ nào",
+            "actions": {
+                "cancel": "Hủy",
+                "create": "Tạo Ghi Chú",
+                "update": "Cập Nhật",
+                "creating": "Đang tạo...",
+                "updating": "Đang lưu..."
+            }
+        },
+        "filter": {
+            "search": "Tìm kiếm ghi chú...",
+            "allCategories": "Tất cả danh mục",
+            "allTags": "Tất cả thẻ"
+        },
+        "dialogs": {
+            "createTag": {
+                "trigger": "Thẻ Mới",
+                "title": "Tạo Thẻ Mới",
+                "nameLabel": "Tên thẻ",
+                "namePlaceholder": "VD: react, typescript",
+                "cancel": "Hủy",
+                "submit": "Tạo"
+            },
+            "createCategory": {
+                "trigger": "Danh Mục Mới",
+                "title": "Tạo Danh Mục",
+                "nameLabel": "Tên danh mục",
+                "namePlaceholder": "VD: Công việc, Cá nhân",
+                "cancel": "Hủy",
+                "submit": "Tạo"
+            },
+            "manageTags": {
+                "trigger": "Quản Lý Thẻ",
+                "title": "Quản Lý Thẻ",
+                "confirmDelete": "Bạn có chắc chắn muốn xóa thẻ này?",
+                "empty": "Không tìm thấy thẻ nào."
+            },
+            "manageCategories": {
+                "trigger": "Quản Lý Danh Mục",
+                "title": "Quản Lý Danh Mục",
+                "confirmDelete": "Bạn có chắc chắn muốn xóa danh mục này?",
+                "empty": "Không tìm thấy danh mục nào."
+            }
+        }
+    },
+    "bugs": {
+        "form": {
+            "editTitle": "Sửa Lỗi",
+            "subtitle": "Cập nhật chi tiết lỗi và giải pháp",
+            "sections": {
+                "details": "Chi tiết Lỗi"
+            },
+            "fields": {
+                "title": "Tiêu đề",
+                "errorMessage": "Thông báo lỗi",
+                "stackTrace": "Stack Trace",
+                "rootCause": "Nguyên nhân gốc",
+                "solution": "Giải pháp"
+            },
+            "placeholders": {
+                "title": "Mô tả ngắn gọn về lỗi...",
+                "errorMessage": "Thông báo lỗi bạn gặp phải...",
+                "stackTrace": "Dán toàn bộ stack trace vào đây...",
+                "rootCause": "Nguyên nhân gây ra lỗi này?",
+                "solution": "Bạn đã sửa nó như thế nào?"
+            },
+            "actions": {
+                "cancel": "Hủy",
+                "update": "Cập Nhật Lỗi",
+                "updating": "Đang cập nhật..."
+            }
         }
     }
 }

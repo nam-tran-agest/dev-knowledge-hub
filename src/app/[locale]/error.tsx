@@ -4,7 +4,8 @@ import { useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { AlertCircle, Home } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
 
 export default function Error({
   error,
@@ -13,6 +14,8 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const t = useTranslations('common.error')
+
   useEffect(() => {
     console.error('Error:', error)
   }, [error])
@@ -26,9 +29,9 @@ export default function Error({
               <AlertCircle className="h-6 w-6 text-red-500" />
             </div>
             <div>
-              <CardTitle className="text-xl">Something went wrong!</CardTitle>
+              <CardTitle className="text-xl">{t('title')}</CardTitle>
               <CardDescription>
-                An unexpected error has occurred
+                {t('description')}
               </CardDescription>
             </div>
           </div>
@@ -36,22 +39,22 @@ export default function Error({
         <CardContent className="space-y-4">
           <div className="rounded-md bg-red-500/5 border border-red-500/20 p-4">
             <p className="text-sm text-red-400 font-mono break-all">
-              {error.message || 'Unknown error'}
+              {error.message || t('unknown')}
             </p>
             {error.digest && (
               <p className="text-xs text-gray-500 mt-2">
-                Error ID: {error.digest}
+                {t('errorId')}: {error.digest}
               </p>
             )}
           </div>
           <div className="flex gap-2">
             <Button onClick={reset} className="flex-1">
-              Try again
+              {t('retry')}
             </Button>
             <Button asChild variant="outline" className="flex-1">
               <Link href="/">
                 <Home className="mr-2 h-4 w-4" />
-                Go Home
+                {t('home')}
               </Link>
             </Button>
           </div>

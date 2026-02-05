@@ -37,7 +37,10 @@ interface NoteFormProps {
   note?: Note;
 }
 
+import { useTranslations } from "next-intl";
+
 export function NoteForm({ categories, tags, note }: NoteFormProps) {
+  const t = useTranslations("notes.form");
   const [title, setTitle] = useState(note?.title || "");
   const [content, setContent] = useState(note?.content || null);
   const [categoryId, setCategoryId] = useState<string>(note?.category_id || "");
@@ -105,19 +108,19 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
       <Card className="bg-gradient-to-br from-gray-900 to-gray-800 border-gray-700/50 shadow-xl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-            {note ? "Edit Note" : "Create New Note"}
+            {note ? t("editTitle") : t("createTitle")}
           </CardTitle>
         </CardHeader>
         <CardContent className={SPACING.md}>
           <div className="form-grid-2">
             {/* Title */}
             <div className="form-field">
-              <Label htmlFor="title">Title</Label>
+              <Label htmlFor="title">{t("fields.title")}</Label>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter note title..."
+                placeholder={t("placeholders.title")}
                 className="bg-gray-950/50 border-gray-700 focus:border-blue-500/50 transition-colors"
                 required
               />
@@ -126,11 +129,11 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
             {/* Category */}
             <div className="form-field">
               <div className="flex items-center justify-between">
-                <Label htmlFor="category">Category</Label>
+                <Label htmlFor="category">{t("fields.category")}</Label>
               </div>
               <Select value={categoryId} onValueChange={setCategoryId}>
                 <SelectTrigger className="bg-gray-950/50 border-gray-700 focus:border-blue-500/50">
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder={t("placeholders.category")} />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((category) => (
@@ -156,12 +159,12 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
           {/* Tags */}
           <div className="form-field">
             <div className="flex-between">
-              <Label>Tags</Label>
+              <Label>{t("fields.tags")}</Label>
             </div>
             <div className="tag-container">
               {tags.length === 0 && (
                 <p className="text-sm text-gray-500 italic">
-                  No tags created yet
+                  {t("emptyTags")}
                 </p>
               )}
               {tags.map((tag) => (
@@ -188,7 +191,7 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
 
           {/* Content */}
           <div className="form-field">
-            <Label htmlFor="content">Content</Label>
+            <Label htmlFor="content">{t("fields.content")}</Label>
             <div className="editor-responsive">
               <Editor initialContent={content || ""} onChange={setContent} />
             </div>
@@ -201,7 +204,7 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
             onClick={() => router.back()}
             disabled={isPending}
           >
-            Cancel
+            {t("actions.cancel")}
           </Button>
           <Button
             type="submit"
@@ -211,12 +214,12 @@ export function NoteForm({ categories, tags, note }: NoteFormProps) {
             {isPending ? (
               <span className="flex-center gap-2">
                 <div className="loading-spinner" />
-                {note ? "Updating..." : "Creating..."}
+                {note ? t("actions.updating") : t("actions.creating")}
               </span>
             ) : note ? (
-              "Update Note"
+              t("actions.update")
             ) : (
-              "Create Note"
+              t("actions.create")
             )}
           </Button>
         </CardFooter>

@@ -17,7 +17,10 @@ interface EditBugFormProps {
     bug: Bug
 }
 
+import { useTranslations } from 'next-intl'
+
 export default function EditBugForm({ bug }: EditBugFormProps) {
+    const t = useTranslations('bugs.form')
     const [title, setTitle] = useState(bug.title)
     const [errorMessage, setErrorMessage] = useState(bug.error_message || '')
     const [stackTrace, setStackTrace] = useState(bug.stack_trace || '')
@@ -57,73 +60,73 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                     </Link>
                 </Button>
                 <div>
-                    <h1 className="text-2xl font-bold">Edit Bug</h1>
-                    <p className="text-muted-foreground">Update bug details and solution</p>
+                    <h1 className="text-2xl font-bold">{t('editTitle')}</h1>
+                    <p className="text-muted-foreground">{t('subtitle')}</p>
                 </div>
             </div>
 
             <form onSubmit={handleSubmit} className={SPACING.md}>
                 <Card>
                     <CardHeader>
-                        <CardTitle>Bug Details</CardTitle>
+                        <CardTitle>{t('sections.details')}</CardTitle>
                     </CardHeader>
                     <CardContent className={SPACING.sm}>
                         {/* Title */}
                         <div className="form-field">
-                            <Label htmlFor="title">Title *</Label>
+                            <Label htmlFor="title">{t('fields.title')} *</Label>
                             <Input
                                 id="title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                placeholder="Brief description of the bug..."
+                                placeholder={t('placeholders.title')}
                                 required
                             />
                         </div>
 
                         {/* Error Message */}
                         <div className="form-field">
-                            <Label htmlFor="errorMessage">Error Message</Label>
+                            <Label htmlFor="errorMessage">{t('fields.errorMessage')}</Label>
                             <Textarea
                                 id="errorMessage"
                                 value={errorMessage}
                                 onChange={(e) => setErrorMessage(e.target.value)}
-                                placeholder="The error message you encountered..."
+                                placeholder={t('placeholders.errorMessage')}
                                 className="font-mono text-sm min-h-[80px]"
                             />
                         </div>
 
                         {/* Stack Trace */}
                         <div className="form-field">
-                            <Label htmlFor="stackTrace">Stack Trace</Label>
+                            <Label htmlFor="stackTrace">{t('fields.stackTrace')}</Label>
                             <Textarea
                                 id="stackTrace"
                                 value={stackTrace}
                                 onChange={(e) => setStackTrace(e.target.value)}
-                                placeholder="Paste the full stack trace here..."
+                                placeholder={t('placeholders.stackTrace')}
                                 className="font-mono text-sm min-h-[150px]"
                             />
                         </div>
 
                         {/* Root Cause */}
                         <div className="form-field">
-                            <Label htmlFor="rootCause">Root Cause</Label>
+                            <Label htmlFor="rootCause">{t('fields.rootCause')}</Label>
                             <Textarea
                                 id="rootCause"
                                 value={rootCause}
                                 onChange={(e) => setRootCause(e.target.value)}
-                                placeholder="What caused this bug?"
+                                placeholder={t('placeholders.rootCause')}
                                 className="min-h-[80px]"
                             />
                         </div>
 
                         {/* Solution */}
                         <div className="form-field">
-                            <Label htmlFor="solution">Solution</Label>
+                            <Label htmlFor="solution">{t('fields.solution')}</Label>
                             <Textarea
                                 id="solution"
                                 value={solution}
                                 onChange={(e) => setSolution(e.target.value)}
-                                placeholder="How did you fix it?"
+                                placeholder={t('placeholders.solution')}
                                 className="min-h-[120px]"
                             />
                         </div>
@@ -133,16 +136,16 @@ export default function EditBugForm({ bug }: EditBugFormProps) {
                 {/* Actions */}
                 <div className="button-group">
                     <Button type="button" variant="outline" onClick={() => router.back()}>
-                        Cancel
+                        {t('actions.cancel')}
                     </Button>
                     <Button type="submit" disabled={isPending || !title.trim()}>
                         {isPending ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Updating...
+                                {t('actions.updating')}
                             </>
                         ) : (
-                            'Update Bug'
+                            t('actions.update')
                         )}
                     </Button>
                 </div>

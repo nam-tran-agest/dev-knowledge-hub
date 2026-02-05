@@ -15,7 +15,10 @@ import {
 } from '@/components/ui/dialog'
 import { Plus, Loader2 } from 'lucide-react'
 
+import { useTranslations } from 'next-intl'
+
 export function CreateCategoryDialog() {
+    const t = useTranslations('notes.dialogs.createCategory')
     const [open, setOpen] = useState(false)
     const [name, setName] = useState('')
     const [color, setColor] = useState('#6366f1')
@@ -37,22 +40,22 @@ export function CreateCategoryDialog() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="icon" title="Create Category">
+                <Button variant="outline" size="icon" title={t('trigger')}>
                     <Plus className="h-4 w-4" />
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Create Category</DialogTitle>
+                    <DialogTitle>{t('title')}</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <Label htmlFor="category-name">Name</Label>
+                        <Label htmlFor="category-name">{t('nameLabel')}</Label>
                         <Input
                             id="category-name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="e.g. Work, Personal"
+                            placeholder={t('namePlaceholder')}
                             required
                         />
                     </div>
@@ -76,11 +79,11 @@ export function CreateCategoryDialog() {
                     </div>
                     <div className="flex justify-end gap-2">
                         <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
-                            Cancel
+                            {t('cancel')}
                         </Button>
                         <Button type="submit" disabled={isPending || !name.trim()}>
                             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Create
+                            {t('submit')}
                         </Button>
                     </div>
                 </form>

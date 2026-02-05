@@ -21,6 +21,8 @@ interface FilterBarProps {
     searchQuery?: string
 }
 
+import { useTranslations } from 'next-intl'
+
 export function FilterBar({
     categories,
     tags,
@@ -28,6 +30,7 @@ export function FilterBar({
     selectedTag,
     searchQuery,
 }: FilterBarProps) {
+    const t = useTranslations('notes.filter')
     const router = useRouter()
     const searchParams = useSearchParams()
 
@@ -54,7 +57,7 @@ export function FilterBar({
             <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                    placeholder="Search notes..."
+                    placeholder={t('search')}
                     defaultValue={searchQuery}
                     onChange={(e) => {
                         const value = e.target.value
@@ -72,10 +75,10 @@ export function FilterBar({
                 onValueChange={(value) => updateParams('category', value === 'all' ? null : value)}
             >
                 <SelectTrigger className="w-full sm:w-[180px]">
-                    <SelectValue placeholder="All Categories" />
+                    <SelectValue placeholder={t('allCategories')} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="all">{t('allCategories')}</SelectItem>
                     {categories.map((category) => (
                         <SelectItem key={category.id} value={String(category.id)}>
                             <div className="flex items-center gap-2">
@@ -96,10 +99,10 @@ export function FilterBar({
                 onValueChange={(value) => updateParams('tag', value === 'all' ? null : value)}
             >
                 <SelectTrigger className="w-full sm:w-[180px]">
-                    <SelectValue placeholder="All Tags" />
+                    <SelectValue placeholder={t('allTags')} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">All Tags</SelectItem>
+                    <SelectItem value="all">{t('allTags')}</SelectItem>
                     {tags.map((tag) => (
                         <SelectItem key={tag.id} value={String(tag.id)}>
                             {tag.name || tag.label}

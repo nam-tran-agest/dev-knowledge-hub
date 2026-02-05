@@ -19,7 +19,10 @@ interface ManageCategoriesDialogProps {
     categories: Category[]
 }
 
+import { useTranslations } from 'next-intl'
+
 export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogProps) {
+    const t = useTranslations('notes.dialogs.manageCategories')
     const [open, setOpen] = useState(false)
     const [editingId, setEditingId] = useState<string | null>(null)
     const [editName, setEditName] = useState('')
@@ -50,7 +53,7 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
     }
 
     const handleDelete = (id: string) => {
-        if (confirm('Are you sure you want to delete this category?')) {
+        if (confirm(t('confirmDelete'))) {
             startTransition(async () => {
                 await deleteCategory(id)
                 router.refresh()
@@ -61,13 +64,13 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" title="Manage Categories">
+                <Button variant="ghost" size="icon" title={t('trigger')}>
                     <Settings className="h-4 w-4" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Manage Categories</DialogTitle>
+                    <DialogTitle>{t('title')}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-2 mt-4">
                     {categories.map((category) => (
@@ -135,7 +138,7 @@ export function ManageCategoriesDialog({ categories }: ManageCategoriesDialogPro
                         </div>
                     ))}
                     {categories.length === 0 && (
-                        <p className="text-sm text-center text-muted-foreground py-4">No categories found.</p>
+                        <p className="text-sm text-center text-muted-foreground py-4">{t('empty')}</p>
                     )}
                 </div>
             </DialogContent>

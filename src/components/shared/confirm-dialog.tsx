@@ -22,17 +22,25 @@ interface ConfirmDialogProps {
     isLoading?: boolean
 }
 
+import { useTranslations } from 'next-intl'
+
 export function ConfirmDialog({
     open,
     onOpenChange,
     title,
     description,
-    confirmLabel = 'Confirm',
-    cancelLabel = 'Cancel',
+    confirmLabel,
+    cancelLabel,
     variant = 'default',
     onConfirm,
     isLoading = false,
 }: ConfirmDialogProps) {
+    const t = useTranslations('common.dialog')
+
+    // Default labels from i18n if not provided
+    const finalConfirmLabel = confirmLabel || t('confirm')
+    const finalCancelLabel = cancelLabel || t('cancel')
+
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
@@ -46,17 +54,17 @@ export function ConfirmDialog({
                         onClick={() => onOpenChange(false)}
                         disabled={isLoading}
                     >
-                        {cancelLabel}
+                        {finalCancelLabel}
                     </Button>
                     <Button
                         variant={variant === 'destructive' ? 'destructive' : 'default'}
                         onClick={onConfirm}
                         disabled={isLoading}
                     >
-                        {isLoading ? 'Loading...' : confirmLabel}
+                        {isLoading ? t('loading') : finalConfirmLabel}
                     </Button>
                 </DialogFooter>
             </DialogContent>
-        </Dialog>
+        </Dialog >
     )
 }

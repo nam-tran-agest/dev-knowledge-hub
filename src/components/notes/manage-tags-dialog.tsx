@@ -19,7 +19,10 @@ interface ManageTagsDialogProps {
     tags: Tag[]
 }
 
+import { useTranslations } from 'next-intl'
+
 export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
+    const t = useTranslations('notes.dialogs.manageTags')
     const [open, setOpen] = useState(false)
     const [editingId, setEditingId] = useState<string | null>(null)
     const [editName, setEditName] = useState('')
@@ -47,7 +50,7 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
     }
 
     const handleDelete = (id: string) => {
-        if (confirm('Are you sure you want to delete this tag?')) {
+        if (confirm(t('confirmDelete'))) {
             startTransition(async () => {
                 await deleteTag(id)
                 router.refresh()
@@ -58,13 +61,13 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" title="Manage Tags">
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" title={t('trigger')}>
                     <Settings className="h-3 w-3" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Manage Tags</DialogTitle>
+                    <DialogTitle>{t('title')}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-2 mt-4">
                     {tags.map((tag) => (
@@ -122,7 +125,7 @@ export function ManageTagsDialog({ tags }: ManageTagsDialogProps) {
                         </div>
                     ))}
                     {tags.length === 0 && (
-                        <p className="text-sm text-center text-muted-foreground py-4">No tags found.</p>
+                        <p className="text-sm text-center text-muted-foreground py-4">{t('empty')}</p>
                     )}
                 </div>
             </DialogContent>

@@ -1,9 +1,12 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { FileQuestion, Home } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function NotFound() {
+  const t = useTranslations('common.notFound')
+
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <Card className="max-w-md w-full">
@@ -13,9 +16,9 @@ export default function NotFound() {
               <FileQuestion className="h-6 w-6 text-blue-500" />
             </div>
             <div>
-              <CardTitle className="text-xl">Page Not Found</CardTitle>
+              <CardTitle className="text-xl">{t('title')}</CardTitle>
               <CardDescription>
-                The page you're looking for doesn't exist
+                {t('description')}
               </CardDescription>
             </div>
           </div>
@@ -27,7 +30,7 @@ export default function NotFound() {
           <Button asChild className="w-full">
             <Link href="/">
               <Home className="mr-2 h-4 w-4" />
-              Back to Home
+              {t('back')}
             </Link>
           </Button>
         </CardContent>

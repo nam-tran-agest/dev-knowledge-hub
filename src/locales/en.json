@@ -262,37 +262,179 @@
             "work": "Work"
         },
         "items": {
-            "dashboard": "Dashboard",
+            "working": {
+                "label": "Working",
+                "items": {
+                    "active": "Active",
+                    "paused": "Paused",
+                    "blocked": "Blocked"
+                }
+            },
+            "media": {
+                "label": "Media",
+                "items": {
+                    "movies": "Movies",
+                    "series": "Series",
+                    "anime": "Anime",
+                    "games": "Games",
+                    "music": "Music"
+                }
+            },
             "notes": {
                 "label": "Notes",
-                "description": "Manage your personal knowledge base."
+                "items": {
+                    "work": "Work",
+                    "learn": "Learn",
+                    "ideas": "Ideas",
+                    "life": "Life"
+                }
             },
-            "snippets": {
-                "label": "Snippets",
-                "description": "Save and organize code snippets."
+            "planner": {
+                "label": "Planner",
+                "items": {
+                    "today": "Today",
+                    "week": "Week",
+                    "someday": "Someday"
+                }
             },
-            "tasks": {
-                "label": "Tasks",
-                "description": "Track your todos and progress."
-            },
-            "bugs": {
-                "label": "Bugs",
-                "description": "Log and resolve software issues."
+            "bookmarks": {
+                "label": "Bookmarks",
+                "items": {
+                    "work": "Work",
+                    "learn": "Learn",
+                    "inspire": "Inspire",
+                    "life": "Life",
+                    "fun": "Fun"
+                }
             }
         },
-        "settings": "Settings"
+        "settings": "Settings",
+        "tasks": {
+            "columns": {
+                "todo": "To Do",
+                "doing": "In Progress",
+                "done": "Done"
+            },
+            "placeholder": "Task title...",
+            "move_to": "Move to",
+            "buttons": {
+                "add": "Add",
+                "cancel": "Cancel"
+            }
+        }
     },
-    "tasks": {
-        "columns": {
-            "todo": "To Do",
-            "doing": "In Progress",
-            "done": "Done"
+    "common": {
+        "error": {
+            "title": "Something went wrong!",
+            "description": "An unexpected error has occurred",
+            "unknown": "Unknown error",
+            "errorId": "Error ID",
+            "retry": "Try again",
+            "home": "Go Home"
         },
-        "placeholder": "Task title...",
-        "move_to": "Move to",
-        "buttons": {
-            "add": "Add",
-            "cancel": "Cancel"
+        "notFound": {
+            "title": "Page Not Found",
+            "description": "The page you're looking for doesn't exist",
+            "back": "Back to Home"
+        },
+        "loading": "Loading...",
+        "dialog": {
+            "confirm": "Confirm",
+            "cancel": "Cancel",
+            "loading": "Loading..."
+        },
+        "errorBoundary": {
+            "title": "Something went wrong",
+            "description": "An error occurred while rendering this component",
+            "retry": "Try Again"
+        }
+    },
+    "notes": {
+        "form": {
+            "createTitle": "Create New Note",
+            "editTitle": "Edit Note",
+            "fields": {
+                "title": "Title",
+                "category": "Category",
+                "tags": "Tags",
+                "content": "Content"
+            },
+            "placeholders": {
+                "title": "Enter note title...",
+                "category": "Select a category",
+                "content": "Write your note content here..."
+            },
+            "emptyTags": "No tags created yet",
+            "actions": {
+                "cancel": "Cancel",
+                "create": "Create Note",
+                "update": "Update Note",
+                "creating": "Creating...",
+                "updating": "Updating..."
+            }
+        },
+        "filter": {
+            "search": "Search notes...",
+            "allCategories": "All Categories",
+            "allTags": "All Tags"
+        },
+        "dialogs": {
+            "createTag": {
+                "trigger": "New Tag",
+                "title": "Create Tag",
+                "nameLabel": "Name",
+                "namePlaceholder": "e.g. react, typescript",
+                "cancel": "Cancel",
+                "submit": "Create"
+            },
+            "createCategory": {
+                "trigger": "New Category",
+                "title": "Create Category",
+                "nameLabel": "Name",
+                "namePlaceholder": "e.g. Work, Personal",
+                "cancel": "Cancel",
+                "submit": "Create"
+            },
+            "manageTags": {
+                "trigger": "Manage Tags",
+                "title": "Manage Tags",
+                "confirmDelete": "Are you sure you want to delete this tag?",
+                "empty": "No tags found."
+            },
+            "manageCategories": {
+                "trigger": "Manage Categories",
+                "title": "Manage Categories",
+                "confirmDelete": "Are you sure you want to delete this category?",
+                "empty": "No categories found."
+            }
+        }
+    },
+    "bugs": {
+        "form": {
+            "editTitle": "Edit Bug",
+            "subtitle": "Update bug details and solution",
+            "sections": {
+                "details": "Bug Details"
+            },
+            "fields": {
+                "title": "Title",
+                "errorMessage": "Error Message",
+                "stackTrace": "Stack Trace",
+                "rootCause": "Root Cause",
+                "solution": "Solution"
+            },
+            "placeholders": {
+                "title": "Brief description of the bug...",
+                "errorMessage": "The error message you encountered...",
+                "stackTrace": "Paste the full stack trace here...",
+                "rootCause": "What caused this bug?",
+                "solution": "How did you fix it?"
+            },
+            "actions": {
+                "cancel": "Cancel",
+                "update": "Update Bug",
+                "updating": "Updating..."
+            }
         }
     }
 }
