@@ -9,24 +9,12 @@ export async function globalSearch(query: string): Promise<SearchResult[]> {
     const supabase = await createClient()
     const searchQuery = query.split(' ').join(' & ')
 
-    // Search across all tables in parallel
-    const [notesResult, snippetsResult, tasksResult, bugsResult] = await Promise.all([
+    // Search across remaining tables in parallel
+    const [notesResult, bugsResult] = await Promise.all([
         supabase
-            .from('notes')
-            .select('id, title, content, created_at')
+            .from('kb_notes_unified')
+            .select('id, title, content, updated_at')
             .textSearch('search_vector', searchQuery)
-            .limit(5),
-
-        supabase
-            .from('snippets')
-            .select('id, title, description, language, type, created_at')
-            .textSearch('search_vector', searchQuery)
-            .limit(5),
-
-        supabase
-            .from('tasks')
-            .select('id, title, description, status, created_at')
-            .ilike('title', `%${query}%`)
             .limit(5),
 
         supabase
@@ -44,33 +32,9 @@ export async function globalSearch(query: string): Promise<SearchResult[]> {
             id: note.id,
             type: 'note',
             title: note.title,
-            subtitle: note.content?.slice(0, 100) || '',
+            subtitle: note.content?.slice(0, 100).replace(/<[^>]*>/g, '') || '',
             url: `/notes/${note.id}`,
-            createdAt: note.created_at
-        })
-    })
-
-    // Map snippets
-    snippetsResult.data?.forEach(snippet => {
-        results.push({
-            id: snippet.id,
-            type: snippet.type === 'prompt' ? 'prompt' : 'snippet',
-            title: snippet.title,
-            subtitle: snippet.description || `${snippet.language} ${snippet.type}`,
-            url: `/snippets/${snippet.id}`,
-            createdAt: snippet.created_at
-        })
-    })
-
-    // Map tasks
-    tasksResult.data?.forEach(task => {
-        results.push({
-            id: task.id,
-            type: 'task',
-            title: task.title,
-            subtitle: `Status: ${task.status}`,
-            url: `/tasks?highlight=${task.id}`,
-            createdAt: task.created_at
+            createdAt: note.updated_at
         })
     })
 
