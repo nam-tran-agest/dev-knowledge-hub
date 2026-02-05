@@ -22,13 +22,13 @@ export default async function Dashboard() {
         backgroundVideoUrl="/img/home/banner_main.webm"
       />
 
-      <FeatureSection
+      {/* <FeatureSection
         title={homeData.features.title}
         services={homeData.features.items.map((item: any) => ({
           ...item,
           background_media: { url: '' }
         }))}
-      />
+      /> */}
 
       <ShowcaseSection
         title1={homeData.showcase.title1}
@@ -37,13 +37,13 @@ export default async function Dashboard() {
         cta={homeData.showcase.cta}
       />
 
-      <GridLinksSection
+      {/* <GridLinksSection
         title={homeData.gridLinks.title}
         items={homeData.gridLinks.items.map((item: any) => ({
           label: item.label,
           Url: item.url
         }))}
-      />
+      /> */}
 
       <MarqueeSection
         title={homeData.marquee.title}

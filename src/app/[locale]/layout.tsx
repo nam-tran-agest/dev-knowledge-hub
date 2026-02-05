@@ -13,8 +13,9 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
+
 const playfair = Playfair_Display({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   variable: "--font-playfair",
 });
 
@@ -50,29 +51,17 @@ export default async function RootLayout({
     notFound();
   }
 
-  // Provide all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
-
-  // Temporary footer translation fetch (or pass messages to Footer if it stays client)
-  // For now, let's assume Footer needs to be updated or we pass data. 
-  // But wait, the previous code used `tObject` for footer. 
-  // Let's pass the raw footer data from messages if possible or update Footer to use useTranslations.
-  // For this step, I'll pass a placeholder or try to get it.
   const tFooter = await getTranslations({ locale, namespace: 'footer' });
-  // Construct footer data from translations (simplified for now, or assume internal use)
-  // Note: Previous code passed `tObject<FooterData>("footer")`.
-  // If `Footer` is a client component, it can use `useTranslations`.
-  // If it expects a prop, I need to construct it.
-  // Let's assume Footer is updated to use useTranslations or I construct it here.
-  // But constructing it here is tedious without seeing Footer type structure fully.
-  // I will check Footer component later. For now, I'll comment out the failing prop or pass empty.
-  // Actually, I can use `const footerMessages = messages.footer as FooterData` if typically structured.
   const footerData = (messages as any).footer as FooterData;
+
+  const fontClass = locale === 'vi'
+    ? 'font-[family-name:"Times_New_Roman",Times,serif]'
+    : `${playfair.variable} font-serif`;
 
   return (
     <html lang={locale}>
-      <body className={`${playfair.variable} font-serif antialiased bg-main-gradient`}>
+      <body className={`${fontClass} antialiased bg-main-gradient`}>
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen">
             {/* Main Content */}
@@ -93,9 +82,6 @@ export default async function RootLayout({
               <main className="w-full">
                 {children}
               </main>
-              {/* <Footer footer={footerData} />  -- Commenting out to fix in next step properly or it might work if structure matches */}
-              {/* Better to keep it if we can. The previous code passed `tObject<FooterData>("footer")`. */}
-              {/* If I pass `messages.footer` it might work. */}
               <Footer footer={footerData} />
               <ScrollToTop />
             </div>

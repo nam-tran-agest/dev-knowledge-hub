@@ -273,6 +273,7 @@
             "media": {
                 "label": "Media",
                 "items": {
+                    "youtube": "YouTube",
                     "movies": "Movies",
                     "series": "Series",
                     "anime": "Anime",
@@ -435,6 +436,12 @@
                 "update": "Update Bug",
                 "updating": "Updating..."
             }
+        }
+    },
+    "media": {
+        "youtube": {
+            "title": "YouTube Center",
+            "subtitle": "Your personal library. Save moments, resume anytime."
         }
     }
 }

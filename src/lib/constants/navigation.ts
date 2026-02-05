@@ -35,6 +35,7 @@ export const MAIN_NAVIGATION: NavItem[] = [
         name: 'Media',
         href: '/media',
         items: [
+            { name: 'YouTube', href: '/media/youtube' },
             { name: 'Movies', href: '/media/movies' },
             { name: 'Series', href: '/media/series' },
             { name: 'Anime', href: '/media/anime' },

@@ -55,6 +55,22 @@ supabase link --project-ref your-project-ref
 supabase db push
 ```
 
+### Step 3.1: Add YouTube Features (Manual)
+
+If you are adding the YouTube Bookmark feature to an existing project, run this SQL in the Supabase SQL Editor:
+
+```sql
+create table youtube_videos (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  title text,
+  url text not null,
+  thumbnail_url text,
+  saved_time numeric default 0,
+  user_id uuid default auth.uid()
+);
+```
+
 ## Step 4: Verify Database Setup
 
 1. Go to **Table Editor** in your Supabase dashboard
@@ -108,6 +124,11 @@ supabase db push
 - Bug tracking with error details
 - Stores stack traces and solutions
 - Can be marked as resolved
+
+**youtube_videos**
+- Stores personal video bookmarks
+- Track playback progress (saved_time)
+- Auto-generated thumbnails
 
 **categories**
 - Organize notes by category

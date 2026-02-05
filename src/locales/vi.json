@@ -37,7 +37,7 @@
         },
         "showcase": {
             "title1": "Tại sao dùng Dev Hub?",
-            "title2": "Xây dựng cho hiệu suất.",
+            "title2": "Xây dựng cho hiệu suất cao.",
             "cta": {
                 "label": "Bắt đầu sắp xếp",
                 "url": "/notes"
@@ -273,6 +273,7 @@
             "media": {
                 "label": "Giải Trí",
                 "items": {
+                    "youtube": "YouTube",
                     "movies": "Phim Lẻ",
                     "series": "Phim Bộ",
                     "anime": "Anime",
@@ -435,6 +436,12 @@
                 "update": "Cập Nhật Lỗi",
                 "updating": "Đang cập nhật..."
             }
+        }
+    },
+    "media": {
+        "youtube": {
+            "title": "Trung Tâm YouTube",
+            "subtitle": "Kho video cá nhân. Lưu lại khoảnh khắc, xem tiếp bất cứ lúc nào."
         }
     }
 }
