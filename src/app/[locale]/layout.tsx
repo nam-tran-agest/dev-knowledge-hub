@@ -29,7 +29,10 @@ export async function generateMetadata({
 
   return {
     title: t('title'),
-    description: t('description')
+    description: t('description'),
+    icons: {
+      icon: '/img/home/nav_ico.svg'
+    }
   };
 }
 
@@ -71,8 +74,8 @@ export default async function RootLayout({
                   <Image
                     src="/img/home/nav_ico.svg"
                     alt="Dev Hub Logo"
-                    width={32}
-                    height={32}
+                    width={48}
+                    height={48}
                     className="rounded-lg shadow-lg"
                   />
                 </Link>
