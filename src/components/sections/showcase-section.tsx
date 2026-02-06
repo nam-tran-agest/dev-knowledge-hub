@@ -66,6 +66,7 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                                                 height={0}
                                                 sizes="100vw"
                                                 className="w-full h-auto object-contain"
+                                                priority
                                             />
                                         </div>
                                     </div>

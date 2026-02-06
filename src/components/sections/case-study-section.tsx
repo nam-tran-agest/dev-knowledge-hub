@@ -99,6 +99,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                             className="object-cover transition-transform duration-700 hover:scale-105"
                                             fill
                                             sizes="(max-width: 1280px) 100vw, 50vw"
+                                            priority={idx < 2}
                                         />
                                     </Link>
                                     <div className="space-y-4">
@@ -160,6 +161,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                     className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                                     fill
                                     sizes="(max-width: 1280px) 100vw, 50vw"
+                                    priority
                                 />
                             </Link>
                         </motion.div>
