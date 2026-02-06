@@ -69,10 +69,10 @@ export function NoteEditor({ note }: NoteEditorProps) {
     }
 
     return (
-        <div className="flex flex-col h-full bg-background relative group">
+        <div className="flex flex-col h-full relative group border-l">
 
             {/* Main Editor Area */}
-            <div className="flex-1 overflow-auto p-12 custom-scrollbar">
+            <div className="flex-1 overflow-auto p-12 custom-scrollbar bg-black/10">
                 <div className="max-w-3xl mx-auto space-y-8 pb-24">
 
                     {/* Header Region */}
@@ -82,13 +82,13 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 <Input
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    className="text-4xl md:text-5xl font-bold h-auto border-transparent hover:border-input focus:border-input px-0 bg-transparent placeholder:text-muted/30"
+                                    className="text-4xl md:text-5xl font-bold h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent placeholder:text-muted/30 rounded-none mb-2"
                                     placeholder="Untitled Note"
                                 />
                                 <Input
                                     value={tags}
                                     onChange={(e) => setTags(e.target.value)}
-                                    className="text-base text-primary font-medium h-auto border-transparent hover:border-input focus:border-input px-0 bg-transparent"
+                                    className="text-base text-primary font-medium h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent rounded-none"
                                     placeholder="#tags..."
                                 />
                             </div>
@@ -115,10 +115,10 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
                                 placeholder="Start writing your thoughts..."
-                                className="w-full h-[60vh] font-sans text-lg leading-relaxed border-none shadow-none focus-visible:ring-0 resize-none p-0 bg-transparent"
+                                className="w-full h-[60vh] font-sans text-lg leading-relaxed border border-black dark:border-white/10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary/50 resize-none p-6 bg-transparent rounded-xl"
                             />
                         ) : (
-                            <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/80 leading-relaxed">
+                            <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/80 leading-relaxed border border-transparent dark:border-white/10 p-6 rounded-xl min-h-[60vh]">
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
                                     components={{
@@ -184,7 +184,7 @@ export function NoteEditor({ note }: NoteEditorProps) {
                     <>
                         <Button
                             size="icon"
-                            variant="destructive"
+                            variant="secondary"
                             onClick={onDelete}
                             className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100"
                             title="Delete Note"
@@ -199,13 +199,6 @@ export function NoteEditor({ note }: NoteEditorProps) {
                             title="Edit Note"
                         >
                             <Type className="h-6 w-6" />
-                        </Button>
-                        <Button
-                            size="icon"
-                            className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all bg-foreground text-background"
-                            title="Add Element"
-                        >
-                            <Plus className="h-6 w-6" />
                         </Button>
                     </>
                 )}

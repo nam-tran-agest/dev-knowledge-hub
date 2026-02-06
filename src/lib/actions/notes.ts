@@ -78,9 +78,8 @@ export async function createNote(input: CreateNoteInput): Promise<Note> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) {
-    throw new Error('Unauthorized')
-  }
+  // Allow public access - use random or guest UUID if not logged in
+  const userId = user?.id || '00000000-0000-0000-0000-000000000000'
 
   // Determine target table based on slug
   const categorySlug = input.categorySlug || 'work' // Default to work if not provided
@@ -100,7 +99,7 @@ export async function createNote(input: CreateNoteInput): Promise<Note> {
       // category_slug is DEFAULT set in the table schema, but we can pass it explicitly too
       category_slug: categorySlug,
       tags: input.tags || [],
-      user_id: user.id
+      user_id: userId
     })
     .select()
     .single()
