@@ -19,7 +19,6 @@ export default async function Dashboard() {
         subtitle={homeData.hero.subtitle}
         ctaLabel={homeData.hero.ctaLabel}
         ctaUrl={homeData.hero.ctaUrl}
-        backgroundVideoUrl="/img/home/banner_main.webm"
       />
 
       {/* <FeatureSection

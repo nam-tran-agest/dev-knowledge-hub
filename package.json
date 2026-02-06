@@ -35,6 +35,8 @@
     "@tiptap/core": "^3.19.0",
     "@tiptap/extensions": "^3.19.0",
     "@tiptap/pm": "^3.18.0",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

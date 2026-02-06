@@ -1,8 +1,8 @@
 {
     "home": {
         "hero": {
-            "title": "EXPLORE",
-            "subtitle": "A unified space to organize your creative assets, track your projects, and manage your digital life.",
+            "title": "Nothing Else Here",
+            "subtitle": "What I’m currently spending energy on.",
             "ctaLabel": "Get Started",
             "ctaUrl": "/notes"
         },
@@ -36,24 +36,24 @@
             ]
         },
         "showcase": {
-            "title1": "Why use Dev Hub?",
-            "title2": "Built for efficiency.",
+            "title1": "Why this hub exists?",
+            "title2": "Everything I use, in one place.",
             "cta": {
-                "label": "Start Organizing",
+                "label": "Enter my base",
                 "url": "/notes"
             },
             "items": [
                 {
-                    "title": "Centralized Knowledge",
-                    "sub_title": "Stop searching through scattered text files and Slack messages. Keep all your documentation, decisions, and references in one searchable, structured place."
+                    "title": "A place to think clearly",
+                    "sub_title": "Notes, code, ideas, and decisions — everything I need while working, without distractions."
                 },
                 {
-                    "title": "Workflow Automation",
-                    "sub_title": "Automate your daily routine with smart snippets and task templates. Spend less time on setup and more time coding."
+                    "title": "Know what I’m doing next",
+                    "sub_title": "A clear overview of what I’m working on, what’s blocked, and what’s coming next. No more guessing games."
                 },
                 {
-                    "title": "Effortless Organization",
-                    "sub_title": "Effortless organization of your creative assets, projects, and digital life."
+                    "title": "Enjoy it now. Find it later",
+                    "sub_title": "Movies, games, music, and random interests, saved so I can come back anytime."
                 }
             ]
         },

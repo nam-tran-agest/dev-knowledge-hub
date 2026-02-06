@@ -1,5 +1,7 @@
 'use client';
 
+import { ParticlesBackground } from '@/components/ui/particles-background';
+
 import { motion } from "motion/react";
 import { CTAButton } from '@/components/common/ui/other/CTABtn';
 import { TYPOGRAPHY, LAYOUT } from '@/lib/constants';
@@ -9,7 +11,6 @@ interface HeroSectionProps {
     subtitle: string;
     ctaLabel?: string;
     ctaUrl?: string;
-    backgroundVideoUrl?: string;
 }
 
 export function HeroSection({
@@ -17,31 +18,18 @@ export function HeroSection({
     subtitle,
     ctaLabel,
     ctaUrl,
-    backgroundVideoUrl
 }: HeroSectionProps) {
     return (
         <section className="relative min-h-screen py-10 flex items-center justify-center overflow-hidden">
             {/* Background */}
-            <div className="absolute inset-0 z-0">
-                {backgroundVideoUrl ? (
-                    <video
-                        className="w-full h-full object-cover"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        src={backgroundVideoUrl}
-                    />
-                ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-50 via-white to-gray-100" />
-                )}
-                <div />
+            <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/90 via-slate-950 to-blue-950">
+                <ParticlesBackground className="absolute inset-0 z-0" />
             </div>
 
             {/* Content */}
             <div className="relative z-10 flex flex-col items-center text-center space-y-6 px-4 max-w-4xl mx-auto">
                 <motion.h1
-                    className={TYPOGRAPHY.heroTitle}
+                    className={`${TYPOGRAPHY.heroTitle}`}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
@@ -50,7 +38,7 @@ export function HeroSection({
                 </motion.h1>
 
                 <motion.p
-                    className={TYPOGRAPHY.bodyMain}
+                    className={`${TYPOGRAPHY.bodyMain} !text-white/50`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
