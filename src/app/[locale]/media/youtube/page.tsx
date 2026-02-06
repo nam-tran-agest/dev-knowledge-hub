@@ -12,7 +12,7 @@ export default async function YouTubePage({
     const videos = await getVideos();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-400 via-slate-500 to-slate-400 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0c1a36] via-[#204b8f] to-[#060f24]">
             <div className="max-w-7xl mx-auto space-y-8">
                 <div className="text-center space-y-4">
                     <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-rose-600">

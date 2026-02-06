@@ -12,7 +12,7 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
     background_image,
 }) => {
     return (
-        <section className="flex flex-col gap-4 py-10 md:py-16 relative overflow-hidden bg-gradient-soft-blue">
+        <section className="flex flex-col gap-4 py-10 md:py-16 relative overflow-hidden bg-gradient-to-b from-black/90 via-slate-950 to-blue-950">
             {/* Background Overlay if Image Provided */}
             {background_image && (
                 <div className="absolute inset-0 w-full h-full -z-10 opacity-30">
@@ -41,13 +41,30 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
                                     <div
                                         className="relative h-12 w-24 md:h-24 md:w-48 transition-all duration-300 hover:scale-110 cursor-pointer flex items-center justify-center filter mix-blend-multiply"
                                     >
-                                        <AppImage
-                                            url={item.url}
-                                            documentId={item.documentId}
-                                            alternativeText={item.alternativeText || `Logo-${idx}`}
-                                            className="object-contain w-full h-full"
-                                            fill
-                                        />
+                                        {(item as any).href ? (
+                                            <a
+                                                href={(item as any).href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-full h-full relative"
+                                            >
+                                                <AppImage
+                                                    url={item.url}
+                                                    documentId={item.documentId}
+                                                    alternativeText={item.alternativeText || `Logo-${idx}`}
+                                                    className="object-contain w-full h-full"
+                                                    fill
+                                                />
+                                            </a>
+                                        ) : (
+                                            <AppImage
+                                                url={item.url}
+                                                documentId={item.documentId}
+                                                alternativeText={item.alternativeText || `Logo-${idx}`}
+                                                className="object-contain w-full h-full"
+                                                fill
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             ))}

@@ -32,7 +32,7 @@ export const COLORS = {
 } as const;
 
 export const EFFECTS = {
-    glass: 'bg-white/30 backdrop-blur-[4px] border border-white shadow-sm hover:shadow-lg transition-all',
+    glass: 'bg-white/10 backdrop-blur-[4px] border border-white shadow-sm hover:shadow-lg transition-all',
     shadow: 'shadow-sm hover:shadow-md transition-shadow',
 } as const;
 

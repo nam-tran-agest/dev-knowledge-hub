@@ -12,7 +12,7 @@ import { TYPOGRAPHY, LAYOUT, EFFECTS } from "@/lib/constants";
 const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) => {
 
     return (
-        <section className="relative overflow-hidden py-10 bg-gradient-landing-blue">
+        <section className="relative overflow-hidden py-10 bg-gradient-to-b from-black/90 via-slate-950 to-blue-950">
             <div className={LAYOUT.container + " max-w-6xl xl:max-w-[1400px] mx-auto"}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -37,12 +37,12 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                                 className="text-center"
                             >
                                 <div
-                                    className="text-5xl md:text-6xl xl:text-7xl font-bold text-[#0069AC] mb-2 text-center text-stroke-white"
+                                    className="text-5xl md:text-6xl xl:text-7xl font-bold text-gradient mb-2 text-center text-stroke-white"
                                 >
-                                    <AnimatedCounter from={0} to={stat.value} />
+                                    {stat.value > 0 && <AnimatedCounter from={0} to={stat.value} />}
                                     {stat.suffix}
                                 </div>
-                                <p className={TYPOGRAPHY.bodyMain + " text-center leading-tight"}>{stat.title}</p>
+                                <p className={TYPOGRAPHY.bodyMain + " text-center text-gradient leading-tight"}>{stat.title}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -62,33 +62,14 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                                     className="w-full h-full"
                                 >
                                     <Card
-                                        className={`w-full min-h-[300px] xl:min-h-[340px] h-full p-6 flex flex-col items-start text-left ${EFFECTS.glass}`}
+                                        className={`w-full min-h-[300px] xl:min-h-[340px] h-full p-6 flex flex-col gap-6 items-start text-left ${EFFECTS.glass}`}
                                     >
-                                        <div className="mb-2 w-full">
-                                            <div className="pb-2">
-                                                {iconUrl ? (
-                                                    <Image
-                                                        src={iconUrl}
-                                                        alt={feature.title}
-                                                        width={40}
-                                                        height={40}
-                                                        className="object-contain"
-                                                    />
-                                                ) : (
-                                                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600 font-bold">
-                                                        {idx + 1}
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <CardTitle className={TYPOGRAPHY.cardTitle}>
-                                                {feature.title}
-                                            </CardTitle>
-                                        </div>
-                                        <div className="w-full">
-                                            <CardDescription className={TYPOGRAPHY.bodySub + " mt-2 block"}>
-                                                {feature.sub_title}
-                                            </CardDescription>
-                                        </div>
+                                        <CardTitle className={TYPOGRAPHY.cardTitle + " text-gradient"}>
+                                            {feature.title}
+                                        </CardTitle>
+                                        <CardDescription className={TYPOGRAPHY.bodySub + " !text-white/50 mt-2 block"}>
+                                            {feature.sub_title}
+                                        </CardDescription>
                                     </Card>
                                 </motion.div>
                             );
@@ -100,15 +81,15 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                             <CTABtn
                                 id={cta.id}
                                 label={cta.label}
-                                href={cta.url || cta.Url || '#'}
+                                href={cta.url || '#'}
                                 variant="premium"
                                 className="text-lg px-8 py-6"
                             />
                         </div>
                     )}
                 </motion.div>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 };
 

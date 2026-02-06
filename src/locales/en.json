@@ -3,7 +3,7 @@
         "hero": {
             "title": "Nothing Else Here",
             "subtitle": "What I’m currently spending energy on.",
-            "ctaLabel": "Get Started",
+            "ctaLabel": "Let’s Enjoy",
             "ctaUrl": "/notes"
         },
         "features": {
@@ -36,7 +36,7 @@
             ]
         },
         "showcase": {
-            "title1": "Why this hub exists?",
+            "title1": "Why this place exists?",
             "title2": "Everything I use, in one place.",
             "cta": {
                 "label": "Enter my base",
@@ -79,129 +79,163 @@
             ]
         },
         "marquee": {
-            "title": "Powered By",
+            "title": "I swear I’ll organize this later",
             "logos": [
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-                    "alt": "React"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+                    "alt": "Netflix",
+                    "href": "https://www.netflix.com"
                 },
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
-                    "alt": "Next.js"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
+                    "alt": "Spotify",
+                    "href": "https://open.spotify.com"
                 },
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
-                    "alt": "Tailwind"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+                    "alt": "YouTube",
+                    "href": "https://www.youtube.com"
                 },
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
-                    "alt": "TypeScript"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+                    "alt": "ChatGPT",
+                    "href": "https://chat.openai.com"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg",
+                    "alt": "Steam",
+                    "href": "https://store.steampowered.com"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Twitch_Glitch_Logo_Purple.svg",
+                    "alt": "Twitch",
+                    "href": "https://www.twitch.tv"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg",
+                    "alt": "Reddit",
+                    "href": "https://www.reddit.com"
                 }
             ]
         },
         "caseStudy": {
-            "title": "Featured Projects",
-            "readMoreLabel": "View Project",
+            "title": "Timeless Classics",
+            "readMoreLabel": "Listen Now",
             "items": [
                 {
-                    "title": "Project Alpha",
-                    "slug": "/cases/alpha",
-                    "description": "A scalable e-commerce platform built with Next.js 14 and Stripe Connect."
+                    "title": "Beethoven - Moonlight Sonata",
+                    "slug": "https://www.youtube.com/watch?v=4Tr0otuiQuU",
+                    "description": "A hauntingly beautiful piano sonata that captures deep emotion and tranquility."
                 },
                 {
-                    "title": "Project Beta",
-                    "slug": "/cases/beta",
-                    "description": "Internal dashboard for analytics and reporting using Tremor and Shadcn UI."
+                    "title": "Mozart - Requiem",
+                    "slug": "https://www.youtube.com/watch?v=Zi8vJ_lMxQI",
+                    "description": "One of the most powerful and moving choral masterpieces ever written."
+                },
+                {
+                    "title": "Debussy - Clair de Lune",
+                    "slug": "https://www.youtube.com/watch?v=CvFH_6DNRCY",
+                    "description": "A delicate and atmospheric piece evoking the gentle light of the moon."
+                },
+                {
+                    "title": "Chopin - Nocturne Op. 9 No. 2",
+                    "slug": "https://www.youtube.com/watch?v=9E6b3swbnWg",
+                    "description": "A romantic and expressive piano nocturne, perfect for late-night reflection."
+                },
+                {
+                    "title": "Dvořák - Symphony No. 9 'From the New World'",
+                    "slug": "https://www.youtube.com/watch?v=89jOPAGJq-M",
+                    "description": "A majestic symphony blending American spirituals with Czech folklore."
                 }
             ]
         },
         "whyChooseUsSection": {
-            "title": "Fast & Lightweight",
+            "title": "Everything I Enjoy",
             "items": [
                 {
                     "id": 1,
-                    "title": "All-in-One Platform",
-                    "subTitle": "Manage notes, snippets, tasks, and bugs in a single unified workspace."
+                    "title": "ALL MY STUFF, ONE PLACE",
+                    "subTitle": "Movies, games, music, random links, and notes — everything I like, saved so I don’t lose it again."
                 },
                 {
                     "id": 2,
-                    "title": "Developer-First Design",
-                    "subTitle": "Built by developers for developers with syntax highlighting and code-friendly features."
+                    "title": "MADE FOR BROWSING, NOT WORKING",
+                    "subTitle": "No dashboards. No pressure. Just scroll, click, save, and enjoy whenever I feel like it."
                 },
                 {
                     "id": 3,
-                    "title": "Fast & Lightweight",
-                    "subTitle": "Optimized performance ensures your workflow stays smooth and responsive."
+                    "title": "FAST & LIGHT (FOR REAL)",
+                    "subTitle": "Opens fast, loads instantly, because waiting kills the mood."
                 },
                 {
                     "id": 4,
-                    "title": "Privacy Focused",
-                    "subTitle": "Your data stays yours. No tracking, no ads, full control."
+                    "title": "PRIVATE BY DEFAULT",
+                    "subTitle": "This space is for me. Nothing social, nothing noisy, no algorithms yelling at me."
                 }
             ]
         },
         "statSection": {
-            "title": "All-in-One Platform",
+            "title": "My Little Digital Universe",
             "stats": [
                 {
                     "id": 1,
                     "value": 300,
                     "suffix": "+",
-                    "title": "Projects Delivered"
+                    "title": "Things Saved"
                 },
                 {
                     "id": 2,
                     "value": 50,
                     "suffix": "+",
-                    "title": "Experts"
+                    "title": "Random Interests"
                 },
                 {
                     "id": 3,
                     "value": 10,
                     "suffix": "+",
-                    "title": "Years of Experience"
+                    "title": "Active Playlists"
                 },
                 {
                     "id": 4,
-                    "value": 98,
-                    "suffix": "%",
-                    "title": "Client Satisfaction"
+                    "value": 0,
+                    "suffix": "∞",
+                    "title": "Things to Explore"
                 }
             ],
             "features": [
                 {
-                    "title": "Quality First",
-                    "sub_title": "We ensure top-tier code quality in every delivery."
+                    "title": "Save It Once, Find It Later",
+                    "sub_title": "Movies, games, videos, notes, links — everything stays exactly where I left it."
                 },
                 {
-                    "title": "Agile Process",
-                    "sub_title": "Faster iterations and continuous feedback loops."
+                    "title": "Organized, But Not Complicated",
+                    "sub_title": "Tags, lists, and folders when I need them. Chaos is optional."
                 },
                 {
-                    "title": "Expert Team",
-                    "sub_title": "Seasoned professionals with deep domain knowledge."
+                    "title": "Made For Curious Minds",
+                    "sub_title": "From deep dives to random interests, this space grows with whatever I’m into lately."
                 },
                 {
-                    "title": "Scalable Tech",
-                    "sub_title": "Architectures built to grow with your business."
+                    "title": "Built To Last (Hopefully)",
+                    "sub_title": "Things change. Interests change. At least this place remembers them all."
                 }
             ],
             "cta": {
-                "label": "Contact Us",
-                "url": "/contact"
+                "label": "Open My Hub",
+                "url": "/cases"
             }
         }
     },
     "layout": {
         "metadata": {
-            "title": "Main Hub",
+            "title": "My Space",
             "description": "Personal knowledge base, snippets, tasks, and bug tracker for developers"
         }
     },
     "footer": {
-        "email": "hello@devhub.com",
-        "phone": "+1 (555) 123-4567",
-        "copyright": "© 2024 Dev Knowledge Hub. All rights reserved.",
+        "email": "[EMAIL_ADDRESS]",
+        "phone": "[PHONE_NUMBER]",
+        "copyright": "© 2026 My Space. All rights reserved.",
         "social_links": [
             {
                 "label": "Twitter",
@@ -226,23 +260,23 @@
                 "url": "/notes"
             },
             {
-                "label": "Snippets",
-                "url": "/snippets"
+                "label": "Working",
+                "url": "/working"
             },
             {
-                "label": "Tasks",
-                "url": "/tasks"
+                "label": "Planner",
+                "url": "/planner"
             },
             {
-                "label": "Bugs",
-                "url": "/bugs"
+                "label": "Bookmarks",
+                "url": "/bookmarks"
             }
         ],
         "addresses": [
             {
                 "id": "1",
-                "title": "Main Office",
-                "content": "123 Code Street, Tech City, TC 94043"
+                "title": "Ho Chi Minh City",
+                "content": "Vietnam"
             }
         ],
         "policy_links": [

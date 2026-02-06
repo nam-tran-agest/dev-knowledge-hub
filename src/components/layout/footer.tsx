@@ -12,7 +12,7 @@ type FooterProps = {
 
 export default function Footer({ footer }: FooterProps) {
     return (
-        <footer className="bg-footer mx-auto px-4 md:px-8 lg:px-16 2xl:px-20 2xl:min-w-[1440px]">
+        <footer className="bg-footer mx-auto px-4 md:px-8 lg:px-16 2xl:px-20 2xl:min-w-[1440px] bg-gradient-to-b from-black/90 via-slate-950 to-blue-950">
             <div className="pb-16 pt-16 border-t-2 border-white/5 xl:pt-[60px] xl:pb-10">
                 <div className="flex items-start gap-6 flex-col md:gap-10 lg:flex-row xl:gap-6">
                     <div className="flex w-full lg:w-1/2 flex-col md:flex-row gap-6 xl:gap-6">
@@ -30,7 +30,7 @@ export default function Footer({ footer }: FooterProps) {
                                         height={40}
                                     />
                                 ) : (
-                                    <div className="text-2xl font-bold text-white">DevHub</div>
+                                    <div className="text-2xl font-bold text-white">My Space</div>
                                 )}
                             </div>
 

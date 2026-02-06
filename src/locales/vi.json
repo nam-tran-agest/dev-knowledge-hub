@@ -82,36 +82,70 @@
             "title": "Sử dụng công nghệ",
             "logos": [
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-                    "alt": "React"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+                    "alt": "Netflix",
+                    "href": "https://www.netflix.com"
                 },
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
-                    "alt": "Next.js"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
+                    "alt": "Spotify",
+                    "href": "https://open.spotify.com"
                 },
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
-                    "alt": "Tailwind"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+                    "alt": "YouTube",
+                    "href": "https://www.youtube.com"
                 },
                 {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
-                    "alt": "TypeScript"
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+                    "alt": "ChatGPT",
+                    "href": "https://chat.openai.com"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg",
+                    "alt": "Steam",
+                    "href": "https://store.steampowered.com"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Twitch_Glitch_Logo_Purple.svg",
+                    "alt": "Twitch",
+                    "href": "https://www.twitch.tv"
+                },
+                {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg",
+                    "alt": "Reddit",
+                    "href": "https://www.reddit.com"
                 }
             ]
         },
         "caseStudy": {
-            "title": "Dự án nổi bật",
-            "readMoreLabel": "Xem dự án",
+            "title": "Nhạc Cổ Điển Bất Hủ",
+            "readMoreLabel": "Nghe Ngay",
             "items": [
                 {
-                    "title": "Dự án Alpha",
-                    "slug": "/cases/alpha",
-                    "description": "Nền tảng thương mại điện tử mở rộng xây dựng bằng Next.js 14 và Stripe Connect."
+                    "title": "Beethoven - Moonlight Sonata",
+                    "slug": "https://www.youtube.com/watch?v=4Tr0otuiQuU",
+                    "description": "Bản sonata piano đẹp đến ám ảnh, chứa đựng cảm xúc sâu lắng và sự thanh bình."
                 },
                 {
-                    "title": "Dự án Beta",
-                    "slug": "/cases/beta",
-                    "description": "Dashboard nội bộ cho phân tích và báo cáo sử dụng Tremor và Shadcn UI."
+                    "title": "Mozart - Requiem",
+                    "slug": "https://www.youtube.com/watch?v=Zi8vJ_lMxQI",
+                    "description": "Một trong những kiệt tác hợp xướng mạnh mẽ và xúc động nhất từng được viết."
+                },
+                {
+                    "title": "Debussy - Clair de Lune",
+                    "slug": "https://www.youtube.com/watch?v=CvFH_6DNRCY",
+                    "description": "Một tác phẩm tinh tế và đầy không khí, gợi lên ánh sáng dịu dàng của mặt trăng."
+                },
+                {
+                    "title": "Chopin - Nocturne Op. 9 No. 2",
+                    "slug": "https://www.youtube.com/watch?v=9E6b3swbnWg",
+                    "description": "Bản dạ khúc piano lãng mạn và đầy biểu cảm, hoàn hảo cho những phút giây suy tư."
+                },
+                {
+                    "title": "Dvořák - Symphony No. 9 'From the New World'",
+                    "slug": "https://www.youtube.com/watch?v=89jOPAGJq-M",
+                    "description": "Bản giao hưởng hùng tráng kết hợp âm hưởng tâm linh Mỹ với văn hóa dân gian Séc."
                 }
             ]
         },
@@ -141,49 +175,49 @@
             ]
         },
         "statSection": {
-            "title": "Nền tảng tất cả trong một",
+            "title": "Vũ trụ kỹ thuật số của tôi",
             "stats": [
                 {
                     "id": 1,
                     "value": 300,
                     "suffix": "+",
-                    "title": "Dự án hoàn thành"
+                    "title": "Mục đã lưu"
                 },
                 {
                     "id": 2,
                     "value": 50,
                     "suffix": "+",
-                    "title": "Chuyên gia"
+                    "title": "Sở thích"
                 },
                 {
                     "id": 3,
                     "value": 10,
                     "suffix": "+",
-                    "title": "Năm kinh nghiệm"
+                    "title": "Playlist phát"
                 },
                 {
                     "id": 4,
-                    "value": 98,
-                    "suffix": "%",
-                    "title": "Khách hàng hài lòng"
+                    "value": 0,
+                    "suffix": "∞",
+                    "title": "Thứ để khám phá"
                 }
             ],
             "features": [
                 {
-                    "title": "Chất lượng hàng đầu",
-                    "sub_title": "Chúng tôi đảm bảo chất lượng code cao nhất trong mỗi lần bàn giao."
+                    "title": "Save It Once, Find It Later",
+                    "sub_title": "Movies, games, videos, notes, links — everything stays exactly where I left it."
                 },
                 {
-                    "title": "Quy trình Agile",
-                    "sub_title": "Vòng lặp nhanh hơn và phản hồi liên tục."
+                    "title": "Organized, But Not Complicated",
+                    "sub_title": "Tags, lists, and folders when I need them. Chaos is optional."
                 },
                 {
-                    "title": "Đội ngũ chuyên gia",
-                    "sub_title": "Các chuyên gia dày dạn kinh nghiệm với kiến thức sâu rộng."
+                    "title": "Made For Curious Minds",
+                    "sub_title": "From deep dives to random interests, this space grows with whatever I’m into lately."
                 },
                 {
-                    "title": "Công nghệ mở rộng",
-                    "sub_title": "Kiến trúc được xây dựng để phát triển cùng doanh nghiệp của bạn."
+                    "title": "Built To Last (Hopefully)",
+                    "sub_title": "Things change. Interests change. At least this place remembers them all."
                 }
             ],
             "cta": {

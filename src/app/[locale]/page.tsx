@@ -48,7 +48,8 @@ export default async function Dashboard() {
         title={homeData.marquee.title}
         logos={homeData.marquee.logos.map((logo: any) => ({
           url: logo.url,
-          alternativeText: logo.alt
+          alternativeText: logo.alt,
+          href: logo.href
         }))}
       />
 
