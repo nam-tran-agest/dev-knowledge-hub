@@ -6,6 +6,12 @@ export interface Note extends BaseEntity {
     category_slug: string | null
     user_id: string
     tags: string[]
+    category?: {
+        name: string
+        color: string
+        icon: string
+        slug: string
+    }
     is_published: boolean
 }
 
