@@ -75,8 +75,14 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                     }
                 }
 
-                // Filter out non-image URLs (like SoundCloud players)
-                if (imageUrl && (imageUrl.includes('soundcloud.com') || imageUrl.includes('player/'))) {
+                // Filter out non-image URLs (like SoundCloud players, iframes, etc.)
+                if (imageUrl && (
+                    imageUrl.includes('soundcloud.com') ||
+                    imageUrl.includes('player/') ||
+                    imageUrl.includes('youtube.com/embed') ||
+                    imageUrl.includes('facebook.com/plugins') ||
+                    imageUrl.includes('iframe')
+                )) {
                     imageUrl = '';
                 }
                 if (!imageUrl) {
