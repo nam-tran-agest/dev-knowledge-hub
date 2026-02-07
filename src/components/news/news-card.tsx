@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Bookmark, Share2, ChevronRight } from 'lucide-react';
-import { NewsItem } from './types';
+import { NewsItem } from '@/types/news';
 
 export function NewsCard({ item }: { item: NewsItem }) {
     return (

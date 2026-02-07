@@ -4,6 +4,7 @@ export interface NewsItem {
     excerpt: string;
     time: string;
     category: string;
+    categoryId?: string;
     image: string;
     author: string;
     sourceLogo?: string;

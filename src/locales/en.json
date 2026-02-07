@@ -483,7 +483,13 @@
         },
         "news": {
             "title": "News Hub",
-            "subtitle": "Stay updated with the latest tech and world news.",
+            "subtitle": "Stay updated with the latest tech, gaming and world trends.",
+            "latestNews": "Latest Trends",
+            "recent": "Recent",
+            "popular": "Popular",
+            "noNews": "No news available to display.",
+            "tryAgain": "Please try again later.",
+            "categoryDescription": "Displaying latest news for {category}",
             "featured": {
                 "badge": "LATEST NEWS",
                 "editor": "Source"
@@ -492,6 +498,18 @@
                 "categories": "Categories",
                 "trending": "Trending",
                 "viewMoreTrending": "View more"
+            },
+            "categories": {
+                "all": "All",
+                "social": "Social",
+                "world": "World",
+                "tech-science": "Technology & Science",
+                "sports": "Sports",
+                "gaming": "Gaming",
+                "entertainment": "Entertainment",
+                "health": "Health",
+                "business": "Business",
+                "education": "Education"
             }
         }
     }

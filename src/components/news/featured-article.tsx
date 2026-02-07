@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
-import { NewsItem } from './types';
+import { NewsItem } from '@/types/news';
 import { useTranslations } from 'next-intl';
 import CarouselDot from '@/components/common/ui/data-display/CarouselDot';
 

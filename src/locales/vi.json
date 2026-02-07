@@ -483,7 +483,13 @@
         },
         "news": {
             "title": "Tin tức Hub",
-            "subtitle": "Cập nhật các tin tức mới nhất về công nghệ và thế giới.",
+            "subtitle": "Cập nhật các tin tức mới nhất về công nghệ, game và xu hướng thế giới.",
+            "latestNews": "Xu hướng mới nhất",
+            "recent": "Gần đây",
+            "popular": "Phổ biến",
+            "noNews": "Không có tin tức nào để hiển thị.",
+            "tryAgain": "Vui lòng thử lại sau.",
+            "categoryDescription": "Hiển thị tin tức mới nhất cho {category}",
             "featured": {
                 "badge": "TIN MỚI NHẤT",
                 "editor": "Nguồn tin"
@@ -492,6 +498,19 @@
                 "categories": "Chuyên mục",
                 "trending": "Xu hướng",
                 "viewMoreTrending": "Xem thêm"
+            },
+            "categories": {
+                "all": "Tất cả",
+                "tech-science": "Khoa học & Công nghệ",
+                "gaming": "Trò chơi",
+                "social": "Social Tab",
+                "entertainment": "Giải trí",
+                "world": "Thế giới",
+                "health": "Sức khỏe",
+                "business": "Kinh doanh",
+                "sports": "Thể thao",
+                "education": "Giáo dục",
+                "ai-future": "AI & Tương lai"
             }
         }
     }
