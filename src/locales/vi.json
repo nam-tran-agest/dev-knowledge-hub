@@ -475,7 +475,59 @@
     "media": {
         "youtube": {
             "title": "Trung Tâm YouTube",
-            "subtitle": "Kho video cá nhân. Lưu lại khoảnh khắc, xem tiếp bất cứ lúc nào."
+            "subtitle": "Kho video cá nhân. Lưu lại khoảnh khắc, xem tiếp bất cứ lúc nào.",
+            "tabs": {
+                "recent": "Gần đây",
+                "playlists": "Danh sách phát",
+                "favorites": "Yêu thích"
+            },
+            "actions": {
+                "addVideo": "Thêm Video",
+                "createPlaylist": "Tạo Playlist",
+                "addToPlaylist": "Thêm vào Playlist"
+            },
+            "dialogs": {
+                "createPlaylist": {
+                    "title": "Tạo Playlist Mới",
+                    "description": "Thêm một bộ sưu tập mới để sắp xếp các video của bạn.",
+                    "titleLabel": "Tiêu đề Playlist",
+                    "titlePlaceholder": "VD: Học React",
+                    "descriptionLabel": "Mô tả (Không bắt buộc)",
+                    "descriptionPlaceholder": "Playlist này nói về điều gì?",
+                    "submit": "Tạo Playlist"
+                },
+                "addToPlaylist": {
+                    "title": "Thêm vào Playlist",
+                    "empty": "Chưa có playlist nào. Hãy tạo một cái trước!",
+                    "close": "Đóng"
+                }
+            },
+            "gallery": {
+                "favoritePlaylists": "Playlist Yêu Thích",
+                "noPlaylists": "Không tìm thấy playlist nào",
+                "noPlaylistsDesc": "Tạo một playlist tùy chỉnh để bắt đầu sắp xếp video của bạn.",
+                "createFirst": "Tạo Playlist Đầu Tiên",
+                "viewContent": "Xem Nội Dung",
+                "videoCount": "{count} Video"
+            },
+            "playlist": {
+                "back": "Quay lại",
+                "empty": "Playlist này đang trống",
+                "emptyDesc": "Thêm video vào bộ sưu tập này từ thư viện Gần đây của bạn.",
+                "browseRecent": "Xem Video Gần Đây",
+                "videoCount": "{count} Video",
+                "removeTitle": "Xóa khỏi bộ sưu tập?",
+                "removeDesc": "Thao tác này sẽ xóa video khỏi \"{title}\" nhưng vẫn giữ nó trong thư viện chính của bạn.",
+                "cancel": "Hủy",
+                "remove": "Xóa"
+            },
+            "video": {
+                "thumbnailAlt": "Hình thu nhỏ video",
+                "noThumbnail": "Không có hình",
+                "toggleFavorite": "Yêu thích",
+                "addToPlaylist": "Thêm vào Playlist",
+                "delete": "Xóa Video"
+            }
         },
         "games": {
             "title": "Games Hub",

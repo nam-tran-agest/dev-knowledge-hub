@@ -27,11 +27,12 @@ export default async function NewsUnifiedPage({
         notFound();
     }
 
-    const t = await getTranslations({ locale, namespace: 'media.news' });
-    const tCategories = await getTranslations({ locale, namespace: 'media.news.categories' });
-
-    // Fetch news based on category
-    const newsItems = await getNews(categoryId === 'all' ? undefined : categoryId);
+    // Parallelize translation and news fetching
+    const [t, tCategories, newsItems] = await Promise.all([
+        getTranslations({ locale, namespace: 'media.news' }),
+        getTranslations({ locale, namespace: 'media.news.categories' }),
+        getNews(categoryId === 'all' ? undefined : categoryId)
+    ]);
 
     if (newsItems.length === 0 && categoryId === 'all') {
         return (
@@ -42,34 +43,47 @@ export default async function NewsUnifiedPage({
         );
     }
 
-    // Diverse Selection for Featured Carousel (only for 'all' or if many items)
-    let featuredItems: NewsItem[] = [];
+    // Diverse Selection for Featured Carousel
+    const featuredItems: NewsItem[] = [];
     if (categoryId === 'all') {
         const seenSources = new Set<string>();
+        // First pass: unique sources
         for (const item of newsItems) {
             if (!seenSources.has(item.author) && featuredItems.length < 5) {
                 featuredItems.push(item);
                 seenSources.add(item.author);
             }
         }
+        // Second pass: fill remaining
         if (featuredItems.length < 5) {
             for (const item of newsItems) {
-                if (!featuredItems.find(fi => fi.link === item.link) && featuredItems.length < 5) {
+                if (featuredItems.length >= 5) break;
+                if (!featuredItems.some(fi => fi.link === item.link)) {
                     featuredItems.push(item);
                 }
             }
         }
     } else {
-        featuredItems = newsItems.slice(0, 5);
+        featuredItems.push(...newsItems.slice(0, 5));
     }
 
     const featuredLinks = new Set(featuredItems.map(i => i.link));
     const remainingItems = newsItems.filter(i => !featuredLinks.has(i.link));
 
-    // Trending items (always from 'all' for sidebar if we want global trending)
-    // Or just slice from the current list for simplicity if on category page
-    const trendingItems = (categoryId === 'all' ? remainingItems : await getNews()).slice(0, 10);
-    const feedItems = remainingItems.slice(categoryId === 'all' ? 10 : 0, 30);
+    // Trending items: 
+    // If we're on 'all', take from remaining. 
+    // If on category, we might want global trending, but to save an API call, we can just use category items for now 
+    // or fetch global once in a separate block if really needed. 
+    // For now, let's optimize to use current items unless on category where we might want 'real' global trending.
+    let trendingItems: NewsItem[] = [];
+    if (categoryId === 'all') {
+        trendingItems = remainingItems.slice(0, 10);
+    } else {
+        // Only fetch global trending if we're in a specific category to keep sidebar relevant
+        trendingItems = (await getNews()).slice(0, 10);
+    }
+
+    const feedItems = categoryId === 'all' ? remainingItems.slice(10, 40) : remainingItems.slice(0, 30);
 
     // Map icons from strings to components for the sidebar
     const CATEGORIES_WITH_ICONS = CATEGORIES.map(cat => {

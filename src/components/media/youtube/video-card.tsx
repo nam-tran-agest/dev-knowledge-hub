@@ -1,20 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { Play, Trash2, Clock, Heart } from "lucide-react";
+import { Play, Trash2, Clock, Heart, ListPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { SavedVideo } from "@/types/youtube";
+import type { SavedVideo, SavedPlaylist } from "@/types/youtube";
+import { useTranslations } from "next-intl";
 
 interface VideoCardProps {
     video: SavedVideo;
     onSelect: (video: SavedVideo) => void;
     onDelete: (id: string) => void;
     onToggleFavorite: (e: React.MouseEvent, video: SavedVideo) => void;
+    playlists: SavedPlaylist[];
+    onAddToPlaylist?: (videoId: string) => void;
 }
 
-export function VideoCard({ video, onSelect, onDelete, onToggleFavorite }: VideoCardProps) {
+export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, playlists, onAddToPlaylist }: VideoCardProps) {
+    const t = useTranslations('media.youtube.video');
+
     return (
         <Card
             onClick={() => onSelect(video)}
@@ -26,13 +31,13 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite }: Video
                     {video.thumbnail_url ? (
                         <Image
                             src={video.thumbnail_url}
-                            alt={video.title || "Video thumbnail"}
+                            alt={video.title || t('thumbnailAlt')}
                             fill
                             className="object-cover"
                         />
                     ) : (
                         <div className="flex items-center justify-center h-full w-full text-gray-500">
-                            No Thumbnail
+                            {t('noThumbnail')}
                         </div>
                     )}
 
@@ -42,15 +47,34 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite }: Video
                     <Button
                         variant="ghost"
                         size="icon"
-                        onClick={(e) => onToggleFavorite(e, video)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onToggleFavorite(e, video);
+                        }}
                         className="absolute top-2 left-2 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white cursor-pointer"
-                        title="Toggle Favorite"
+                        title={t('toggleFavorite')}
                     >
                         <Heart
                             className={`w-4 h-4 ${video.is_favorite ? "fill-red-500 text-red-500" : "text-white"
                                 }`}
                         />
                     </Button>
+
+                    {/* Add to Playlist Button */}
+                    {onAddToPlaylist && (
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onAddToPlaylist(video.id);
+                            }}
+                            className="absolute bottom-2 left-2 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+                            title={t('addToPlaylist')}
+                        >
+                            <ListPlus className="w-4 h-4" />
+                        </Button>
+                    )}
 
                     {/* Time Badge */}
                     {video.saved_time > 0 && (
@@ -72,7 +96,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite }: Video
                             onDelete(video.id);
                         }}
                         className="absolute top-2 right-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer"
-                        title="Delete Video"
+                        title={t('delete')}
                     >
                         <Trash2 className="w-4 h-4" />
                     </Button>

@@ -8,3 +8,23 @@ export interface SavedVideo {
     updated_at: string;
     created_at: string;
 }
+
+export interface SavedPlaylist {
+    id: string;
+    created_at: string;
+    updated_at: string;
+    title: string;
+    description: string | null;
+    thumbnail_url: string | null;
+    is_favorite: boolean;
+    user_id?: string;
+    video_count?: number; // Optional virtual field
+}
+
+export interface PlaylistItem {
+    id: string;
+    created_at: string;
+    playlist_id: string;
+    video_id: string;
+    position: number;
+}

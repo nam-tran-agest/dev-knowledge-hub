@@ -9,11 +9,12 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Save, ExternalLink, PictureInPicture2, X } from 'lucide-react';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { usePipDraggable } from '@/hooks/use-pip-draggable';
 import { useRouter } from 'next/navigation';
 import { updateVideoProgress } from '@/lib/actions/youtube';
 import type { SavedVideo } from '@/types/youtube';
+import { YouTubePlayer } from './youtube-player';
 
 interface VideoModalProps {
     isOpen: boolean;
@@ -21,98 +22,27 @@ interface VideoModalProps {
     video: SavedVideo | null;
 }
 
-declare global {
-    interface Window {
-        YT: any;
-        onYouTubeIframeAPIReady: () => void;
-    }
-}
-
 export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
-    const playerRef = useRef<any>(null);
     const lastTimeRef = useRef(0);
     const [isSaving, setIsSaving] = useState(false);
     const [isPip, setIsPip] = useState(false);
     const router = useRouter();
 
-    // Extracted PiP Draggable Logic
     const { style: pipStyle, handleDragStart, position } = usePipDraggable(isPip);
 
-    // Sync lastTimeRef when video changes (new video selected)
+    // Update lastTimeRef when video changes
     useEffect(() => {
         if (video) {
             lastTimeRef.current = video.saved_time || 0;
         }
-    }, [video?.id, video?.saved_time]);
-
-
-    // Track playback time
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (playerRef.current && typeof playerRef.current.getCurrentTime === 'function') {
-                lastTimeRef.current = playerRef.current.getCurrentTime();
-            }
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
-
-    // Load YouTube API
-    useEffect(() => {
-        if (!isOpen || !video) return;
-
-        // Helper to init player
-        const initPlayer = () => {
-            // If container doesn't exist yet, wait (Dialog animation)
-            const container = document.getElementById('youtube-player');
-            if (!container) return;
-
-            playerRef.current = new window.YT.Player('youtube-player', {
-                height: '100%',
-                width: '100%',
-                videoId: getYouTubeId(video.url),
-                playerVars: {
-                    autoplay: 1,
-                    start: Math.floor(lastTimeRef.current), // Start from tracked time
-                },
-            });
-        };
-
-        // Check if API is ready
-        if (!window.YT) {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-            window.onYouTubeIframeAPIReady = initPlayer;
-        } else {
-            // Destroy existing player if needed to prevent duplicates or state issues
-            if (playerRef.current && playerRef.current.destroy) {
-                playerRef.current.destroy();
-            }
-            setTimeout(initPlayer, 100); // Small delay for Dialog to mount
-        }
-
-        return () => {
-            // Cleanup on unmount (or PiP toggle if remounting)
-            if (playerRef.current && playerRef.current.destroy) {
-                // Ensure we save the specific last time before destroy if possible?
-                // The interval handles it mostly.
-                if (typeof playerRef.current.getCurrentTime === 'function') {
-                    lastTimeRef.current = playerRef.current.getCurrentTime();
-                }
-                playerRef.current.destroy();
-                playerRef.current = null;
-            }
-        };
-    }, [isOpen, video, isPip]); // Re-run when PiP toggles to re-init properly if remounted
+    }, [video?.id]);
 
     const handleSaveProgress = async () => {
-        if (!playerRef.current || !video) return;
+        if (!video) return;
 
         setIsSaving(true);
         try {
-            const currentTime = playerRef.current.getCurrentTime();
-            await updateVideoProgress(video.id, currentTime);
+            await updateVideoProgress(video.id, lastTimeRef.current);
             router.refresh();
             onClose();
         } catch (error) {
@@ -122,34 +52,29 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
         }
     };
 
-
     if (!video) return null;
 
-    // Helper to determine PiP classes
-    // If not dragged yet (position is null), rely on bottom-6 right-6.
-    // If dragged, use style (top/left) and remove bottom/right/auto constraints.
     const pipClasses = isPip
         ? `fixed w-[400px] shadow-2xl z-50 rounded-lg overflow-hidden border-gray-700 bg-black p-0 transition-all duration-300 pointer-events-auto group ${position
-            ? '!translate-x-0 !translate-y-0' // Just override transforms
-            : 'bottom-6 right-6 !translate-x-0 !translate-y-0 !top-auto !left-auto' // Force initial corner
+            ? '!translate-x-0 !translate-y-0'
+            : 'bottom-6 right-6 !translate-x-0 !translate-y-0 !top-auto !left-auto'
         }`
-        : "sm:max-w-4xl bg-black/95 border-gray-800 p-0 overflow-hidden flex flex-col transition-all duration-300 group";
+        : "sm:max-w-4xl bg-[#0a1224] bg-gradient-to-br from-[#0c1a36] via-[#0a1224] to-[#040816] border-gray-800 p-0 overflow-hidden flex flex-col transition-all duration-300 group";
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()} modal={!isPip}>
             <DialogContent
                 className={pipClasses}
                 style={pipStyle}
-                overlayClassName={isPip ? "bg-transparent pointer-events-none" : ""}
+                overlayClassName="bg-black/60 backdrop-blur-sm"
                 onInteractOutside={(e) => {
-                    // Prevent closing on interact outside when in PiP
                     if (isPip) e.preventDefault();
                 }}
+                hideCloseButton
             >
-                {/* Drag Handle Area - Header */}
                 <DialogHeader
                     onMouseDown={handleDragStart}
-                    className={`p-4 bg-background/10 backdrop-blur-sm absolute top-0 w-full z-10 flex flex-row items-center justify-between transition-opacity duration-300 cursor-move ${isPip ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}
+                    className={`p-4 bg-white/5 backdrop-blur-md flex flex-row items-center justify-between transition-opacity duration-300 ${isPip ? 'cursor-move absolute top-0 w-full z-10 opacity-0 group-hover:opacity-100' : 'relative opacity-100 border-b border-white/10'}`}
                 >
                     <div className='flex-1 pr-4 min-w-0'>
                         <DialogTitle className="text-white truncate flex items-center gap-2">
@@ -193,7 +118,8 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
 
                         <Button
                             onClick={handleSaveProgress}
-                            className="bg-red-600 hover:bg-red-700 text-white gap-2 shrink-0 cursor-pointer"
+                            size="sm"
+                            className="bg-red-600 hover:bg-red-700 text-white gap-2 cursor-pointer h-9 px-4"
                             disabled={isSaving}
                         >
                             <Save className="w-4 h-4" />
@@ -202,8 +128,13 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                     </div>
                 </DialogHeader>
 
-                <div className="relative w-full aspect-video bg-black mt-16 sm:mt-0">
-                    <div id="youtube-player" className="w-full h-full" />
+                <div className="relative w-full aspect-video bg-black">
+                    <YouTubePlayer
+                        key={video.id}
+                        videoId={getYouTubeId(video.url) || ''}
+                        startTime={video.saved_time}
+                        onTimeUpdate={(t) => lastTimeRef.current = t}
+                    />
                 </div>
             </DialogContent>
         </Dialog>

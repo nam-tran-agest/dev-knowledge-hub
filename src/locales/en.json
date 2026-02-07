@@ -475,7 +475,59 @@
     "media": {
         "youtube": {
             "title": "YouTube Center",
-            "subtitle": "Your personal library. Save moments, resume anytime."
+            "subtitle": "Your personal library. Save moments, resume anytime.",
+            "tabs": {
+                "recent": "Recent",
+                "playlists": "Playlists",
+                "favorites": "Favorites"
+            },
+            "actions": {
+                "addVideo": "Add Video",
+                "createPlaylist": "Create Playlist",
+                "addToPlaylist": "Add to Playlist"
+            },
+            "dialogs": {
+                "createPlaylist": {
+                    "title": "Create New Playlist",
+                    "description": "Add a new collection to organize your saved videos.",
+                    "titleLabel": "Playlist Title",
+                    "titlePlaceholder": "e.g. Learning React",
+                    "descriptionLabel": "Description (Optional)",
+                    "descriptionPlaceholder": "What is this playlist about?",
+                    "submit": "Create Playlist"
+                },
+                "addToPlaylist": {
+                    "title": "Add to Playlist",
+                    "empty": "No playlists yet. Create one first!",
+                    "close": "Close"
+                }
+            },
+            "gallery": {
+                "favoritePlaylists": "Favorite Playlists",
+                "noPlaylists": "No playlists found",
+                "noPlaylistsDesc": "Create a custom playlist to start organizing your videos.",
+                "createFirst": "Create First Playlist",
+                "viewContent": "View Content",
+                "videoCount": "{count} Videos"
+            },
+            "playlist": {
+                "back": "Back to Hub",
+                "empty": "This playlist is empty",
+                "emptyDesc": "Add videos to this collection from your Recent library.",
+                "browseRecent": "Browse Recent Videos",
+                "videoCount": "{count} Videos",
+                "removeTitle": "Remove from collection?",
+                "removeDesc": "This will remove the video from \"{title}\" but keep it in your main library.",
+                "cancel": "Cancel",
+                "remove": "Remove"
+            },
+            "video": {
+                "thumbnailAlt": "Video thumbnail",
+                "noThumbnail": "No Thumbnail",
+                "toggleFavorite": "Toggle Favorite",
+                "addToPlaylist": "Add to Playlist",
+                "delete": "Delete Video"
+            }
         },
         "games": {
             "title": "Games Hub",

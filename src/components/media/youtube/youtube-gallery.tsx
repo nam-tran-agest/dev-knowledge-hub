@@ -2,12 +2,16 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
-import { PlayCircle, Plus, Clock } from 'lucide-react';
+import { PlayCircle, Plus, Clock, ListVideo, Heart } from 'lucide-react';
 import { VideoModal } from './video-modal';
 import { VideoCard } from './video-card';
-import type { SavedVideo } from '@/types/youtube';
-import { addVideo, deleteVideo, toggleFavorite } from '@/lib/actions/youtube';
+import { PlaylistCard } from './playlist-card';
+import { CreatePlaylistDialog } from './create-playlist-dialog';
+import { AddToPlaylistDialog } from './add-to-playlist-dialog';
+import type { SavedVideo, SavedPlaylist } from '@/types/youtube';
+import { addVideo, deleteVideo, toggleFavorite, deletePlaylist, togglePlaylistFavorite } from '@/lib/actions/youtube';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -27,14 +31,22 @@ import {
 
 interface YouTubeGalleryProps {
     videos: SavedVideo[];
+    playlists: SavedPlaylist[];
 }
 
-export function YouTubeGallery({ videos }: YouTubeGalleryProps) {
+export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
+    const t = useTranslations('media.youtube');
     const [selectedVideo, setSelectedVideo] = useState<SavedVideo | null>(null);
     const [videoToDelete, setVideoToDelete] = useState<string | null>(null);
+    const [playlistToDelete, setPlaylistToDelete] = useState<string | null>(null);
+    const [videoIdToAdd, setVideoIdToAdd] = useState<string | null>(null);
+    const [isCreatePlaylistOpen, setIsCreatePlaylistOpen] = useState(false);
     const [url, setUrl] = useState('');
     const [isAdding, setIsAdding] = useState(false);
     const router = useRouter();
+
+    const favoriteVideos = videos.filter(v => v.is_favorite);
+    const favoritePlaylists = playlists.filter(p => p.is_favorite);
 
     const handleAddVideo = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,28 +61,41 @@ export function YouTubeGallery({ videos }: YouTubeGalleryProps) {
             setUrl('');
         } catch (error) {
             console.error('Failed to add video', error);
-            alert('Invalid YouTube URL or Error saving to database');
         } finally {
             setIsAdding(false);
         }
     };
 
     const confirmDelete = async () => {
-        if (!videoToDelete) return;
         try {
-            await deleteVideo(videoToDelete);
+            if (videoToDelete) {
+                await deleteVideo(videoToDelete);
+            } else if (playlistToDelete) {
+                await deletePlaylist(playlistToDelete);
+            }
             router.refresh();
         } catch (error) {
             console.error('Failed to delete', error);
         } finally {
             setVideoToDelete(null);
+            setPlaylistToDelete(null);
         }
     };
 
-    const handleToggleFavorite = async (e: React.MouseEvent, video: SavedVideo) => {
+    const handleToggleVideoFavorite = async (e: React.MouseEvent, video: SavedVideo) => {
         e.stopPropagation();
         try {
             await toggleFavorite(video.id, !video.is_favorite);
+            router.refresh();
+        } catch (error) {
+            console.error('Failed to toggle favorite', error);
+        }
+    };
+
+    const handleTogglePlaylistFavorite = async (e: React.MouseEvent, playlist: SavedPlaylist) => {
+        e.stopPropagation();
+        try {
+            await togglePlaylistFavorite(playlist.id, !playlist.is_favorite);
             router.refresh();
         } catch (error) {
             console.error('Failed to toggle favorite', error);
@@ -85,7 +110,7 @@ export function YouTubeGallery({ videos }: YouTubeGalleryProps) {
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 mb-4">
                             <PlayCircle className="w-8 h-8 text-red-500" />
                         </div>
-                        <h3 className="text-xl font-semibold mb-2 text-white">No videos found</h3>
+                        <h3 className="text-xl font-semibold mb-2 text-white">{t('gallery.noVideosFound')}</h3>
                         <p className="text-gray-400">{emptyText}</p>
                     </CardContent>
                 </Card>
@@ -108,14 +133,16 @@ export function YouTubeGallery({ videos }: YouTubeGalleryProps) {
                 {Object.keys(groups).map((dateKey) => (
                     <div key={dateKey} className="space-y-4">
                         <h2 className="text-xl font-bold text-white border-l-4 border-red-500 pl-3">{dateKey}</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {groups[dateKey].map((video) => (
                                 <VideoCard
                                     key={video.id}
                                     video={video}
                                     onSelect={setSelectedVideo}
                                     onDelete={(id) => setVideoToDelete(id)}
-                                    onToggleFavorite={handleToggleFavorite}
+                                    onToggleFavorite={handleToggleVideoFavorite}
+                                    playlists={playlists}
+                                    onAddToPlaylist={(id) => setVideoIdToAdd(id)}
                                 />
                             ))}
                         </div>
@@ -126,32 +153,122 @@ export function YouTubeGallery({ videos }: YouTubeGalleryProps) {
     };
 
     return (
-        <div className="space-y-8">
-            <div className="max-w-xl mx-auto w-full">
-                <form onSubmit={handleAddVideo} className="flex gap-2 items-center">
+        <div className="space-y-8 pb-20">
+            <div className="bg-slate-900/50 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-2xl">
+                <form onSubmit={handleAddVideo} className="flex gap-4">
                     <Input
                         placeholder="Paste YouTube URL here..."
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
-                        className="bg-slate-900/50 border-white/10 text-white placeholder:text-gray-400 h-11 flex-1"
+                        className="bg-white/5 border-white/10 text-white focus:ring-red-500/50 h-12 text-lg"
+                        disabled={isAdding}
                     />
-                    <Button type="submit" disabled={isAdding} className="bg-red-600 hover:bg-red-700 text-white h-11 px-6 shrink-0 transition-colors">
-                        {isAdding ? <Clock className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
-                        Add
+                    <Button
+                        type="submit"
+                        disabled={isAdding || !url}
+                        className="bg-red-600 hover:bg-red-700 text-white px-8 h-12 text-lg font-semibold transition-all transform hover:scale-105 active:scale-95"
+                    >
+                        {isAdding ? "Adding..." : t('actions.addVideo')}
                     </Button>
                 </form>
             </div>
 
             <Tabs defaultValue="recent" className="w-full">
-                <TabsList className="bg-slate-900/50 border-white/10 text-white mb-6 p-1">
-                    <TabsTrigger value="recent" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 hover:bg-white/10 hover:text-white transition-colors">Recent</TabsTrigger>
-                    <TabsTrigger value="favorites" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 hover:bg-white/10 hover:text-white transition-colors">Favorites</TabsTrigger>
-                </TabsList>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                    <TabsList className="bg-slate-900/50 border border-white/10 p-1 h-auto">
+                        <TabsTrigger value="recent" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 py-2.5 rounded-lg transition-all text-base gap-2">
+                            <Clock className="w-4 h-4" />
+                            {t('tabs.recent')}
+                        </TabsTrigger>
+                        <TabsTrigger value="playlists" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 py-2.5 rounded-lg transition-all text-base gap-2">
+                            <ListVideo className="w-4 h-4" />
+                            {t('tabs.playlists')}
+                        </TabsTrigger>
+                        <TabsTrigger value="favorites" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 py-2.5 rounded-lg transition-all text-base gap-2">
+                            <Heart className="w-4 h-4" />
+                            {t('tabs.favorites')}
+                        </TabsTrigger>
+                    </TabsList>
+
+                    <Button
+                        onClick={() => setIsCreatePlaylistOpen(true)}
+                        variant="outline"
+                        className="bg-white/5 border-white/10 hover:bg-white/10 text-white gap-2 h-11 px-6 rounded-xl transition-all"
+                    >
+                        <Plus className="w-4 h-4" />
+                        {t('actions.createPlaylist')}
+                    </Button>
+                </div>
+
                 <TabsContent value="recent" className="mt-0">
-                    {renderVideos(videos, "Paste a YouTube URL above to start building your library.")}
+                    {renderVideos(videos, "Paste a YouTube Video URL above to start building your library.")}
                 </TabsContent>
-                <TabsContent value="favorites" className="mt-0">
-                    {renderVideos(videos.filter(v => v.is_favorite), "Mark videos as favorite to see them here.")}
+
+                <TabsContent value="playlists" className="mt-0 space-y-12">
+                    {favoritePlaylists.length > 0 && (
+                        <div className="space-y-6">
+                            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                                <Heart className="w-6 h-6 text-red-500 fill-red-500" />
+                                {t('gallery.favoritePlaylists')}
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                {favoritePlaylists.map((playlist) => (
+                                    <PlaylistCard
+                                        key={playlist.id}
+                                        playlist={playlist}
+                                        onDelete={(id) => setPlaylistToDelete(id)}
+                                        onToggleFavorite={handleTogglePlaylistFavorite}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {playlists.map((playlist) => (
+                            <PlaylistCard
+                                key={playlist.id}
+                                playlist={playlist}
+                                onDelete={(id) => setPlaylistToDelete(id)}
+                                onToggleFavorite={handleTogglePlaylistFavorite}
+                            />
+                        ))}
+                        {playlists.length === 0 && (
+                            <div className="col-span-full py-20 text-center bg-slate-900/30 border border-dashed border-white/10 rounded-2xl space-y-4">
+                                <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <ListVideo className="w-10 h-10 text-gray-600" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-400">{t('gallery.noPlaylists')}</h3>
+                                <p className="text-gray-500">{t('gallery.noPlaylistsDesc')}</p>
+                                <Button
+                                    onClick={() => setIsCreatePlaylistOpen(true)}
+                                    className="bg-red-600 hover:bg-red-700"
+                                >
+                                    {t('gallery.createFirst')}
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                </TabsContent>
+
+                <TabsContent value="favorites" className="mt-0 space-y-12">
+                    {renderVideos(favoriteVideos, "Mark videos as favorite to see them here.")}
+
+                    {favoritePlaylists.length > 0 && (
+                        <div className="space-y-4">
+                            <h2 className="text-xl font-bold text-white border-l-4 border-red-500 pl-3">{t('gallery.favoritePlaylists')}</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                {favoritePlaylists.map((playlist) => (
+                                    <PlaylistCard
+                                        key={playlist.id}
+                                        playlist={playlist}
+                                        onDelete={(id) => setPlaylistToDelete(id)}
+                                        onToggleFavorite={handleTogglePlaylistFavorite}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </TabsContent>
             </Tabs>
 
@@ -161,12 +278,12 @@ export function YouTubeGallery({ videos }: YouTubeGalleryProps) {
                 video={selectedVideo}
             />
 
-            <AlertDialog open={!!videoToDelete} onOpenChange={(open) => !open && setVideoToDelete(null)}>
+            <AlertDialog open={!!videoToDelete || !!playlistToDelete} onOpenChange={(open) => !open && (setVideoToDelete(null), setPlaylistToDelete(null))}>
                 <AlertDialogContent className="bg-slate-900 border-white/10 text-white">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                         <AlertDialogDescription className="text-gray-400">
-                            This action cannot be undone. This will permanently delete the video from your library.
+                            This action cannot be undone. This will permanently delete the item from your library.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -175,8 +292,16 @@ export function YouTubeGallery({ videos }: YouTubeGalleryProps) {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
+
+            <CreatePlaylistDialog
+                open={isCreatePlaylistOpen}
+                onOpenChange={setIsCreatePlaylistOpen}
+            />
+            <AddToPlaylistDialog
+                videoId={videoIdToAdd}
+                playlists={playlists}
+                onClose={() => setVideoIdToAdd(null)}
+            />
         </div>
     );
 }
-
-

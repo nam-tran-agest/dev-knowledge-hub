@@ -1,4 +1,4 @@
-import { getVideos } from '@/lib/actions/youtube';
+import { getVideos, getPlaylists } from '@/lib/actions/youtube';
 import { getTranslations } from 'next-intl/server';
 import { YouTubeGallery } from '@/components/media/youtube/youtube-gallery';
 
@@ -9,7 +9,10 @@ export default async function YouTubePage({
 }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'media.youtube' });
-    const videos = await getVideos();
+    const [videos, playlists] = await Promise.all([
+        getVideos(),
+        getPlaylists()
+    ]);
 
     return (
         <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0c1a36] via-[#204b8f] to-[#060f24]">
@@ -23,7 +26,7 @@ export default async function YouTubePage({
                     </p>
                 </div>
 
-                <YouTubeGallery videos={videos} />
+                <YouTubeGallery videos={videos} playlists={playlists} />
             </div>
         </div>
     );
