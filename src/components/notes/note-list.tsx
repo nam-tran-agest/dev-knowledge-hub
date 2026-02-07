@@ -27,7 +27,7 @@ export function NoteList({ notes, selectedNoteId, categorySlug }: NoteListProps)
     return (
         <div className="flex flex-col h-full bg-background border-r border-border/40">
             <div className="p-8 flex items-center justify-between sticky top-0 bg-background/95 backdrop-blur z-10 pb-4">
-                <h2 className="font-bold text-4xl tracking-tight">Notes</h2>
+                <h2 className="font-bold text-gradient text-4xl tracking-tight">Notes</h2>
                 <form action={async () => {
                     'use server'
                     await createNote({

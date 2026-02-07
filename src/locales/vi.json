@@ -476,6 +476,10 @@
         "youtube": {
             "title": "Trung Tâm YouTube",
             "subtitle": "Kho video cá nhân. Lưu lại khoảnh khắc, xem tiếp bất cứ lúc nào."
+        },
+        "games": {
+            "title": "Kho Trò Chơi",
+            "subtitle": "Thư giãn và giải trí với bộ sưu tập trò chơi của chúng tôi."
         }
     }
 }

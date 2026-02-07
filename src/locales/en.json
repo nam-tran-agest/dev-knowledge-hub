@@ -476,6 +476,10 @@
         "youtube": {
             "title": "YouTube Center",
             "subtitle": "Your personal library. Save moments, resume anytime."
+        },
+        "games": {
+            "title": "Games Hub",
+            "subtitle": "Play and relax with our collection of games."
         }
     }
 }
