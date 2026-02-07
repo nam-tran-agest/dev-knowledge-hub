@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Bookmark, Share2, ChevronRight } from 'lucide-react';
 import { NewsItem } from '@/types/news';
+import { TimeDisplay } from './time-display';
 
 export function NewsCard({ item }: { item: NewsItem }) {
     return (
@@ -22,7 +23,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
                 </div>
                 <CardContent className="p-6 flex flex-col flex-1 space-y-4">
                     <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{item.time}</span>
+                        <TimeDisplay isoDate={item.isoDate} className="text-[10px] text-slate-500 font-bold uppercase tracking-widest" />
                         <div className="flex gap-2">
                             <Bookmark className="w-4 h-4 text-slate-500 hover:text-white cursor-pointer transition-colors" />
                             <Share2 className="w-4 h-4 text-slate-500 hover:text-white cursor-pointer transition-colors" />

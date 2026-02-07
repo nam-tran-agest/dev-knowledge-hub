@@ -8,6 +8,7 @@ export interface NewsItem {
     image: string;
     author: string;
     sourceLogo?: string;
+    isoDate?: string;
 }
 
 export interface NewsCategory {

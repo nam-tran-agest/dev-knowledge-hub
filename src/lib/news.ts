@@ -115,7 +115,8 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                     categoryId: categoryId || 'all',
                     image: imageUrl,
                     author: feed.author,
-                    sourceLogo: feed.logo
+                    sourceLogo: feed.logo,
+                    isoDate: pubDate.toISOString()
                 } as NewsItem & { pubDate: Date };
             });
         } catch (error: any) {

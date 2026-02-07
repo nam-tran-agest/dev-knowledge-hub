@@ -16,6 +16,8 @@ import { NewsItem } from '@/types/news';
 import { useTranslations } from 'next-intl';
 import CarouselDot from '@/components/common/ui/data-display/CarouselDot';
 
+import { TimeDisplay } from "./time-display";
+
 export function FeaturedArticle({ items }: { items: NewsItem[] }) {
     const t = useTranslations('media.news.featured');
     const prevRef = useRef<HTMLButtonElement>(null);
@@ -81,7 +83,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                                     </div>
                                     <Separator orientation="vertical" className="h-8 bg-white/10" />
                                     <div className="flex items-center gap-2 text-slate-400 text-sm font-bold">
-                                        <Clock className="w-4 h-4" /> {item.time}
+                                        <Clock className="w-4 h-4" /> <TimeDisplay isoDate={item.isoDate} />
                                     </div>
                                     <div className="ml-auto p-3 bg-white/10 group-hover:bg-emerald-500 group-hover:text-white rounded-full transition-all border border-white/5">
                                         <ExternalLink className="w-5 h-5" />
