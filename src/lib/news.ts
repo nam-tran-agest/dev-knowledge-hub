@@ -15,16 +15,28 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
         : FEEDS.filter(f => !(f as any).category); // Default to general feeds for 'all'
 
     const allNewsPromises = targetFeeds.map(async (feed) => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
         try {
-            const response = await fetch(feed.url, { next: { revalidate: 0 } });
+            const response = await fetch(feed.url, {
+                next: { revalidate: 0 },
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+
             if (!response.ok) return [];
 
             const xmlData = await response.text();
             const result = parser.parse(xmlData);
-            const channel = result.rss.channel;
-            const items = Array.isArray(channel.item) ? channel.item : [channel.item];
+            if (!result?.rss?.channel) return [];
 
-            return items.filter((item: any) => item).map((item: any) => {
+            const channel = result.rss.channel;
+            const rawItems = Array.isArray(channel.item) ? channel.item : [channel.item];
+            // Limit to top 15 items per feed to avoid Worker resource limits
+            const items = rawItems.slice(0, 15).filter((item: any) => item);
+
+            return items.map((item: any) => {
                 let imageUrl = '';
                 const description = item.description || "";
                 const contentEncoded = item["content:encoded"] || "";
@@ -106,8 +118,13 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                     sourceLogo: feed.logo
                 } as NewsItem & { pubDate: Date };
             });
-        } catch (error) {
-            console.error(`Error fetching RSS from ${feed.url}:`, error);
+        } catch (error: any) {
+            clearTimeout(timeoutId);
+            if (error.name === 'AbortError') {
+                console.error(`Timeout fetching RSS from ${feed.url}`);
+            } else {
+                console.error(`Error fetching RSS from ${feed.url}:`, error);
+            }
             return [];
         }
     });
