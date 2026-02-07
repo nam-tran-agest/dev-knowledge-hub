@@ -42,19 +42,8 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
 
                 // 3. Try description for <img> tag
                 if (!imageUrl) {
-                    const imgMatch = description.match(/src\s*=\s*['"]([^'"]+)['"]/i);
-                    if (imgMatch) {
-                        imageUrl = imgMatch[1];
-                        if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
-                    }
-                }
-
-                // 4. Try direct image or thumb tags (common for PLO)
-                if (!imageUrl && item.image && typeof item.image === 'string') {
-                    imageUrl = item.image;
-                }
-                if (!imageUrl && item.thumb && typeof item.thumb === 'string') {
-                    imageUrl = item.thumb;
+                    const imgMatch = description.match(/src=['"]([^'"]+)['"]/i);
+                    if (imgMatch) imageUrl = imgMatch[1];
                 }
 
                 // 4. Try enclosure (only if image)
@@ -65,13 +54,10 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                     }
                 }
 
-                // 6. Try content:encoded (common for WordPress feeds like PlayStation Blog)
+                // 5. Try content:encoded (common for WordPress feeds like PlayStation Blog)
                 if (!imageUrl && contentEncoded) {
-                    const imgMatch = contentEncoded.match(/src\s*=\s*['"]([^'"]+)['"]/i);
-                    if (imgMatch) {
-                        imageUrl = imgMatch[1];
-                        if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
-                    }
+                    const imgMatch = contentEncoded.match(/<img[^>]+src=['"]([^'"]+)['"]/i);
+                    if (imgMatch) imageUrl = imgMatch[1];
                 }
                 if (!imageUrl) {
                     imageUrl = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop";

@@ -56,6 +56,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                                     alt={item.title || "Featured"}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                                    unoptimized={item.image.startsWith('http')}
                                 />
                             </div>
                             <div className="absolute bottom-10 left-10 right-10 z-20 space-y-6">
