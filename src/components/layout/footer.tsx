@@ -2,17 +2,66 @@
 
 import React from "react";
 import { FooterData } from "@/types/base";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, Twitter, Facebook, Github, Youtube, Instagram, Linkedin, Globe } from "lucide-react";
 import AppImage from "@/components/common/media/AppImage";
 import Link from "next/link"; // Changed from i18n/navigation
+import { cn } from "@/lib/utils";
 
 type FooterProps = {
     footer: FooterData;
 };
 
+const StarryBackground = () => {
+    const [stars, setStars] = React.useState<any[]>([]);
+
+    React.useEffect(() => {
+        const newStars = [...Array(60)].map((_, i) => ({
+            id: i,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            size: `${Math.random() * 2 + 0.5}px`,
+            opacity: Math.random() * 0.7 + 0.1,
+            duration: `${Math.random() * 3 + 2}s`,
+            delay: `${Math.random() * 5}s`,
+        }));
+        const newMeteors = [...Array(5)].map((_, i) => ({
+            id: `meteor-${i}`,
+            top: `${Math.random() * 80}%`,
+            left: `${Math.random() * 100}%`,
+            duration: `${Math.random() * 10 + 10}s`,
+            delay: `${Math.random() * 20}s`,
+        }));
+        setStars([...newStars, ...newMeteors]);
+    }, []);
+
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {stars.map((star) => (
+                <div
+                    key={star.id}
+                    className={star.id.toString().startsWith('meteor') ? "meteor-star" : "absolute bg-white rounded-full star-twinkle"}
+                    style={{
+                        top: star.top,
+                        left: star.left,
+                        width: star.size,
+                        height: star.size,
+                        opacity: star.opacity,
+                        // @ts-ignore
+                        '--twinkle-duration': star.duration,
+                        '--twinkle-delay': star.delay,
+                        '--meteor-duration': star.duration,
+                        '--meteor-delay': star.delay,
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
+
 export default function Footer({ footer }: FooterProps) {
     return (
-        <footer className="bg-footer mx-auto px-4 md:px-8 lg:px-16 2xl:px-20 2xl:min-w-[1440px] bg-gradient-to-b from-black/90 via-slate-950 to-blue-950">
+        <footer className="footer-bg relative mx-auto px-4 md:px-8 lg:px-16 2xl:px-20 2xl:min-w-[1440px] bg-main-gradient overflow-hidden">
+            <StarryBackground />
             <div className="pb-16 pt-16 border-t-2 border-white/5 xl:pt-[60px] xl:pb-10">
                 <div className="flex items-start gap-6 flex-col md:gap-10 lg:flex-row xl:gap-6">
                     <div className="flex w-full lg:w-1/2 flex-col md:flex-row gap-6 xl:gap-6">
@@ -30,7 +79,7 @@ export default function Footer({ footer }: FooterProps) {
                                         height={40}
                                     />
                                 ) : (
-                                    <div className="text-2xl font-bold text-white">My Space</div>
+                                    <div className="text-2xl font-bold text-gradient text-nowrap">Somewhere I Belong</div>
                                 )}
                             </div>
 
@@ -48,24 +97,43 @@ export default function Footer({ footer }: FooterProps) {
                                     <span>{footer.phone}</span>
                                 </div>
                             </div>
-                            <div className="flex gap-4 text-primary items-start">
-                                {footer.social_links.map((link, idx) => (
-                                    <a key={idx} href={link.url} aria-label={link.label} className="relative w-5 h-5 opacity-70 hover:opacity-100 transition-opacity">
-                                        {link.icon ? (
-                                            <AppImage
-                                                documentId={link.icon?.documentId}
-                                                url={link.icon?.url}
-                                                alternativeText={link.icon?.alternativeText || link.label}
-                                                className="object-contain"
-                                                width={20}
-                                                height={20}
-                                            />
-                                        ) : (
-                                            // Fallback icon visual
-                                            <div className="w-5 h-5 bg-white/20 rounded-full" />
-                                        )}
-                                    </a>
-                                ))}
+                            <div className="flex gap-4 items-start">
+                                {footer.social_links.map((link, idx) => {
+                                    const l = link.label.toLowerCase();
+                                    const getSocialIcon = () => {
+                                        if (l.includes('twitter') || l.includes('x')) return <Twitter className="w-5 h-5" />;
+                                        if (l.includes('facebook')) return <Facebook className="w-5 h-5" />;
+                                        if (l.includes('github')) return <Github className="w-5 h-5" />;
+                                        if (l.includes('youtube')) return <Youtube className="w-5 h-5" />;
+                                        if (l.includes('instagram')) return <Instagram className="w-5 h-5" />;
+                                        if (l.includes('linkedin')) return <Linkedin className="w-5 h-5" />;
+                                        return <Globe className="w-5 h-5" />;
+                                    };
+
+                                    return (
+                                        <a
+                                            key={idx}
+                                            href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={link.label}
+                                            className="text-gray-400 hover:text-white transition-colors"
+                                        >
+                                            {link.icon ? (
+                                                <AppImage
+                                                    documentId={link.icon?.documentId}
+                                                    url={link.icon?.url}
+                                                    alternativeText={link.icon?.alternativeText || link.label}
+                                                    className="object-contain"
+                                                    width={20}
+                                                    height={20}
+                                                />
+                                            ) : (
+                                                getSocialIcon()
+                                            )}
+                                        </a>
+                                    );
+                                })}
                             </div>
                         </div>
                         {/* Links */}
@@ -93,16 +161,16 @@ export default function Footer({ footer }: FooterProps) {
                 </div>
 
                 {/* Bottom Section */}
-                <div className="pt-10 border-t border-white/5 mt-10">
+                <div className="pt-10 border-t border-gray-400 mt-10">
                     {/* Copyright, Badges, Policy Links & Partners - All in one flex container */}
                     <div className="flex flex-wrap items-start justify-between gap-8 lg:gap-0 lg:items-center">
                         {/* Copyright Text */}
-                        <p className="w-full leading-relaxed text-base order-1 lg:flex-1 lg:max-w-3xl text-gray-400">
+                        <p className="w-full leading-relaxed text-gradient order-1 lg:flex-1 lg:max-w-3xl text-gray-400">
                             {footer.copyright}
                         </p>
 
                         {/* Certification Badges */}
-                        {footer.certifications && footer.certifications.length > 0 && (
+                        {/* {footer.certifications && footer.certifications.length > 0 && (
                             <div className="order-2 flex items-center justify-center w-full gap-4 sm:gap-8 lg:w-auto lg:gap-16 2xl:gap-32 lg:px-6">
                                 {footer.certifications.map((cert, idx) => (
                                     <a
@@ -123,10 +191,10 @@ export default function Footer({ footer }: FooterProps) {
                                     </a>
                                 ))}
                             </div>
-                        )}
+                        )} */}
 
                         {/* Policy Links */}
-                        {(() => {
+                        {/* {(() => {
                             const policyLinks = footer.policy_links;
                             if (policyLinks && policyLinks.length > 0) {
                                 return (
@@ -145,7 +213,7 @@ export default function Footer({ footer }: FooterProps) {
                                 );
                             }
                             return null;
-                        })()}
+                        })()} */}
                     </div>
                 </div>
             </div>

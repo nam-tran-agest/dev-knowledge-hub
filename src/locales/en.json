@@ -1,7 +1,7 @@
 {
     "home": {
         "hero": {
-            "title": "Nothing Else Here",
+            "title": "𝕾𝖙𝖆𝖞 𝖍𝖚𝖓𝖌𝖗𝖞. 𝕾𝖙𝖆𝖞 𝖋𝖔𝖔𝖑𝖎𝖘𝖍",
             "subtitle": "What I’m currently spending energy on.",
             "ctaLabel": "Let’s Enjoy",
             "ctaUrl": "/media/youtube"
@@ -150,7 +150,7 @@
             ]
         },
         "whyChooseUsSection": {
-            "title": "Everything I Enjoy",
+            "title": "Nothing Else Here",
             "items": [
                 {
                     "id": 1,
@@ -235,7 +235,7 @@
     "footer": {
         "email": "[EMAIL_ADDRESS]",
         "phone": "[PHONE_NUMBER]",
-        "copyright": "© 2026 My Space. All rights reserved.",
+        "copyright": "© 2026 Ba Dum Tss! - All rights reserved.",
         "social_links": [
             {
                 "label": "Twitter",
