@@ -6,10 +6,12 @@ export interface NewsItem {
     category: string;
     image: string;
     author: string;
+    sourceLogo?: string;
 }
 
 export interface NewsCategory {
+    id: string;
     name: string;
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
     active?: boolean;
 }

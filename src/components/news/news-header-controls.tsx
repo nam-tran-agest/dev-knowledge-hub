@@ -19,12 +19,6 @@ export function NewsHeaderControls() {
                     className="w-full bg-[#1e1e24] border-none rounded-md py-2 pl-10 pr-4 text-sm focus-visible:ring-1 focus-visible:ring-emerald-500 outline-none text-slate-200 placeholder:text-slate-500"
                 />
             </div>
-            <div className="flex gap-2 shrink-0">
-                <Avatar className="w-8 h-8 cursor-pointer ring-1 ring-white/10">
-                    <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" />
-                    <AvatarFallback>AD</AvatarFallback>
-                </Avatar>
-            </div>
         </div>
     );
 }

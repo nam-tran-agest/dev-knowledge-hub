@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { Globe, Cpu, Gamepad, Zap } from 'lucide-react';
+import { Globe, Cpu, Gamepad, Zap, Tv, Languages, HeartPulse, Briefcase, Trophy, GraduationCap } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { XMLParser } from 'fast-xml-parser';
 
@@ -8,94 +8,26 @@ import { NewsSidebar } from '@/components/news/news-sidebar';
 import { NewsHeaderControls } from '@/components/news/news-header-controls';
 import { FeaturedArticle } from '@/components/news/featured-article';
 import { NewsGrid } from '@/components/news/news-grid';
-import { NewsSubscription } from '@/components/news/news-subscription';
 import { NewsItem } from '@/components/news/types';
 
-// RSS Feed URLs
-const FEEDS = [
-    { url: 'https://tuoitre.vn/rss/tin-moi-nhat.rss', author: 'Tuổi Trẻ' },
-    { url: 'https://dantri.com.vn/rss/tin-moi-nhat.rss', author: 'Dân Trí' },
-    { url: 'https://thanhnien.vn/rss/tin-tong-hop.rss', author: 'Thanh Niên' },
-    { url: 'https://vietnamnet.vn/rss/tin-moi-nhat.rss', author: 'VietnamNet' },
-    { url: 'https://plo.vn/rss-tin-moi-nhat-110.rss', author: 'PLO' },
-];
+import { getNews, CATEGORIES } from '@/lib/news';
 
-const CATEGORIES = [
-    { name: 'Tất cả', icon: <Globe className="w-4 h-4" />, active: true },
-    { name: 'Công nghệ', icon: <Cpu className="w-4 h-4" /> },
-    { name: 'Game', icon: <Gamepad className="w-4 h-4" /> },
-    { name: 'AI & Tương lai', icon: <Zap className="w-4 h-4" /> },
-];
-
-async function getNews(): Promise<NewsItem[]> {
-    const parser = new XMLParser({
-        ignoreAttributes: false,
-        attributeNamePrefix: ""
-    });
-
-    const allNewsPromises = FEEDS.map(async (feed) => {
-        try {
-            const response = await fetch(feed.url, { next: { revalidate: 3600 } });
-            if (!response.ok) return [];
-
-            const xmlData = await response.text();
-            const result = parser.parse(xmlData);
-            const channel = result.rss.channel;
-            const items = Array.isArray(channel.item) ? channel.item : [channel.item];
-
-            return items.filter((item: any) => item).map((item: any) => {
-                const description = item.description || "";
-
-                // Enhanced image extraction for multiple sources
-                let imageUrl = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop";
-
-                // 1. Try search in description CDATA (Tuổi Trẻ, Thanh Niên)
-                const imgMatch = description.match(/src="([^"]+)"/);
-                if (imgMatch) {
-                    imageUrl = imgMatch[1];
-                }
-                // 2. Try media:content or enclosure (Dân Trí, VietnamNet)
-                else if (item.enclosure && item.enclosure.url) {
-                    imageUrl = item.enclosure.url;
-                } else if (item["media:content"] && item["media:content"].url) {
-                    imageUrl = item["media:content"].url;
-                }
-
-                // Clean description and normalize for Vietnamese
-                const cleanDescription = (description.replace(/<[^>]*>/g, "").split(".")[0] + ".").trim().normalize('NFC');
-                const title = (item.title || "").trim().normalize('NFC');
-                const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
-
-                return {
-                    title: title,
-                    link: item.link,
-                    excerpt: cleanDescription,
-                    time: pubDate.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' - ' + pubDate.toLocaleDateString('vi-VN'),
-                    pubDate: pubDate, // Store for sorting
-                    category: "Tin mới",
-                    image: imageUrl,
-                    author: feed.author
-                };
-            });
-        } catch (error) {
-            console.error(`Error fetching RSS from ${feed.url}:`, error);
-            return [];
-        }
-    });
-
-    try {
-        const results = await Promise.all(allNewsPromises);
-        const mergedNews = results.flat() as (NewsItem & { pubDate: Date })[];
-
-        // Sort by date (latest first)
-        return mergedNews
-            .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
-            .map(({ pubDate, ...rest }) => rest);
-    } catch (error) {
-        console.error("Error aggregating news:", error);
-        return [];
+// Add icons to CATEGORIES for the UI
+const CATEGORIES_WITH_ICONS = CATEGORIES.map(cat => {
+    switch (cat.id) {
+        case 'all': return { ...cat, icon: <Globe className="w-4 h-4" /> };
+        case 'tech-science': return { ...cat, icon: <Cpu className="w-4 h-4" /> };
+        case 'gaming': return { ...cat, icon: <Gamepad className="w-4 h-4" /> };
+        case 'entertainment': return { ...cat, icon: <Tv className="w-4 h-4" /> };
+        case 'ai-future': return { ...cat, icon: <Zap className="w-4 h-4" /> };
+        case 'world': return { ...cat, icon: <Languages className="w-4 h-4" /> };
+        case 'health': return { ...cat, icon: <HeartPulse className="w-4 h-4" /> };
+        case 'business': return { ...cat, icon: <Briefcase className="w-4 h-4" /> };
+        case 'sports': return { ...cat, icon: <Trophy className="w-4 h-4" /> };
+        case 'education': return { ...cat, icon: <GraduationCap className="w-4 h-4" /> };
+        default: return { ...cat, icon: <Globe className="w-4 h-4" /> };
     }
-}
+});
 
 export default async function NewsPage({
     params
@@ -106,10 +38,6 @@ export default async function NewsPage({
     const t = await getTranslations({ locale, namespace: 'media.news' });
     const newsItems = await getNews();
 
-    const featuredItem = newsItems[0];
-    const trendingItems = newsItems.slice(1, 10); // More trending items from merged sources
-    const feedItems = newsItems.slice(10, 40); // Larger feed from merged sources
-
     if (newsItems.length === 0) {
         return (
             <div className="min-h-screen pt-32 bg-[#0a0a0c] text-center">
@@ -119,22 +47,43 @@ export default async function NewsPage({
         );
     }
 
+    // Diverse Selection for Featured Carousel
+    const featuredItems: NewsItem[] = [];
+    const seenSources = new Set<string>();
+
+    for (const item of newsItems) {
+        if (!seenSources.has(item.author) && featuredItems.length < 5) {
+            featuredItems.push(item);
+            seenSources.add(item.author);
+        }
+    }
+
+    if (featuredItems.length < 5) {
+        for (const item of newsItems) {
+            if (!featuredItems.find(fi => fi.link === item.link) && featuredItems.length < 5) {
+                featuredItems.push(item);
+            }
+        }
+    }
+
+    const featuredLinks = new Set(featuredItems.map(i => i.link));
+    const remainingItems = newsItems.filter(i => !featuredLinks.has(i.link));
+
+    const trendingItems = remainingItems.slice(0, 10);
+    const feedItems = remainingItems.slice(10, 25);
+
     return (
         <div className="min-h-screen pt-16 bg-[#0a0a0c] text-slate-200">
             <div className="flex flex-col lg:flex-row overflow-hidden">
+                <NewsSidebar categories={CATEGORIES_WITH_ICONS} trendingItems={trendingItems} />
 
-                {/* Local Sidebar */}
-                <NewsSidebar categories={CATEGORIES} trendingItems={trendingItems} />
-
-                {/* Main Content */}
                 <main className="flex-1 overflow-hidden flex flex-col bg-[#0a0a0c]">
-                    <NewsHeaderControls />
+                    {/* <NewsHeaderControls /> */}
 
                     <ScrollArea className="flex-1">
                         <div className="px-8 py-8 space-y-12 max-w-6xl mx-auto">
-                            {featuredItem && <FeaturedArticle item={featuredItem} />}
+                            <FeaturedArticle items={featuredItems} />
                             <NewsGrid items={feedItems} />
-                            <NewsSubscription />
                         </div>
                     </ScrollArea>
                 </main>

@@ -483,7 +483,16 @@
         },
         "news": {
             "title": "News Hub",
-            "subtitle": "Stay updated with the latest tech and world news."
+            "subtitle": "Stay updated with the latest tech and world news.",
+            "featured": {
+                "badge": "LATEST NEWS",
+                "editor": "Source"
+            },
+            "sidebar": {
+                "categories": "Categories",
+                "trending": "Trending",
+                "viewMoreTrending": "View more"
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ export default async function GamesPage({
 
     return (
         <div className="min-h-screen pt-16 bg-[#0a0a0c] text-slate-200">
-            <div className="flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden">
+            <div className="flex flex-col lg:flex-row overflow-hidden">
 
                 {/* Local Sidebar */}
                 <aside className="w-full lg:w-64 bg-[#111114] border-r border-white/5 flex flex-col overflow-hidden">

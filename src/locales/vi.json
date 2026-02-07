@@ -483,7 +483,16 @@
         },
         "news": {
             "title": "Tin tức Hub",
-            "subtitle": "Cập nhật các tin tức mới nhất về công nghệ và thế giới."
+            "subtitle": "Cập nhật các tin tức mới nhất về công nghệ và thế giới.",
+            "featured": {
+                "badge": "TIN MỚI NHẤT",
+                "editor": "Nguồn tin"
+            },
+            "sidebar": {
+                "categories": "Chuyên mục",
+                "trending": "Xu hướng",
+                "viewMoreTrending": "Xem thêm"
+            }
         }
     }
 }
