@@ -69,7 +69,7 @@ const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) =
                             <CTABtn
                                 id={cta.id}
                                 label={cta.label}
-                                href={cta.url || '#'}
+                                href={'/media/news'}
                                 variant="premium"
                                 className="text-lg px-8 py-6"
                             />

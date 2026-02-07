@@ -101,7 +101,7 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                             <div className="flex justify-center pt-20">
                                 <CTAButton
                                     id={cta.id}
-                                    href={cta.url || cta.Url}
+                                    href={cta.url}
                                     label={cta.label}
                                     variant="premium"
                                     className="!px-8 !py-6 text-lg border-0"
