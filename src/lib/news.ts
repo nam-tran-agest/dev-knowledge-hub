@@ -42,12 +42,10 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
 
                 // 3. Try description for <img> tag (common for Vietnamese news)
                 if (!imageUrl) {
-                    // Look for src with single, double or no quotes, or encoded quotes
-                    const imgMatch = description.match(/src\s*=\s*(['"&quot;]*)([^'">&quot;\s]+)\1/i) ||
-                        description.match(/src\s*=\s*['"]([^'"]+)['"]/i);
+                    const imgMatch = description.match(/<img[^>]+src=['"]([^'"]+)['"]/i) ||
+                        description.match(/src=['"]([^'"]+)['"]/i);
                     if (imgMatch) {
-                        imageUrl = imgMatch[2] || imgMatch[1];
-                        // Handle protocol relative URLs
+                        imageUrl = imgMatch[1];
                         if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
                     }
                 }
@@ -62,10 +60,10 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
 
                 // 5. Try content:encoded (common for WordPress)
                 if (!imageUrl && contentEncoded) {
-                    const imgMatch = contentEncoded.match(/src\s*=\s*(['"&quot;]*)([^'">&quot;\s]+)\1/i) ||
-                        contentEncoded.match(/<img[^>]+src=['"]([^'"]+)['"]/i);
+                    const imgMatch = contentEncoded.match(/<img[^>]+src=['"]([^'"]+)['"]/i) ||
+                        contentEncoded.match(/src=['"]([^'"]+)['"]/i);
                     if (imgMatch) {
-                        imageUrl = imgMatch[2] || imgMatch[1];
+                        imageUrl = imgMatch[1];
                         if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
                     }
                 }

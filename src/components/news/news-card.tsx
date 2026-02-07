@@ -14,7 +14,6 @@ export function NewsCard({ item }: { item: NewsItem }) {
                         alt={item.title || "News"}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-80"
-                        unoptimized={item.image.startsWith('http')}
                     />
                     <div className="absolute top-4 left-4 z-10">
                         <Badge className="bg-black/60 backdrop-blur-md border-white/10 text-emerald-400 font-bold">{item.category}</Badge>
