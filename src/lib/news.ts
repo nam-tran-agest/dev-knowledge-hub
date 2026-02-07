@@ -40,10 +40,16 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                     if (media && media.url) imageUrl = media.url;
                 }
 
-                // 3. Try description for <img> tag
+                // 3. Try description for <img> tag (common for Vietnamese news)
                 if (!imageUrl) {
-                    const imgMatch = description.match(/src=['"]([^'"]+)['"]/i);
-                    if (imgMatch) imageUrl = imgMatch[1];
+                    // Look for src with single, double or no quotes, or encoded quotes
+                    const imgMatch = description.match(/src\s*=\s*(['"&quot;]*)([^'">&quot;\s]+)\1/i) ||
+                        description.match(/src\s*=\s*['"]([^'"]+)['"]/i);
+                    if (imgMatch) {
+                        imageUrl = imgMatch[2] || imgMatch[1];
+                        // Handle protocol relative URLs
+                        if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
+                    }
                 }
 
                 // 4. Try enclosure (only if image)
@@ -54,10 +60,14 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                     }
                 }
 
-                // 5. Try content:encoded (common for WordPress feeds like PlayStation Blog)
+                // 5. Try content:encoded (common for WordPress)
                 if (!imageUrl && contentEncoded) {
-                    const imgMatch = contentEncoded.match(/<img[^>]+src=['"]([^'"]+)['"]/i);
-                    if (imgMatch) imageUrl = imgMatch[1];
+                    const imgMatch = contentEncoded.match(/src\s*=\s*(['"&quot;]*)([^'">&quot;\s]+)\1/i) ||
+                        contentEncoded.match(/<img[^>]+src=['"]([^'"]+)['"]/i);
+                    if (imgMatch) {
+                        imageUrl = imgMatch[2] || imgMatch[1];
+                        if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
+                    }
                 }
                 if (!imageUrl) {
                     imageUrl = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop";

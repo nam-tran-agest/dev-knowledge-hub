@@ -489,7 +489,7 @@
             "popular": "Popular",
             "noNews": "No news available to display.",
             "tryAgain": "Please try again later.",
-            "categoryDescription": "Displaying latest news for {category}",
+            "categoryDescription": "Here’s what’s new in {category}",
             "featured": {
                 "badge": "LATEST NEWS",
                 "editor": "Source"
