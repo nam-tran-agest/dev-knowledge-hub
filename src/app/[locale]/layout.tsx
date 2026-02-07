@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display } from "next/font/google";
+import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "../globals.css"; // Fixed path
 import { Link } from "@/i18n/routing"; // Localized Link
 import { CC_STYLES } from "@/lib/constants";
@@ -17,6 +17,11 @@ import { routing } from '@/i18n/routing';
 const playfair = Playfair_Display({
   subsets: ["latin", "vietnamese"],
   variable: "--font-playfair",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-plus-jakarta",
 });
 
 export async function generateMetadata({
@@ -59,7 +64,7 @@ export default async function RootLayout({
   const footerData = (messages as any).footer as FooterData;
 
   const fontClass = locale === 'vi'
-    ? 'font-[family-name:"Times_New_Roman",Times,serif]'
+    ? `${plusJakartaSans.variable} font-sans tracking-tight`
     : `${playfair.variable} font-serif`;
 
   return (

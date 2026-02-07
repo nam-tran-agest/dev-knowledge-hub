@@ -310,7 +310,7 @@
                     "youtube": "YouTube",
                     "movies": "Movies",
                     "series": "Series",
-                    "anime": "Anime",
+                    "news": "News",
                     "games": "Games",
                     "music": "Music"
                 }
@@ -480,6 +480,10 @@
         "games": {
             "title": "Games Hub",
             "subtitle": "Play and relax with our collection of games."
+        },
+        "news": {
+            "title": "News Hub",
+            "subtitle": "Stay updated with the latest tech and world news."
         }
     }
 }

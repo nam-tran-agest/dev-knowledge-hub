@@ -310,7 +310,7 @@
                     "youtube": "YouTube",
                     "movies": "Phim Lẻ",
                     "series": "Phim Bộ",
-                    "anime": "Anime",
+                    "news": "Tin tức",
                     "games": "Game",
                     "music": "Nhạc"
                 }
@@ -478,8 +478,12 @@
             "subtitle": "Kho video cá nhân. Lưu lại khoảnh khắc, xem tiếp bất cứ lúc nào."
         },
         "games": {
-            "title": "Kho Trò Chơi",
-            "subtitle": "Thư giãn và giải trí với bộ sưu tập trò chơi của chúng tôi."
+            "title": "Games Hub",
+            "subtitle": "Chơi và thư giãn với bộ sưu tập trò chơi của chúng tôi."
+        },
+        "news": {
+            "title": "Tin tức Hub",
+            "subtitle": "Cập nhật các tin tức mới nhất về công nghệ và thế giới."
         }
     }
 }
