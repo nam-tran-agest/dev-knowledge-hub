@@ -20,6 +20,8 @@ import type { Note } from '@/types/note'
 import { cn } from '@/lib/utils'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+// @ts-expect-error - no types available for remark-breaks
+import remarkBreaks from 'remark-breaks'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { NOTES_CONFIG } from '@/lib/constants/notes-config'
@@ -98,13 +100,13 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 <Input
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    className="text-4xl md:text-5xl font-bold h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent placeholder:text-muted/30 rounded-none mb-2"
+                                    className="text-4xl md:text-5xl font-bold h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent placeholder:text-muted/30 rounded-none mb-2 text-slate-900 dark:text-slate-900"
                                     placeholder="Untitled Note"
                                 />
                                 <Input
                                     value={tags}
                                     onChange={(e) => setTags(e.target.value)}
-                                    className="text-base text-primary font-medium h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent rounded-none"
+                                    className="text-base text-primary font-medium h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent rounded-none text-slate-900 dark:text-slate-900"
                                     placeholder="#tags..."
                                 />
                             </div>
@@ -131,12 +133,12 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
                                 placeholder="Start writing your thoughts..."
-                                className="w-full h-[60vh] font-sans text-lg leading-relaxed border border-black dark:border-white/10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary/50 resize-none p-6 bg-transparent rounded-xl"
+                                className="w-full h-[60vh] font-sans text-lg leading-relaxed border border-black dark:border-white/10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary/50 resize-none p-6 bg-transparent rounded-xl text-slate-900 dark:text-slate-900"
                             />
                         ) : (
                             <div className="prose prose-lg max-w-none text-slate-900 leading-relaxed border border-transparent p-4 md:p-6 rounded-xl min-h-[60vh]">
                                 <ReactMarkdown
-                                    remarkPlugins={[remarkGfm]}
+                                    remarkPlugins={[remarkGfm, remarkBreaks]}
                                     components={{
                                         code({ node, inline, className, children, ...props }: any) {
                                             const match = /language-(\w+)/.exec(className || '')
