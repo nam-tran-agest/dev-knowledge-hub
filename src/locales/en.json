@@ -529,9 +529,25 @@
                 "delete": "Delete Video"
             }
         },
-        "games": {
-            "title": "Games Hub",
-            "subtitle": "Play and relax with our collection of games."
+        "music": {
+            "title": "Music Hub",
+            "subtitle": "Your personal selection from Spotify.",
+            "sidebar": {
+                "library": "Library",
+                "topTracks": "Top Tracks",
+                "topArtists": "Top Artists",
+                "playlists": "Playlists",
+                "disconnect": "Disconnect Spotify"
+            },
+            "auth": {
+                "title": "Connect Your Music",
+                "description": "Authorize with Spotify to view your top tracks, favorite artists, and personal playlists directly in your dashboard.",
+                "button": "Connect Spotify"
+            },
+            "grid": {
+                "empty": "No items found in this category.",
+                "by": "By"
+            }
         },
         "news": {
             "title": "News Hub",

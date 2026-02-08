@@ -529,9 +529,25 @@
                 "delete": "Xóa Video"
             }
         },
-        "games": {
-            "title": "Games Hub",
-            "subtitle": "Chơi và thư giãn với bộ sưu tập trò chơi của chúng tôi."
+        "music": {
+            "title": "Music Hub",
+            "subtitle": "Bộ sưu tập âm nhạc của bạn từ Spotify.",
+            "sidebar": {
+                "library": "Thư viện",
+                "topTracks": "Nhạc nghe nhiều",
+                "topArtists": "Nghệ sĩ yêu thích",
+                "playlists": "Danh sách phát",
+                "disconnect": "Ngắt kết nối Spotify"
+            },
+            "auth": {
+                "title": "Kết nối âm nhạc",
+                "description": "Cấp quyền cho Spotify để xem các bản nhạc, nghệ sĩ yêu thích và danh sách phát cá nhân của bạn ngay trên dashboard.",
+                "button": "Kết nối Spotify"
+            },
+            "grid": {
+                "empty": "Không tìm thấy nội dung trong mục này.",
+                "by": "Bởi"
+            }
         },
         "news": {
             "title": "Tin tức Hub",

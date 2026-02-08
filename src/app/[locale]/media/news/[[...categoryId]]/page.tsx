@@ -70,11 +70,6 @@ export default async function NewsUnifiedPage({
     const featuredLinks = new Set(featuredItems.map(i => i.link));
     const remainingItems = newsItems.filter(i => !featuredLinks.has(i.link));
 
-    // Trending items: 
-    // If we're on 'all', take from remaining. 
-    // If on category, we might want global trending, but to save an API call, we can just use category items for now 
-    // or fetch global once in a separate block if really needed. 
-    // For now, let's optimize to use current items unless on category where we might want 'real' global trending.
     let trendingItems: NewsItem[] = [];
     if (categoryId === 'all') {
         trendingItems = remainingItems.slice(0, 10);
