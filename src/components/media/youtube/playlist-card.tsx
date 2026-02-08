@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2, Heart, ListVideo, ExternalLink, Image as ImageIcon } from "lucide-react";
+import { Trash2, Heart, ListVideo, ExternalLink, Image as ImageIcon, Edit2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,18 +8,25 @@ import { Badge } from "@/components/ui/badge";
 import type { SavedPlaylist } from "@/types/youtube";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface PlaylistCardProps {
     playlist: SavedPlaylist;
     onDelete: (id: string) => void;
     onToggleFavorite: (e: React.MouseEvent, playlist: SavedPlaylist) => void;
+    onEdit?: (playlist: SavedPlaylist) => void;
 }
 
-export function PlaylistCard({ playlist, onDelete, onToggleFavorite }: PlaylistCardProps) {
+export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: PlaylistCardProps) {
     const t = useTranslations('media.youtube.gallery');
+    const router = useRouter();
 
     return (
-        <Card className="group relative overflow-hidden bg-white/5 border-white/10 hover:border-red-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/10 hover:-translate-y-1 p-0">
+        <Card
+            className="group relative overflow-hidden bg-white/5 border-white/10 hover:border-red-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/10 hover:-translate-y-1 p-0 cursor-pointer"
+            onClick={() => router.push(`/media/youtube/playlist/${playlist.id}`)}
+        >
             <div className="flex flex-col h-full">
                 {/* Playlist Icon / Thumbnail placeholder */}
                 <div className="relative aspect-video w-full overflow-hidden bg-slate-900 flex items-center justify-center">
@@ -57,7 +64,10 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite }: PlaylistC
                     <Button
                         variant="ghost"
                         size="icon"
-                        onClick={(e) => onToggleFavorite(e, playlist)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onToggleFavorite(e, playlist);
+                        }}
                         className="absolute top-2 left-2 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white cursor-pointer"
                         title="Toggle Favorite"
                     >
@@ -66,19 +76,35 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite }: PlaylistC
                         />
                     </Button>
 
-                    {/* Delete Button */}
-                    <Button
-                        variant="destructive"
-                        size="icon"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onDelete(playlist.id);
-                        }}
-                        className="absolute top-2 right-2 rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer"
-                        title="Delete Playlist"
-                    >
-                        <Trash2 className="w-4 h-4" />
-                    </Button>
+                    {/* Actions Overlay */}
+                    <div className="absolute top-2 right-2 flex gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10">
+                        {onEdit && (
+                            <Button
+                                variant="secondary"
+                                size="icon"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onEdit(playlist);
+                                }}
+                                className="rounded-full w-8 h-8 cursor-pointer bg-white/20 hover:bg-white/40 text-white border-0"
+                                title="Edit Playlist"
+                            >
+                                <Edit2 className="w-4 h-4" />
+                            </Button>
+                        )}
+                        <Button
+                            variant="destructive"
+                            size="icon"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onDelete(playlist.id);
+                            }}
+                            className="rounded-full w-8 h-8 cursor-pointer"
+                            title="Delete Playlist"
+                        >
+                            <Trash2 className="w-4 h-4" />
+                        </Button>
+                    </div>
 
                     <div className="absolute bottom-2 right-2">
                         <Badge variant="secondary" className="bg-red-600 hover:bg-red-700 text-white border-0">
@@ -100,14 +126,9 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite }: PlaylistC
                         )}
                     </div>
 
-                    <Link href={`/media/youtube/playlist/${playlist.id}`} className="mt-4 block">
-                        <Button variant="ghost" className="w-full justify-between items-center bg-white/5 hover:bg-white/10 text-white border-white/5">
-                            {t('viewContent')}
-                            <ExternalLink className="w-4 h-4" />
-                        </Button>
-                    </Link>
                 </CardContent>
             </div>
         </Card>
     );
 }
+

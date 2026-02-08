@@ -186,6 +186,31 @@ export async function deletePlaylist(id: string) {
     revalidatePath('/media/youtube');
 }
 
+export async function updatePlaylist(id: string, formData: FormData) {
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+
+    if (!title) throw new Error('Title is required');
+
+    const supabase = await createClient();
+    const { error } = await supabase
+        .from('youtube_playlists')
+        .update({
+            title,
+            description,
+            updated_at: new Date().toISOString()
+        })
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error updating playlist:', error);
+        throw new Error('Failed to update playlist');
+    }
+
+    revalidatePath('/media/youtube');
+    revalidatePath(`/media/youtube/playlist/${id}`);
+}
+
 export async function addVideoToPlaylist(videoId: string, playlistId: string) {
     const supabase = await createClient();
 

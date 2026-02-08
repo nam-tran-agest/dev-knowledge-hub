@@ -9,6 +9,7 @@ import { VideoModal } from './video-modal';
 import { VideoCard } from './video-card';
 import { PlaylistCard } from './playlist-card';
 import { CreatePlaylistDialog } from './create-playlist-dialog';
+import { EditPlaylistDialog } from './edit-playlist-dialog';
 import { AddToPlaylistDialog } from './add-to-playlist-dialog';
 import type { SavedVideo, SavedPlaylist } from '@/types/youtube';
 import { addVideo, deleteVideo, toggleFavorite, deletePlaylist, togglePlaylistFavorite } from '@/lib/actions/youtube';
@@ -41,6 +42,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
     const [playlistToDelete, setPlaylistToDelete] = useState<string | null>(null);
     const [videoIdToAdd, setVideoIdToAdd] = useState<string | null>(null);
     const [isCreatePlaylistOpen, setIsCreatePlaylistOpen] = useState(false);
+    const [playlistToEdit, setPlaylistToEdit] = useState<SavedPlaylist | null>(null);
     const [url, setUrl] = useState('');
     const [isAdding, setIsAdding] = useState(false);
     const router = useRouter();
@@ -218,6 +220,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                                         playlist={playlist}
                                         onDelete={(id) => setPlaylistToDelete(id)}
                                         onToggleFavorite={handleTogglePlaylistFavorite}
+                                        onEdit={setPlaylistToEdit}
                                     />
                                 ))}
                             </div>
@@ -231,6 +234,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                                 playlist={playlist}
                                 onDelete={(id) => setPlaylistToDelete(id)}
                                 onToggleFavorite={handleTogglePlaylistFavorite}
+                                onEdit={setPlaylistToEdit}
                             />
                         ))}
                         {playlists.length === 0 && (
@@ -264,6 +268,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                                         playlist={playlist}
                                         onDelete={(id) => setPlaylistToDelete(id)}
                                         onToggleFavorite={handleTogglePlaylistFavorite}
+                                        onEdit={setPlaylistToEdit}
                                     />
                                 ))}
                             </div>
@@ -296,6 +301,11 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
             <CreatePlaylistDialog
                 open={isCreatePlaylistOpen}
                 onOpenChange={setIsCreatePlaylistOpen}
+            />
+            <EditPlaylistDialog
+                open={!!playlistToEdit}
+                onOpenChange={(open) => !open && setPlaylistToEdit(null)}
+                playlist={playlistToEdit}
             />
             <AddToPlaylistDialog
                 videoId={videoIdToAdd}

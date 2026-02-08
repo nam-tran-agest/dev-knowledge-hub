@@ -23,7 +23,7 @@ export function MusicCard({ item, type }: MusicCardProps) {
             : item.genres?.slice(0, 2).join(', ');
 
     return (
-        <div className="group relative bg-white/5 hover:bg-white/10 border border-white/5 rounded-[32px] p-5 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-500/10 active:scale-[0.98]">
+        <div className="group relative bg-white/5 hover:bg-white/10 border border-white/5 rounded-[32px] p-5 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-500/10 active:scale-[0.98] cursor-pointer">
             <div className="relative aspect-square overflow-hidden rounded-[24px] mb-4 shadow-lg shadow-black/20">
                 {imageUrl ? (
                     <Image
