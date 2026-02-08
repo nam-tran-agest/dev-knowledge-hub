@@ -90,13 +90,13 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                             <ListPlus className="w-5 h-5 text-red-500" />
                             Quick Add from Your Library
                         </div>
-                        <div className="relative w-full max-w-xs">
+                        <div className="relative w-full sm:max-w-xs">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                             <Input
                                 placeholder="Search library..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-9 bg-white/5 border-white/10"
+                                className="pl-9 bg-white/5 border-white/10 w-full"
                             />
                         </div>
                     </div>
@@ -137,7 +137,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                 </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {videos.map((video) => (
                     <VideoCard
                         key={video.id}

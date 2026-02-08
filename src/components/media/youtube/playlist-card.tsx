@@ -1,6 +1,7 @@
 "use client";
 
-import { Trash2, Heart, ListVideo, ExternalLink } from "lucide-react";
+import { Trash2, Heart, ListVideo, ExternalLink, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -22,14 +23,35 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite }: PlaylistC
             <div className="flex flex-col h-full">
                 {/* Playlist Icon / Thumbnail placeholder */}
                 <div className="relative aspect-video w-full overflow-hidden bg-slate-900 flex items-center justify-center">
-                    <div className="relative z-10 flex flex-col items-center gap-2">
-                        <ListVideo className="w-12 h-12 text-red-500" />
-                        <span className="text-sm font-bold text-white uppercase tracking-wider">Playlist</span>
-                    </div>
+                    {playlist.thumbnail_url ? (
+                        <>
+                            <Image
+                                src={playlist.thumbnail_url}
+                                alt={playlist.title}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                            {/* Overlay to darken and add "playlist" feel */}
+                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <ListVideo className="w-10 h-10 text-white drop-shadow-lg" />
+                                <span className="text-xs font-bold text-white uppercase tracking-widest drop-shadow-lg">Playlist</span>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="relative z-10 flex flex-col items-center gap-2">
+                            <ListVideo className="w-12 h-12 text-red-500" />
+                            <span className="text-sm font-bold text-white uppercase tracking-wider">Playlist</span>
+                        </div>
+                    )}
 
-                    {/* Visual stack effect for "playlist" look */}
-                    <div className="absolute top-2 right-2 w-full h-full border-r-4 border-b-4 border-white/5 rounded-lg -z-0 translate-x-1 translate-y-1" />
-                    <div className="absolute top-2 right-2 w-full h-full border-r-4 border-b-4 border-white/10 rounded-lg -z-0 translate-x-2 translate-y-2" />
+                    {/* Visual stack effect for "playlist" look - only if no thumbnail or subtle on thumbnail */}
+                    {!playlist.thumbnail_url && (
+                        <>
+                            <div className="absolute top-2 right-2 w-full h-full border-r-4 border-b-4 border-white/5 rounded-lg -z-10 translate-x-1 translate-y-1 shadow-sm" />
+                            <div className="absolute top-2 right-2 w-full h-full border-r-4 border-b-4 border-white/10 rounded-lg -z-10 translate-x-2 translate-y-2 shadow-sm" />
+                        </>
+                    )}
 
                     {/* Favorite Button */}
                     <Button
@@ -52,7 +74,7 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite }: PlaylistC
                             e.stopPropagation();
                             onDelete(playlist.id);
                         }}
-                        className="absolute top-2 right-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer"
+                        className="absolute top-2 right-2 rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer"
                         title="Delete Playlist"
                     >
                         <Trash2 className="w-4 h-4" />
@@ -66,13 +88,13 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite }: PlaylistC
                 </div>
 
                 {/* Content */}
-                <CardContent className="flex-1 p-5 space-y-3">
+                <CardContent className="flex-1 p-3 sm:p-5 space-y-3">
                     <div className="space-y-1">
-                        <h3 className="font-semibold text-lg text-white line-clamp-1 group-hover:text-red-400 transition-colors">
+                        <h3 className="font-semibold text-base sm:text-lg text-white line-clamp-1 group-hover:text-red-400 transition-colors">
                             {playlist.title}
                         </h3>
                         {playlist.description && (
-                            <p className="text-gray-400 text-sm line-clamp-2 leading-relaxed">
+                            <p className="text-gray-400 text-xs sm:text-sm line-clamp-2 leading-relaxed">
                                 {playlist.description}
                             </p>
                         )}

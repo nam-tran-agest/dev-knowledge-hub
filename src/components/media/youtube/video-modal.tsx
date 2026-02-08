@@ -55,11 +55,11 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
     if (!video) return null;
 
     const pipClasses = isPip
-        ? `fixed w-[400px] shadow-2xl z-50 rounded-lg overflow-hidden border-gray-700 bg-black p-0 transition-all duration-300 pointer-events-auto group ${position
+        ? `fixed w-[90vw] sm:w-[400px] shadow-2xl z-50 rounded-lg overflow-hidden border-gray-700 bg-black p-0 transition-all duration-300 pointer-events-auto group ${position
             ? '!translate-x-0 !translate-y-0'
             : 'bottom-6 right-6 !translate-x-0 !translate-y-0 !top-auto !left-auto'
         }`
-        : "sm:max-w-4xl bg-[#0a1224] bg-gradient-to-br from-[#0c1a36] via-[#0a1224] to-[#040816] border-gray-800 p-0 overflow-hidden flex flex-col transition-all duration-300 group";
+        : "w-[100vw] sm:max-w-4xl bg-[#0a1224] bg-gradient-to-br from-[#0c1a36] via-[#0a1224] to-[#040816] border-gray-800 p-0 overflow-hidden flex flex-col transition-all duration-300 group";
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()} modal={!isPip}>
@@ -74,7 +74,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
             >
                 <DialogHeader
                     onMouseDown={handleDragStart}
-                    className={`p-4 bg-white/5 backdrop-blur-md flex flex-row items-center justify-between transition-opacity duration-300 ${isPip ? 'cursor-move absolute top-0 w-full z-10 opacity-0 group-hover:opacity-100' : 'relative opacity-100 border-b border-white/10'}`}
+                    className={`p-3 sm:p-4 bg-white/5 backdrop-blur-md flex flex-row items-center justify-between transition-opacity duration-300 ${isPip ? 'cursor-move absolute top-0 w-full z-10 opacity-0 group-hover:opacity-100' : 'relative opacity-100 border-b border-white/10'}`}
                 >
                     <div className='flex-1 pr-4 min-w-0'>
                         <DialogTitle className="text-white truncate flex items-center gap-2">

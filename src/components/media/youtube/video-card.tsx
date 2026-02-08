@@ -69,7 +69,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, playlis
                                 e.stopPropagation();
                                 onAddToPlaylist(video.id);
                             }}
-                            className="absolute bottom-2 left-2 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute bottom-2 left-2 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white cursor-pointer opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
                             title={t('addToPlaylist')}
                         >
                             <ListPlus className="w-4 h-4" />
@@ -95,24 +95,24 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, playlis
                             e.stopPropagation();
                             onDelete(video.id);
                         }}
-                        className="absolute top-2 right-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer"
+                        className="absolute top-2 right-2 rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer"
                         title={t('delete')}
                     >
                         <Trash2 className="w-4 h-4" />
                     </Button>
 
                     {/* Play Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        <div className="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center shadow-lg">
-                            <Play className="w-6 h-6 text-white fill-white ml-1" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-red-600 flex items-center justify-center shadow-lg">
+                            <Play className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-white ml-1" />
                         </div>
                     </div>
                 </div>
 
                 {/* Content */}
-                <CardContent className="flex-1 p-5 space-y-3">
+                <CardContent className="flex-1 p-3 sm:p-5 space-y-3">
                     <h3
-                        className="font-semibold text-base line-clamp-2 leading-relaxed text-white group-hover:text-red-400 transition-colors h-[3.5rem]"
+                        className="font-semibold text-sm sm:text-base line-clamp-2 leading-relaxed text-white group-hover:text-red-400 transition-colors h-[3rem] sm:h-[3.5rem]"
                         title={video.title || undefined}
                     >
                         {video.title}

@@ -133,7 +133,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                 {Object.keys(groups).map((dateKey) => (
                     <div key={dateKey} className="space-y-4">
                         <h2 className="text-xl font-bold text-white border-l-4 border-red-500 pl-3">{dateKey}</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {groups[dateKey].map((video) => (
                                 <VideoCard
                                     key={video.id}
@@ -154,19 +154,19 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
 
     return (
         <div className="space-y-8 pb-20">
-            <div className="bg-slate-900/50 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-2xl">
-                <form onSubmit={handleAddVideo} className="flex gap-4">
+            <div className="bg-slate-900/50 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-white/10 shadow-2xl">
+                <form onSubmit={handleAddVideo} className="flex flex-col sm:flex-row gap-4">
                     <Input
                         placeholder="Paste YouTube URL here..."
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
-                        className="bg-white/5 border-white/10 text-white focus:ring-red-500/50 h-12 text-lg"
+                        className="bg-white/5 border-white/10 text-white focus:ring-red-500/50 h-12 text-base sm:text-lg w-full"
                         disabled={isAdding}
                     />
                     <Button
                         type="submit"
                         disabled={isAdding || !url}
-                        className="bg-red-600 hover:bg-red-700 text-white px-8 h-12 text-lg font-semibold transition-all transform hover:scale-105 active:scale-95"
+                        className="bg-red-600 hover:bg-red-700 text-white px-8 h-12 text-base sm:text-lg font-semibold transition-all transform hover:scale-105 active:scale-95 w-full sm:w-auto shrink-0"
                     >
                         {isAdding ? "Adding..." : t('actions.addVideo')}
                     </Button>
@@ -174,18 +174,18 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
             </div>
 
             <Tabs defaultValue="recent" className="w-full">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-                    <TabsList className="bg-slate-900/50 border border-white/10 p-1 h-auto">
-                        <TabsTrigger value="recent" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 py-2.5 rounded-lg transition-all text-base gap-2">
-                            <Clock className="w-4 h-4" />
+                <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-8">
+                    <TabsList className="bg-slate-900/50 border border-white/10 p-1 h-auto grid grid-cols-3 sm:flex w-full sm:w-auto">
+                        <TabsTrigger value="recent" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-2 sm:px-6 py-2.5 rounded-lg transition-all text-sm sm:text-base gap-2">
+                            <Clock className="w-4 h-4 hidden xs:block" />
                             {t('tabs.recent')}
                         </TabsTrigger>
-                        <TabsTrigger value="playlists" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 py-2.5 rounded-lg transition-all text-base gap-2">
-                            <ListVideo className="w-4 h-4" />
+                        <TabsTrigger value="playlists" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-2 sm:px-6 py-2.5 rounded-lg transition-all text-sm sm:text-base gap-2">
+                            <ListVideo className="w-4 h-4 hidden xs:block" />
                             {t('tabs.playlists')}
                         </TabsTrigger>
-                        <TabsTrigger value="favorites" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-6 py-2.5 rounded-lg transition-all text-base gap-2">
-                            <Heart className="w-4 h-4" />
+                        <TabsTrigger value="favorites" className="data-[state=active]:bg-red-600 data-[state=active]:text-white px-2 sm:px-6 py-2.5 rounded-lg transition-all text-sm sm:text-base gap-2">
+                            <Heart className="w-4 h-4 hidden xs:block" />
                             {t('tabs.favorites')}
                         </TabsTrigger>
                     </TabsList>
@@ -193,7 +193,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                     <Button
                         onClick={() => setIsCreatePlaylistOpen(true)}
                         variant="outline"
-                        className="bg-white/5 border-white/10 hover:bg-white/10 text-white gap-2 h-11 px-6 rounded-xl transition-all"
+                        className="bg-white/5 border-white/10 hover:bg-white/10 text-white gap-2 h-11 px-6 rounded-xl transition-all w-full sm:w-auto"
                     >
                         <Plus className="w-4 h-4" />
                         {t('actions.createPlaylist')}
@@ -211,7 +211,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                                 <Heart className="w-6 h-6 text-red-500 fill-red-500" />
                                 {t('gallery.favoritePlaylists')}
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {favoritePlaylists.map((playlist) => (
                                     <PlaylistCard
                                         key={playlist.id}
@@ -224,7 +224,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                         </div>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {playlists.map((playlist) => (
                             <PlaylistCard
                                 key={playlist.id}
@@ -257,7 +257,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                     {favoritePlaylists.length > 0 && (
                         <div className="space-y-4">
                             <h2 className="text-xl font-bold text-white border-l-4 border-red-500 pl-3">{t('gallery.favoritePlaylists')}</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {favoritePlaylists.map((playlist) => (
                                     <PlaylistCard
                                         key={playlist.id}
