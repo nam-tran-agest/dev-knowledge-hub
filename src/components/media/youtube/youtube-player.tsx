@@ -15,11 +15,12 @@ declare global {
 interface YouTubePlayerProps {
     videoId: string;
     onTimeUpdate?: (time: number) => void;
+    onEnd?: () => void;
     startTime?: number;
     className?: string;
 }
 
-export function YouTubePlayer({ videoId, onTimeUpdate, startTime = 0, className = "" }: YouTubePlayerProps) {
+export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, className = "" }: YouTubePlayerProps) {
     const playerRef = useRef<any>(null);
     const containerId = useRef(`yt-player-${Math.random().toString(36).substr(2, 9)}`);
 
@@ -42,6 +43,8 @@ export function YouTubePlayer({ videoId, onTimeUpdate, startTime = 0, className 
                     start: Math.floor(startTime),
                     modestbranding: 1,
                     rel: 0,
+                    enablejsapi: 1,
+                    origin: typeof window !== 'undefined' ? window.location.origin : '',
                 },
                 events: {
                     onReady: () => {
@@ -51,6 +54,11 @@ export function YouTubePlayer({ videoId, onTimeUpdate, startTime = 0, className 
                                     onTimeUpdate(playerRef.current.getCurrentTime());
                                 }
                             }, 1000);
+                        }
+                    },
+                    onStateChange: (event: any) => {
+                        if (event.data === 0 && onEnd) { // 0 is Ended
+                            onEnd();
                         }
                     }
                 }

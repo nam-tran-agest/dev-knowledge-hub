@@ -104,6 +104,12 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                             videoId={getYouTubeId(video.url) || ''}
                             startTime={video.saved_time}
                             onTimeUpdate={(t) => lastTimeRef.current = t}
+                            onEnd={() => {
+                                const currentIndex = playlistVideos.findIndex(v => v.id === video.id);
+                                if (currentIndex !== -1 && currentIndex < playlistVideos.length - 1) {
+                                    onSelectVideo(playlistVideos[currentIndex + 1]);
+                                }
+                            }}
                         />
                     </div>
 
