@@ -8,40 +8,21 @@ interface NotePageProps {
     params: Promise<{ id: string; locale: string }>
 }
 
-const CATEGORY_THEMES: Record<string, { bg: string; border: string }> = {
-    work: {
-        bg: 'bg-blue-500/5',
-        border: 'border-blue-500/20',
-    },
-    learn: {
-        bg: 'bg-emerald-500/5',
-        border: 'border-emerald-500/20',
-    },
-    ideas: {
-        bg: 'bg-amber-500/5',
-        border: 'border-amber-500/20',
-    },
-    life: {
-        bg: 'bg-rose-500/5',
-        border: 'border-rose-500/20',
-    },
-}
+import { NOTES_CONFIG } from '@/lib/constants/notes-config'
 
 export default async function NotePage({ params }: NotePageProps) {
     const { id, locale } = await params
 
     // Check if id is a category (for list view) or a note ID
-    const isCategory = Object.keys(CATEGORY_THEMES).includes(id)
+    const isCategory = Object.keys(NOTES_CONFIG).includes(id)
 
     let categorySlug = 'work'
     let selectedNoteId: string | undefined
     let initialNoteData: any = null
 
     if (isCategory) {
-        // If route is /notes/work, load list for work
         categorySlug = id
     } else {
-        // If route is /notes/[uuid], fetch note to find its category
         const note = await getNote(id)
         if (note) {
             categorySlug = note.category?.slug || 'work'
@@ -50,36 +31,44 @@ export default async function NotePage({ params }: NotePageProps) {
         }
     }
 
-    // Fetch notes list for the sidebar
     const { data: notes } = await getNotes({ categorySlug })
-    const theme = CATEGORY_THEMES[categorySlug] || CATEGORY_THEMES.work
+    const config = NOTES_CONFIG[categorySlug] || NOTES_CONFIG.work
 
     return (
-        <div className="h-screen flex overflow-hidden pt-16">
-            {/* Left Column - 30% */}
-            <div className={cn("w-[30%] min-w-[300px] border-r", theme.bg)}>
-                <NoteList
-                    notes={notes}
-                    selectedNoteId={selectedNoteId}
-                    categorySlug={categorySlug}
-                />
-            </div>
+        <div className={cn("min-h-screen flex flex-col pt-16 transition-colors duration-500", config.gradient)}>
+            <div className="flex flex-col lg:flex-row flex-1 min-h-[calc(100vh-64px)] overflow-hidden">
+                {/* Left Column - Note List */}
+                <aside className={cn(
+                    "w-full lg:w-80 shrink-0 border-b lg:border-r border-slate-200/50 backdrop-blur-xl flex flex-col",
+                    config.bg,
+                    selectedNoteId ? "hidden lg:flex" : "flex"
+                )}>
+                    <NoteList
+                        notes={notes}
+                        selectedNoteId={selectedNoteId}
+                        categorySlug={categorySlug}
+                    />
+                </aside>
 
-            {/* Right Column - 70% */}
-            <div className="flex-1 bg-background h-full overflow-hidden">
-                {selectedNoteId && initialNoteData ? (
-                    <NoteEditor note={initialNoteData} />
-                ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-muted-foreground space-y-4">
-                        <div className="p-4 rounded-full bg-muted/50">
-                            <span className="text-4xl">📝</span>
+                {/* Right Column - Note Editor / Empty State */}
+                <main className={cn(
+                    "flex-1 bg-transparent min-w-0 flex flex-col",
+                    selectedNoteId ? "flex" : "hidden lg:flex"
+                )}>
+                    {selectedNoteId && initialNoteData ? (
+                        <NoteEditor note={initialNoteData} />
+                    ) : (
+                        <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-4">
+                            <div className={cn("p-6 rounded-full backdrop-blur-md border border-slate-200/50 shadow-sm", config.iconBg)}>
+                                <span className="text-5xl animate-bounce">📝</span>
+                            </div>
+                            <div className="text-center space-y-2">
+                                <h3 className="font-bold text-2xl text-slate-900 tracking-tight">Select a note to view</h3>
+                                <p className="text-slate-500 max-w-sm">Choose a thought from the list or create a new one to get started.</p>
+                            </div>
                         </div>
-                        <div className="text-center">
-                            <h3 className="font-semibold text-lg">Select a note to view</h3>
-                            <p className="text-sm">Or create a new one from the sidebar</p>
-                        </div>
-                    </div>
-                )}
+                    )}
+                </main>
             </div>
         </div>
     )

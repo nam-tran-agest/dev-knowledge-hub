@@ -12,7 +12,8 @@ import {
     Plus,
     Type,
     Check,
-    X
+    X,
+    ChevronLeft
 } from 'lucide-react'
 import { updateNote, deleteNote } from '@/lib/actions/notes'
 import type { Note } from '@/types/note'
@@ -21,6 +22,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { NOTES_CONFIG } from '@/lib/constants/notes-config'
 
 interface NoteEditorProps {
     note: Note
@@ -28,6 +30,7 @@ interface NoteEditorProps {
 
 export function NoteEditor({ note }: NoteEditorProps) {
     const router = useRouter()
+    const config = NOTES_CONFIG[note.category?.slug || 'work'] || NOTES_CONFIG.work
     const [mode, setMode] = useState<'view' | 'edit'>('view')
     const [title, setTitle] = useState(note.title)
     const [content, setContent] = useState(note.content || '')
@@ -69,11 +72,24 @@ export function NoteEditor({ note }: NoteEditorProps) {
     }
 
     return (
-        <div className="flex flex-col h-full relative group border-l">
+        <div className="flex-1 w-full flex flex-col h-full relative group">
+
+            {/* Mobile Header with Back Button */}
+            <div className="md:hidden flex items-center p-4 border-b border-slate-200/50 bg-white/10 backdrop-blur-md">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => router.push(`/notes/${note.category?.slug || 'work'}`)}
+                    className="text-slate-600 hover:text-slate-900"
+                >
+                    <ChevronLeft className="h-5 w-5 mr-1" />
+                    Back
+                </Button>
+            </div>
 
             {/* Main Editor Area */}
-            <div className="flex-1 overflow-auto p-12 custom-scrollbar bg-black/10">
-                <div className="max-w-3xl mx-auto space-y-8 pb-24">
+            <div className="flex-1 overflow-auto p-4 md:p-12 custom-scrollbar bg-white/5">
+                <div className="w-full space-y-6 md:space-y-8 pb-24">
 
                     {/* Header Region */}
                     <div className="space-y-6">
@@ -94,11 +110,11 @@ export function NoteEditor({ note }: NoteEditorProps) {
                             </div>
                         ) : (
                             <div className="space-y-4 animate-in fade-in duration-300">
-                                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+                                <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-950">
                                     {title || 'Untitled'}
                                 </h1>
                                 {tags && (
-                                    <div className="flex flex-wrap gap-2 text-primary font-medium">
+                                    <div className={cn("flex flex-wrap gap-2 font-semibold", config.accentClass)}>
                                         {tags.split(',').filter(Boolean).map(t => (
                                             <span key={t}>#{t.trim()}</span>
                                         ))}
@@ -118,7 +134,7 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 className="w-full h-[60vh] font-sans text-lg leading-relaxed border border-black dark:border-white/10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary/50 resize-none p-6 bg-transparent rounded-xl"
                             />
                         ) : (
-                            <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/80 leading-relaxed border border-transparent dark:border-white/10 p-6 rounded-xl min-h-[60vh]">
+                            <div className="prose prose-lg max-w-none text-slate-900 leading-relaxed border border-transparent p-4 md:p-6 rounded-xl min-h-[60vh]">
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
                                     components={{
@@ -130,12 +146,12 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                                     style={vscDarkPlus}
                                                     language={match[1]}
                                                     PreTag="div"
-                                                    className="rounded-xl !bg-muted/50 !p-6 !my-6 shadow-sm"
+                                                    className="rounded-xl !bg-slate-900 !p-6 !my-6 shadow-sm"
                                                 >
                                                     {String(children).replace(/\n$/, '')}
                                                 </SyntaxHighlighter>
                                             ) : (
-                                                <code {...props} className={cn("bg-muted/50 px-1.5 py-0.5 rounded font-mono text-sm text-primary", className)}>
+                                                <code {...props} className={cn("bg-slate-100 px-1.5 py-0.5 rounded font-mono text-sm", config.accentClass, className)}>
                                                     {children}
                                                 </code>
                                             )
@@ -143,10 +159,10 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                         h1: ({ node, ...props }) => <h1 className="text-3xl font-bold mt-12 mb-6" {...props} />,
                                         h2: ({ node, ...props }) => <h2 className="text-2xl font-semibold mt-10 mb-5" {...props} />,
                                         h3: ({ node, ...props }) => <h3 className="text-xl font-medium mt-8 mb-4" {...props} />,
-                                        p: ({ node, ...props }) => <p className="mb-6 opacity-90" {...props} />,
-                                        ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 opacity-90" {...props} />,
-                                        ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 opacity-90" {...props} />,
-                                        blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-primary/30 pl-6 italic text-lg my-8 opacity-70" {...props} />,
+                                        p: ({ node, ...props }) => <p className="mb-6 text-slate-800 leading-relaxed" {...props} />,
+                                        ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
+                                        ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
+                                        blockquote: ({ node, ...props }) => <blockquote className={cn("border-l-4 pl-6 italic text-lg my-8 text-slate-600", config.accentBorder)} {...props} />,
                                     }}
                                 >
                                     {content}
@@ -174,7 +190,7 @@ export function NoteEditor({ note }: NoteEditorProps) {
                             size="icon"
                             onClick={onSave}
                             disabled={saving}
-                            className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all bg-primary text-primary-foreground"
+                            className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all bg-slate-950 text-white"
                             title="Save Changes"
                         >
                             {saving ? <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Check className="h-6 w-6" />}
@@ -195,7 +211,7 @@ export function NoteEditor({ note }: NoteEditorProps) {
                             size="icon"
                             variant="secondary"
                             onClick={() => setMode('edit')}
-                            className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all"
+                            className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all bg-white/80 border border-slate-200/50 text-slate-900"
                             title="Edit Note"
                         >
                             <Type className="h-6 w-6" />

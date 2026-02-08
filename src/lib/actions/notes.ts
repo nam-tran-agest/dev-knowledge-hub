@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import type { Note, CreateNoteInput, UpdateNoteInput } from '@/types/note'
+import { NOTES_CONFIG } from '@/lib/constants/notes-config'
 
 export async function getNotes(params?: { categorySlug?: string, search?: string, limit?: number, offset?: number }) {
   const supabase = await createClient()
@@ -83,13 +84,13 @@ export async function createNote(input: CreateNoteInput): Promise<Note> {
 
   // Determine target table based on slug
   const categorySlug = input.categorySlug || 'work' // Default to work if not provided
-  const targetTable = `kb_notes_${categorySlug}`
+  const config = NOTES_CONFIG[categorySlug]
 
-  // Validate allowed categories
-  const allowedCategories = ['work', 'learn', 'ideas', 'life']
-  if (!allowedCategories.includes(categorySlug)) {
+  if (!config) {
     throw new Error(`Invalid category: ${categorySlug}`)
   }
+
+  const targetTable = config.table
 
   const { data, error } = await supabase
     .from(targetTable)
@@ -109,7 +110,7 @@ export async function createNote(input: CreateNoteInput): Promise<Note> {
     throw new Error('Failed to create note')
   }
 
-  revalidatePath('/notes')
+  revalidatePath(`/notes/${categorySlug}`)
   redirect(`/notes/${data.id}`)
 }
 
@@ -129,7 +130,9 @@ export async function updateNote(id: string, input: UpdateNoteInput): Promise<No
   }
 
   const categorySlug = currentNote.category_slug
-  const targetTable = `kb_notes_${categorySlug}`
+  const config = NOTES_CONFIG[categorySlug]
+  if (!config) throw new Error(`Invalid category: ${categorySlug}`)
+  const targetTable = config.table
 
   const updateData: any = { updated_at: new Date().toISOString() }
   if (input.title !== undefined) updateData.title = input.title
@@ -159,7 +162,8 @@ export async function updateNote(id: string, input: UpdateNoteInput): Promise<No
   const updatedNote = await getNote(id)
   if (!updatedNote) throw new Error('Failed to retrieve updated note')
 
-  revalidatePath('/notes')
+  revalidatePath(`/notes/${id}`)
+  revalidatePath(`/notes/${categorySlug}`)
   return updatedNote
 }
 
@@ -178,7 +182,10 @@ export async function deleteNote(id: string): Promise<void> {
     return
   }
 
-  const targetTable = `kb_notes_${currentNote.category_slug}`
+  const categorySlug = currentNote.category_slug
+  const config = NOTES_CONFIG[categorySlug]
+  if (!config) throw new Error(`Invalid category: ${categorySlug}`)
+  const targetTable = config.table
 
   const { error } = await supabase
     .from(targetTable)
@@ -190,7 +197,8 @@ export async function deleteNote(id: string): Promise<void> {
     throw new Error('Failed to delete note')
   }
 
-  revalidatePath('/notes')
-  redirect('/notes')
+  revalidatePath(`/notes/${id}`)
+  revalidatePath(`/notes/${categorySlug}`)
+  redirect(`/notes/${categorySlug}`)
 }
 
