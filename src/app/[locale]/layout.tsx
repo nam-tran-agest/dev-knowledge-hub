@@ -12,6 +12,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import MobileMenu from "@/components/layout/mobile-menu";
 
 
 const playfair = Playfair_Display({
@@ -60,7 +61,6 @@ export default async function RootLayout({
   }
 
   const messages = await getMessages();
-  const tFooter = await getTranslations({ locale, namespace: 'footer' });
   const footerData = (messages as any).footer as FooterData;
 
   const fontClass = locale === 'vi'
@@ -74,7 +74,8 @@ export default async function RootLayout({
           <div className="flex min-h-screen">
             {/* Main Content */}
             <div className="flex-1 min-w-0">
-              <header className={`fixed top-0 z-30 flex h-16 w-full items-center justify-center px-6 ${CC_STYLES.header}`}>
+              {/* Desktop Header */}
+              <header className={`fixed top-0 z-30 hidden md:flex h-16 w-full items-center justify-center px-6 ${CC_STYLES.header}`}>
                 <Link href="/" className="absolute left-6 flex h-16 items-center gap-3">
                   <Image
                     src="/img/home/nav_ico.svg"
@@ -84,9 +85,13 @@ export default async function RootLayout({
                     className="rounded-lg shadow-lg"
                   />
                 </Link>
-
                 <MainNav />
               </header>
+
+              {/* Mobile Navbar (Floating) */}
+              <div className="md:hidden">
+                <MobileMenu />
+              </div>
               <main className="w-full">
                 {children}
               </main>

@@ -85,3 +85,18 @@ export interface FooterData {
     icon?: AppImageDataType;
   }[];
 }
+
+export interface NavbarItem {
+  id: string;
+  label: string;
+  url: string;
+  open_in_new_tab?: boolean;
+  sub_items: {
+    label: string;
+    url: string;
+  }[];
+}
+
+export interface NavbarData {
+  navbar_items: NavbarItem[];
+}
