@@ -95,20 +95,20 @@ export default async function NewsUnifiedPage({
     });
 
     return (
-        <div className="min-h-screen pt-16 bg-[#0a0a0c] text-slate-200">
-            <div className="flex flex-col lg:flex-row overflow-hidden">
+        <div className="min-h-screen pt-16 bg-[#0a0a0c] text-slate-200 overflow-x-hidden">
+            <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] overflow-hidden">
                 <NewsSidebar categories={CATEGORIES_WITH_ICONS} trendingItems={trendingItems} />
 
-                <main className="flex-1 overflow-hidden flex flex-col bg-[#0a0a0c]">
-                    <ScrollArea className="flex-1">
-                        <div className="px-8 py-8 space-y-12 max-w-6xl mx-auto">
+                <main className="flex-1 min-w-0 overflow-hidden flex flex-col bg-[#0a0a0c]">
+                    <div className="flex-1 overflow-y-auto overflow-x-hidden">
+                        <div className="px-4 md:px-8 py-8 space-y-12 max-w-6xl mx-auto">
                             {/* Category Header */}
                             {categoryId !== 'all' && (
                                 <div className="space-y-2">
-                                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                                    <h1 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
                                         {tCategories(categoryId)}
                                     </h1>
-                                    <p className="text-slate-500">
+                                    <p className="text-sm md:text-base text-slate-500">
                                         {t('categoryDescription', { category: tCategories(categoryId) })}
                                     </p>
                                 </div>
@@ -120,7 +120,7 @@ export default async function NewsUnifiedPage({
 
                             <NewsGrid items={feedItems} />
                         </div>
-                    </ScrollArea>
+                    </div>
                 </main>
             </div>
         </div>

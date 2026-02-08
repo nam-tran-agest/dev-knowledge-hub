@@ -3,7 +3,7 @@
 import { MAIN_NAVIGATION } from "@/lib/constants/navigation";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -59,19 +59,21 @@ export default function MobileMenu() {
                                 )}
                             >
                                 <span className="sr-only">Toggle menu</span>
-                                <svg className="w-6 h-6 fill-current pointer-events-none" viewBox="0 0 16 16">
-                                    <rect
-                                        className={cn(rectBase, "-translate-y-[5px] translate-x-[7px] group-data-[state=open]:translate-x-0 group-data-[state=open]:translate-y-0 group-data-[state=open]:rotate-[315deg]")}
-                                        y="7" width="9" height="2" rx="1"
-                                    />
-                                    <rect
-                                        className={cn(rectBase, "group-data-[state=open]:rotate-45")}
-                                        y="7" width="16" height="2" rx="1"
-                                    />
-                                    <rect
-                                        className={cn(rectBase, "translate-y-[5px] group-data-[state=open]:translate-y-0 group-data-[state=open]:rotate-[135deg]")}
-                                        y="7" width="9" height="2" rx="1"
-                                    />
+                                <svg className="w-6 h-6 fill-current pointer-events-none" viewBox="0 0 24 24">
+                                    {/* Corners: Scale away to clear space */}
+                                    <rect className={cn(rectBase, "group-data-[state=open]:scale-0")} x="4" y="4" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:scale-0 delay-75")} x="16" y="4" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:scale-0 delay-75")} x="4" y="16" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:scale-0 delay-150")} x="16" y="16" width="4" height="4" rx="1" />
+
+                                    {/* Core: Mids converge and rotate into a diamond shape */}
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-y-[2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-emerald-400 group-data-[state=open]:rotate-45")} x="10" y="4" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-x-[-2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-emerald-400 group-data-[state=open]:rotate-45 delay-75")} x="16" y="10" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-y-[-2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-emerald-400 group-data-[state=open]:rotate-45 delay-150")} x="10" y="16" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-x-[2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-emerald-400 group-data-[state=open]:rotate-45 delay-75")} x="4" y="10" width="4" height="4" rx="1" />
+
+                                    {/* Center: Bright anchor for the diamond core */}
+                                    <rect className={cn(rectBase, "group-data-[state=open]:scale-[2.2] group-data-[state=open]:fill-emerald-400 group-data-[state=open]:rotate-45 delay-[200ms]")} x="10" y="10" width="4" height="4" rx="1" />
                                 </svg>
                             </button>
                         </PopoverTrigger>
@@ -111,10 +113,13 @@ export default function MobileMenu() {
                                                                     {label}
                                                                 </span>
                                                                 <span className="p-2">
-                                                                    <ArrowRight className={cn(
-                                                                        "transition-transform duration-300",
-                                                                        "group-data-[state=open]:rotate-90"
-                                                                    )} />
+                                                                    <ChevronRight
+                                                                        strokeWidth={2.5}
+                                                                        className={cn(
+                                                                            "w-5 h-5 transition-transform duration-500 ease-out",
+                                                                            "group-data-[state=open]:rotate-90 text-slate-400 group-hover:text-white group-data-[state=open]:text-white"
+                                                                        )}
+                                                                    />
                                                                 </span>
                                                             </div>
                                                         </CollapsibleTrigger>
@@ -175,7 +180,6 @@ export default function MobileMenu() {
                                         className="object-contain"
                                     />
                                 </div>
-                                <span className="font-bold text-slate-800">Dev Hub</span>
                             </Link>
                         </PopoverClose>
                     </div>

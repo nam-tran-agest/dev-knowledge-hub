@@ -50,7 +50,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.link}>
-                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="relative block h-[500px] overflow-hidden group">
+                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="relative block h-[320px] md:h-[500px] overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/40 to-transparent z-10" />
                             <div className="absolute inset-0">
                                 <Image
@@ -61,32 +61,32 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                                     unoptimized={item.image.startsWith('http') && !item.image.toLowerCase().includes('dantri')}
                                 />
                             </div>
-                            <div className="absolute bottom-10 left-10 right-10 z-20 space-y-6">
+                            <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 z-20 space-y-4 md:space-y-6">
                                 <div className="space-y-4">
-                                    <Badge className="bg-emerald-500 text-white hover:bg-emerald-600 uppercase">{t('badge')}</Badge>
-                                    <h1 className="text-4xl font-extrabold tracking-tight max-w-3xl leading-[1.1]">{item.title}</h1>
-                                    <p className="text-slate-400 max-w-2xl text-lg leading-relaxed line-clamp-2">{item.excerpt}</p>
+                                    <Badge className="bg-emerald-500 text-white hover:bg-emerald-600 uppercase text-[10px] md:text-xs">{t('badge')}</Badge>
+                                    <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight max-w-3xl leading-[1.2] md:leading-[1.1]">{item.title}</h1>
+                                    <p className="text-slate-400 max-w-2xl text-sm md:text-lg leading-relaxed line-clamp-2 hidden sm:line-clamp-2">{item.excerpt}</p>
                                 </div>
-                                <div className="flex items-center gap-6">
-                                    <div className="flex items-center gap-3">
-                                        <Avatar className="w-10 h-10 border border-emerald-500/50 bg-white p-0.5">
+                                <div className="flex items-center gap-4 md:gap-6">
+                                    <div className="flex items-center gap-2 md:gap-3">
+                                        <Avatar className="w-8 h-8 md:w-10 md:h-10 border border-emerald-500/50 bg-white p-0.5">
                                             <AvatarImage
                                                 src={item.sourceLogo || `https://api.dicebear.com/7.x/initials/svg?seed=${item.author}`}
                                                 className="object-contain"
                                             />
                                             <AvatarFallback>VN</AvatarFallback>
                                         </Avatar>
-                                        <div className="flex flex-col text-sm gap-0.5">
-                                            <div className="font-bold text-slate-500 text-[10px] uppercase leading-none">{t('editor')}</div>
+                                        <div className="flex flex-col text-[9px] md:text-sm gap-0.5">
+                                            <div className="font-bold text-slate-500 text-[8px] md:text-[10px] uppercase leading-none">{t('editor')}</div>
                                             <div className="font-bold leading-tight">{item.author}</div>
                                         </div>
                                     </div>
-                                    <Separator orientation="vertical" className="h-8 bg-white/10" />
-                                    <div className="flex items-center gap-2 text-slate-400 text-sm font-bold">
-                                        <Clock className="w-4 h-4" /> <TimeDisplay isoDate={item.isoDate} />
+                                    <Separator orientation="vertical" className="h-6 md:h-8 bg-white/10" />
+                                    <div className="flex items-center gap-2 text-slate-400 text-[10px] md:text-sm font-bold">
+                                        <Clock className="w-3 h-3 md:w-4 md:h-4" /> <TimeDisplay isoDate={item.isoDate} />
                                     </div>
-                                    <div className="ml-auto p-3 bg-white/10 group-hover:bg-emerald-500 group-hover:text-white rounded-full transition-all border border-white/5">
-                                        <ExternalLink className="w-5 h-5" />
+                                    <div className="ml-auto p-2 md:p-3 bg-white/10 group-hover:bg-emerald-500 group-hover:text-white rounded-full transition-all border border-white/5">
+                                        <ExternalLink className="size-4 md:size-5" />
                                     </div>
                                 </div>
                             </div>
