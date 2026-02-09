@@ -103,3 +103,18 @@ export async function getUserPlaylists(limit = 10) {
     const data = await spotifyFetch(`me/playlists?limit=${limit}`, token);
     return data?.items || [];
 }
+
+export async function getPlaylist(id: string) {
+    const token = await getSpotifyAuthToken();
+    if (!token) return null;
+
+    return await spotifyFetch(`playlists/${id}`, token);
+}
+
+export async function getPlaylistTracks(id: string, limit = 50) {
+    const token = await getSpotifyAuthToken();
+    if (!token) return [];
+
+    const data = await spotifyFetch(`playlists/${id}/tracks?limit=${limit}`, token);
+    return data?.items || [];
+}

@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link } from '@/i18n/routing';
 
 interface MusicCardProps {
     item: any;
@@ -55,15 +56,12 @@ export function MusicCard({ item, type }: MusicCardProps) {
                 </p>
             </div>
 
-            {type === 'top-tracks' && item.preview_url && (
-                <a
-                    href={item.external_urls?.spotify}
-                    target="_blank"
-                    rel="noopener noreferrer"
+            {type === 'playlists' ? (
+                <Link
+                    href={`/media/music/playlist/${item.id}`}
                     className="absolute inset-0 z-10"
                 />
-            )}
-            {(type === 'top-artists' || type === 'playlists') && (
+            ) : (
                 <a
                     href={item.external_urls?.spotify}
                     target="_blank"

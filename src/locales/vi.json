@@ -547,6 +547,11 @@
             "grid": {
                 "empty": "Không tìm thấy nội dung trong mục này.",
                 "by": "Bởi"
+            },
+            "playlist": {
+                "back": "Quay lại",
+                "songs": "bài hát",
+                "openSpotify": "Mở trong Spotify"
             }
         },
         "news": {

@@ -547,6 +547,11 @@
             "grid": {
                 "empty": "No items found in this category.",
                 "by": "By"
+            },
+            "playlist": {
+                "back": "Back to Music",
+                "songs": "songs",
+                "openSpotify": "Open in Spotify"
             }
         },
         "news": {

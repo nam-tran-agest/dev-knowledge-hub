@@ -19,6 +19,7 @@ export interface SavedPlaylist {
     is_favorite: boolean;
     user_id?: string;
     video_count?: number; // Optional virtual field
+    video_thumbnails?: string[]; // To store thumbnails of videos in playlist
 }
 
 export interface PlaylistItem {

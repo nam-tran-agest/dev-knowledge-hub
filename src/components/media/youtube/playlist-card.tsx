@@ -29,8 +29,48 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
         >
             <div className="flex flex-col h-full">
                 {/* Playlist Icon / Thumbnail placeholder */}
-                <div className="relative aspect-video w-full overflow-hidden bg-slate-900 flex items-center justify-center">
-                    {playlist.thumbnail_url ? (
+                <div className="relative aspect-video w-full overflow-hidden bg-slate-900 group flex items-center justify-center p-4">
+                    {playlist.video_thumbnails && playlist.video_thumbnails.length > 0 ? (
+                        <div className="relative w-full h-full flex items-center justify-center">
+                            {/* Tertiary thumbnail (bottom) */}
+                            {playlist.video_thumbnails.length >= 3 && (
+                                <div className="absolute w-[85%] h-[85%] rounded-lg overflow-hidden border border-white/10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-4 group-hover:-rotate-6 -rotate-3 -translate-y-2 opacity-50 bg-black">
+                                    <Image
+                                        src={playlist.video_thumbnails[2]}
+                                        alt=""
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            )}
+                            {/* Secondary thumbnail (middle) */}
+                            {playlist.video_thumbnails.length >= 2 && (
+                                <div className="absolute w-[90%] h-[90%] rounded-lg overflow-hidden border border-white/10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-3 rotate-1 -translate-y-1 opacity-80 bg-black">
+                                    <Image
+                                        src={playlist.video_thumbnails[1]}
+                                        alt=""
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            )}
+                            {/* Primary thumbnail (front) */}
+                            <div className="relative w-full h-full rounded-lg overflow-hidden border border-white/20 shadow-2xl z-10 transition-transform duration-500 group-hover:scale-[1.02] bg-black">
+                                <Image
+                                    src={playlist.video_thumbnails[0]}
+                                    alt={playlist.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                                {/* Overlay for playlist feel */}
+                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <ListVideo className="w-10 h-10 text-white drop-shadow-lg" />
+                                    <span className="text-xs font-bold text-white uppercase tracking-widest drop-shadow-lg">Playlist</span>
+                                </div>
+                            </div>
+                        </div>
+                    ) : playlist.thumbnail_url ? (
                         <>
                             <Image
                                 src={playlist.thumbnail_url}

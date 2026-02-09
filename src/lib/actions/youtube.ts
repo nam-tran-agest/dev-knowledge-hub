@@ -128,12 +128,15 @@ export async function toggleFavorite(id: string, isFavorite: boolean) {
 export async function getPlaylists() {
     const supabase = await createClient();
 
-    // Fetch playlists along with their video count
+    // Fetch playlists along with their video count and first few thumbnails
     const { data, error } = await supabase
         .from('youtube_playlists')
         .select(`
             *,
-            video_count:youtube_playlist_items(count)
+            video_count:youtube_playlist_items(count),
+            playlist_items:youtube_playlist_items(
+                video:youtube_videos(thumbnail_url)
+            )
         `)
         .order('updated_at', { ascending: false });
 
@@ -142,11 +145,19 @@ export async function getPlaylists() {
         return [];
     }
 
-    // Transform count object to number
-    return (data || []).map(p => ({
-        ...p,
-        video_count: p.video_count?.[0]?.count || 0
-    }));
+    // Transform data
+    return (data || []).map(p => {
+        const thumbnails = (p.playlist_items || [])
+            .map((item: any) => item.video?.thumbnail_url)
+            .filter(Boolean)
+            .slice(0, 4);
+
+        return {
+            ...p,
+            video_count: p.video_count?.[0]?.count || 0,
+            video_thumbnails: thumbnails
+        };
+    });
 }
 
 export async function createPlaylist(formData: FormData) {
