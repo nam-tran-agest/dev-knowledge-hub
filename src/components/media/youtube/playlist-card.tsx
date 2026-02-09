@@ -1,14 +1,10 @@
-"use client";
-
-import { Trash2, Heart, ListVideo, ExternalLink, Image as ImageIcon, Edit2 } from "lucide-react";
+import { Trash2, Heart, ListVideo, Edit2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { SavedPlaylist } from "@/types/youtube";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface PlaylistCardProps {

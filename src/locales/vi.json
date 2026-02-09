@@ -505,7 +505,7 @@
                 },
                 "addToPlaylist": {
                     "title": "Thêm vào Playlist",
-                    "empty": "Chưa có playlist nào. Hãy tạo một cái trước!",
+                    "empty": "Chưa có playlist nào. Hãy tạo một chi trước!",
                     "close": "Đóng"
                 }
             },
@@ -621,6 +621,18 @@
             },
             "header": {
                 "searchPlaceholder": "Tìm kiếm bài viết, tin tức và nhận định..."
+            }
+        }
+    },
+    "working": {
+        "title": "Trung tâm làm việc",
+        "description": "Theo dõi việc phân bổ năng lượng hiện tại của bạn.",
+        "list": {
+            "emptyTitle": "Chưa có nhiệm vụ nào",
+            "emptyDesc": "Bạn không có nhiệm vụ nào trong danh mục này. Hãy bắt đầu bằng cách thêm một cái!",
+            "actions": {
+                "edit": "Chỉnh sửa",
+                "delete": "Xóa"
             }
         }
     }

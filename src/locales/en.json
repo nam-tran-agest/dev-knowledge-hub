@@ -622,5 +622,17 @@
                 "searchPlaceholder": "Search articles, news and insights..."
             }
         }
+    },
+    "working": {
+        "title": "Working Hub",
+        "description": "Keep track of your current energy distribution.",
+        "list": {
+            "emptyTitle": "No tasks here",
+            "emptyDesc": "You don't have any tasks in this category. Start by adding one!",
+            "actions": {
+                "edit": "Edit Task",
+                "delete": "Delete Task"
+            }
+        }
     }
 }
