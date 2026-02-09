@@ -25,11 +25,6 @@ export const MAIN_NAVIGATION: NavItem[] = [
     {
         name: 'Working',
         href: '/working',
-        items: [
-            { name: 'Active', href: '/working/active' },
-            { name: 'Paused', href: '/working/paused' },
-            { name: 'Blocked', href: '/working/blocked' },
-        ]
     },
     {
         name: 'Media',
