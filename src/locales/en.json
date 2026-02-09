@@ -484,7 +484,9 @@
             "actions": {
                 "addVideo": "Add Video",
                 "createPlaylist": "Create Playlist",
-                "addToPlaylist": "Add to Playlist"
+                "addToPlaylist": "Add to Playlist",
+                "adding": "Adding...",
+                "cancel": "Cancel"
             },
             "dialogs": {
                 "createPlaylist": {
@@ -494,7 +496,12 @@
                     "titlePlaceholder": "e.g. Learning React",
                     "descriptionLabel": "Description (Optional)",
                     "descriptionPlaceholder": "What is this playlist about?",
-                    "submit": "Create Playlist"
+                    "submit": "Create Playlist",
+                    "cancel": "Cancel"
+                },
+                "editPlaylist": {
+                    "title": "Edit Playlist",
+                    "submit": "Save Changes"
                 },
                 "addToPlaylist": {
                     "title": "Add to Playlist",
@@ -508,7 +515,16 @@
                 "noPlaylistsDesc": "Create a custom playlist to start organizing your videos.",
                 "createFirst": "Create First Playlist",
                 "viewContent": "View Content",
-                "videoCount": "{count} Videos"
+                "videoCount": "{count} Videos",
+                "noVideosFound": "No videos found",
+                "emptyRecent": "Paste a YouTube Video URL above to start building your library.",
+                "emptyFavorites": "Mark videos as favorite to see them here.",
+                "today": "Today",
+                "yesterday": "Yesterday",
+                "confirmDeleteTitle": "Are you absolutely sure?",
+                "confirmDeleteDesc": "This action cannot be undone. This will permanently delete the item from your library.",
+                "delete": "Delete",
+                "searchPlaceholder": "Paste YouTube URL here..."
             },
             "playlist": {
                 "back": "Back to Hub",
@@ -519,7 +535,13 @@
                 "removeTitle": "Remove from collection?",
                 "removeDesc": "This will remove the video from \"{title}\" but keep it in your main library.",
                 "cancel": "Cancel",
-                "remove": "Remove"
+                "remove": "Remove",
+                "title": "Playlist Videos",
+                "itemsCount": "{count} items",
+                "addFromLibrary": "Add Videos from Library",
+                "quickAdd": "Quick Add from Your Library",
+                "searchLibrary": "Search library...",
+                "noMoreVideos": "No more videos in your library to add or search."
             },
             "video": {
                 "thumbnailAlt": "Video thumbnail",
@@ -527,6 +549,15 @@
                 "toggleFavorite": "Toggle Favorite",
                 "addToPlaylist": "Add to Playlist",
                 "delete": "Delete Video"
+            },
+            "modal": {
+                "defaultTitle": "YouTube Video",
+                "startedAt": "Started at: {time}",
+                "saveAndClose": "Save & Close",
+                "saving": "Saving...",
+                "maximize": "Maximize",
+                "miniPlayer": "Mini Player",
+                "close": "Close"
             }
         },
         "music": {
@@ -583,6 +614,12 @@
                 "health": "Health",
                 "business": "Business",
                 "education": "Education"
+            },
+            "card": {
+                "readMore": "READ MORE"
+            },
+            "header": {
+                "searchPlaceholder": "Search articles, news and insights..."
             }
         }
     }

@@ -4,8 +4,12 @@ import { Badge } from '@/components/ui/badge';
 import { Bookmark, Share2, ChevronRight } from 'lucide-react';
 import { NewsItem } from '@/types/news';
 import { TimeDisplay } from './time-display';
+import { useTranslations } from 'next-intl';
 
 export function NewsCard({ item }: { item: NewsItem }) {
+    const t = useTranslations('media.news.card');
+    const tCategories = useTranslations('media.news.categories');
+
     return (
         <a href={item.link} target="_blank" rel="noopener noreferrer" className="block h-full">
             <Card className="bg-[#111114] border-white/5 overflow-hidden group hover:border-emerald-500/50 transition-all flex flex-col h-full">
@@ -18,7 +22,9 @@ export function NewsCard({ item }: { item: NewsItem }) {
                         unoptimized={item.image.startsWith('http') && !item.image.toLowerCase().includes('dantri')}
                     />
                     <div className="absolute top-4 left-4 z-10">
-                        <Badge className="bg-black/60 backdrop-blur-md border-white/10 text-emerald-400 font-bold">{item.category}</Badge>
+                        <Badge className="bg-black/60 backdrop-blur-md border-white/10 text-emerald-400 font-bold">
+                            {item.categoryId ? tCategories(item.categoryId) : item.category}
+                        </Badge>
                     </div>
                 </div>
                 <CardContent className="p-6 flex flex-col flex-1 space-y-4">
@@ -36,7 +42,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
                     <div className="pt-4 border-t border-white/5 flex items-center justify-between">
                         <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">{item.author}</span>
                         <div className="text-xs font-bold text-emerald-500 flex items-center gap-1 group/btn hover:underline">
-                            ĐỌC THÊM <ChevronRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-1" />
+                            {t('readMore')} <ChevronRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-1" />
                         </div>
                     </div>
                 </CardContent>

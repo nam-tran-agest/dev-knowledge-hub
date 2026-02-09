@@ -9,6 +9,7 @@ import { NewsItem, NewsCategory } from '@/types/news';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { useParams } from 'next/navigation';
+import { TimeDisplay } from './time-display';
 
 interface NewsSidebarProps {
     categories: NewsCategory[];
@@ -82,7 +83,7 @@ export function NewsSidebar({ categories, trendingItems }: NewsSidebarProps) {
                                 <a key={news.link} href={news.link} target="_blank" rel="noopener noreferrer" className="group block px-2">
                                     <div className="flex items-center justify-between gap-4">
                                         <Badge variant="outline" className="text-[9px] h-4 bg-white/5 border-none text-slate-400">{news.categoryId ? tCategories(news.categoryId) : news.category}</Badge>
-                                        <span className="text-[10px] text-slate-500 font-bold">{news.time}</span>
+                                        <TimeDisplay isoDate={news.isoDate} className="text-[10px] text-slate-500 font-bold" />
                                     </div>
                                     <h4 className="text-sm font-bold mt-2 leading-tight group-hover:text-emerald-400 transition-colors line-clamp-2">{news.title}</h4>
                                     <p className="text-[10px] text-slate-500 mt-1 uppercase font-bold">{news.author}</p>

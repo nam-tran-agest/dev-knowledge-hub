@@ -19,7 +19,7 @@ interface EditPlaylistDialogProps {
 }
 
 export function EditPlaylistDialog({ open, onOpenChange, playlist }: EditPlaylistDialogProps) {
-    const t = useTranslations('media.youtube.dialogs.createPlaylist'); // Reusing translations for labels
+    const t = useTranslations('media.youtube.dialogs');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
@@ -44,27 +44,27 @@ export function EditPlaylistDialog({ open, onOpenChange, playlist }: EditPlaylis
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-bold">Edit Playlist</DialogTitle>
+                    <DialogTitle className="text-xl font-bold">{t('editPlaylist.title')}</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4 py-4">
                     <div className="space-y-2">
-                        <Label htmlFor="edit-title" className="text-gray-300">{t('titleLabel')}</Label>
+                        <Label htmlFor="edit-title" className="text-gray-300">{t('createPlaylist.titleLabel')}</Label>
                         <Input
                             id="edit-title"
                             name="title"
                             defaultValue={playlist?.title || ""}
-                            placeholder={t('titlePlaceholder')}
+                            placeholder={t('createPlaylist.titlePlaceholder')}
                             className="bg-slate-800 border-white/10 text-white placeholder:text-gray-500"
                             required
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="edit-description" className="text-gray-300">{t('descriptionLabel')}</Label>
+                        <Label htmlFor="edit-description" className="text-gray-300">{t('createPlaylist.descriptionLabel')}</Label>
                         <Textarea
                             id="edit-description"
                             name="description"
                             defaultValue={playlist?.description || ""}
-                            placeholder={t('descriptionPlaceholder')}
+                            placeholder={t('createPlaylist.descriptionPlaceholder')}
                             className="bg-slate-800 border-white/10 text-white placeholder:text-gray-500 min-h-[100px]"
                         />
                     </div>
@@ -75,7 +75,7 @@ export function EditPlaylistDialog({ open, onOpenChange, playlist }: EditPlaylis
                             onClick={() => onOpenChange(false)}
                             className="text-gray-400 hover:text-white hover:bg-white/5"
                         >
-                            Cancel
+                            {t('createPlaylist.cancel')}
                         </Button>
                         <Button
                             type="submit"
@@ -83,7 +83,7 @@ export function EditPlaylistDialog({ open, onOpenChange, playlist }: EditPlaylis
                             className="bg-red-600 hover:bg-red-700 text-white"
                         >
                             {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                            Save Changes
+                            {t('editPlaylist.submit')}
                         </Button>
                     </DialogFooter>
                 </form>

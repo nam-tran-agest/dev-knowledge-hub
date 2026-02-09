@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Save, ExternalLink, PictureInPicture2, X } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { usePipDraggable } from '@/hooks/use-pip-draggable';
 import { useRouter } from 'next/navigation';
 import { updateVideoProgress } from '@/lib/actions/youtube';
@@ -23,6 +24,7 @@ interface VideoModalProps {
 }
 
 export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
+    const t = useTranslations('media.youtube.modal');
     const lastTimeRef = useRef(0);
     const [isSaving, setIsSaving] = useState(false);
     const [isPip, setIsPip] = useState(false);
@@ -84,12 +86,12 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                                 rel="noopener noreferrer"
                                 className="hover:text-red-400 hover:underline flex items-center gap-2 transition-colors truncate"
                             >
-                                {video.title || 'YouTube Video'}
+                                {video.title || t('defaultTitle')}
                                 <ExternalLink className="w-4 h-4 shrink-0 opacity-50" />
                             </a>
                         </DialogTitle>
                         <DialogDescription className="text-gray-400 text-xs mt-1">
-                            Started at: {formatTime(video.saved_time)}
+                            {t('startedAt', { time: formatTime(video.saved_time) })}
                         </DialogDescription>
                     </div>
 
@@ -99,7 +101,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                             size="icon"
                             onClick={() => setIsPip(!isPip)}
                             className="bg-black/50 hover:bg-black/80 text-white shrink-0 cursor-pointer rounded-full w-9 h-9"
-                            title={isPip ? "Maximize" : "Mini Player"}
+                            title={isPip ? t('maximize') : t('miniPlayer')}
                         >
                             <PictureInPicture2 className="w-4 h-4" />
                         </Button>
@@ -110,7 +112,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                                 size="icon"
                                 onClick={onClose}
                                 className="bg-black/50 hover:bg-red-600 hover:text-white text-white shrink-0 cursor-pointer rounded-full w-9 h-9 mr-2"
-                                title="Close"
+                                title={t('close')}
                             >
                                 <X className="w-4 h-4" />
                             </Button>
@@ -123,7 +125,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                             disabled={isSaving}
                         >
                             <Save className="w-4 h-4" />
-                            {isSaving ? 'Saving...' : 'Save & Close'}
+                            {isSaving ? t('saving') : t('saveAndClose')}
                         </Button>
                     </div>
                 </DialogHeader>

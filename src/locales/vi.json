@@ -484,7 +484,9 @@
             "actions": {
                 "addVideo": "Thêm Video",
                 "createPlaylist": "Tạo Playlist",
-                "addToPlaylist": "Thêm vào Playlist"
+                "addToPlaylist": "Thêm vào Playlist",
+                "adding": "Đang thêm...",
+                "cancel": "Hủy"
             },
             "dialogs": {
                 "createPlaylist": {
@@ -494,7 +496,12 @@
                     "titlePlaceholder": "VD: Học React",
                     "descriptionLabel": "Mô tả (Không bắt buộc)",
                     "descriptionPlaceholder": "Playlist này nói về điều gì?",
-                    "submit": "Tạo Playlist"
+                    "submit": "Tạo Playlist",
+                    "cancel": "Hủy"
+                },
+                "editPlaylist": {
+                    "title": "Chỉnh Sửa Playlist",
+                    "submit": "Lưu Thay Đổi"
                 },
                 "addToPlaylist": {
                     "title": "Thêm vào Playlist",
@@ -508,7 +515,16 @@
                 "noPlaylistsDesc": "Tạo một playlist tùy chỉnh để bắt đầu sắp xếp video của bạn.",
                 "createFirst": "Tạo Playlist Đầu Tiên",
                 "viewContent": "Xem Nội Dung",
-                "videoCount": "{count} Video"
+                "videoCount": "{count} Video",
+                "noVideosFound": "Không tìm thấy video nào",
+                "emptyRecent": "Dán URL video YouTube ở trên để bắt đầu xây dựng thư viện của bạn.",
+                "emptyFavorites": "Đánh dấu video là yêu thích để xem chúng ở đây.",
+                "today": "Hôm nay",
+                "yesterday": "Hôm qua",
+                "confirmDeleteTitle": "Bạn có chắc chắn muốn xóa?",
+                "confirmDeleteDesc": "Hành động này không thể hoàn tác. Thao tác này sẽ xóa vĩnh viễn mục này khỏi thư viện của bạn.",
+                "delete": "Xóa",
+                "searchPlaceholder": "Dán URL YouTube tại đây..."
             },
             "playlist": {
                 "back": "Quay lại",
@@ -519,7 +535,13 @@
                 "removeTitle": "Xóa khỏi bộ sưu tập?",
                 "removeDesc": "Thao tác này sẽ xóa video khỏi \"{title}\" nhưng vẫn giữ nó trong thư viện chính của bạn.",
                 "cancel": "Hủy",
-                "remove": "Xóa"
+                "remove": "Xóa",
+                "title": "Video trong Playlist",
+                "itemsCount": "{count} video",
+                "addFromLibrary": "Thêm video từ Thư viện",
+                "quickAdd": "Thêm nhanh từ Thư viện của bạn",
+                "searchLibrary": "Tìm trong thư viện...",
+                "noMoreVideos": "Không còn video nào trong thư viện để thêm hoặc tìm kiếm."
             },
             "video": {
                 "thumbnailAlt": "Hình thu nhỏ video",
@@ -527,6 +549,15 @@
                 "toggleFavorite": "Yêu thích",
                 "addToPlaylist": "Thêm vào Playlist",
                 "delete": "Xóa Video"
+            },
+            "modal": {
+                "defaultTitle": "Video YouTube",
+                "startedAt": "Bắt đầu lúc: {time}",
+                "saveAndClose": "Lưu & Đóng",
+                "saving": "Đang lưu...",
+                "maximize": "Phóng to",
+                "miniPlayer": "Thu nhỏ",
+                "close": "Đóng"
             }
         },
         "music": {
@@ -584,6 +615,12 @@
                 "sports": "Thể thao",
                 "education": "Giáo dục",
                 "ai-future": "AI & Tương lai"
+            },
+            "card": {
+                "readMore": "ĐỌC THÊM"
+            },
+            "header": {
+                "searchPlaceholder": "Tìm kiếm bài viết, tin tức và nhận định..."
             }
         }
     }

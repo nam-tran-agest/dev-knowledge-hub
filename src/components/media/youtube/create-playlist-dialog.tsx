@@ -69,7 +69,7 @@ export function CreatePlaylistDialog({ open, onOpenChange }: CreatePlaylistDialo
                             onClick={() => onOpenChange(false)}
                             className="text-gray-400 hover:text-white hover:bg-white/5"
                         >
-                            Cancel
+                            {t('cancel')}
                         </Button>
                         <Button
                             type="submit"

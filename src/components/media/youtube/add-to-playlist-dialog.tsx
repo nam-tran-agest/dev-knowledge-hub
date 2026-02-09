@@ -17,7 +17,7 @@ interface AddToPlaylistDialogProps {
 }
 
 export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlaylistDialogProps) {
-    const t = useTranslations('media.youtube.dialogs.addToPlaylist');
+    const t = useTranslations('media.youtube');
     const [isSubmitting, setIsSubmitting] = useState<string | null>(null);
     const router = useRouter();
 
@@ -41,7 +41,7 @@ export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlayli
                 <DialogHeader className="p-6 pb-2">
                     <DialogTitle className="text-xl font-bold flex items-center gap-2">
                         <ListVideo className="w-5 h-5 text-red-500" />
-                        {t('title')}
+                        {t('dialogs.addToPlaylist.title')}
                     </DialogTitle>
                 </DialogHeader>
 
@@ -51,7 +51,7 @@ export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlayli
                             <div className="flex flex-col items-center justify-center h-full py-10 text-center gap-3">
                                 <ListVideo className="w-10 h-10 text-gray-600" />
                                 <p className="text-gray-400 text-sm">
-                                    {t('empty')}
+                                    {t('dialogs.addToPlaylist.empty')}
                                 </p>
                             </div>
                         ) : (
@@ -72,7 +72,7 @@ export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlayli
                                                     {playlist.title}
                                                 </p>
                                                 <p className="text-xs text-gray-500">
-                                                    {playlist.video_count || 0} videos
+                                                    {t('gallery.videoCount', { count: playlist.video_count || 0 })}
                                                 </p>
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@ export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlayli
                         onClick={onClose}
                         className="text-gray-400 hover:text-white hover:bg-white/5 w-full"
                     >
-                        {t('close')}
+                        {t('dialogs.addToPlaylist.close')}
                     </Button>
                 </DialogFooter>
             </DialogContent>

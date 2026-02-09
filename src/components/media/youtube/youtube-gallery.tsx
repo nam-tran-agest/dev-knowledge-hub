@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useFormatter } from 'next-intl';
 
 import { PlayCircle, Plus, Clock, ListVideo, Heart } from 'lucide-react';
 import { VideoModal } from './video-modal';
@@ -18,7 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { format, isToday, isYesterday } from 'date-fns';
+import { isToday, isYesterday } from 'date-fns';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -37,6 +37,7 @@ interface YouTubeGalleryProps {
 
 export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
     const t = useTranslations('media.youtube');
+    const format = useFormatter();
     const [selectedVideo, setSelectedVideo] = useState<SavedVideo | null>(null);
     const [videoToDelete, setVideoToDelete] = useState<string | null>(null);
     const [playlistToDelete, setPlaylistToDelete] = useState<string | null>(null);
@@ -121,10 +122,10 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
 
         const groups = list.reduce((acc, video) => {
             const date = new Date(video.updated_at || video.created_at);
-            let key = format(date, 'yyyy-MM-dd');
-            if (isToday(date)) key = 'Today';
-            else if (isYesterday(date)) key = 'Yesterday';
-            else key = format(date, 'MMMM d, yyyy');
+            let key = format.dateTime(date, { year: 'numeric', month: 'long', day: 'numeric' });
+            if (isToday(date)) key = t('gallery.today');
+            else if (isYesterday(date)) key = t('gallery.yesterday');
+
             if (!acc[key]) acc[key] = [];
             acc[key].push(video);
             return acc;
@@ -159,7 +160,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
             <div className="bg-slate-900/50 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-white/10 shadow-2xl">
                 <form onSubmit={handleAddVideo} className="flex flex-col sm:flex-row gap-4">
                     <Input
-                        placeholder="Paste YouTube URL here..."
+                        placeholder={t('gallery.searchPlaceholder')}
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         className="bg-white/5 border-white/10 text-white focus:ring-red-500/50 h-12 text-base sm:text-lg w-full"
@@ -170,7 +171,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                         disabled={isAdding || !url}
                         className="bg-red-600 hover:bg-red-700 text-white px-8 h-12 text-base sm:text-lg font-semibold transition-all transform hover:scale-105 active:scale-95 w-full sm:w-auto shrink-0"
                     >
-                        {isAdding ? "Adding..." : t('actions.addVideo')}
+                        {isAdding ? t('actions.adding') : t('actions.addVideo')}
                     </Button>
                 </form>
             </div>
@@ -203,7 +204,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                 </div>
 
                 <TabsContent value="recent" className="mt-0">
-                    {renderVideos(videos, "Paste a YouTube Video URL above to start building your library.")}
+                    {renderVideos(videos, t('gallery.emptyRecent'))}
                 </TabsContent>
 
                 <TabsContent value="playlists" className="mt-0 space-y-12">
@@ -256,7 +257,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                 </TabsContent>
 
                 <TabsContent value="favorites" className="mt-0 space-y-12">
-                    {renderVideos(favoriteVideos, "Mark videos as favorite to see them here.")}
+                    {renderVideos(favoriteVideos, t('gallery.emptyFavorites'))}
 
                     {favoritePlaylists.length > 0 && (
                         <div className="space-y-4">
@@ -286,14 +287,14 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
             <AlertDialog open={!!videoToDelete || !!playlistToDelete} onOpenChange={(open) => !open && (setVideoToDelete(null), setPlaylistToDelete(null))}>
                 <AlertDialogContent className="bg-slate-900 border-white/10 text-white">
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogTitle>{t('gallery.confirmDeleteTitle')}</AlertDialogTitle>
                         <AlertDialogDescription className="text-gray-400">
-                            This action cannot be undone. This will permanently delete the item from your library.
+                            {t('gallery.confirmDeleteDesc')}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/10 hover:text-white">Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={confirmDelete} className="bg-red-600 text-white hover:bg-red-700">Delete</AlertDialogAction>
+                        <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/10 hover:text-white">{t('actions.cancel')}</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDelete} className="bg-red-600 text-white hover:bg-red-700">{t('gallery.delete')}</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
