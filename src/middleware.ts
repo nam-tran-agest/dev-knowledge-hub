@@ -1,12 +1,16 @@
 import { type NextRequest } from 'next/server'
-export const runtime = 'edge'
+export const config = {
+    runtime: 'experimental-edge', matcher: [
+        '/((?!api|_next|_vercel|callback|.*\\..*).*)',
+    ]
+}
 import createMiddleware from 'next-intl/middleware'
 import { createServerClient } from '@supabase/ssr'
 import { routing } from './i18n/routing'
 
 const intlMiddleware = createMiddleware(routing)
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     // 1. Run intl middleware first to handle routing/locales
     // This returns a response with the correct locale redirects/rewrites
     const response = intlMiddleware(request)
@@ -35,15 +39,4 @@ export async function proxy(request: NextRequest) {
     await supabase.auth.getUser()
 
     return response
-}
-
-export const config = {
-    matcher: [
-        // Match all pathnames except for
-        // - … if they start with `/api`, `/_next`, `/_vercel` or `/callback`
-        // - … the ones containing a dot (e.g. `favicon.ico`)
-        '/((?!api|_next|_vercel|callback|.*\\..*).*)',
-        // However, match all pathnames within `/users`, optionally with a locale prefix
-        // '/([\\w-]+)?/users/(.+)'
-    ],
 }
