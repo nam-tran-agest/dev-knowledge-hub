@@ -1,4 +1,5 @@
 import { type NextRequest } from 'next/server'
+export const runtime = 'edge'
 import createMiddleware from 'next-intl/middleware'
 import { createServerClient } from '@supabase/ssr'
 import { routing } from './i18n/routing'
