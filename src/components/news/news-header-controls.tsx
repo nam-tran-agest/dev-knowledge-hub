@@ -2,7 +2,6 @@
 
 import { Input } from '@/components/ui/input';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 import { useTranslations } from 'next-intl';
 

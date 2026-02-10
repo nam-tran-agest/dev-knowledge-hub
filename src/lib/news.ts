@@ -11,8 +11,8 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
     });
 
     const targetFeeds = categoryId && categoryId !== 'all'
-        ? FEEDS.filter(f => (f as any).category === categoryId)
-        : FEEDS.filter(f => !(f as any).category); // Default to general feeds for 'all'
+        ? FEEDS.filter(f => (f as { category?: string }).category === categoryId)
+        : FEEDS.filter(f => !(f as { category?: string }).category); // Default to general feeds for 'all'
 
     const allNewsPromises = targetFeeds.map(async (feed) => {
         const controller = new AbortController();
@@ -34,9 +34,9 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
             const channel = result.rss.channel;
             const rawItems = Array.isArray(channel.item) ? channel.item : [channel.item];
             // Limit to top 15 items per feed to avoid Worker resource limits
-            const items = rawItems.slice(0, 15).filter((item: any) => item);
+            const items = rawItems.slice(0, 15).filter((item: unknown) => item);
 
-            return items.map((item: any) => {
+            return (items as Record<string, any>[]).map((item) => {
                 let imageUrl = '';
                 const description = item.description || "";
                 const contentEncoded = item["content:encoded"] || "";
@@ -119,9 +119,9 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                     isoDate: pubDate.toISOString()
                 } as NewsItem & { pubDate: Date };
             });
-        } catch (error: any) {
+        } catch (error) {
             clearTimeout(timeoutId);
-            if (error.name === 'AbortError') {
+            if (error instanceof Error && error.name === 'AbortError') {
                 console.error(`Timeout fetching RSS from ${feed.url}`);
             } else {
                 console.error(`Error fetching RSS from ${feed.url}:`, error);
@@ -144,7 +144,7 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
 
         return uniqueNews
             .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
-            .map(({ pubDate, ...rest }) => rest);
+            .map(({ ...rest }) => rest);
     } catch (error) {
         console.error("Error aggregating news:", error);
         return [];

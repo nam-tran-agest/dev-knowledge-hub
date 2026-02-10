@@ -6,9 +6,7 @@ import {
     Clock,
     Star,
     Search,
-    Users,
     Play,
-    Info,
     MoreHorizontal,
     Library,
     Cloud,
@@ -52,7 +50,7 @@ export default async function GamesPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = await params;
-    const t = await getTranslations({ locale, namespace: 'media.games' });
+    // const t = await getTranslations({ locale, namespace: 'media.games' });
 
     return (
         <div className="min-h-screen pt-16 bg-[#0a0a0c] text-slate-200">
@@ -233,7 +231,7 @@ function RecentGameItem({ title, lastPlayed, icon }: { title: string, lastPlayed
     );
 }
 
-function FriendCard({ friend }: { friend: any }) {
+function FriendCard({ friend }: { friend: Record<string, any> }) {
     return (
         <Card className="bg-[#1e1e24] border-white/5 hover:bg-[#25252d] transition-colors cursor-pointer p-4 group">
             <div className="flex items-start gap-4">
@@ -258,7 +256,7 @@ function FriendCard({ friend }: { friend: any }) {
     );
 }
 
-function AchievementCard({ achievement }: { achievement: any }) {
+function AchievementCard({ achievement }: { achievement: Record<string, any> }) {
     return (
         <Card className="bg-[#111114] border-white/5 overflow-hidden group hover:border-emerald-500/50 transition-all">
             <div className="h-28 bg-slate-800 relative">

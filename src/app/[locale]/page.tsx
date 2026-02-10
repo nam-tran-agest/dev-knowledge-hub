@@ -1,7 +1,7 @@
 import { HeroSection } from '@/components/sections/hero-section'
-import FeatureSection from '@/components/sections/feature-section';
+
 import ShowcaseSection from '@/components/sections/showcase-section';
-import GridLinksSection from '@/components/sections/grid-links-section';
+
 import MarqueeSection from '@/components/sections/marquee-section';
 import CaseStudySection from '@/components/sections/case-study-section';
 import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
@@ -10,7 +10,7 @@ import { getMessages } from 'next-intl/server';
 
 export default async function Dashboard() {
   const messages = await getMessages();
-  const homeData = messages.home as any;
+  const homeData = messages.home as Record<string, any>;
 
   return (
     <div>
@@ -46,7 +46,7 @@ export default async function Dashboard() {
 
       <MarqueeSection
         title={homeData.marquee.title}
-        logos={homeData.marquee.logos.map((logo: any) => ({
+        logos={homeData.marquee.logos.map((logo: { url: string; alt: string; href?: string }) => ({
           url: logo.url,
           alternativeText: logo.alt,
           href: logo.href
@@ -67,7 +67,7 @@ export default async function Dashboard() {
 
       <CaseStudySection
         title={homeData.caseStudy.title}
-        caseStudies={homeData.caseStudy.items.map((item: any) => ({
+        caseStudies={homeData.caseStudy.items.map((item: Record<string, any>) => ({
           ...item,
           image: ''
         }))}

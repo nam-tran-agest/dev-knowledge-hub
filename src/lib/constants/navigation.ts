@@ -1,15 +1,7 @@
 import {
-    Home,
     FileText,
-    Code,
-    CheckSquare,
     Bug,
     Settings,
-    Sparkles,
-    Briefcase,
-    Image,
-    Calendar,
-    Bookmark,
     type LucideIcon
 } from 'lucide-react'
 

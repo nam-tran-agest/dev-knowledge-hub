@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getPlaylist, getPlaylistTracks } from '@/lib/actions/spotify';
 import { MusicSidebar } from '@/components/media/music/music-sidebar';
 import { Link } from '@/i18n/routing';
-import { ChevronLeft, Music2, Clock, Play, User } from 'lucide-react';
+import { ChevronLeft, Music2, Clock } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -111,7 +111,7 @@ export default async function SpotifyPlaylistPage({ params }: SpotifyPlaylistPag
                                                             {track.name}
                                                         </p>
                                                         <p className="text-sm text-slate-500 truncate">
-                                                            {track.artists?.map((a: any) => a.name).join(', ')}
+                                                            {track.artists?.map((a: { name: string }) => a.name).join(', ')}
                                                         </p>
                                                     </div>
                                                 </div>

@@ -145,7 +145,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                                     onDelete={(id) => setVideoToDelete(id)}
                                     onToggleFavorite={handleToggleVideoFavorite}
                                     playlists={playlists}
-                                    onAddToPlaylist={(id) => setVideoIdToAdd(id)}
+                                    onAddToPlaylist={(id: string) => setVideoIdToAdd(id)}
                                 />
                             ))}
                         </div>

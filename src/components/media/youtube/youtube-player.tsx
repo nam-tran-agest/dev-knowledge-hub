@@ -6,7 +6,9 @@ import { useEffect, useRef } from 'react';
 declare global {
     interface Window {
         YT: {
-            Player: any;
+            Player: {
+                new(id: string, config: any): any;
+            };
         };
         onYouTubeIframeAPIReady: () => void;
     }
@@ -21,7 +23,7 @@ interface YouTubePlayerProps {
 }
 
 export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, className = "" }: YouTubePlayerProps) {
-    const playerRef = useRef<any>(null);
+    const playerRef = useRef<Record<string, any> | null>(null);
     const containerId = useRef(`yt-player-${Math.random().toString(36).substr(2, 9)}`);
 
     useEffect(() => {
@@ -81,7 +83,7 @@ export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, cla
                 playerRef.current.destroy();
             }
         };
-    }, [videoId]); // Re-init only when videoId changes
+    }, [videoId, onEnd, onTimeUpdate, startTime]); // Re-init correctly
 
     return (
         <div className={`aspect-video w-full bg-black rounded-lg overflow-hidden ${className}`}>

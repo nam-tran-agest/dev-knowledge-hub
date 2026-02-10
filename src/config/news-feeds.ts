@@ -1,5 +1,4 @@
-import { Globe, Cpu, Gamepad, Zap, Tv, Languages, HeartPulse, Briefcase, Trophy, GraduationCap } from 'lucide-react';
-import React from 'react';
+
 
 export const FEEDS = [
     // --- General Feeds ---

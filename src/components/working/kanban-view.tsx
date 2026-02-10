@@ -3,7 +3,7 @@
 import React from 'react'
 import { Task, TaskStatus } from '@/types/working'
 import { TaskItem } from './task-item'
-import { motion } from 'motion/react'
+
 import { useTranslations } from 'next-intl'
 
 interface KanbanViewProps {

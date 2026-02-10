@@ -1,6 +1,6 @@
 
-import { getTranslations } from 'next-intl/server';
-import { cn } from '@/lib/utils';
+
+
 import { MusicSidebar } from '@/components/media/music/music-sidebar';
 import { MusicGrid } from '@/components/media/music/music-grid';
 import { getSpotifyAuthToken, getTopTracks, getTopArtists, getUserPlaylists } from '@/lib/actions/spotify';
@@ -16,7 +16,7 @@ interface MusicPageProps {
 export default async function MusicPage({ params, searchParams }: MusicPageProps) {
     const { locale } = await params;
     const { category = 'top-tracks' } = await searchParams;
-    const t = await getTranslations({ locale, namespace: 'media.music' });
+    // const t = await getTranslations({ locale, namespace: 'media.music' });
 
     const token = await getSpotifyAuthToken();
     const authUrl = getSpotifyAuthUrl();
@@ -68,7 +68,7 @@ export default async function MusicPage({ params, searchParams }: MusicPageProps
                                 <h1 className="text-3xl font-bold text-white tracking-tight">{title}</h1>
                                 <p className="text-slate-500">Your personal selection from Spotify</p>
                             </div>
-                            <MusicGrid items={data} type={category as any} />
+                            <MusicGrid items={data} type={category as 'top-tracks' | 'top-artists' | 'playlists'} />
                         </div>
                     </div>
                 </main>

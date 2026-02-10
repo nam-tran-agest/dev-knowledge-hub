@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FeatureSectionProps } from "@/types/section/feature";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,7 @@ import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { iconsMap } from "@/components/common/icon";
 import { getMediaUrl } from "@/components/common/media/AppImage";
 import AppImage from "@/components/common/media/AppImage";
-import { Plus, Minus } from "lucide-react";
+
 import RichTextRenderer from "@/components/common/ui/data-display/RichTextRenderer";
 import CarouselDot from "@/components/common/ui/data-display/CarouselDot";
 import CategoryTab from "@/components/common/ui/navigation/CategoryTab";
@@ -28,7 +28,6 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
     const searchParams = useSearchParams();
     const categoryQuery = searchParams.get("category");
     const swiperRef = useRef<SwiperRef>(null);
-    const sectionRef = useRef<HTMLElement>(null);
 
     // Find the index of the selected service based on slug
     const selected = services.findIndex(s => s.slug === categoryQuery) === -1
@@ -54,7 +53,7 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
     }, [selected]);
 
     return (
-        <section id="features-section" ref={sectionRef} className={cn(LAYOUT.container, "py-10 scroll-mt-20")}>
+        <section id="features-section" className={cn(LAYOUT.container, "py-10 scroll-mt-20")}>
             <motion.div
                 initial={{ y: 40, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}

@@ -3,8 +3,7 @@
 import React from 'react'
 import { Project } from '@/types/working'
 import { ProjectCard } from './project-card'
-import { Plus } from 'lucide-react'
-import { motion } from 'motion/react'
+
 import { CreateProjectModal } from './create-project-modal'
 
 interface ProjectListProps {

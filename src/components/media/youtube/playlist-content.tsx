@@ -144,7 +144,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                         video={video}
                         onSelect={setSelectedVideo}
                         onDelete={(id) => setVideoIdToRemove(id)}
-                        onToggleFavorite={async (e) => {
+                        onToggleFavorite={async (_e) => {
                             // This is just a UI prop in VideoCard, toggle logic usually lives in gallery.
                         }}
                         playlists={allPlaylists}

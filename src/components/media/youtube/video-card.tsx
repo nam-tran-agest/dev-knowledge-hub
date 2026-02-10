@@ -5,7 +5,7 @@ import { Play, Trash2, Clock, Heart, ListPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { SavedVideo, SavedPlaylist } from "@/types/youtube";
+import type { SavedVideo } from "@/types/youtube";
 import { useTranslations } from "next-intl";
 
 interface VideoCardProps {
@@ -13,7 +13,7 @@ interface VideoCardProps {
     onSelect: (video: SavedVideo) => void;
     onDelete: (id: string) => void;
     onToggleFavorite: (e: React.MouseEvent, video: SavedVideo) => void;
-    playlists: SavedPlaylist[];
+    playlists: any[];
     onAddToPlaylist?: (videoId: string) => void;
 }
 

@@ -28,9 +28,7 @@ export async function updateSession(request: NextRequest) {
     )
 
     // Refresh session if expired
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
+    await supabase.auth.getUser();
 
     // Protect routes - redirect to login if not authenticated
     // DISABLED for "No Login" mode requested by user

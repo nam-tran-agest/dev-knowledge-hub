@@ -8,7 +8,7 @@ import {
     DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Save, ExternalLink, PictureInPicture2, X, ListVideo, Play } from 'lucide-react';
+import { Save, ExternalLink, ListVideo, Play } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateVideoProgress } from '@/lib/actions/youtube';

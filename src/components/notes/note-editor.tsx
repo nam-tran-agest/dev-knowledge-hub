@@ -7,9 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import {
-    Save,
     Trash2,
-    Plus,
     Type,
     Check,
     X,
@@ -139,7 +137,7 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm, remarkBreaks]}
                                     components={{
-                                        code({ node, inline, className, children, ...props }: any) {
+                                        code({ node: _node, inline, className, children, ...props }: { node?: any; inline?: boolean; className?: string; children?: React.ReactNode;[key: string]: any }) {
                                             const match = /language-(\w+)/.exec(className || '')
                                             return !inline && match ? (
                                                 <SyntaxHighlighter
@@ -157,13 +155,13 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                                 </code>
                                             )
                                         },
-                                        h1: ({ node, ...props }) => <h1 className="text-3xl font-bold mt-12 mb-6" {...props} />,
-                                        h2: ({ node, ...props }) => <h2 className="text-2xl font-semibold mt-10 mb-5" {...props} />,
-                                        h3: ({ node, ...props }) => <h3 className="text-xl font-medium mt-8 mb-4" {...props} />,
-                                        p: ({ node, ...props }) => <p className="mb-6 text-slate-800 leading-relaxed" {...props} />,
-                                        ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
-                                        ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
-                                        blockquote: ({ node, ...props }) => <blockquote className={cn("border-l-4 pl-6 italic text-lg my-8 text-slate-600", config.accentBorder)} {...props} />,
+                                        h1: ({ node: _node, ...props }) => <h1 className="text-3xl font-bold mt-12 mb-6" {...props} />,
+                                        h2: ({ node: _node, ...props }) => <h2 className="text-2xl font-semibold mt-10 mb-5" {...props} />,
+                                        h3: ({ node: _node, ...props }) => <h3 className="text-xl font-medium mt-8 mb-4" {...props} />,
+                                        p: ({ node: _node, ...props }) => <p className="mb-6 text-slate-800 leading-relaxed" {...props} />,
+                                        ul: ({ node: _node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
+                                        ol: ({ node: _node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
+                                        blockquote: ({ node: _node, ...props }) => <blockquote className={cn("border-l-4 pl-6 italic text-lg my-8 text-slate-600", config.accentBorder)} {...props} />,
                                     }}
                                 >
                                     {content}

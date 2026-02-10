@@ -32,7 +32,7 @@ export async function getVideos(query: string = 'web development trends 2024', m
 
         if (!data.items) return [];
 
-        return data.items.map((item: any) => ({
+        return data.items.map((item: { id: { videoId: string }, snippet: any }) => ({
             id: item.id.videoId,
             title: item.snippet.title,
             description: item.snippet.description,
