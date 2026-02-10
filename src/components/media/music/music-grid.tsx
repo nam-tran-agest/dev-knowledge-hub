@@ -1,10 +1,9 @@
-
 'use client';
 
-import { MusicCard } from './music-card';
+import { MusicCard, SpotifyItem } from './music-card';
 
 interface MusicGridProps {
-    items: any[];
+    items: SpotifyItem[];
     type: 'top-tracks' | 'top-artists' | 'playlists';
 }
 

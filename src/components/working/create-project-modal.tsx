@@ -50,9 +50,10 @@ export function CreateProjectModal() {
                 setOpen(false)
                 setFormData({ name: '', description: '', color: COLORS[0], icon: 'Layout' })
                 router.push(`/working/${project.id}`)
-            } catch (err: any) {
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : 'Failed to create project. Please verify you are logged in.';
                 console.error('Failed to create project:', err)
-                setError(err.message || 'Failed to create project. Please verify you are logged in.')
+                setError(message)
             }
         })
     }

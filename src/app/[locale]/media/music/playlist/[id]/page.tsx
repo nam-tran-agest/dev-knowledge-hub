@@ -5,9 +5,7 @@ import { MusicSidebar } from '@/components/media/music/music-sidebar';
 import { Link } from '@/i18n/routing';
 import { ChevronLeft, Music2, Clock } from 'lucide-react';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface SpotifyPlaylistPageProps {
     params: Promise<{ locale: string; id: string }>;
@@ -92,7 +90,8 @@ export default async function SpotifyPlaylistPage({ params }: SpotifyPlaylistPag
                                 </div>
 
                                 <div className="divide-y divide-white/5">
-                                    {tracks.map((item: any, index: number) => {
+                                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                    {tracks.map((item: { track: any }, index: number) => {
                                         const track = item.track;
                                         if (!track) return null;
                                         const duration = formatDuration(track.duration_ms);

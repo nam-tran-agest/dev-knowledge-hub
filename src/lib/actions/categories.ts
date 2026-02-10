@@ -21,17 +21,17 @@ export async function getCategories(): Promise<Category[]> {
     return data || []
 }
 
-export async function createCategory(name: string, color?: string): Promise<Category> {
+export async function createCategory(): Promise<Category> {
     // Disabled for now as we use seeded categories
     throw new Error('Category creation is currently disabled')
 }
 
-export async function deleteCategory(id: string): Promise<void> {
+export async function deleteCategory(): Promise<void> {
     // Disabled for now
     throw new Error('Category deletion is currently disabled')
 }
 
-export async function updateCategory(id: string, name: string, color?: string): Promise<Category> {
+export async function updateCategory(): Promise<Category> {
     // Disabled for now
     throw new Error('Category updates are currently disabled')
 }

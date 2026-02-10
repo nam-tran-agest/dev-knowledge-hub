@@ -1,13 +1,24 @@
-
 'use client';
 
 import Image from 'next/image';
-import { Play } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Play } from "lucide-react";
 import { Link } from '@/i18n/routing';
+import React from 'react';
+
+export interface SpotifyItem {
+    id: string;
+    name: string;
+    album?: { images: { url: string }[] };
+    images?: { url: string }[];
+    artists?: { name: string }[];
+    owner?: { display_name: string };
+    genres?: string[];
+    external_urls?: { spotify: string };
+    tracks?: { total: number };
+}
 
 interface MusicCardProps {
-    item: any;
+    item: SpotifyItem;
     type: 'top-tracks' | 'top-artists' | 'playlists';
 }
 
@@ -18,7 +29,7 @@ export function MusicCard({ item, type }: MusicCardProps) {
 
     const title = item.name;
     const subtitle = type === 'top-tracks'
-        ? item.artists?.map((a: any) => a.name).join(', ')
+        ? item.artists?.map((a: { name: string }) => a.name).join(', ')
         : type === 'playlists'
             ? `By ${item.owner?.display_name}`
             : item.genres?.slice(0, 2).join(', ');

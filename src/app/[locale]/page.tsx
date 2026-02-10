@@ -10,7 +10,8 @@ import { getMessages } from 'next-intl/server';
 
 export default async function Dashboard() {
   const messages = await getMessages();
-  const homeData = messages.home as Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const homeData = messages.home as any;
 
   return (
     <div>
@@ -67,7 +68,8 @@ export default async function Dashboard() {
 
       <CaseStudySection
         title={homeData.caseStudy.title}
-        caseStudies={homeData.caseStudy.items.map((item: Record<string, any>) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        caseStudies={((homeData.caseStudy as any).items || []).map((item: any) => ({
           ...item,
           image: ''
         }))}

@@ -148,7 +148,7 @@ export async function getPlaylists() {
     // Transform data
     return (data || []).map(p => {
         const thumbnails = (p.playlist_items || [])
-            .map((item: any) => item.video?.thumbnail_url)
+            .map((item: { video: { thumbnail_url: string } | null }) => item.video?.thumbnail_url)
             .filter(Boolean)
             .slice(0, 4);
 

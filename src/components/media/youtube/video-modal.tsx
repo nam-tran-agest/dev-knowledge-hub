@@ -37,7 +37,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
         if (video) {
             lastTimeRef.current = video.saved_time || 0;
         }
-    }, [video?.id]);
+    }, [video]);
 
     const handleSaveProgress = async () => {
         if (!video) return;

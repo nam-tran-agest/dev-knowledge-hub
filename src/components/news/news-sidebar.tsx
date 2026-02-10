@@ -17,7 +17,6 @@ interface NewsSidebarProps {
 }
 
 export function NewsSidebar({ categories, trendingItems }: NewsSidebarProps) {
-    const t = useTranslations('media.news');
     const tCategories = useTranslations('media.news.categories');
     const tSidebar = useTranslations('media.news.sidebar');
     const params = useParams();

@@ -1,12 +1,11 @@
 'use client'
 
-import React, { useState, useTransition } from 'react'
+import React, { useState } from 'react'
 import { Project, Task, TaskStatus } from '@/types/working'
 import { ProjectWorkspaceHeader } from './project-workspace-header'
 import { TaskList } from './task-list'
 import { KanbanView } from './kanban-view'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { List, LayoutGrid, Filter, Search } from 'lucide-react'
+import { List, LayoutGrid, Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { createTask, updateTask, deleteTask } from '@/lib/actions/tasks'
 import { EditTaskModal } from './edit-task-modal'
@@ -22,7 +21,6 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
     const [tasks, setTasks] = useState<Task[]>(initialTasks)
     const [view, setView] = useState<'list' | 'kanban'>('list')
     const [searchQuery, setSearchQuery] = useState('')
-    const [isPending, startTransition] = useTransition()
     const [editingTask, setEditingTask] = useState<Task | null>(null)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 

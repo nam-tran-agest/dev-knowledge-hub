@@ -4,18 +4,31 @@ import React from "react";
 import { FooterData } from "@/types/base";
 import { Mail, MapPin, Phone, Twitter, Facebook, Github, Youtube, Instagram, Linkedin, Globe } from "lucide-react";
 import AppImage from "@/components/common/media/AppImage";
-import Link from "next/link"; // Changed from i18n/navigation
-import { cn } from "@/lib/utils";
+import { Link } from '@/i18n/routing';
 
-type FooterProps = {
-    footer: FooterData;
+type Star = {
+    id: number;
+    top: string;
+    left: string;
+    size: string;
+    opacity: number;
+    duration: string;
+    delay: string;
+};
+
+type Meteor = {
+    id: string;
+    top: string;
+    left: string;
+    duration: string;
+    delay: string;
 };
 
 const StarryBackground = () => {
-    const [stars, setStars] = React.useState<any[]>([]);
+    const [stars, setStars] = React.useState<Array<Star | Meteor>>([]);
 
     React.useEffect(() => {
-        const newStars = [...Array(60)].map((_, i) => ({
+        const newStars: Star[] = [...Array(60)].map((_, i) => ({
             id: i,
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
@@ -24,7 +37,7 @@ const StarryBackground = () => {
             duration: `${Math.random() * 3 + 2}s`,
             delay: `${Math.random() * 5}s`,
         }));
-        const newMeteors = [...Array(5)].map((_, i) => ({
+        const newMeteors: Meteor[] = [...Array(5)].map((_, i) => ({
             id: `meteor-${i}`,
             top: `${Math.random() * 80}%`,
             left: `${Math.random() * 100}%`,
@@ -43,14 +56,14 @@ const StarryBackground = () => {
                     style={{
                         top: star.top,
                         left: star.left,
-                        width: star.size,
-                        height: star.size,
-                        opacity: star.opacity,
-                        // @ts-ignore
-                        '--twinkle-duration': star.duration,
-                        '--twinkle-delay': star.delay,
-                        '--meteor-duration': star.duration,
-                        '--meteor-delay': star.delay,
+                        width: (star as Star).size, // Cast to Star to access 'size'
+                        height: (star as Star).size, // Cast to Star to access 'size'
+                        opacity: (star as Star).opacity, // Cast to Star to access 'opacity'
+                        // @ts-expect-error: Custom CSS variables for twinkling animation
+                        '--twinkle-duration': (star as Star).duration,
+                        '--twinkle-delay': (star as Star).delay,
+                        '--meteor-duration': (star as Meteor).duration,
+                        '--meteor-delay': (star as Meteor).delay,
                     }}
                 />
             ))}
@@ -58,7 +71,7 @@ const StarryBackground = () => {
     );
 };
 
-export default function Footer({ footer }: FooterProps) {
+export default function Footer({ footer }: { footer: FooterData }) {
     return (
         <footer className="footer-bg relative mx-auto px-4 md:px-8 lg:px-16 2xl:px-20 2xl:min-w-[1440px] bg-main-gradient overflow-hidden">
             <StarryBackground />
@@ -98,7 +111,8 @@ export default function Footer({ footer }: FooterProps) {
                                 </div>
                             </div>
                             <div className="flex gap-4 items-start">
-                                {footer.social_links.map((link, idx) => {
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                {footer.social_links.map((link: any, idx: number) => {
                                     const l = link.label.toLowerCase();
                                     const getSocialIcon = () => {
                                         if (l.includes('twitter') || l.includes('x')) return <Twitter className="w-5 h-5" />;
@@ -138,7 +152,7 @@ export default function Footer({ footer }: FooterProps) {
                         </div>
                         {/* Links */}
                         <div className="grid grid-cols-2 gap-x-6 gap-y-4 font-semibold text-base w-full md:w-1/2 text-gray-300">
-                            {footer.footer_sections.map((section, idx) => (
+                            {footer.footer_sections.map((section: { label: string; url: string }, idx: number) => (
                                 <div key={idx} className="text-nowrap hover:text-white transition-colors">
                                     <Link href={section.url}>{section.label}</Link>
                                 </div>
@@ -148,7 +162,7 @@ export default function Footer({ footer }: FooterProps) {
 
                     {/* Addresses */}
                     <div className="flex flex-col md:flex-row gap-6 w-full lg:w-1/2 text-gray-300">
-                        {footer.addresses.map((address) => (
+                        {footer.addresses.map((address: { id: string | number; title: string; content: string }) => (
                             <div key={address.id} className="space-y-2 ">
                                 <span className="flex items-center gap-2 text-primary bg-primary/10 border-l-primary border-l-3 py-1 pl-1.5 text-base">
                                     <MapPin className="w-4 h-4" />
@@ -194,12 +208,12 @@ export default function Footer({ footer }: FooterProps) {
                         )} */}
 
                         {/* Policy Links */}
-                        {/* {(() => {
+                        {(() => {
                             const policyLinks = footer.policy_links;
                             if (policyLinks && policyLinks.length > 0) {
                                 return (
                                     <div className="flex flex-row items-start justify-center w-full text-base text-gray-400 gap-4 order-5 md:items-center md:gap-8 lg:flex-col lg:items-start lg:w-auto lg:gap-8 lg:whitespace-nowrap lg:pl-4 lg:order-3">
-                                        {policyLinks.map((link, idx) => (
+                                        {policyLinks.map((link: { label: string; url: string }, idx: number) => (
                                             <React.Fragment key={idx}>
                                                 <Link href={link.url} className="hover:underline transition-colors hover:text-white">
                                                     {link.label}
@@ -213,7 +227,7 @@ export default function Footer({ footer }: FooterProps) {
                                 );
                             }
                             return null;
-                        })()} */}
+                        })()}
                     </div>
                 </div>
             </div>

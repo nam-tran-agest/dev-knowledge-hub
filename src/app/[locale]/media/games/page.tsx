@@ -1,4 +1,3 @@
-import { getTranslations } from 'next-intl/server';
 import { Card, CardContent } from '@/components/ui/card';
 import {
     Gamepad2,
@@ -44,12 +43,7 @@ const ACHIEVEMENTS = [
     { title: 'A Titanic Ensemble', score: 10, description: 'You gave your ship a Captain’s send-off by playing a song aboard it while it sank.', unlocked: '5/12/2018' },
 ];
 
-export default async function GamesPage({
-    params
-}: {
-    params: Promise<{ locale: string }>;
-}) {
-    const { locale } = await params;
+export default async function GamesPage() {
     // const t = await getTranslations({ locale, namespace: 'media.games' });
 
     return (
@@ -231,14 +225,23 @@ function RecentGameItem({ title, lastPlayed, icon }: { title: string, lastPlayed
     );
 }
 
-function FriendCard({ friend }: { friend: Record<string, any> }) {
+interface Friend {
+    avatar: string;
+    name: string;
+    lastPlayed: string;
+    points: string;
+    trophies: number;
+    time: string;
+}
+
+function FriendCard({ friend }: { friend: Friend }) {
     return (
         <Card className="bg-[#1e1e24] border-white/5 hover:bg-[#25252d] transition-colors cursor-pointer p-4 group">
             <div className="flex items-start gap-4">
                 <div className="relative shrink-0">
                     <Avatar className="w-12 h-12 rounded-lg">
                         <AvatarImage src={friend.avatar} alt={friend.name} />
-                        <AvatarFallback className="bg-slate-800 text-slate-500">{friend.name[0]}</AvatarFallback>
+                        <AvatarFallback className="bg-slate-800 text-slate-500">{friend.name?.[0] || '?'}</AvatarFallback>
                     </Avatar>
                     <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-[#1e1e24] rounded-full" />
                 </div>
@@ -256,7 +259,14 @@ function FriendCard({ friend }: { friend: Record<string, any> }) {
     );
 }
 
-function AchievementCard({ achievement }: { achievement: Record<string, any> }) {
+interface Achievement {
+    title: string;
+    score: number;
+    description: string;
+    unlocked: string;
+}
+
+function AchievementCard({ achievement }: { achievement: Achievement }) {
     return (
         <Card className="bg-[#111114] border-white/5 overflow-hidden group hover:border-emerald-500/50 transition-all">
             <div className="h-28 bg-slate-800 relative">

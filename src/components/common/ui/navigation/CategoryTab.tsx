@@ -2,7 +2,7 @@
 
 import { Service } from "@/types/section/service";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect } from "react";
 import TabButton from "@/components/common/ui/navigation/TabButton";
 import { useScrollToCenter } from "@/hooks/useScrollToCenter";
 import { cn } from "@/lib/utils";

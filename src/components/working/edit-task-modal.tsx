@@ -65,9 +65,10 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                 const updated = await updateTask(task.id, formData)
                 onSuccess(updated as Task)
                 onOpenChange(false)
-            } catch (err: any) {
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : 'Failed to update task.';
                 console.error('Failed to update task:', err)
-                setError(err.message || 'Failed to update task.')
+                setError(message)
             }
         })
     }

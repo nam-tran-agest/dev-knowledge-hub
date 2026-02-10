@@ -13,8 +13,7 @@ interface MusicPageProps {
     searchParams: Promise<{ category?: string }>;
 }
 
-export default async function MusicPage({ params, searchParams }: MusicPageProps) {
-    const { locale } = await params;
+export default async function MusicPage({ searchParams }: MusicPageProps) {
     const { category = 'top-tracks' } = await searchParams;
     // const t = await getTranslations({ locale, namespace: 'media.music' });
 

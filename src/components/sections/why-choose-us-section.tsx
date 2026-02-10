@@ -1,7 +1,5 @@
 "use client";
 
-import { getMediaUrl } from "@/components/common/media/AppImage";
-import { cn } from "@/lib/utils";
 import { Plus, Minus } from "lucide-react";
 import { ServiceWhyChooseUsProps } from "@/types/service/service";
 import {
@@ -11,10 +9,10 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { TYPOGRAPHY, LAYOUT } from "@/lib/constants";
-import why1 from "@/assets/images/home/why1.webp";
 import Image from "next/image";
+import why1 from "@/assets/images/home/why1.webp";
 
-export default function WhyChooseUsSection({ title = "Why Choose Us", image, items }: ServiceWhyChooseUsProps) {
+export default function WhyChooseUsSection({ title = "Why Choose Us", items }: ServiceWhyChooseUsProps) {
     return (
         <section className="py-10 bg-gradient-to-br from-[#122550] via-[#2a5ca8] to-[#0a1430]">
             <div className={LAYOUT.container}>

@@ -5,7 +5,6 @@ import { Project } from '@/types/working'
 import * as Icons from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { motion } from 'motion/react'
 import { EditProjectModal } from './edit-project-modal'
 
 interface ProjectWorkspaceHeaderProps {
@@ -13,9 +12,10 @@ interface ProjectWorkspaceHeaderProps {
     locale: string
 }
 
-export function ProjectWorkspaceHeader({ project, locale }: ProjectWorkspaceHeaderProps) {
+export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps) {
     const router = useRouter()
     const [isEditOpen, setIsEditOpen] = React.useState(false)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const IconComponent = (Icons as any)[project.icon || 'Layout'] || Icons.Layout
 
     return (

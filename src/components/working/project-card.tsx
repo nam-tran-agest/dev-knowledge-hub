@@ -3,9 +3,7 @@
 import React from 'react'
 import { Card } from '@/components/ui/card'
 import { Project } from '@/types/working'
-import { LucideIcon } from 'lucide-react'
 import * as Icons from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { motion } from 'motion/react'
 import { Link } from '@/i18n/routing'
 
@@ -14,6 +12,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const IconComponent = (Icons as any)[project.icon || 'Layout'] || Icons.Layout
 
 

@@ -39,7 +39,13 @@ export async function getNotes(params?: { categorySlug?: string, search?: string
 
   // Transform data to match Note interface
   // The unified view already joins categories so we have category_name, category_color, etc.
-  const notes = data.map((item: any) => ({
+  const notes = data.map((item: {
+    category_name: string;
+    category_color: string;
+    category_icon: string;
+    category_slug: string;
+    [key: string]: unknown;
+  }) => ({
     ...item,
     category: {
       name: item.category_name,
@@ -49,7 +55,7 @@ export async function getNotes(params?: { categorySlug?: string, search?: string
     }
   }))
 
-  return { data: notes as Note[], count }
+  return { data: notes as unknown as Note[], count }
 }
 
 export async function getNote(id: string) {
@@ -134,7 +140,7 @@ export async function updateNote(id: string, input: UpdateNoteInput): Promise<No
   if (!config) throw new Error(`Invalid category: ${categorySlug}`)
   const targetTable = config.table
 
-  const updateData: any = { updated_at: new Date().toISOString() }
+  const updateData: Record<string, unknown> = { updated_at: new Date().toISOString() }
   if (input.title !== undefined) updateData.title = input.title
   if (input.content !== undefined) updateData.content = input.content
   if (input.tags !== undefined) updateData.tags = input.tags
@@ -145,7 +151,7 @@ export async function updateNote(id: string, input: UpdateNoteInput): Promise<No
     throw new Error('Moving notes between categories is not yet supported in this version.')
   }
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from(targetTable)
     .update(updateData)
     .eq('id', id)

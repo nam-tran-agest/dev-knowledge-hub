@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import type { SavedVideo, SavedPlaylist } from '@/types/youtube';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { ListPlus, Search, LayoutGrid, Check, Plus } from 'lucide-react';
+import { ListPlus, Search, LayoutGrid, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -144,7 +144,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                         video={video}
                         onSelect={setSelectedVideo}
                         onDelete={(id) => setVideoIdToRemove(id)}
-                        onToggleFavorite={async (_e) => {
+                        onToggleFavorite={async () => {
                             // This is just a UI prop in VideoCard, toggle logic usually lives in gallery.
                         }}
                         playlists={allPlaylists}

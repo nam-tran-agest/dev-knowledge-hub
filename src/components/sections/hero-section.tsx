@@ -4,7 +4,7 @@ import { ParticlesBackground } from '@/components/ui/particles-background';
 
 import { motion } from "motion/react";
 import { CTAButton } from '@/components/common/ui/other/CTABtn';
-import { TYPOGRAPHY, LAYOUT } from '@/lib/constants';
+import { TYPOGRAPHY } from '@/lib/constants';
 
 interface HeroSectionProps {
     title: string;

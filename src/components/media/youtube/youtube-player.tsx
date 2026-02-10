@@ -7,7 +7,10 @@ declare global {
     interface Window {
         YT: {
             Player: {
-                new(id: string, config: any): any;
+                new(id: string, config: Record<string, unknown>): {
+                    destroy: () => void;
+                    getCurrentTime: () => number;
+                };
             };
         };
         onYouTubeIframeAPIReady: () => void;
@@ -23,7 +26,10 @@ interface YouTubePlayerProps {
 }
 
 export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, className = "" }: YouTubePlayerProps) {
-    const playerRef = useRef<Record<string, any> | null>(null);
+    const playerRef = useRef<{
+        destroy: () => void;
+        getCurrentTime: () => number;
+    } | null>(null);
     const containerId = useRef(`yt-player-${Math.random().toString(36).substr(2, 9)}`);
 
     useEffect(() => {
@@ -58,7 +64,7 @@ export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, cla
                             }, 1000);
                         }
                     },
-                    onStateChange: (event: any) => {
+                    onStateChange: (event: { data: number }) => {
                         if (event.data === 0 && onEnd) { // 0 is Ended
                             onEnd();
                         }

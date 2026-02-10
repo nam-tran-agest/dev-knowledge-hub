@@ -45,7 +45,7 @@ export default async function PlaylistPage({
 }: {
     params: Promise<{ locale: string; id: string }>;
 }) {
-    const { locale, id } = await params;
+    const { id } = await params;
     const t = await getTranslations('media.youtube.playlist');
     const data = await getPlaylistVideos(id);
     const playlists = await getPlaylists();

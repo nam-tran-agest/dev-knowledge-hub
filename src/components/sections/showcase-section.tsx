@@ -1,6 +1,6 @@
 "use client";
-
 import { motion } from "motion/react";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CTAButton } from "@/components/common/ui/other/CTABtn";
 import { ShowcaseSectionProps } from "@/types/section/showcase";

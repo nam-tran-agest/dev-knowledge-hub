@@ -7,12 +7,10 @@ import { Badge } from '@/components/ui/badge'
 import {
     Circle,
     CheckCircle2,
-    CircleDashed,
     Clock,
     MoreVertical,
     Edit2,
-    Trash2,
-    AlertCircle
+    Trash2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {

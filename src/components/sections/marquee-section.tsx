@@ -36,31 +36,29 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
                 {logos && logos.length > 0 && (
                     <div dir="ltr" className="w-full">
                         <Marquee autoFill gradient={false} speed={50} direction="left" pauseOnHover className="py-4 overflow-y-visible">
-                            {logos.map((item, idx) => (
-                                <div key={idx} className="mx-8 md:mx-12 py-2">
+                            {logos.map((logo: { url: string; alternativeText?: string; href?: string }, index: number) => (
+                                <div key={index} className="mx-8 md:mx-16 flex items-center group/logo" onClick={() => logo.href && window.open(logo.href, '_blank')}>
                                     <div
                                         className="relative h-12 w-24 md:h-24 md:w-48 transition-all duration-300 hover:scale-110 cursor-pointer flex items-center justify-center filter mix-blend-multiply"
                                     >
-                                        {(item as any).href ? (
+                                        {logo.href ? (
                                             <a
-                                                href={(item as any).href}
+                                                href={logo.href}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="w-full h-full relative"
                                             >
                                                 <AppImage
-                                                    url={item.url}
-                                                    documentId={item.documentId}
-                                                    alternativeText={item.alternativeText || `Logo-${idx}`}
+                                                    url={logo.url}
+                                                    alternativeText={logo.alternativeText || `Logo-${index}`}
                                                     className="object-contain w-full h-full"
                                                     fill
                                                 />
                                             </a>
                                         ) : (
                                             <AppImage
-                                                url={item.url}
-                                                documentId={item.documentId}
-                                                alternativeText={item.alternativeText || `Logo-${idx}`}
+                                                url={logo.url}
+                                                alternativeText={logo.alternativeText || `Logo-${index}`}
                                                 className="object-contain w-full h-full"
                                                 fill
                                             />

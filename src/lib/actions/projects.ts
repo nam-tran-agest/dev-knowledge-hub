@@ -17,11 +17,11 @@ export async function getProjectById(id: string) {
     return await getById<Project>(CONFIG, id)
 }
 
-export async function createProject(input: Record<string, any>) {
+export async function createProject(input: Record<string, unknown>) {
     return await create<Project>(CONFIG, input)
 }
 
-export async function updateProject(id: string, input: Record<string, any>) {
+export async function updateProject(id: string, input: Record<string, unknown>) {
     return await update<Project>(CONFIG, id, input)
 }
 

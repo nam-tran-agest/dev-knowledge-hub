@@ -1,12 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import AnimatedCounter from "@/components/common/ui/other/AnimatedCounter";
 import { CTABtnV2 as CTABtn } from "@/components/common/ui/other/CTABtn";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { WhyChooseUsSection as WhyChooseUsSectionProps } from "@/types/section/why-choose-us";
-import { getMediaUrl } from "@/components/common/media/AppImage";
-import Image from "next/image";
 import { TYPOGRAPHY, LAYOUT, EFFECTS } from "@/lib/constants";
 
 const StatSection = ({ title, stats, features, cta }: WhyChooseUsSectionProps) => {

@@ -61,7 +61,7 @@ export default async function RootLayout({
   }
 
   const messages = await getMessages();
-  const footerData = (messages as any).footer as FooterData;
+  const footerData = (messages as unknown as { footer: FooterData }).footer;
 
   const fontClass = locale === 'vi'
     ? `${plusJakartaSans.variable} font-sans tracking-tight`

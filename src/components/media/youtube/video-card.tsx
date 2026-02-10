@@ -9,15 +9,17 @@ import type { SavedVideo } from "@/types/youtube";
 import { useTranslations } from "next-intl";
 
 interface VideoCardProps {
-    video: SavedVideo;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    video: any;
     onSelect: (video: SavedVideo) => void;
     onDelete: (id: string) => void;
     onToggleFavorite: (e: React.MouseEvent, video: SavedVideo) => void;
-    playlists: any[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    playlists?: any[];
     onAddToPlaylist?: (videoId: string) => void;
 }
 
-export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, playlists, onAddToPlaylist }: VideoCardProps) {
+export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddToPlaylist }: VideoCardProps) {
     const t = useTranslations('media.youtube.video');
 
     return (

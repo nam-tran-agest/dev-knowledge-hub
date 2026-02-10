@@ -7,7 +7,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import type { BaseEntity } from '@/types'
-import { ERROR_MESSAGES } from '@/lib/utils/error-handler'
 
 interface CRUDConfig<T> {
   tableName: string
@@ -38,7 +37,7 @@ async function getAuthUser() {
       app_metadata: {},
       user_metadata: {},
       created_at: new Date().toISOString()
-    } as any // Cast to any to avoid complex User type matching
+    } as unknown as { id: string; email: string; aud: string; role: string; app_metadata: Record<string, unknown>; user_metadata: Record<string, unknown>; created_at: string }
   }
 
   return user

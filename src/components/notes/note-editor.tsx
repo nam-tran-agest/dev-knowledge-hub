@@ -128,7 +128,8 @@ export function NoteEditor({ note }: NoteEditorProps) {
                         {mode === 'edit' ? (
                             <Textarea
                                 value={content}
-                                onChange={(e) => setContent(e.target.value)}
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                onChange={(editor: any) => setContent(JSON.stringify(editor.document))}
                                 placeholder="Start writing your thoughts..."
                                 className="w-full h-[60vh] font-sans text-lg leading-relaxed border border-black dark:border-white/10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary/50 resize-none p-6 bg-transparent rounded-xl text-slate-900 dark:text-slate-900"
                             />
@@ -137,7 +138,7 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm, remarkBreaks]}
                                     components={{
-                                        code({ node: _node, inline, className, children, ...props }: { node?: any; inline?: boolean; className?: string; children?: React.ReactNode;[key: string]: any }) {
+                                        code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode;[key: string]: any }) { // eslint-disable-line @typescript-eslint/no-explicit-any
                                             const match = /language-(\w+)/.exec(className || '')
                                             return !inline && match ? (
                                                 <SyntaxHighlighter
@@ -155,13 +156,13 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                                 </code>
                                             )
                                         },
-                                        h1: ({ node: _node, ...props }) => <h1 className="text-3xl font-bold mt-12 mb-6" {...props} />,
-                                        h2: ({ node: _node, ...props }) => <h2 className="text-2xl font-semibold mt-10 mb-5" {...props} />,
-                                        h3: ({ node: _node, ...props }) => <h3 className="text-xl font-medium mt-8 mb-4" {...props} />,
-                                        p: ({ node: _node, ...props }) => <p className="mb-6 text-slate-800 leading-relaxed" {...props} />,
-                                        ul: ({ node: _node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
-                                        ol: ({ node: _node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
-                                        blockquote: ({ node: _node, ...props }) => <blockquote className={cn("border-l-4 pl-6 italic text-lg my-8 text-slate-600", config.accentBorder)} {...props} />,
+                                        h1: ({ ...props }) => <h1 className="text-3xl font-bold mt-12 mb-6" {...props} />,
+                                        h2: ({ ...props }) => <h2 className="text-2xl font-semibold mt-10 mb-5" {...props} />,
+                                        h3: ({ ...props }) => <h3 className="text-xl font-medium mt-8 mb-4" {...props} />,
+                                        p: ({ ...props }) => <p className="mb-6 text-slate-800 leading-relaxed" {...props} />,
+                                        ul: ({ ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
+                                        ol: ({ ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-slate-800" {...props} />,
+                                        blockquote: ({ ...props }) => <blockquote className={cn("border-l-4 pl-6 italic text-lg my-8 text-slate-600", config.accentBorder)} {...props} />,
                                     }}
                                 >
                                     {content}

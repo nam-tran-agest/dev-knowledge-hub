@@ -11,7 +11,7 @@ const CONFIG = {
 }
 
 export async function getTasks(projectId?: string) {
-    const filters: Record<string, any> = {}
+    const filters: Record<string, unknown> = {}
     if (projectId) {
         filters.project_id = projectId
     }
@@ -24,11 +24,11 @@ export async function getTaskById(id: string) {
     return await getById<Task>(CONFIG, id)
 }
 
-export async function createTask(input: Record<string, any>) {
+export async function createTask(input: Record<string, unknown>) {
     return await create<Task>(CONFIG, input)
 }
 
-export async function updateTask(id: string, input: Record<string, any>) {
+export async function updateTask(id: string, input: Record<string, unknown>) {
     return await update<Task>(CONFIG, id, input)
 }
 

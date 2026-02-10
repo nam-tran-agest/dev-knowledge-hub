@@ -18,7 +18,6 @@ export const getMediaUrl = (url: string | null | undefined) => {
 };
 
 const AppImage: React.FC<AppImageProps> = ({
-    documentId,
     url,
     alternativeText,
     className,

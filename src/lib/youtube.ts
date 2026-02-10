@@ -32,6 +32,7 @@ export async function getVideos(query: string = 'web development trends 2024', m
 
         if (!data.items) return [];
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return data.items.map((item: { id: { videoId: string }, snippet: any }) => ({
             id: item.id.videoId,
             title: item.snippet.title,

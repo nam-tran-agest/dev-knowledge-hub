@@ -28,15 +28,18 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
             if (!response.ok) return [];
 
             const xmlData = await response.text();
-            const result = parser.parse(xmlData);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const result = parser.parse(xmlData) as any;
             if (!result?.rss?.channel) return [];
 
             const channel = result.rss.channel;
             const rawItems = Array.isArray(channel.item) ? channel.item : [channel.item];
             // Limit to top 15 items per feed to avoid Worker resource limits
-            const items = rawItems.slice(0, 15).filter((item: unknown) => item);
+            const items = rawItems.slice(0, 15).filter((item: unknown) => !!item);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const typedItems = items as any[];
 
-            return (items as Record<string, any>[]).map((item) => {
+            return typedItems.map((item) => {
                 let imageUrl = '';
                 const description = item.description || "";
                 const contentEncoded = item["content:encoded"] || "";

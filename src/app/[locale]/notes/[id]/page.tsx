@@ -1,24 +1,24 @@
-
 import { getNotes, getNote } from '@/lib/actions/notes'
 import { NoteList } from '@/components/notes/note-list'
 import { NoteEditor } from '@/components/notes/note-editor'
 import { cn } from '@/lib/utils'
+import type { Note } from '@/types/note'
 
 interface NotePageProps {
-    params: Promise<{ id: string; locale: string }>
+    params: Promise<{ id: string }>
 }
 
 import { NOTES_CONFIG } from '@/lib/constants/notes-config'
 
 export default async function NotePage({ params }: NotePageProps) {
-    const { id, locale } = await params
+    const { id } = await params
 
     // Check if id is a category (for list view) or a note ID
     const isCategory = Object.keys(NOTES_CONFIG).includes(id)
 
     let categorySlug = 'work'
     let selectedNoteId: string | undefined
-    let initialNoteData: any = null
+    let initialNoteData: Note | null = null
 
     if (isCategory) {
         categorySlug = id

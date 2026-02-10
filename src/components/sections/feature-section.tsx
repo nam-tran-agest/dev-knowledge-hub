@@ -1,28 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { FeatureSectionProps } from "@/types/section/feature";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { iconsMap } from "@/components/common/icon";
 import { getMediaUrl } from "@/components/common/media/AppImage";
-import AppImage from "@/components/common/media/AppImage";
 
 import RichTextRenderer from "@/components/common/ui/data-display/RichTextRenderer";
 import CarouselDot from "@/components/common/ui/data-display/CarouselDot";
 import CategoryTab from "@/components/common/ui/navigation/CategoryTab";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { TYPOGRAPHY, LAYOUT } from "@/lib/constants";
 
-const FeatureSection: React.FC<FeatureSectionProps> = ({
+const FeatureSection = ({
     title,
     services, // mapped from user code, represented as 'features' in usage
+}: {
+    title: string;    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    services: any[]
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -34,6 +34,7 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
         ? 0
         : services.findIndex(s => s.slug === categoryQuery);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSlideChange = (swiper: any) => {
         const index = swiper.activeIndex;
         const service = services[index];
@@ -183,7 +184,8 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
 
                 {/* Mobile Dots */}
                 <div className="flex justify-center gap-3 md:hidden">
-                    {services.map((_, idx) => (
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    {services.map((item: any, idx: number) => (
                         <CarouselDot
                             key={`${idx}-dot-service`}
                             isActive={selected === idx}

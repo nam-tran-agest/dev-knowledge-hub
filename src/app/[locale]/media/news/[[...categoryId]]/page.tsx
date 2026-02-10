@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import * as LucideIcons from 'lucide-react';
@@ -82,7 +81,7 @@ export default async function NewsUnifiedPage({
 
     // Map icons from strings to components for the sidebar
     const CATEGORIES_WITH_ICONS = CATEGORIES.map(cat => {
-        const IconComponent = (LucideIcons as any)[cat.icon as string] || LucideIcons.Globe;
+        const IconComponent = (LucideIcons as unknown as Record<string, React.ElementType>)[cat.icon as string] || LucideIcons.Globe;
         return {
             ...cat,
             icon: React.createElement(IconComponent, { className: "w-4 h-4" })
