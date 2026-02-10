@@ -8,7 +8,7 @@ import Link from "next/link";
 import { ServiceCaseStudiesProps } from "@/types/section/case-study";
 import "swiper/css";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
-import CarouselDot from "@/components/common/ui/data-display/CarouselDot";
+import CarouselDot from "@/components/ui/carousel-dot";
 import { cn } from "@/lib/utils";
 import { TYPOGRAPHY, LAYOUT } from "@/lib/constants";
 

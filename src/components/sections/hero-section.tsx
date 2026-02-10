@@ -3,7 +3,7 @@
 import { ParticlesBackground } from '@/components/ui/particles-background';
 
 import { motion } from "motion/react";
-import { CTAButton } from '@/components/common/ui/other/CTABtn';
+import { CTAButton } from '@/components/ui/cta-btn';
 import { TYPOGRAPHY } from '@/lib/constants';
 
 interface HeroSectionProps {

@@ -3,7 +3,7 @@
  */
 
 import { useState, useCallback } from 'react'
-import { validators, type ValidationResult } from '@/lib/utils/validation-v2'
+import { validators, type ValidationResult } from '@/lib/utils/validation'
 
 type EntityType = 'note' | 'snippet' | 'bug' | 'task' | 'category' | 'tag'
 

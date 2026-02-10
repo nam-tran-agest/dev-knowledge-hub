@@ -6,7 +6,7 @@ import { CC_STYLES } from "@/lib/constants";
 import { MainNav } from "@/components/layout/main-nav";
 import { FooterData } from '@/types/base';
 import Footer from '@/components/layout/footer';
-import ScrollToTop from '@/components/common/ui/navigation/ScrollToTop';
+import ScrollToTop from '@/components/ui/scroll-to-top';
 import Image from "next/image";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';

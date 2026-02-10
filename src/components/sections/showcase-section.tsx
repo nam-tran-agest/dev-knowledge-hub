@@ -2,7 +2,7 @@
 import { motion } from "motion/react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CTAButton } from "@/components/common/ui/other/CTABtn";
+import { CTAButton } from "@/components/ui/cta-btn";
 import { ShowcaseSectionProps } from "@/types/section/showcase";
 import { getMediaUrl } from "@/components/common/media/AppImage";
 import Image from "next/image";

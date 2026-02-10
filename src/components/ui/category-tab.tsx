@@ -3,7 +3,7 @@
 import { Service } from "@/types/section/service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
-import TabButton from "@/components/common/ui/navigation/TabButton";
+import TabButton from "@/components/ui/tab-button";
 import { useScrollToCenter } from "@/hooks/useScrollToCenter";
 import { cn } from "@/lib/utils";
 import { iconsMap } from "@/components/common/icon";

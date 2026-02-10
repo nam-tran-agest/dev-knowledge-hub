@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import AnimatedCounter from "@/components/common/ui/other/AnimatedCounter";
-import { CTABtnV2 as CTABtn } from "@/components/common/ui/other/CTABtn";
+import AnimatedCounter from "@/components/ui/animated-counter";
+import { CTABtnV2 as CTABtn } from "@/components/ui/cta-btn";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { WhyChooseUsSection as WhyChooseUsSectionProps } from "@/types/section/why-choose-us";
 import { TYPOGRAPHY, LAYOUT, EFFECTS } from "@/lib/constants";

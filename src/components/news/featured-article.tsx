@@ -14,7 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { NewsItem } from '@/types/news';
 import { useTranslations } from 'next-intl';
-import CarouselDot from '@/components/common/ui/data-display/CarouselDot';
+import CarouselDot from '@/components/ui/carousel-dot';
 
 import { TimeDisplay } from "./time-display";
 

@@ -11,9 +11,9 @@ import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { iconsMap } from "@/components/common/icon";
 import { getMediaUrl } from "@/components/common/media/AppImage";
 
-import RichTextRenderer from "@/components/common/ui/data-display/RichTextRenderer";
-import CarouselDot from "@/components/common/ui/data-display/CarouselDot";
-import CategoryTab from "@/components/common/ui/navigation/CategoryTab";
+import RichTextRenderer from "@/components/ui/rich-text-renderer";
+import CarouselDot from "@/components/ui/carousel-dot";
+import CategoryTab from "@/components/ui/category-tab";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TYPOGRAPHY, LAYOUT } from "@/lib/constants";
 
