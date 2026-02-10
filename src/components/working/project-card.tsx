@@ -3,7 +3,7 @@
 import React from 'react'
 import { Card } from '@/components/ui/card'
 import { Project } from '@/types/working'
-import * as Icons from 'lucide-react'
+import { PROJECT_ICON_MAP, DEFAULT_PROJECT_ICON, Pin } from './icon-map'
 import { motion } from 'motion/react'
 import { Link } from '@/i18n/routing'
 
@@ -12,8 +12,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const IconComponent = (Icons as any)[project.icon || 'Layout'] || Icons.Layout
+    const IconComponent = PROJECT_ICON_MAP[project.icon || 'Layout'] || DEFAULT_PROJECT_ICON
 
 
     return (
@@ -39,7 +38,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             <IconComponent size={24} />
                         </div>
                         {project.is_pinned && (
-                            <Icons.Pin size={16} className="text-slate-500 fill-slate-500" />
+                            <Pin size={16} className="text-slate-500 fill-slate-500" />
                         )}
                     </div>
 

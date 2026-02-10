@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ['react-syntax-highlighter'],
   experimental: {
     serverActions: {
       bodySizeLimit: "20mb",

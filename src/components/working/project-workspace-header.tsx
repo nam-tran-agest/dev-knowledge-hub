@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Project } from '@/types/working'
-import * as Icons from 'lucide-react'
+import { PROJECT_ICON_MAP, DEFAULT_PROJECT_ICON, ArrowLeft, SettingsIcon } from './icon-map'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { EditProjectModal } from './edit-project-modal'
@@ -15,8 +15,7 @@ interface ProjectWorkspaceHeaderProps {
 export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps) {
     const router = useRouter()
     const [isEditOpen, setIsEditOpen] = React.useState(false)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const IconComponent = (Icons as any)[project.icon || 'Layout'] || Icons.Layout
+    const IconComponent = PROJECT_ICON_MAP[project.icon || 'Layout'] || DEFAULT_PROJECT_ICON
 
     return (
         <div className="border-b border-[#1e1e24] bg-[#0a0a0c]/80 backdrop-blur-md sticky top-16 z-10 px-4 md:px-8 py-4">
@@ -28,7 +27,7 @@ export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps)
                         onClick={() => router.back()}
                         className="text-slate-400 hover:text-white"
                     >
-                        <Icons.ArrowLeft size={20} />
+                        <ArrowLeft size={20} />
                     </Button>
 
                     <div className="flex items-center gap-3">
@@ -56,7 +55,7 @@ export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps)
                         className="bg-[#16161a] border-[#2a2a30] text-slate-400 hover:text-white"
                         onClick={() => setIsEditOpen(true)}
                     >
-                        <Icons.Settings size={16} className="mr-2" />
+                        <SettingsIcon size={16} className="mr-2" />
                         Settings
                     </Button>
                 </div>

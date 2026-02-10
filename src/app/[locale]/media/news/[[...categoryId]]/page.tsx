@@ -1,7 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import React from 'react';
-import * as LucideIcons from 'lucide-react';
+import {
+    Globe, Zap, Languages, Trophy, Cpu, Gamepad,
+    HeartPulse, Tv, Briefcase, GraduationCap,
+    type LucideIcon
+} from 'lucide-react';
 
 // Modular Components
 import { NewsSidebar } from '@/components/news/news-sidebar';
@@ -11,6 +15,12 @@ import { NewsItem } from '@/types/news';
 
 import { getNews } from '@/lib/news';
 import { CATEGORIES } from '@/config/news-feeds';
+
+/** Explicit map of category icon names to components — avoids bundling all 1500 lucide icons */
+const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
+    Globe, Zap, Languages, Trophy, Cpu, Gamepad,
+    HeartPulse, Tv, Briefcase, GraduationCap,
+};
 
 export default async function NewsUnifiedPage({
     params
@@ -81,7 +91,7 @@ export default async function NewsUnifiedPage({
 
     // Map icons from strings to components for the sidebar
     const CATEGORIES_WITH_ICONS = CATEGORIES.map(cat => {
-        const IconComponent = (LucideIcons as unknown as Record<string, React.ElementType>)[cat.icon as string] || LucideIcons.Globe;
+        const IconComponent = CATEGORY_ICON_MAP[cat.icon as string] || Globe;
         return {
             ...cat,
             icon: React.createElement(IconComponent, { className: "w-4 h-4" })
