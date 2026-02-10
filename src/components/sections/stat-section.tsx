@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import AnimatedCounter from "@/components/ui/animated-counter";
 import { CTABtnV2 as CTABtn } from "@/components/ui/cta-btn";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
