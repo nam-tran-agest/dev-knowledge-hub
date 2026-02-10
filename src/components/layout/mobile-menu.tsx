@@ -88,7 +88,7 @@ export default function MobileMenu() {
                                 "border-none bg-transparent shadow-none text-inherit"
                             )}
                         >
-                            <div className="w-full border border-gray-200/50 p-2 flex flex-col space-y-8 rounded-2xl bg-gray-200/80 backdrop-blur-xl shadow-2xl">
+                            <div className="w-full border border-slate-200/60 p-2 flex flex-col space-y-8 rounded-2xl bg-white/90 backdrop-blur-xl shadow-2xl">
                                 {/* Consolidated Menu Content */}
                                 <ul className="space-y-2 text-xl py-2">
                                     {MAIN_NAVIGATION.map((item) => {
@@ -139,7 +139,7 @@ export default function MobileMenu() {
 
                                                     {hasSubItems && (
                                                         <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-                                                            <ul className="pl-4 bg-gray-200/50 rounded-xl mt-2 mb-2">
+                                                            <ul className="pl-4 bg-white/60 rounded-xl mt-2 mb-2">
                                                                 {item.items?.map((sub, idx) => (
                                                                     <li key={idx}>
                                                                         <PopoverClose asChild>
