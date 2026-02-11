@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FooterData } from "@/types/base";
+import { FooterData } from "@/types/layout";
 import { Mail, MapPin, Phone, Twitter, Facebook, Github, Youtube, Instagram, Linkedin, Globe } from "lucide-react";
 import AppImage from "@/components/common/media/AppImage";
 import { Link } from '@/i18n/routing';

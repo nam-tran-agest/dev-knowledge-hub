@@ -1,81 +1,95 @@
-import { HeroSection } from '@/components/sections/hero-section'
+import { HeroSection } from '@/features/landing/components/hero-section'
 
-import ShowcaseSection from '@/components/sections/showcase-section';
+import ShowcaseSection from '@/features/landing/components/showcase-section';
 
-import MarqueeSection from '@/components/sections/marquee-section';
-import CaseStudySection from '@/components/sections/case-study-section';
-import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
-import StatSection from '@/components/sections/stat-section';
-import { getMessages } from 'next-intl/server';
+import MarqueeSection from '@/features/landing/components/marquee-section';
+import CaseStudySection from '@/features/landing/components/case-study-section';
+import WhyChooseUsSection from '@/features/landing/components/why-choose-us-section';
+import StatSection from '@/features/landing/components/stat-section';
+import { getTranslations } from 'next-intl/server';
+import { PageShell } from '@/components/layout/page-shell';
+import type { ShowcaseItem } from "@/features/landing/types/section/showcase";
+import type { MarqueeLogo } from "@/features/landing/types/section/marquee";
+import type { WhyChooseUsStat, WhyChooseUsFeature } from "@/features/landing/types/section/why-choose-us";
+import type { CaseStudyItem } from "@/features/landing/types/section/case-study";
 
-export default async function Dashboard() {
-  const messages = await getMessages();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const homeData = messages.home as any;
+export default async function Dashboard({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'home' });
 
   return (
-    <div>
+    <PageShell variant="landing">
       <HeroSection
-        title={homeData.hero.title}
-        subtitle={homeData.hero.subtitle}
-        ctaLabel={homeData.hero.ctaLabel}
-        ctaUrl={homeData.hero.ctaUrl}
+        title={t('hero.title')}
+        subtitle={t('hero.subtitle')}
+        ctaLabel={t('hero.ctaLabel')}
+        ctaUrl={t('hero.ctaUrl')}
       />
 
       {/* <FeatureSection
-        title={homeData.features.title}
-        services={homeData.features.items.map((item: any) => ({
+        title={t('features.title')}
+        services={t.raw('features.items').map((item: any) => ({
           ...item,
           background_media: { url: '' }
         }))}
       /> */}
 
       <ShowcaseSection
-        title1={homeData.showcase.title1}
-        title2={homeData.showcase.title2}
-        items={homeData.showcase.items}
-        cta={homeData.showcase.cta}
+        title1={t('showcase.title1')}
+        title2={t('showcase.title2')}
+        items={t.raw('showcase.items') as ShowcaseItem[]}
+        cta={t.raw('showcase.cta') as { label: string; url: string; id?: string }}
       />
 
       {/* <GridLinksSection
-        title={homeData.gridLinks.title}
-        items={homeData.gridLinks.items.map((item: any) => ({
-          label: item.label,
-          Url: item.url
-        }))}
+        title={t('gridLinks.title')}
+        items={(t.raw('gridLinks.items') as unknown[]).map((item) => {
+            const i = item as { label: string; url: string };
+            return {
+                label: i.label,
+                Url: i.url
+            };
+        })}
       /> */}
 
       <MarqueeSection
-        title={homeData.marquee.title}
-        logos={homeData.marquee.logos.map((logo: { url: string; alt: string; href?: string }) => ({
+        title={t('marquee.title')}
+        logos={(t.raw('marquee.logos') as MarqueeLogo[]).map((logo) => ({
           url: logo.url,
-          alternativeText: logo.alt,
-          href: logo.href
+          alternativeText: logo.alternativeText || '',
+          href: '' // logo might not have href in type, checking usages
         }))}
       />
 
       <WhyChooseUsSection
-        title={homeData.whyChooseUsSection.title}
-        items={homeData.whyChooseUsSection.items}
+        title={t('whyChooseUsSection.title')}
+        items={(t.raw('whyChooseUsSection.items') as WhyChooseUsFeature[]).map((item, idx) => ({
+          id: item.id || idx,
+          title: item.title,
+          subTitle: item.sub_title
+        }))}
       />
 
       <StatSection
-        title={homeData.statSection.title}
-        stats={homeData.statSection.stats}
-        features={homeData.statSection.features}
-        cta={homeData.statSection.cta}
+        title={t('statSection.title')}
+        stats={t.raw('statSection.stats') as WhyChooseUsStat[]}
+        features={t.raw('statSection.features') as WhyChooseUsFeature[]}
+        cta={t.raw('statSection.cta') as { label: string; url?: string; id?: string }}
       />
 
       <CaseStudySection
-        title={homeData.caseStudy.title}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        caseStudies={((homeData.caseStudy as any).items || []).map((item: any) => ({
+        title={t('caseStudy.title')}
+        caseStudies={(t.raw('caseStudy.items') as CaseStudyItem[] || []).map((item) => ({
           ...item,
           image: ''
         }))}
-        readMoreLabel={homeData.caseStudy.readMoreLabel}
+        readMoreLabel={t('caseStudy.readMoreLabel')}
       />
 
-    </div>
+    </PageShell>
   )
 }

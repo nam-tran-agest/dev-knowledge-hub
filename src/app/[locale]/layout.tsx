@@ -4,7 +4,7 @@ import "../globals.css"; // Fixed path
 import { Link } from "@/i18n/routing"; // Localized Link
 import { CC_STYLES } from "@/lib/constants";
 import { MainNav } from "@/components/layout/main-nav";
-import { FooterData } from '@/types/base';
+import { FooterData } from '@/types/layout';
 import Footer from '@/components/layout/footer';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 import Image from "next/image";

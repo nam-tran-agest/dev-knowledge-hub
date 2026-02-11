@@ -1,10 +1,10 @@
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
-import { PlaylistContent } from '@/components/media/youtube/playlist-content';
+import { PlaylistContent } from '@/features/media/components/youtube/playlist-content';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ListVideo } from 'lucide-react';
 import Link from 'next/link';
-import { getPlaylists } from '@/lib/actions/youtube';
+import { getPlaylists } from '@/features/media/services/youtube';
 import { getTranslations } from 'next-intl/server';
 
 async function getPlaylistVideos(playlistId: string) {

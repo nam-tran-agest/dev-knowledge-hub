@@ -1,6 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { saveSpotifyTokens } from '@/lib/actions/spotify';
+import { saveSpotifyTokens } from '@/features/media/services/spotify';
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;

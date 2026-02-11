@@ -1,7 +1,7 @@
 
 import { getTranslations } from 'next-intl/server';
-import { getPlaylist, getPlaylistTracks } from '@/lib/actions/spotify';
-import { MusicSidebar } from '@/components/media/music/music-sidebar';
+import { getPlaylist, getPlaylistTracks } from '@/features/media/services/spotify';
+import { MusicSidebar } from '@/features/media/components/music/music-sidebar';
 import { Link } from '@/i18n/routing';
 import { ChevronLeft, Music2, Clock } from 'lucide-react';
 import Image from 'next/image';

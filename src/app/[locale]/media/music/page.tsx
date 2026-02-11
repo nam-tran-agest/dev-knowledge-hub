@@ -1,12 +1,13 @@
 
 
 
-import { MusicSidebar } from '@/components/media/music/music-sidebar';
-import { MusicGrid } from '@/components/media/music/music-grid';
-import { getSpotifyAuthToken, getTopTracks, getTopArtists, getUserPlaylists } from '@/lib/actions/spotify';
-import { getSpotifyAuthUrl } from '@/lib/spotify';
+import { MusicSidebar } from '@/features/media/components/music/music-sidebar';
+import { MusicGrid } from '@/features/media/components/music/music-grid';
+import { getSpotifyAuthToken, getTopTracks, getTopArtists, getUserPlaylists } from '@/features/media/services/spotify';
+import { getSpotifyAuthUrl } from '@/features/media/services/spotify-api';
 import { Button } from '@/components/ui/button';
 import { Music2 } from 'lucide-react';
+import { PageShell } from '@/components/layout/page-shell';
 
 interface MusicPageProps {
     params: Promise<{ locale: string }>;
@@ -22,7 +23,7 @@ export default async function MusicPage({ searchParams }: MusicPageProps) {
 
     if (!token) {
         return (
-            <div className="min-h-screen pt-32 bg-[#050505] flex flex-col items-center justify-center p-6 space-y-8">
+            <PageShell variant="landing" className="bg-[#050505] flex flex-col items-center justify-center p-6 space-y-8">
                 <div className="p-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 shadow-2xl shadow-emerald-500/10">
                     <Music2 className="h-20 w-20 text-emerald-500 animate-pulse" />
                 </div>
@@ -35,7 +36,7 @@ export default async function MusicPage({ searchParams }: MusicPageProps) {
                 <Button asChild size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold h-14 px-8 rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl shadow-emerald-500/20">
                     <a href={authUrl}>Connect Spotify</a>
                 </Button>
-            </div>
+            </PageShell>
         );
     }
 
@@ -57,7 +58,7 @@ export default async function MusicPage({ searchParams }: MusicPageProps) {
     }
 
     return (
-        <div className="min-h-screen pt-16 bg-[#050505] flex flex-col">
+        <PageShell variant="landing" className="bg-[#050505] flex flex-col">
             <div className="flex flex-col lg:flex-row flex-1 min-h-[calc(100vh-64px)] overflow-hidden">
                 <MusicSidebar currentCategory={category} />
                 <main className="flex-1 overflow-hidden flex flex-col">
@@ -72,6 +73,6 @@ export default async function MusicPage({ searchParams }: MusicPageProps) {
                     </div>
                 </main>
             </div>
-        </div>
+        </PageShell>
     );
 }

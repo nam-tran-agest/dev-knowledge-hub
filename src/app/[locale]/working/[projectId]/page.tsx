@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
-import { getProjectById } from '@/lib/actions/projects';
-import { getTasks } from '@/lib/actions/tasks';
-import { ProjectWorkspace } from '@/components/working/project-workspace';
+import { getProjectById } from '@/features/working/services/projects';
+import { getTasks } from '@/features/working/services/tasks';
+import { ProjectWorkspace } from '@/features/working/components/project-workspace';
+import { PageShell } from '@/components/layout/page-shell';
 
 export default async function ProjectPage({
     params
@@ -18,10 +19,12 @@ export default async function ProjectPage({
     const tasks = await getTasks(projectId);
 
     return (
-        <ProjectWorkspace
-            project={project}
-            initialTasks={tasks}
-            locale={locale}
-        />
+        <PageShell variant="landing" className="bg-[#0a0a0c]">
+            <ProjectWorkspace
+                project={project}
+                initialTasks={tasks}
+                locale={locale}
+            />
+        </PageShell>
     );
 }

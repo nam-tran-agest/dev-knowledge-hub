@@ -1,14 +1,15 @@
-import { getNotes, getNote } from '@/lib/actions/notes'
-import { NoteList } from '@/components/notes/note-list'
-import { NoteEditor } from '@/components/notes/note-editor'
+import { getNotes, getNote } from '@/features/notes/services/notes'
+import { NoteList } from '@/features/notes/components/note-list'
+import { NoteEditor } from '@/features/notes/components/note-editor'
 import { cn } from '@/lib/utils'
-import type { Note } from '@/types/note'
+import type { Note } from '@/features/notes/types'
 
 interface NotePageProps {
     params: Promise<{ id: string }>
 }
 
-import { NOTES_CONFIG } from '@/lib/constants/notes-config'
+import { NOTES_CONFIG } from '@/features/notes/constants/notes-config'
+import { PageShell } from '@/components/layout/page-shell';
 
 export default async function NotePage({ params }: NotePageProps) {
     const { id } = await params
@@ -35,7 +36,7 @@ export default async function NotePage({ params }: NotePageProps) {
     const config = NOTES_CONFIG[categorySlug] || NOTES_CONFIG.work
 
     return (
-        <div className={cn("min-h-screen flex flex-col pt-16 transition-colors duration-500", config.gradient)}>
+        <PageShell variant="landing" className={cn("flex flex-col pt-16 transition-colors duration-500", config.gradient)}>
             <div className="flex flex-col lg:flex-row flex-1 min-h-[calc(100vh-64px)] overflow-hidden">
                 {/* Left Column - Note List */}
                 <aside className={cn(
@@ -70,6 +71,6 @@ export default async function NotePage({ params }: NotePageProps) {
                     )}
                 </main>
             </div>
-        </div>
+        </PageShell>
     )
 }

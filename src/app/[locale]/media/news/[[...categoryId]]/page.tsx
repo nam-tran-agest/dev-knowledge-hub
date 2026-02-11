@@ -8,13 +8,14 @@ import {
 } from 'lucide-react';
 
 // Modular Components
-import { NewsSidebar } from '@/components/news/news-sidebar';
-import { FeaturedArticle } from '@/components/news/featured-article';
-import { NewsGrid } from '@/components/news/news-grid';
-import { NewsItem } from '@/types/news';
+import { NewsSidebar } from '@/features/news/components/news-sidebar';
+import { FeaturedArticle } from '@/features/news/components/featured-article';
+import { NewsGrid } from '@/features/news/components/news-grid';
+import { NewsItem } from '@/features/news/types';
+import { PageShell } from '@/components/layout/page-shell';
 
-import { getNews } from '@/lib/news';
-import { CATEGORIES } from '@/config/news-feeds';
+import { getNews } from '@/features/news/services/news';
+import { CATEGORIES } from '@/features/news/constants/feeds';
 
 /** Explicit map of category icon names to components — avoids bundling all 1500 lucide icons */
 const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
@@ -45,10 +46,10 @@ export default async function NewsUnifiedPage({
 
     if (newsItems.length === 0 && categoryId === 'all') {
         return (
-            <div className="min-h-screen pt-32 bg-[#0a0a0c] text-center">
+            <PageShell variant="landing" className="bg-[#0a0a0c] text-center pt-32">
                 <h2 className="text-2xl font-bold">{t('noNews')}</h2>
                 <p className="text-slate-500 mt-2">{t('tryAgain')}</p>
-            </div>
+            </PageShell>
         );
     }
 
@@ -99,7 +100,7 @@ export default async function NewsUnifiedPage({
     });
 
     return (
-        <div className="min-h-screen pt-16 bg-[#0a0a0c] text-slate-200 overflow-x-hidden">
+        <PageShell variant="landing" className="bg-[#0a0a0c] text-slate-200 overflow-x-hidden">
             <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] overflow-hidden">
                 <NewsSidebar categories={CATEGORIES_WITH_ICONS} trendingItems={trendingItems} />
 
@@ -127,6 +128,6 @@ export default async function NewsUnifiedPage({
                     </div>
                 </main>
             </div>
-        </div>
+        </PageShell>
     );
 }

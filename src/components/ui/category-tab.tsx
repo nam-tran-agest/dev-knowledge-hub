@@ -1,6 +1,6 @@
 "use client";
 
-import { Service } from "@/types/section/service";
+import { Service } from "@/features/landing/types/section/service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
 import TabButton from "@/components/ui/tab-button";

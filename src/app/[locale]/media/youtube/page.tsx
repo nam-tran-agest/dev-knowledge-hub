@@ -1,6 +1,7 @@
-import { getVideos, getPlaylists } from '@/lib/actions/youtube';
+import { getVideos, getPlaylists } from '@/features/media/services/youtube';
 import { getTranslations } from 'next-intl/server';
-import { YouTubeGallery } from '@/components/media/youtube/youtube-gallery';
+import { YouTubeGallery } from '@/features/media/components/youtube/youtube-gallery';
+import { PageShell } from '@/components/layout/page-shell';
 
 export default async function YouTubePage({
     params
@@ -15,8 +16,8 @@ export default async function YouTubePage({
     ]);
 
     return (
-        <div className="min-h-screen pt-20 sm:pt-24 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0c1a36] via-[#204b8f] to-[#060f24]">
-            <div className="max-w-7xl mx-auto space-y-8">
+        <PageShell className="bg-gradient-to-br from-[#0c1a36] via-[#204b8f] to-[#060f24]">
+            <div className="py-8 sm:py-12 space-y-8">
                 <div className="text-center space-y-4">
                     <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-rose-600">
                         {t('title')}
@@ -28,6 +29,6 @@ export default async function YouTubePage({
 
                 <YouTubeGallery videos={videos} playlists={playlists} />
             </div>
-        </div>
+        </PageShell>
     );
 }
