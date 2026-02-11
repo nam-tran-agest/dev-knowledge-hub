@@ -19,8 +19,27 @@ import { cn } from '@/lib/utils'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
+import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript'
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import css from 'react-syntax-highlighter/dist/esm/languages/prism/css'
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json'
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash'
+import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown'
+
+SyntaxHighlighter.registerLanguage('typescript', ts)
+SyntaxHighlighter.registerLanguage('ts', ts)
+SyntaxHighlighter.registerLanguage('tsx', tsx)
+SyntaxHighlighter.registerLanguage('javascript', js)
+SyntaxHighlighter.registerLanguage('js', js)
+SyntaxHighlighter.registerLanguage('jsx', jsx)
+SyntaxHighlighter.registerLanguage('css', css)
+SyntaxHighlighter.registerLanguage('json', json)
+SyntaxHighlighter.registerLanguage('bash', bash)
+SyntaxHighlighter.registerLanguage('markdown', markdown)
 import { NOTES_CONFIG } from '@/features/notes/constants/notes-config'
 
 interface NoteEditorProps {
@@ -128,8 +147,7 @@ export function NoteEditor({ note }: NoteEditorProps) {
                         {mode === 'edit' ? (
                             <Textarea
                                 value={content}
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                onChange={(editor: any) => setContent(JSON.stringify(editor.document))}
+                                onChange={(e) => setContent(e.target.value)}
                                 placeholder="Start writing your thoughts..."
                                 className="w-full h-[60vh] font-sans text-lg leading-relaxed border border-black dark:border-white/10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary/50 resize-none p-6 bg-transparent rounded-xl text-slate-900 dark:text-slate-900"
                             />

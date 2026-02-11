@@ -1,6 +1,7 @@
 'use client';
 
-import { ParticlesBackground } from '@/components/ui/particles-background';
+import dynamic from 'next/dynamic';
+const ParticlesBackground = dynamic(() => import('@/components/ui/particles-background').then(mod => mod.ParticlesBackground), { ssr: false });
 
 import { motion } from "motion/react";
 import { CTAButton } from '@/components/ui/cta-btn';
