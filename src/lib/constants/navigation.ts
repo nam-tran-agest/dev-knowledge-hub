@@ -60,6 +60,10 @@ export const MAIN_NAVIGATION: NavItem[] = [
             { name: 'Fun', href: '/bookmarks/fun' },
         ]
     },
+    {
+        name: 'MH Wilds',
+        href: '/mh-wilds',
+    },
 ]
 
 export const FOOTER_NAVIGATION: NavItem[] = [

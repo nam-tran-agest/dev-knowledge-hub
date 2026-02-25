@@ -341,6 +341,9 @@
                     "life": "Đời sống",
                     "fun": "Vui vẻ"
                 }
+            },
+            "mh wilds": {
+                "label": "MH Wilds"
             }
         },
         "settings": "Cài đặt",
