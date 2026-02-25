@@ -1,5 +1,6 @@
 import type { Weapon, Sharpness } from '../types';
 import { Badge } from '@/components/ui/badge';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ELEMENT_COLORS, ELEMENT_ICONS } from './monster-card';
 import { WEAPON_TYPE_ICONS } from '../constants/mh-icons';
 
@@ -59,12 +60,15 @@ export function WeaponTypeIcon({ kind, size = 20 }: { kind: string; size?: numbe
     );
 }
 
-export function WeaponCard({ weapon }: { weapon: Weapon }) {
+export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: Weapon) => void }) {
     const kindLabel = WEAPON_KIND_LABELS[weapon.kind] || weapon.kind;
     const rarityColor = RARITY_COLORS[weapon.rarity] || 'text-slate-400';
 
     return (
-        <div className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5">
+        <div
+            className={`bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5 ${onClick ? 'cursor-pointer' : ''}`}
+            onClick={() => onClick?.(weapon)}
+        >
             <div className="p-5">
                 {/* Header with real weapon icon */}
                 <div className="flex items-start justify-between gap-2 mb-3">
@@ -118,12 +122,23 @@ export function WeaponCard({ weapon }: { weapon: Weapon }) {
                 {weapon.sharpness && <SharpnessBar sharpness={weapon.sharpness} />}
 
                 {weapon.skills.length > 0 && (
-                    <div className="mt-3 flex gap-1.5 flex-wrap">
-                        {weapon.skills.map((sk) => (
-                            <Badge key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                                {sk.skill.name} Lv{sk.level}
-                            </Badge>
-                        ))}
+                    <div className="mt-3" onClick={(e) => e.stopPropagation()}>
+                        <Accordion type="single" collapsible className="w-full bg-white/[0.03] rounded-lg px-3">
+                            <AccordionItem value="skills" className="border-b-0">
+                                <AccordionTrigger className="py-2 text-[10px] text-slate-600 uppercase tracking-widest font-bold hover:no-underline">
+                                    Skills ({weapon.skills.length})
+                                </AccordionTrigger>
+                                <AccordionContent className="pb-3">
+                                    <div className="flex gap-1.5 flex-wrap pt-1">
+                                        {weapon.skills.map((sk) => (
+                                            <Badge key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                                {sk.skill.name} Lv{sk.level}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
                     </div>
                 )}
             </div>

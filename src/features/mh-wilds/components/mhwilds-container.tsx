@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Loader2, AlertCircle, Bug, Swords, Shield, Gem, ScrollText, MapPin, Skull, Star, Package, ArrowUpDown, ChevronDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import type { Monster, Weapon, Armor, Skill, Item, Decoration, Charm, Location as MHLocation, Ailment, ArmorSet } from '../types';
 import * as api from '../services/mhwilds-api';
 import { MonsterCard, SPECIES_LABELS } from './monster-card';
 import { MonsterDetail } from './monster-detail';
+import { WeaponDetail, ItemDetail, ArmorDetail } from './detail-drawers';
 import { WeaponCard, WEAPON_KIND_LABELS, WeaponTypeIcon } from './weapon-card';
 import { ArmorCard } from './armor-card';
 import { WEAPON_TYPE_ICONS } from '../constants/mh-icons';
@@ -63,7 +65,7 @@ function Pagination({ current, total, onChange }: { current: number; total: numb
 }
 
 // === Rarity bar ===
-function RarityDots({ rarity }: { rarity: number }) {
+export function RarityDots({ rarity }: { rarity: number }) {
     return (
         <div className="flex gap-0.5">
             {Array.from({ length: Math.min(rarity, 10) }).map((_, i) => (
@@ -92,10 +94,15 @@ export function MHWildsContainer() {
     const [page, setPage] = useState(1);
     const [sortBy, setSortBy] = useState<SortOption>('name-asc');
     const [selectedMonster, setSelectedMonster] = useState<Monster | null>(null);
+    const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
+    const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+    const [selectedArmor, setSelectedArmor] = useState<Armor | null>(null);
     const [weaponTypeFilter, setWeaponTypeFilter] = useState('all');
     const [skillKindFilter, setSkillKindFilter] = useState('all');
     const [decoSlotFilter, setDecoSlotFilter] = useState('all');
     const [monsterKindFilter, setMonsterKindFilter] = useState('all');
+    const [monsterWeaknessFilter, setMonsterWeaknessFilter] = useState('all');
+    const [weaponElementFilter, setWeaponElementFilter] = useState('all');
     const [expandedSkills, setExpandedSkills] = useState<Set<number>>(new Set());
     const [expandedSets, setExpandedSets] = useState<Set<number>>(new Set());
     const [groupBySpecies, setGroupBySpecies] = useState(true);
@@ -141,6 +148,8 @@ export function MHWildsContainer() {
         setSkillKindFilter('all');
         setDecoSlotFilter('all');
         setMonsterKindFilter('all');
+        setMonsterWeaknessFilter('all');
+        setWeaponElementFilter('all');
         setSortBy('name-asc');
     }, [activeCategory]);
 
@@ -165,10 +174,19 @@ export function MHWildsContainer() {
         let result: unknown[];
         switch (activeCategory) {
             case 'monsters': {
-                result = (currentData as Monster[]).filter(m =>
-                    (m.name.toLowerCase().includes(q) || m.species.toLowerCase().includes(q)) &&
-                    (monsterKindFilter === 'all' || m.kind === monsterKindFilter)
-                );
+                result = (currentData as Monster[]).filter(m => {
+                    const matchesText = m.name.toLowerCase().includes(q) || m.species.toLowerCase().includes(q);
+                    const matchesKind = monsterKindFilter === 'all' || m.kind === monsterKindFilter;
+                    if (!matchesText || !matchesKind) return false;
+
+                    if (monsterWeaknessFilter !== 'all') {
+                        const hasWeakness = m.weaknesses?.some(w =>
+                            (w.element === monsterWeaknessFilter || w.status === monsterWeaknessFilter) && w.level > 0
+                        );
+                        if (!hasWeakness) return false;
+                    }
+                    return true;
+                });
                 const monsters = result as Monster[];
                 // When grouped by species, sort by species first then name within each group
                 if (groupBySpecies) {
@@ -181,9 +199,19 @@ export function MHWildsContainer() {
                 return sortItems(monsters as (Monster & { rarity?: number })[]);
             }
             case 'weapons': {
-                result = (currentData as Weapon[]).filter(w =>
-                    w.name.toLowerCase().includes(q) && (weaponTypeFilter === 'all' || w.kind === weaponTypeFilter)
-                );
+                result = (currentData as Weapon[]).filter(w => {
+                    const matchesText = w.name.toLowerCase().includes(q);
+                    const matchesType = weaponTypeFilter === 'all' || w.kind === weaponTypeFilter;
+                    if (!matchesText || !matchesType) return false;
+
+                    if (weaponElementFilter !== 'all') {
+                        const hasElement = w.specials?.some(s =>
+                            s.element === weaponElementFilter || s.status === weaponElementFilter
+                        );
+                        if (!hasElement) return false;
+                    }
+                    return true;
+                });
                 const weapons = result as Weapon[];
                 // When grouped by type, sort by type first then rarity low→high within each group
                 if (groupByWeaponType && weaponTypeFilter === 'all') {
@@ -221,7 +249,7 @@ export function MHWildsContainer() {
             default:
                 return currentData;
         }
-    }, [currentData, searchQuery, activeCategory, weaponTypeFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, sortBy, sortItems]);
+    }, [currentData, searchQuery, activeCategory, weaponTypeFilter, weaponElementFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, monsterWeaknessFilter, sortBy, sortItems]);
 
     const totalPages = Math.ceil(filteredData.length / PER_PAGE);
     const pagedData = filteredData.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -229,6 +257,32 @@ export function MHWildsContainer() {
     const weaponTypes = useMemo(() => {
         if (activeCategory !== 'weapons') return [];
         return Array.from(new Set((currentData as Weapon[]).map(w => w.kind))).sort();
+    }, [currentData, activeCategory]);
+
+    const monsterWeaknesses = useMemo(() => {
+        if (activeCategory !== 'monsters') return [];
+        const wSet = new Set<string>();
+        (currentData as Monster[]).forEach(m => {
+            m.weaknesses?.forEach(w => {
+                if (w.level > 0) {
+                    if (w.element) wSet.add(w.element);
+                    if (w.status) wSet.add(w.status);
+                }
+            });
+        });
+        return Array.from(wSet).sort();
+    }, [currentData, activeCategory]);
+
+    const weaponElements = useMemo(() => {
+        if (activeCategory !== 'weapons') return [];
+        const eSet = new Set<string>();
+        (currentData as Weapon[]).forEach(w => {
+            w.specials?.forEach(s => {
+                if (s.element) eSet.add(s.element);
+                if (s.status) eSet.add(s.status);
+            });
+        });
+        return Array.from(eSet).sort();
     }, [currentData, activeCategory]);
 
     const toggleSkill = (id: number) => setExpandedSkills(prev => {
@@ -259,6 +313,12 @@ export function MHWildsContainer() {
                         <option value="large">🔴 Large</option>
                         <option value="small">⚪ Small</option>
                     </select>
+                    <select value={monsterWeaknessFilter} onChange={e => { setMonsterWeaknessFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 capitalize">
+                        <option value="all">Any Weakness</option>
+                        {monsterWeaknesses.map(w => (
+                            <option key={w} value={w}>{w}</option>
+                        ))}
+                    </select>
                     <button onClick={() => setGroupBySpecies(!groupBySpecies)} className={`text-xs px-3 py-2 rounded-lg border transition-colors font-medium ${groupBySpecies ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-white/[0.03] text-slate-400 border-white/5'}`}>
                         Group by Species
                     </button>
@@ -273,6 +333,12 @@ export function MHWildsContainer() {
                             {weaponTypes.map(t => <option key={t} value={t}>{WEAPON_KIND_LABELS[t] || t}</option>)}
                         </select>
                     )}
+                    <select value={weaponElementFilter} onChange={e => { setWeaponElementFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 capitalize">
+                        <option value="all">Any Element/Status</option>
+                        {weaponElements.map(e => (
+                            <option key={e} value={e}>{e}</option>
+                        ))}
+                    </select>
                     <button onClick={() => setGroupByWeaponType(!groupByWeaponType)} className={`text-xs px-3 py-2 rounded-lg border transition-colors font-medium ${groupByWeaponType ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-white/[0.03] text-slate-400 border-white/5'}`}>
                         Group by Type
                     </button>
@@ -309,13 +375,13 @@ export function MHWildsContainer() {
             case 'monsters':
                 return <MonstersGrid monsters={pagedData as Monster[]} onSelect={setSelectedMonster} groupBySpecies={groupBySpecies} />;
             case 'weapons':
-                return <WeaponsGrid weapons={pagedData as Weapon[]} groupByType={groupByWeaponType && weaponTypeFilter === 'all'} />;
+                return <WeaponsGrid weapons={pagedData as Weapon[]} groupByType={groupByWeaponType && weaponTypeFilter === 'all'} onSelect={setSelectedWeapon} />;
             case 'armor-sets':
-                return <ArmorSetsGrid sets={pagedData as ArmorSet[]} expandedSets={expandedSets} toggleSet={toggleSet} />;
+                return <ArmorSetsGrid sets={pagedData as ArmorSet[]} expandedSets={expandedSets} toggleSet={toggleSet} onSelectArmor={setSelectedArmor} />;
             case 'skills':
                 return <SkillsList skills={pagedData as Skill[]} expandedSkills={expandedSkills} toggleSkill={toggleSkill} />;
             case 'items':
-                return <ItemsGrid items={pagedData as Item[]} />;
+                return <ItemsGrid items={pagedData as Item[]} onSelect={setSelectedItem} />;
             case 'decorations':
                 return <DecorationsGrid decorations={pagedData as Decoration[]} />;
             case 'charms':
@@ -421,6 +487,9 @@ export function MHWildsContainer() {
             </div>
 
             {selectedMonster && <MonsterDetail monster={selectedMonster} onClose={() => setSelectedMonster(null)} />}
+            {selectedWeapon && <WeaponDetail weapon={selectedWeapon} onClose={() => setSelectedWeapon(null)} />}
+            {selectedItem && <ItemDetail item={selectedItem} onClose={() => setSelectedItem(null)} />}
+            {selectedArmor && <ArmorDetail armor={selectedArmor} onClose={() => setSelectedArmor(null)} />}
         </div>
     );
 }
@@ -454,9 +523,15 @@ function ErrorState({ error, onRetry }: { error: string; onRetry: () => void }) 
 function MonstersGrid({ monsters, onSelect, groupBySpecies }: { monsters: Monster[]; onSelect: (m: Monster) => void; groupBySpecies: boolean }) {
     if (!groupBySpecies) {
         return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                {monsters.map(m => <MonsterCard key={m.id} monster={m} onClick={onSelect} />)}
-            </div>
+            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                <AnimatePresence mode="popLayout">
+                    {monsters.map(m => (
+                        <motion.div key={m.id} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.2 }}>
+                            <MonsterCard monster={m} onClick={onSelect} />
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+            </motion.div>
         );
     }
 
@@ -469,24 +544,36 @@ function MonstersGrid({ monsters, onSelect, groupBySpecies }: { monsters: Monste
     });
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {Object.entries(groups).map(([species, mons]) => (
                 <div key={species} className="contents">
                     <GroupHeader label={species} count={mons.length} />
-                    {mons.map(m => <MonsterCard key={m.id} monster={m} onClick={onSelect} />)}
+                    <AnimatePresence mode="popLayout">
+                        {mons.map(m => (
+                            <motion.div key={m.id} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.2 }}>
+                                <MonsterCard monster={m} onClick={onSelect} />
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
             ))}
-        </div>
+        </motion.div>
     );
 }
 
 // === Weapons with optional type grouping ===
-function WeaponsGrid({ weapons, groupByType }: { weapons: Weapon[]; groupByType: boolean }) {
+function WeaponsGrid({ weapons, groupByType, onSelect }: { weapons: Weapon[]; groupByType: boolean; onSelect: (w: Weapon) => void }) {
     if (!groupByType) {
         return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                {weapons.map(w => <WeaponCard key={w.id} weapon={w} />)}
-            </div>
+            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                <AnimatePresence mode="popLayout">
+                    {weapons.map(w => (
+                        <motion.div key={w.id} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.2 }}>
+                            <WeaponCard weapon={w} onClick={onSelect} />
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+            </motion.div>
         );
     }
 
@@ -503,64 +590,81 @@ function WeaponsGrid({ weapons, groupByType }: { weapons: Weapon[]; groupByType:
     });
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {groups.map(group => (
                 <div key={group.label} className="contents">
                     <GroupHeader label={group.label} count={group.items.length} iconNode={<WeaponTypeIcon kind={Object.entries(WEAPON_KIND_LABELS).find(([, v]) => v === group.label)?.[0] || ''} size={18} />} />
-                    {group.items.map(w => <WeaponCard key={w.id} weapon={w} />)}
+                    <AnimatePresence mode="popLayout">
+                        {group.items.map(w => (
+                            <motion.div key={w.id} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.2 }}>
+                                <WeaponCard weapon={w} onClick={onSelect} />
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
             ))}
-        </div>
+        </motion.div>
     );
 }
 
 // === Armor Sets (expandable) ===
-function ArmorSetsGrid({ sets, expandedSets, toggleSet }: { sets: ArmorSet[]; expandedSets: Set<number>; toggleSet: (id: number) => void }) {
+function ArmorSetsGrid({ sets, expandedSets, toggleSet, onSelectArmor }: { sets: ArmorSet[]; expandedSets: Set<number>; toggleSet: (id: number) => void; onSelectArmor: (a: Armor) => void }) {
     return (
-        <div className="space-y-3">
-            {sets.map(set => {
-                const isExpanded = expandedSets.has(set.id);
-                const bonusSkill = set.bonus || set.groupBonus;
-                return (
-                    <div key={set.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all">
-                        <button onClick={() => toggleSet(set.id)} className="w-full text-left p-4 flex items-center justify-between gap-4">
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                                    <Shield className="w-4 h-4" />
-                                </div>
-                                <div>
-                                    <h3 className="text-sm font-bold text-white">{set.name}</h3>
-                                    <p className="text-[10px] text-slate-500">{set.pieces?.length || 0} pieces</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                {bonusSkill && (
-                                    <span className="text-[10px] bg-purple-500/15 text-purple-400 border border-purple-500/30 rounded-full px-2.5 py-1 font-bold">
-                                        ✨ {bonusSkill.skill.name}
-                                    </span>
-                                )}
-                                <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-                            </div>
-                        </button>
-                        {isExpanded && set.pieces && (
-                            <div className="border-t border-white/5 p-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                                {set.pieces.map((piece: Armor) => <ArmorCard key={piece.id} armor={piece} />)}
-                                {bonusSkill && bonusSkill.ranks && (
-                                    <div className="col-span-full bg-purple-500/5 border border-purple-500/10 rounded-lg p-3 mt-1">
-                                        <p className="text-[10px] text-purple-400 uppercase tracking-widest font-bold mb-1.5">✨ Set Bonus — {bonusSkill.skill.name}</p>
-                                        {bonusSkill.ranks.map(r => (
-                                            <p key={r.id} className="text-xs text-slate-400 mt-1">
-                                                <span className="text-purple-300 font-bold">{r.pieces} pieces:</span> {r.skill.description}
-                                            </p>
-                                        ))}
+        <motion.div layout className="space-y-3">
+            <AnimatePresence mode="popLayout">
+                {sets.map(set => {
+                    const isExpanded = expandedSets.has(set.id);
+                    const bonusSkill = set.bonus || set.groupBonus;
+                    return (
+                        <motion.div key={set.id} layout initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all">
+                            <button onClick={() => toggleSet(set.id)} className="w-full text-left p-4 flex items-center justify-between gap-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                                        <Shield className="w-4 h-4" />
                                     </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                );
-            })}
-        </div>
+                                    <div>
+                                        <h3 className="text-sm font-bold text-white">{set.name}</h3>
+                                        <p className="text-[10px] text-slate-500">{set.pieces?.length || 0} pieces</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    {bonusSkill && (
+                                        <span className="text-[10px] bg-purple-500/15 text-purple-400 border border-purple-500/30 rounded-full px-2.5 py-1 font-bold">
+                                            ✨ {bonusSkill.skill.name}
+                                        </span>
+                                    )}
+                                    <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                                </div>
+                            </button>
+                            {isExpanded && set.pieces && (
+                                <div className="border-t border-white/5 bg-black/40 p-4 space-y-4">
+                                    {bonusSkill && bonusSkill.ranks && (
+                                        <div className="bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-500/20 rounded-xl p-4 relative overflow-hidden">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <Star className="w-4 h-4 text-purple-400" />
+                                                <h4 className="text-xs text-purple-400 uppercase tracking-widest font-bold">Set Bonus — {bonusSkill.skill.name}</h4>
+                                            </div>
+                                            <div className="space-y-2">
+                                                {bonusSkill.ranks.map(r => (
+                                                    <div key={r.id} className="flex gap-3 text-xs items-start bg-white/[0.02] p-2 rounded-lg border border-white/5">
+                                                        <span className="text-purple-300 font-bold bg-purple-500/20 px-2 py-0.5 rounded whitespace-nowrap">{r.pieces} pcs</span>
+                                                        <span className="text-slate-300 mt-0.5">{r.skill.description}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-start">
+                                        {set.pieces.map((piece: Armor) => <ArmorCard key={piece.id} armor={piece} onClick={onSelectArmor} />)}
+                                    </div>
+                                </div>
+                            )}
+                        </motion.div>
+                    );
+                })}
+            </AnimatePresence>
+        </motion.div>
     );
 }
 
@@ -575,60 +679,82 @@ function SkillsList({ skills, expandedSkills, toggleSkill }: { skills: Skill[]; 
 
 
     return (
-        <div className="space-y-2">
-            {skills.map(skill => {
-                const isExpanded = expandedSkills.has(skill.id);
-                const maxLevel = skill.ranks.length;
-                return (
-                    <div key={skill.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all">
-                        <button onClick={() => toggleSkill(skill.id)} className="w-full text-left p-4 flex items-center justify-between gap-3">
-                            <div className="flex items-center gap-3 flex-1 min-w-0">
-                                <div className="w-8 h-8 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
-                                    <Star className="w-4 h-4 text-yellow-400" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <h3 className="text-sm font-bold text-white truncate">{skill.name}</h3>
-                                        <span className={`text-[10px] rounded px-1.5 py-0.5 font-bold border capitalize ${kindColors[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
-                                            {skill.kind.replace('-', ' ')}
-                                        </span>
+        <motion.div layout className="space-y-2">
+            <AnimatePresence mode="popLayout">
+                {skills.map(skill => {
+                    const isExpanded = expandedSkills.has(skill.id);
+                    const maxLevel = skill.ranks.length;
+                    return (
+                        <motion.div key={skill.id} layout initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all">
+                            <button onClick={() => toggleSkill(skill.id)} className="w-full text-left p-4 flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-3 flex-1 min-w-0">
+                                    <div className="w-8 h-8 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
+                                        <Star className="w-4 h-4 text-yellow-400" />
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        {/* Level dots */}
-                                        <div className="flex gap-0.5">
-                                            {Array.from({ length: maxLevel }).map((_, i) => (
-                                                <div key={i} className="w-2 h-2 rounded-full bg-emerald-500" />
-                                            ))}
-                                            {Array.from({ length: Math.max(0, 7 - maxLevel) }).map((_, i) => (
-                                                <div key={i} className="w-2 h-2 rounded-full bg-white/[0.05]" />
-                                            ))}
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h3 className="text-sm font-bold text-white truncate">{skill.name}</h3>
+                                            <span className={`text-[10px] rounded px-1.5 py-0.5 font-bold border capitalize ${kindColors[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
+                                                {skill.kind.replace('-', ' ')}
+                                            </span>
                                         </div>
-                                        <span className="text-[10px] text-slate-500">Max Lv{maxLevel}</span>
+                                        <div className="flex items-center gap-2">
+                                            {/* Level dots */}
+                                            <div className="flex gap-0.5">
+                                                {Array.from({ length: maxLevel }).map((_, i) => (
+                                                    <div key={i} className="w-2 h-2 rounded-full bg-emerald-500" />
+                                                ))}
+                                                {Array.from({ length: Math.max(0, 7 - maxLevel) }).map((_, i) => (
+                                                    <div key={i} className="w-2 h-2 rounded-full bg-white/[0.05]" />
+                                                ))}
+                                            </div>
+                                            <span className="text-[10px] text-slate-500">Max Lv{maxLevel}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <ChevronDown className={`w-4 h-4 text-slate-500 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-                        </button>
-                        {isExpanded && (
-                            <div className="border-t border-white/5 px-4 py-3 space-y-2 bg-white/[0.01]">
-                                <p className="text-xs text-slate-400 mb-2">{skill.description}</p>
-                                {skill.ranks.map(r => (
-                                    <div key={r.id} className="flex items-start gap-3 text-xs">
-                                        <span className="text-emerald-400 font-bold shrink-0 w-8 bg-emerald-500/10 rounded px-1.5 py-0.5 text-center">Lv{r.level}</span>
-                                        <span className="text-slate-300">{r.description}</span>
+                                <ChevronDown className={`w-4 h-4 text-slate-500 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                            </button>
+                            {isExpanded && (
+                                <div className="border-t border-white/5 bg-black/40 px-6 py-5">
+                                    <p className="text-sm text-slate-400 mb-6 italic border-l-2 border-emerald-500/30 pl-3">
+                                        {skill.description}
+                                    </p>
+
+                                    <div className="relative pl-3 space-y-5 before:absolute before:inset-y-2 before:left-[17px] before:w-[2px] before:bg-white/5">
+                                        {skill.ranks.map((r, i) => (
+                                            <div key={r.id} className="relative flex items-start gap-4">
+                                                {/* Stepper Node */}
+                                                <div className="relative z-10 w-[10px] h-[10px] rounded-full bg-emerald-500 border-[3px] border-[#111114] mt-1.5 shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+
+                                                {/* Content */}
+                                                <div className="flex-1 min-w-0 bg-white/[0.02] border border-white/5 rounded-lg p-3 hover:bg-white/[0.04] transition-colors">
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                                                            Level {r.level}
+                                                        </span>
+                                                        {i === skill.ranks.length - 1 && (
+                                                            <span className="text-[9px] uppercase tracking-wider font-bold text-amber-500 border border-amber-500/30 bg-amber-500/10 px-1.5 rounded">Max</span>
+                                                        )}
+                                                    </div>
+                                                    <p className="text-sm text-slate-300 leading-relaxed">
+                                                        {r.description}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                );
-            })}
-        </div>
+                                </div>
+                            )}
+                        </motion.div>
+                    );
+                })}
+            </AnimatePresence>
+        </motion.div>
     );
 }
 
 // === Items with icon colors and rarity dots ===
-function ItemsGrid({ items }: { items: Item[] }) {
+function ItemsGrid({ items, onSelect }: { items: Item[]; onSelect: (i: Item) => void }) {
     const iconColorMap: Record<string, string> = {
         green: 'bg-emerald-500/15 border-emerald-500/20 text-emerald-400',
         blue: 'bg-blue-500/15 border-blue-500/20 text-blue-400',
@@ -641,12 +767,12 @@ function ItemsGrid({ items }: { items: Item[] }) {
     };
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {items.map(item => {
                 const iconColor = iconColorMap[item.icon?.color || ''] || 'bg-white/5 border-white/10 text-slate-400';
                 return (
-                    <div key={item.id} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group">
-                        <div className="flex items-start gap-3 mb-2">
+                    <div key={item.id} onClick={() => onSelect(item)} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group cursor-pointer flex flex-col h-full">
+                        <div className="flex items-start gap-3 mb-2 shrink-0">
                             <div className={`w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 ${iconColor}`}>
                                 <Package className="w-4 h-4" />
                             </div>
@@ -655,8 +781,8 @@ function ItemsGrid({ items }: { items: Item[] }) {
                                 <RarityDots rarity={item.rarity} />
                             </div>
                         </div>
-                        <p className="text-xs text-slate-500 line-clamp-2 mb-2">{item.description}</p>
-                        <div className="flex items-center gap-3 text-[10px]">
+                        <p className="text-xs text-slate-500 line-clamp-2 mb-2 flex-1">{item.description}</p>
+                        <div className="flex items-center gap-3 text-[10px] mt-auto pt-2 border-t border-white/[0.02]">
                             <span className="text-amber-400 font-bold">{item.value}z</span>
                             <span className="text-slate-600">Carry: {item.carryLimit}</span>
                             {item.recipes.length > 0 && <span className="text-emerald-500 font-bold">⚒ Craftable</span>}
@@ -672,10 +798,10 @@ function ItemsGrid({ items }: { items: Item[] }) {
 function DecorationsGrid({ decorations }: { decorations: Decoration[] }) {
     const slotDiamonds = (s: number) => '◆'.repeat(s) + '◇'.repeat(3 - s);
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {decorations.map(deco => (
-                <div key={deco.id} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group">
-                    <div className="flex items-start gap-3 mb-2">
+                <div key={deco.id} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group flex flex-col h-full">
+                    <div className="flex items-start gap-3 mb-2 shrink-0">
                         <div className="w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
                             <Gem className="w-4 h-4 text-purple-400" />
                         </div>
@@ -687,8 +813,8 @@ function DecorationsGrid({ decorations }: { decorations: Decoration[] }) {
                             </div>
                         </div>
                     </div>
-                    <p className="text-xs text-slate-500 mb-2">{deco.description}</p>
-                    <div className="flex gap-1.5 flex-wrap">
+                    <p className="text-xs text-slate-500 mb-2 flex-1">{deco.description}</p>
+                    <div className="flex gap-1.5 flex-wrap mt-auto pt-2 border-t border-white/[0.02]">
                         {deco.skills.map(sk => (
                             <span key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full px-2 py-0.5 font-bold">
                                 {sk.skill.name} Lv{sk.level}
@@ -703,35 +829,60 @@ function DecorationsGrid({ decorations }: { decorations: Decoration[] }) {
 
 // === Charms with visual rank progression ===
 function CharmsList({ charms }: { charms: Charm[] }) {
+    // Group charms by their base name (e.g. "Windproof Charm I" -> "Windproof Charm")
+    const groupedCharms = useMemo(() => {
+        const romanNumeralRegex = /\s(I|II|III|IV|V|VI|VII|VIII|IX|X)$/;
+        const map = new Map<string, { baseName: string, allRanks: typeof charms[0]['ranks'] }>();
+
+        charms.forEach(charm => {
+            charm.ranks.forEach(rank => {
+                const baseName = rank.name.replace(romanNumeralRegex, '');
+                if (!map.has(baseName)) {
+                    map.set(baseName, { baseName, allRanks: [] });
+                }
+                map.get(baseName)!.allRanks.push(rank);
+            });
+        });
+
+        const sortedGroups = Array.from(map.values()).sort((a, b) => a.baseName.localeCompare(b.baseName));
+
+        // Sort ranks within each group 
+        sortedGroups.forEach(group => {
+            group.allRanks.sort((a, b) => a.level - b.level);
+        });
+
+        return sortedGroups;
+    }, [charms]);
+
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-            {charms.map(charm => {
-                const maxRank = charm.ranks[charm.ranks.length - 1];
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            {groupedCharms.map((group) => {
+                const maxRank = group.allRanks[group.allRanks.length - 1];
                 return (
-                    <div key={charm.id} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group">
-                        <div className="flex items-start gap-3 mb-3">
+                    <div key={group.baseName} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all card-group cursor-pointer flex flex-col h-full">
+                        <div className="flex items-start gap-3 mb-3 shrink-0">
                             <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
                                 <ScrollText className="w-4 h-4 text-cyan-400" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{maxRank?.name || `Charm #${charm.id}`}</h3>
-                                <p className="text-[10px] text-slate-500">{charm.ranks.length} ranks</p>
+                                <h3 className="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{group.baseName}</h3>
+                                <p className="text-[10px] text-slate-500">{group.allRanks.length} {group.allRanks.length === 1 ? 'rank' : 'ranks'}</p>
                             </div>
                         </div>
                         {/* Rank progression visual */}
-                        <div className="space-y-1 mb-3">
-                            {charm.ranks.map(r => (
+                        <div className="space-y-1 mb-3 flex-1 flex flex-col justify-end">
+                            {group.allRanks.map(r => (
                                 <div key={r.id} className="flex items-center gap-2">
                                     <span className="text-[10px] text-emerald-400 font-bold w-5 text-center">{r.level}</span>
                                     <div className="flex-1 h-1 bg-white/[0.03] rounded-full overflow-hidden">
-                                        <div className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full" style={{ width: `${(r.level / charm.ranks.length) * 100}%` }} />
+                                        <div className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full" style={{ width: `${(r.level / 5) * 100}%` }} />
                                     </div>
                                     <span className="text-[10px] text-slate-500 truncate max-w-[120px]">{r.name}</span>
                                 </div>
                             ))}
                         </div>
                         {maxRank?.skills?.length > 0 && (
-                            <div className="flex gap-1.5 flex-wrap">
+                            <div className="flex gap-1.5 flex-wrap mt-auto pt-3 border-t border-white/5">
                                 {maxRank.skills.map(sk => (
                                     <span key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full px-2 py-0.5 font-bold">
                                         {sk.skill.name} Lv{sk.level}
@@ -749,11 +900,11 @@ function CharmsList({ charms }: { charms: Charm[] }) {
 // === Locations with visual camp cards ===
 function LocationsList({ locations }: { locations: MHLocation[] }) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {locations.map(loc => (
-                <div key={loc.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all">
+                <div key={loc.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all flex flex-col h-full">
                     {/* Location header with gradient */}
-                    <div className="bg-gradient-to-r from-lime-600/10 to-emerald-600/5 p-5 border-b border-white/5">
+                    <div className="bg-gradient-to-r from-lime-600/10 to-emerald-600/5 p-5 border-b border-white/5 shrink-0">
                         <div className="flex items-start justify-between">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-lg bg-lime-500/10 border border-lime-500/20 flex items-center justify-center">
@@ -766,8 +917,8 @@ function LocationsList({ locations }: { locations: MHLocation[] }) {
                             </div>
                         </div>
                     </div>
-                    {loc.camps?.length > 0 && (
-                        <div className="p-4 space-y-1.5">
+                    {loc.camps?.length > 0 ? (
+                        <div className="p-4 space-y-1.5 mt-auto flex-1 bg-black/20">
                             <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold mb-2">⛺ Camps ({loc.camps.length})</p>
                             {loc.camps.map(camp => (
                                 <div key={camp.id} className="flex items-center justify-between text-xs bg-white/[0.02] rounded-lg px-3 py-2.5 border border-white/[0.03]">
@@ -779,6 +930,8 @@ function LocationsList({ locations }: { locations: MHLocation[] }) {
                                 </div>
                             ))}
                         </div>
+                    ) : (
+                        <div className="flex-1 bg-black/20"></div>
                     )}
                 </div>
             ))}
@@ -789,45 +942,47 @@ function LocationsList({ locations }: { locations: MHLocation[] }) {
 // === Ailments with visual treatment cards ===
 function AilmentsList({ ailments }: { ailments: Ailment[] }) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {ailments.map(ail => (
-                <div key={ail.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all">
-                    <div className="p-5">
-                        <div className="flex items-center gap-3 mb-3">
+                <div key={ail.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all flex flex-col h-full">
+                    <div className="p-5 flex flex-col h-full">
+                        <div className="flex items-center gap-3 mb-3 shrink-0">
                             <div className="w-9 h-9 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
                                 <Skull className="w-4 h-4 text-red-400" />
                             </div>
                             <h3 className="text-base font-bold text-white">{ail.name}</h3>
                         </div>
-                        <p className="text-xs text-slate-500 mb-4 leading-relaxed">{ail.description}</p>
+                        <p className="text-xs text-slate-500 mb-4 leading-relaxed flex-1">{ail.description}</p>
 
-                        {ail.recovery && (ail.recovery.actions.length > 0 || ail.recovery.items.length > 0) && (
-                            <div className="mb-3 bg-emerald-500/5 border border-emerald-500/10 rounded-lg p-3">
-                                <p className="text-[10px] text-emerald-500 uppercase tracking-widest font-bold mb-1.5">💚 Recovery</p>
-                                <div className="flex gap-1.5 flex-wrap">
-                                    {ail.recovery.actions.map(a => (
-                                        <span key={a} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full px-2 py-0.5 font-bold capitalize">{a}</span>
-                                    ))}
-                                    {ail.recovery.items.map(it => (
-                                        <span key={it.id} className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full px-2 py-0.5 font-bold">{it.name}</span>
-                                    ))}
+                        <div className="space-y-3 mt-auto shrink-0">
+                            {ail.recovery && (ail.recovery.actions.length > 0 || ail.recovery.items.length > 0) && (
+                                <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-lg p-3">
+                                    <p className="text-[10px] text-emerald-500 uppercase tracking-widest font-bold mb-1.5">💚 Recovery</p>
+                                    <div className="flex gap-1.5 flex-wrap">
+                                        {ail.recovery.actions.map(a => (
+                                            <span key={a} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full px-2 py-0.5 font-bold capitalize">{a}</span>
+                                        ))}
+                                        {ail.recovery.items.map(it => (
+                                            <span key={it.id} className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full px-2 py-0.5 font-bold">{it.name}</span>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
 
-                        {ail.protection && (ail.protection.skills.length > 0 || ail.protection.items.length > 0) && (
-                            <div className="bg-purple-500/5 border border-purple-500/10 rounded-lg p-3">
-                                <p className="text-[10px] text-purple-400 uppercase tracking-widest font-bold mb-1.5">🛡 Protection</p>
-                                <div className="flex gap-1.5 flex-wrap">
-                                    {ail.protection.skills.map(sk => (
-                                        <span key={sk.id} className="text-[10px] bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-full px-2 py-0.5 font-bold">{sk.name}</span>
-                                    ))}
-                                    {ail.protection.items.map(it => (
-                                        <span key={it.id} className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full px-2 py-0.5 font-bold">{it.name}</span>
-                                    ))}
+                            {ail.protection && (ail.protection.skills.length > 0 || ail.protection.items.length > 0) && (
+                                <div className="bg-purple-500/5 border border-purple-500/10 rounded-lg p-3">
+                                    <p className="text-[10px] text-purple-400 uppercase tracking-widest font-bold mb-1.5">🛡 Protection</p>
+                                    <div className="flex gap-1.5 flex-wrap">
+                                        {ail.protection.skills.map(sk => (
+                                            <span key={sk.id} className="text-[10px] bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-full px-2 py-0.5 font-bold">{sk.name}</span>
+                                        ))}
+                                        {ail.protection.items.map(it => (
+                                            <span key={it.id} className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full px-2 py-0.5 font-bold">{it.name}</span>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
             ))}
