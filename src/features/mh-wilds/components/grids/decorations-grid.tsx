@@ -1,0 +1,36 @@
+import { Gem } from 'lucide-react';
+import type { Decoration } from '../../types';
+import { RarityDots } from '../ui/rarity-dots';
+
+const slotDiamonds = (s: number) => '◆'.repeat(s) + '◇'.repeat(3 - s);
+
+export function DecorationsGrid({ decorations }: { decorations: Decoration[] }) {
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            {decorations.map(deco => (
+                <div key={deco.id} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group flex flex-col h-full">
+                    <div className="flex items-start gap-3 mb-2 shrink-0">
+                        <div className="w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
+                            <Gem className="w-4 h-4 text-purple-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <h3 className="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{deco.name}</h3>
+                            <div className="flex items-center gap-2 mt-0.5">
+                                <span className="text-amber-400 text-xs tracking-wider">{slotDiamonds(deco.slot)}</span>
+                                <RarityDots rarity={deco.rarity} />
+                            </div>
+                        </div>
+                    </div>
+                    <p className="text-xs text-slate-500 mb-2 flex-1">{deco.description}</p>
+                    <div className="flex gap-1.5 flex-wrap mt-auto pt-2 border-t border-white/[0.02]">
+                        {deco.skills.map(sk => (
+                            <span key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full px-2 py-0.5 font-bold">
+                                {sk.skill.name} Lv{sk.level}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}

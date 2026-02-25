@@ -1,46 +1,7 @@
 import type { Monster } from '../types';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Heart, Swords } from 'lucide-react';
-
-const ELEMENT_COLORS: Record<string, string> = {
-    fire: 'bg-red-500/20 text-red-400 border-red-500/30',
-    water: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    thunder: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-    ice: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
-    dragon: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
-    poison: 'bg-green-500/20 text-green-400 border-green-500/30',
-    sleep: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30',
-    paralysis: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
-    blast: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-    stun: 'bg-yellow-600/20 text-yellow-500 border-yellow-600/30',
-};
-
-const ELEMENT_ICONS: Record<string, string> = {
-    fire: '🔥',
-    water: '💧',
-    thunder: '⚡',
-    ice: '❄️',
-    dragon: '🐉',
-    poison: '☠️',
-    sleep: '😴',
-    paralysis: '⚡',
-    blast: '💥',
-};
-
-const SPECIES_LABELS: Record<string, string> = {
-    'flying-wyvern': 'Flying Wyvern',
-    'brute-wyvern': 'Brute Wyvern',
-    'fanged-wyvern': 'Fanged Wyvern',
-    'piscine-wyvern': 'Piscine Wyvern',
-    'bird-wyvern': 'Bird Wyvern',
-    'elder-dragon': 'Elder Dragon',
-    'herbivore': 'Herbivore',
-    'fanged-beast': 'Fanged Beast',
-    'leviathan': 'Leviathan',
-    'temnoceran': 'Temnoceran',
-    'neopteron': 'Neopteron',
-    'carapaceon': 'Carapaceon',
-};
+import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS } from '../constants/shared';
 
 interface MonsterCardProps {
     monster: Monster;
@@ -148,5 +109,3 @@ export function MonsterCard({ monster, onClick }: MonsterCardProps) {
         </button>
     );
 }
-
-export { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS };

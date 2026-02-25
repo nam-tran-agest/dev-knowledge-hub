@@ -1,8 +1,8 @@
 import React from 'react';
 import { X, Sword, Package, Star, Shield, Hammer } from 'lucide-react';
 import { Weapon, Item, Skill, Armor } from '../types';
-import { WEAPON_KIND_LABELS } from './weapon-card';
-import { RarityDots } from './mhwilds-container';
+import { WEAPON_KIND_LABELS } from '../constants/shared';
+import { RarityDots } from './ui/rarity-dots';
 
 // Helper for the slide-over
 function DrawerLayout({ title, icon, onClose, children, subtitle }: { title: string, icon: React.ReactNode, subtitle?: React.ReactNode, onClose: () => void, children: React.ReactNode }) {

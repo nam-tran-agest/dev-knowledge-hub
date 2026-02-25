@@ -1,31 +1,7 @@
 import type { Weapon, Sharpness } from '../types';
 import { Badge } from '@/components/ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ELEMENT_COLORS, ELEMENT_ICONS } from './monster-card';
+import { ELEMENT_COLORS, ELEMENT_ICONS, WEAPON_KIND_LABELS, RARITY_TEXT_COLORS } from '../constants/shared';
 import { WEAPON_TYPE_ICONS } from '../constants/mh-icons';
-
-const WEAPON_KIND_LABELS: Record<string, string> = {
-    'great-sword': 'Great Sword',
-    'long-sword': 'Long Sword',
-    'sword-and-shield': 'Sword & Shield',
-    'dual-blades': 'Dual Blades',
-    'hammer': 'Hammer',
-    'hunting-horn': 'Hunting Horn',
-    'lance': 'Lance',
-    'gunlance': 'Gunlance',
-    'switch-axe': 'Switch Axe',
-    'charge-blade': 'Charge Blade',
-    'insect-glaive': 'Insect Glaive',
-    'light-bowgun': 'Light Bowgun',
-    'heavy-bowgun': 'Heavy Bowgun',
-    'bow': 'Bow',
-};
-
-const RARITY_COLORS: Record<number, string> = {
-    1: 'text-slate-400', 2: 'text-slate-300', 3: 'text-green-400',
-    4: 'text-blue-400', 5: 'text-purple-400', 6: 'text-amber-400',
-    7: 'text-orange-400', 8: 'text-red-400', 9: 'text-pink-400', 10: 'text-cyan-400',
-};
 
 function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
     const total = Object.values(sharpness).reduce((sum, val) => sum + val, 0);
@@ -50,7 +26,6 @@ function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
     );
 }
 
-// Weapon type icon — real MH Wiki assets
 export function WeaponTypeIcon({ kind, size = 20 }: { kind: string; size?: number }) {
     const iconUrl = WEAPON_TYPE_ICONS[kind];
     if (!iconUrl) return null;
@@ -62,7 +37,7 @@ export function WeaponTypeIcon({ kind, size = 20 }: { kind: string; size?: numbe
 
 export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: Weapon) => void }) {
     const kindLabel = WEAPON_KIND_LABELS[weapon.kind] || weapon.kind;
-    const rarityColor = RARITY_COLORS[weapon.rarity] || 'text-slate-400';
+    const rarityColor = RARITY_TEXT_COLORS[weapon.rarity] || 'text-slate-400';
 
     return (
         <div
@@ -70,7 +45,6 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
             onClick={() => onClick?.(weapon)}
         >
             <div className="p-5">
-                {/* Header with real weapon icon */}
                 <div className="flex items-start justify-between gap-2 mb-3">
                     <div className="flex items-center gap-2.5 flex-1 min-w-0">
                         <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center shrink-0">
@@ -84,7 +58,6 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
                     <span className={`text-xs font-bold ${rarityColor}`}>R{weapon.rarity}</span>
                 </div>
 
-                {/* Stats */}
                 <div className="grid grid-cols-3 gap-2 mb-3">
                     <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
                         <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold">Attack</p>
@@ -104,7 +77,6 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
                     </div>
                 </div>
 
-                {/* Element/Status */}
                 {weapon.specials.length > 0 && (
                     <div className="flex gap-1.5 flex-wrap mb-3">
                         {weapon.specials.map((sp) => {
@@ -122,28 +94,15 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
                 {weapon.sharpness && <SharpnessBar sharpness={weapon.sharpness} />}
 
                 {weapon.skills.length > 0 && (
-                    <div className="mt-3" onClick={(e) => e.stopPropagation()}>
-                        <Accordion type="single" collapsible className="w-full bg-white/[0.03] rounded-lg px-3">
-                            <AccordionItem value="skills" className="border-b-0">
-                                <AccordionTrigger className="py-2 text-[10px] text-slate-600 uppercase tracking-widest font-bold hover:no-underline">
-                                    Skills ({weapon.skills.length})
-                                </AccordionTrigger>
-                                <AccordionContent className="pb-3">
-                                    <div className="flex gap-1.5 flex-wrap pt-1">
-                                        {weapon.skills.map((sk) => (
-                                            <Badge key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                                                {sk.skill.name} Lv{sk.level}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
+                    <div className="flex gap-1.5 flex-wrap mt-3 pt-3 border-t border-white/5">
+                        {weapon.skills.map((sk) => (
+                            <Badge key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                {sk.skill.name} Lv{sk.level}
+                            </Badge>
+                        ))}
                     </div>
                 )}
             </div>
         </div>
     );
 }
-
-export { WEAPON_KIND_LABELS };
