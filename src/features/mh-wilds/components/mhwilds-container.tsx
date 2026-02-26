@@ -83,7 +83,7 @@ export function MHWildsContainer() {
     };
 
     return (
-        <div className="min-h-screen bg-[#09090b] pt-20">
+        <div className="min-h-screen bg-[#09090b] pt-18">
             {/* Header */}
             <div className="border-b border-white/5 bg-gradient-to-r from-emerald-600/5 via-transparent to-purple-600/5">
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-5">
