@@ -1,6 +1,6 @@
 import { MapPin } from 'lucide-react';
 import type { Location as MHLocation } from '../../types';
-import { GridLayout } from '../ui/grid-layout';
+import { GridLayout } from '../ui/shared';
 
 export function LocationsList({ locations }: { locations: MHLocation[] }) {
     return (
@@ -16,21 +16,21 @@ export function LocationsList({ locations }: { locations: MHLocation[] }) {
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-bold text-white">{loc.name}</h3>
-                                    <p className="text-xs text-slate-500">{loc.zoneCount} zones</p>
+                                    <p className="text-sm text-slate-500">{loc.zoneCount} zones</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {loc.camps?.length > 0 ? (
                         <div className="p-4 space-y-1.5 mt-auto flex-1 bg-black/20">
-                            <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold mb-2">⛺ Camps ({loc.camps.length})</p>
+                            <p className="text-xs text-slate-600 uppercase tracking-widest font-bold mb-2">⛺ Camps ({loc.camps.length})</p>
                             {loc.camps.map(camp => (
-                                <div key={camp.id} className="flex items-center justify-between text-xs bg-white/[0.02] rounded-lg px-3 py-2.5 border border-white/[0.03]">
+                                <div key={camp.id} className="flex items-center justify-between text-sm bg-white/[0.02] rounded-lg px-3 py-2.5 border border-white/[0.03]">
                                     <div className="flex items-center gap-2">
                                         <span className={`w-2 h-2 rounded-full ${camp.risk === 'safe' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
                                         <span className="text-slate-300">{camp.name}</span>
                                     </div>
-                                    <span className={`text-[10px] font-bold uppercase ${camp.risk === 'safe' ? 'text-emerald-400' : 'text-amber-400'}`}>{camp.risk}</span>
+                                    <span className={`text-xs font-bold uppercase ${camp.risk === 'safe' ? 'text-emerald-400' : 'text-amber-400'}`}>{camp.risk}</span>
                                 </div>
                             ))}
                         </div>

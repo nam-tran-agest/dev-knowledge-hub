@@ -1,7 +1,7 @@
 import type { Monster } from '../types';
 import { Badge } from '@/components/ui/badge';
 import { Heart, MapPin, Shield, Swords, Target, Bug } from 'lucide-react';
-import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS } from '../constants/shared';
+import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS } from '../constants';
 import { DrawerLayout } from './detail-drawers';
 
 interface MonsterDetailProps {

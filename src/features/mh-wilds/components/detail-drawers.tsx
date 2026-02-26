@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { X, Sword, Package, Star, Shield, Hammer } from 'lucide-react';
-import type { Weapon, Item, Skill, Armor } from '../types';
-import { WEAPON_KIND_LABELS } from '../constants/shared';
-import { getArmorKindIconUrl } from '../constants/mh-icons';
+import { X, Sword, Package, Shield, Hammer, Star } from 'lucide-react';
+import type { Weapon, Item, Armor, Skill } from '../types';
+import { WEAPON_KIND_LABELS, getArmorKindIconUrl } from '../constants';
 
 // Helper for the slide-over
 export function DrawerLayout({ title, icon, onClose, children, subtitle }: { title: string, icon: React.ReactNode, subtitle?: React.ReactNode, onClose: () => void, children: React.ReactNode }) {
@@ -241,33 +240,6 @@ export function ItemDetail({ item, onClose }: { item: Item, onClose: () => void 
     );
 }
 
-// === Skill Detail ===
-export function SkillDetail({ skill, onClose }: { skill: Skill, onClose: () => void }) {
-    return (
-        <DrawerLayout
-            title={skill.name}
-            icon={<Star className="w-6 h-6 text-yellow-400" />}
-            subtitle={<span className="text-slate-400 text-xs capitalize">{skill.kind.replace('-', ' ')}</span>}
-            onClose={onClose}
-        >
-            <p className="text-slate-300 leading-relaxed text-sm bg-white/[0.02] border border-white/5 p-4 rounded-xl">{skill.description}</p>
-
-            <Section title="Skill Levels">
-                <div className="space-y-2">
-                    {skill.ranks.map(r => (
-                        <div key={r.id} className="flex gap-3 bg-white/[0.02] border border-white/5 rounded-lg p-3">
-                            <span className="shrink-0 w-10 text-center font-bold text-emerald-400 bg-emerald-500/10 rounded py-1 text-xs">Lv {r.level}</span>
-                            <div className="flex-1">
-                                {r.name && <p className="text-xs font-bold text-white mb-0.5">{r.name}</p>}
-                                <p className="text-xs text-slate-300">{r.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </Section>
-        </DrawerLayout>
-    );
-}
 
 // === Armor Detail ===
 export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => void }) {
@@ -381,3 +353,46 @@ export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => v
     );
 }
 
+// === Skill Detail ===
+const skillKindColors: Record<string, string> = {
+    armor: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
+    weapon: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
+    'set-bonus': 'bg-purple-500/15 text-purple-400 border-purple-500/20',
+    'group-bonus': 'bg-cyan-500/15 text-cyan-400 border-cyan-500/20',
+};
+
+export function SkillDetail({ skill, onClose }: { skill: Skill; onClose: () => void }) {
+    return (
+        <DrawerLayout
+            title={skill.name}
+            icon={<Star className="w-6 h-6 text-yellow-400" />}
+            subtitle={
+                <span className={`text-[10px] rounded px-1.5 py-0.5 font-bold border capitalize ${skillKindColors[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
+                    {skill.kind.replace('-', ' ')}
+                </span>
+            }
+            onClose={onClose}
+        >
+            <p className="text-slate-300 leading-relaxed text-sm bg-white/[0.02] border border-white/5 p-4 rounded-xl">{skill.description}</p>
+
+            <Section title={`Skill Levels (Max ${skill.ranks.length})`}>
+                <div className="relative pl-3 space-y-4 before:absolute before:inset-y-2 before:left-[17px] before:w-[2px] before:bg-white/5">
+                    {skill.ranks.map((r, i) => (
+                        <div key={r.id} className="relative flex items-start gap-4">
+                            <div className="relative z-10 w-[10px] h-[10px] rounded-full bg-emerald-500 border-[3px] border-[#0a0a0c] mt-1.5 shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                            <div className="flex-1 min-w-0 bg-white/[0.02] border border-white/5 rounded-lg p-3 hover:bg-white/[0.04] transition-colors">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Level {r.level}</span>
+                                    {i === skill.ranks.length - 1 && (
+                                        <span className="text-[9px] uppercase tracking-wider font-bold text-amber-500 border border-amber-500/30 bg-amber-500/10 px-1.5 rounded">Max</span>
+                                    )}
+                                </div>
+                                <p className="text-sm text-slate-300 leading-relaxed">{r.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </Section>
+        </DrawerLayout>
+    );
+}

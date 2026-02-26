@@ -1,7 +1,6 @@
 import type { Weapon, Sharpness } from '../types';
 import { Badge } from '@/components/ui/badge';
-import { ELEMENT_COLORS, ELEMENT_ICONS, WEAPON_KIND_LABELS, RARITY_TEXT_COLORS } from '../constants/shared';
-import { getWeaponIconUrl, WEAPON_TYPE_ICONS } from '../constants/mh-icons';
+import { ELEMENT_COLORS, ELEMENT_ICONS, WEAPON_KIND_LABELS, RARITY_TEXT_COLORS, getWeaponIconUrl } from '../constants';
 
 function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
     const total = Object.values(sharpness).reduce((sum, val) => sum + val, 0);
@@ -16,7 +15,7 @@ function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
         { key: 'purple', value: sharpness.purple, color: 'bg-purple-500' },
     ];
     return (
-        <div className="flex h-2.5 rounded-full overflow-hidden bg-slate-800 w-full">
+        <div className="flex h-3 rounded-full overflow-hidden bg-slate-800 w-full">
             {segments.map((seg) =>
                 seg.value > 0 ? (
                     <div key={seg.key} className={`${seg.color} transition-all`} style={{ width: `${(seg.value / total) * 100}%` }} />
@@ -26,12 +25,10 @@ function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
     );
 }
 
-export function WeaponTypeIcon({ kind, size = 20, rarity }: { kind: string; size?: number; rarity?: number }) {
-    const iconUrl = rarity ? getWeaponIconUrl(kind, rarity) : WEAPON_TYPE_ICONS[kind];
-    if (!iconUrl) return null;
+export function WeaponTypeIcon({ kind, size = 20, rarity = 1 }: { kind: string; size?: number; rarity?: number }) {
     return (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={iconUrl} alt={WEAPON_KIND_LABELS[kind] || kind} style={{ width: size, height: size }} className="object-contain" loading="lazy" />
+        <img src={getWeaponIconUrl(kind, rarity)} alt={WEAPON_KIND_LABELS[kind] || kind} style={{ width: size, height: size }} className="object-contain" loading="lazy" />
     );
 }
 
@@ -47,31 +44,31 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
             <div className="p-5">
                 <div className="flex items-start justify-between gap-2 mb-3">
                     <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                        <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center shrink-0">
-                            <WeaponTypeIcon kind={weapon.kind} rarity={weapon.rarity} />
+                        <div className="w-10 h-10 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center shrink-0">
+                            <WeaponTypeIcon kind={weapon.kind} size={24} rarity={weapon.rarity} />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <h3 className="text-base font-bold text-white truncate">{weapon.name}</h3>
-                            <p className="text-xs text-slate-500 mt-0.5">{kindLabel}</p>
+                            <h3 className="text-lg font-bold text-white truncate">{weapon.name}</h3>
+                            <p className="text-sm text-slate-500 mt-0.5">{kindLabel}</p>
                         </div>
                     </div>
-                    <span className={`text-xs font-bold ${rarityColor}`}>R{weapon.rarity}</span>
+                    <span className={`text-sm font-bold ${rarityColor}`}>R{weapon.rarity}</span>
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 mb-3">
                     <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
-                        <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold">Attack</p>
-                        <p className="text-sm font-bold text-white mt-0.5">{weapon.damage.display}</p>
+                        <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Attack</p>
+                        <p className="text-base font-bold text-white mt-0.5">{weapon.damage.display}</p>
                     </div>
                     <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
-                        <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold">Affinity</p>
-                        <p className={`text-sm font-bold mt-0.5 ${weapon.affinity > 0 ? 'text-emerald-400' : weapon.affinity < 0 ? 'text-red-400' : 'text-slate-400'}`}>
+                        <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Affinity</p>
+                        <p className={`text-base font-bold mt-0.5 ${weapon.affinity > 0 ? 'text-emerald-400' : weapon.affinity < 0 ? 'text-red-400' : 'text-slate-400'}`}>
                             {weapon.affinity > 0 ? '+' : ''}{weapon.affinity}%
                         </p>
                     </div>
                     <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
-                        <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold">Slots</p>
-                        <p className="text-sm font-bold text-white mt-0.5">
+                        <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Slots</p>
+                        <p className="text-base font-bold text-white mt-0.5">
                             {weapon.slots.length > 0 ? weapon.slots.map(s => `[${s}]`).join('') : '—'}
                         </p>
                     </div>
@@ -82,7 +79,7 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
                         {weapon.specials.map((sp) => {
                             const name = sp.element || sp.status || '';
                             return (
-                                <Badge key={sp.id} className={`text-xs border ${ELEMENT_COLORS[name] || 'bg-slate-500/15 text-slate-400'} ${sp.hidden ? 'opacity-50' : ''}`}>
+                                <Badge key={sp.id} className={`text-sm border ${ELEMENT_COLORS[name] || 'bg-slate-500/15 text-slate-400'} ${sp.hidden ? 'opacity-50' : ''}`}>
                                     {ELEMENT_ICONS[name] || '◆'} {name} {sp.damage.display}
                                     {sp.hidden && ' (hidden)'}
                                 </Badge>
@@ -96,7 +93,7 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
                 {weapon.skills.length > 0 && (
                     <div className="flex gap-1.5 flex-wrap mt-3 pt-3 border-t border-white/5">
                         {weapon.skills.map((sk) => (
-                            <Badge key={sk.id} className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <Badge key={sk.id} className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                                 {sk.skill.name} Lv{sk.level}
                             </Badge>
                         ))}

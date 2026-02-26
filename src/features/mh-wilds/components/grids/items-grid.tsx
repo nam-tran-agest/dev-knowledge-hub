@@ -1,7 +1,6 @@
 import { Package } from 'lucide-react';
 import type { Item } from '../../types';
-import { RarityDots } from '../ui/rarity-dots';
-import { GridLayout } from '../ui/grid-layout';
+import { RarityDots, GridLayout } from '../ui/shared';
 
 interface ItemsGridProps {
     items: Item[];
@@ -27,16 +26,16 @@ export function ItemsGrid({ items, onSelect }: ItemsGridProps) {
                 return (
                     <div key={item.id} onClick={() => onSelect(item)} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group cursor-pointer flex flex-col h-full">
                         <div className="flex items-start gap-3 mb-2 shrink-0">
-                            <div className={`w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 ${iconColor}`}>
-                                <Package className="w-4 h-4" />
+                            <div className={`w-10 h-10 rounded-lg border flex items-center justify-center shrink-0 ${iconColor}`}>
+                                <Package className="w-5 h-5" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{item.name}</h3>
+                                <h3 className="text-base font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{item.name}</h3>
                                 <RarityDots rarity={item.rarity} />
                             </div>
                         </div>
-                        <p className="text-xs text-slate-500 line-clamp-2 mb-2 flex-1">{item.description}</p>
-                        <div className="flex items-center gap-3 text-[10px] mt-auto pt-2 border-t border-white/[0.02]">
+                        <p className="text-sm text-slate-500 line-clamp-2 mb-2 flex-1">{item.description}</p>
+                        <div className="flex items-center gap-3 text-xs mt-auto pt-2 border-t border-white/[0.02]">
                             <span className="text-amber-400 font-bold">{item.value}z</span>
                             <span className="text-slate-600">Carry: {item.carryLimit}</span>
                             {item.recipes.length > 0 && <span className="text-emerald-500 font-bold">⚒ Craftable</span>}

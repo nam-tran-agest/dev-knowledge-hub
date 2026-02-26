@@ -7,18 +7,15 @@ import type { Monster, Weapon, Armor, Item, ArmorSet, Skill, Decoration, Charm, 
 
 import { useMHWildsData } from '../hooks/use-mhwilds-data';
 import { useMHWildsFilters, type Category } from '../hooks/use-mhwilds-filters';
-import { useDetailSelection } from '../hooks/use-detail-selection';
 
-// UI pieces
-import { Pagination } from './ui/pagination';
+import { Pagination, LoadingState, ErrorState } from './ui/shared';
 import { FilterControls } from './ui/filter-controls';
-import { LoadingState, ErrorState } from './ui/loading-error-states';
 
 // Grid / List renderers
 import { MonstersGrid } from './grids/monsters-grid';
 import { WeaponsGrid } from './grids/weapons-grid';
 import { ArmorSetsGrid } from './grids/armor-sets-grid';
-import { SkillsList } from './grids/skills-list';
+import { SkillsGrid } from './grids/skills-list';
 import { ItemsGrid } from './grids/items-grid';
 import { DecorationsGrid } from './grids/decorations-grid';
 import { CharmsList } from './grids/charms-list';
@@ -27,7 +24,7 @@ import { AilmentsList } from './grids/ailments-list';
 
 // Detail drawers
 import { MonsterDetail } from './monster-detail';
-import { WeaponDetail, ItemDetail, ArmorDetail } from './detail-drawers';
+import { WeaponDetail, ItemDetail, ArmorDetail, SkillDetail } from './detail-drawers';
 
 // === Category definitions ===
 const CATEGORIES: { key: Category; label: string; icon: React.ReactNode; color: string }[] = [
@@ -45,7 +42,11 @@ const CATEGORIES: { key: Category; label: string; icon: React.ReactNode; color: 
 // === Main Container ===
 export function MHWildsContainer() {
     const [activeCategory, setActiveCategory] = useState<Category>('monsters');
-    const details = useDetailSelection();
+    const [selectedMonster, setSelectedMonster] = useState<Monster | null>(null);
+    const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
+    const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+    const [selectedArmor, setSelectedArmor] = useState<Armor | null>(null);
+    const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
 
     const { data, currentData, loading, error, refetch } = useMHWildsData(activeCategory);
     const filters = useMHWildsFilters(activeCategory, currentData);
@@ -59,15 +60,15 @@ export function MHWildsContainer() {
 
         switch (activeCategory) {
             case 'monsters':
-                return <MonstersGrid monsters={filters.pagedData as Monster[]} onSelect={details.setSelectedMonster} groupBySpecies={filters.groupBySpecies} />;
+                return <MonstersGrid monsters={filters.pagedData as Monster[]} onSelect={setSelectedMonster} groupBySpecies={filters.groupBySpecies} />;
             case 'weapons':
-                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType && filters.weaponTypeFilter === 'all'} onSelect={details.setSelectedWeapon} />;
+                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType && filters.weaponTypeFilter === 'all'} onSelect={setSelectedWeapon} />;
             case 'armor-sets':
-                return <ArmorSetsGrid sets={filters.pagedData as ArmorSet[]} onSelectArmor={details.setSelectedArmor} />;
+                return <ArmorSetsGrid sets={filters.pagedData as ArmorSet[]} onSelectArmor={setSelectedArmor} />;
             case 'skills':
-                return <SkillsList skills={filters.pagedData as Skill[]} />;
+                return <SkillsGrid skills={filters.pagedData as Skill[]} onSelect={setSelectedSkill} />;
             case 'items':
-                return <ItemsGrid items={filters.pagedData as Item[]} onSelect={details.setSelectedItem} />;
+                return <ItemsGrid items={filters.pagedData as Item[]} onSelect={setSelectedItem} />;
             case 'decorations':
                 return <DecorationsGrid decorations={filters.pagedData as Decoration[]} />;
             case 'charms':
@@ -197,10 +198,11 @@ export function MHWildsContainer() {
                 </main>
             </div>
 
-            {details.selectedMonster && <MonsterDetail monster={details.selectedMonster} onClose={() => details.setSelectedMonster(null)} />}
-            {details.selectedWeapon && <WeaponDetail weapon={details.selectedWeapon} onClose={() => details.setSelectedWeapon(null)} />}
-            {details.selectedItem && <ItemDetail item={details.selectedItem} onClose={() => details.setSelectedItem(null)} />}
-            {details.selectedArmor && <ArmorDetail armor={details.selectedArmor} onClose={() => details.setSelectedArmor(null)} />}
+            {selectedMonster && <MonsterDetail monster={selectedMonster} onClose={() => setSelectedMonster(null)} />}
+            {selectedWeapon && <WeaponDetail weapon={selectedWeapon} onClose={() => setSelectedWeapon(null)} />}
+            {selectedItem && <ItemDetail item={selectedItem} onClose={() => setSelectedItem(null)} />}
+            {selectedArmor && <ArmorDetail armor={selectedArmor} onClose={() => setSelectedArmor(null)} />}
+            {selectedSkill && <SkillDetail skill={selectedSkill} onClose={() => setSelectedSkill(null)} />}
         </div>
     );
 }

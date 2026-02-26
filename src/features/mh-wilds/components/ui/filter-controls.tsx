@@ -1,6 +1,6 @@
 import { ArrowUpDown } from 'lucide-react';
 import type { Weapon } from '../../types';
-import { SORT_OPTIONS, WEAPON_KIND_LABELS, type SortOption } from '../../constants/shared';
+import { SORT_OPTIONS, WEAPON_KIND_LABELS, type SortOption } from '../../constants';
 import type { Category } from '../../hooks/use-mhwilds-filters';
 
 interface FilterControlsProps {

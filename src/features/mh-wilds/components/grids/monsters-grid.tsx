@@ -1,8 +1,7 @@
 import type { Monster } from '../../types';
-import { SPECIES_LABELS } from '../../constants/shared';
-import { GroupHeader } from '../ui/group-header';
+import { SPECIES_LABELS } from '../../constants';
+import { GroupHeader, GridLayout } from '../ui/shared';
 import { MonsterCard } from '../monster-card';
-import { GridLayout } from '../ui/grid-layout';
 
 interface MonstersGridProps {
     monsters: Monster[];
