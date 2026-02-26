@@ -87,77 +87,96 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
     // Filtered + sorted data
     const filteredData = useMemo(() => {
         const q = searchQuery.toLowerCase();
-        let result: unknown[];
+
         switch (activeCategory) {
             case 'monsters': {
-                result = (currentData as Monster[]).filter(m => {
+                const filtered = (currentData as Monster[]).filter(m => {
                     const matchesText = m.name.toLowerCase().includes(q) || m.species.toLowerCase().includes(q);
                     const matchesKind = monsterKindFilter === 'all' || m.kind === monsterKindFilter;
                     if (!matchesText || !matchesKind) return false;
                     if (monsterWeaknessFilter !== 'all') {
-                        const hasWeakness = m.weaknesses?.some(w =>
+                        return m.weaknesses?.some(w =>
                             (w.element === monsterWeaknessFilter || w.status === monsterWeaknessFilter) && w.level > 0
                         );
-                        if (!hasWeakness) return false;
                     }
                     return true;
                 });
-                const monsters = result as Monster[];
                 if (groupBySpecies) {
-                    return monsters.sort((a, b) => {
-                        const speciesCompare = (SPECIES_LABELS[a.species] || a.species).localeCompare(SPECIES_LABELS[b.species] || b.species);
-                        if (speciesCompare !== 0) return speciesCompare;
-                        return a.name.localeCompare(b.name);
+                    return filtered.sort((a, b) => {
+                        const sa = SPECIES_LABELS[a.species] || a.species;
+                        const sb = SPECIES_LABELS[b.species] || b.species;
+                        return sa.localeCompare(sb) || (a.id - b.id);
                     });
                 }
-                return sortItems(monsters as (Monster & { rarity?: number })[]);
+                return sortItems(filtered as (Monster & { rarity?: number })[]);
             }
             case 'weapons': {
-                result = (currentData as Weapon[]).filter(w => {
-                    const matchesText = w.name.toLowerCase().includes(q);
-                    const matchesType = weaponTypeFilter === 'all' || w.kind === weaponTypeFilter;
-                    if (!matchesText || !matchesType) return false;
+                const filtered = (currentData as Weapon[]).filter(w => {
+                    if (!w.name.toLowerCase().includes(q)) return false;
+                    if (weaponTypeFilter !== 'all' && w.kind !== weaponTypeFilter) return false;
                     if (weaponElementFilter !== 'all') {
-                        const hasElement = w.specials?.some(s =>
-                            s.element === weaponElementFilter || s.status === weaponElementFilter
-                        );
-                        if (!hasElement) return false;
+                        return w.specials?.some(s => s.element === weaponElementFilter || s.status === weaponElementFilter);
                     }
                     return true;
                 });
-                const weapons = result as Weapon[];
                 if (groupByWeaponType && weaponTypeFilter === 'all') {
-                    return weapons.sort((a, b) => {
-                        const typeCompare = (WEAPON_KIND_LABELS[a.kind] || a.kind).localeCompare(WEAPON_KIND_LABELS[b.kind] || b.kind);
-                        if (typeCompare !== 0) return typeCompare;
-                        return a.rarity - b.rarity;
+                    // Canonical MH weapon order + internal ID for true weapon tree relationships
+                    const kindOrder = Object.keys(WEAPON_KIND_LABELS);
+                    return filtered.sort((a, b) => {
+                        const ia = kindOrder.indexOf(a.kind);
+                        const ib = kindOrder.indexOf(b.kind);
+                        return (ia - ib) || (a.id - b.id);
                     });
                 }
-                return sortItems(weapons);
+                return sortItems(filtered);
             }
-            case 'armor-sets':
-                return (currentData as ArmorSet[]).filter(s => s.name.toLowerCase().includes(q));
-            case 'skills':
-                result = (currentData as Skill[]).filter(s =>
+            case 'armor-sets': {
+                const filtered = (currentData as ArmorSet[]).filter(s => s.name.toLowerCase().includes(q));
+                // Sort by min rarity of pieces (low→high), then by ID to keep relationships
+                return filtered.sort((a, b) => {
+                    const ra = Math.min(...(a.pieces?.map(p => p.rarity) || [99]));
+                    const rb = Math.min(...(b.pieces?.map(p => p.rarity) || [99]));
+                    return (ra - rb) || (a.id - b.id);
+                });
+            }
+            case 'skills': {
+                const filtered = (currentData as Skill[]).filter(s =>
                     s.name.toLowerCase().includes(q) && (skillKindFilter === 'all' || s.kind === skillKindFilter)
                 );
-                return sortItems(result as (Skill & { rarity?: number })[]);
-            case 'items':
-                result = (currentData as Item[]).filter(i => i.name.toLowerCase().includes(q));
-                return sortItems(result as Item[]);
-            case 'decorations':
-                result = (currentData as Decoration[]).filter(d =>
+                // Sort by kind group priority, then name
+                const kindOrder: Record<string, number> = { armor: 0, weapon: 1, 'set-bonus': 2, 'group-bonus': 3 };
+                return filtered.sort((a, b) => {
+                    const ka = kindOrder[a.kind] ?? 99;
+                    const kb = kindOrder[b.kind] ?? 99;
+                    return (ka - kb) || a.name.localeCompare(b.name);
+                });
+            }
+            case 'items': {
+                const filtered = (currentData as Item[]).filter(i => i.name.toLowerCase().includes(q));
+                // Sort by rarity low→high, then name
+                return filtered.sort((a, b) => (a.rarity - b.rarity) || a.name.localeCompare(b.name));
+            }
+            case 'decorations': {
+                const filtered = (currentData as Decoration[]).filter(d =>
                     d.name.toLowerCase().includes(q) && (decoSlotFilter === 'all' || String(d.slot) === decoSlotFilter)
                 );
-                return sortItems(result as Decoration[]);
-            case 'charms':
+                // Sort by slot ascending, then rarity low→high
+                return filtered.sort((a, b) => (a.slot - b.slot) || (a.rarity - b.rarity) || a.name.localeCompare(b.name));
+            }
+            case 'charms': {
+                // Sort by name
                 return (currentData as Charm[]).filter(c =>
                     c.ranks.some(r => r.name.toLowerCase().includes(q))
-                );
-            case 'locations':
-                return (currentData as MHLocation[]).filter(l => l.name.toLowerCase().includes(q));
-            case 'ailments':
-                return (currentData as Ailment[]).filter(a => a.name.toLowerCase().includes(q));
+                ).sort((a, b) => (a.ranks[0]?.name || '').localeCompare(b.ranks[0]?.name || ''));
+            }
+            case 'locations': {
+                return (currentData as MHLocation[]).filter(l => l.name.toLowerCase().includes(q))
+                    .sort((a, b) => (a.zoneCount - b.zoneCount) || a.name.localeCompare(b.name));
+            }
+            case 'ailments': {
+                return (currentData as Ailment[]).filter(a => a.name.toLowerCase().includes(q))
+                    .sort((a, b) => a.name.localeCompare(b.name));
+            }
             default:
                 return currentData;
         }
