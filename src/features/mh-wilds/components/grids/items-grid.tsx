@@ -1,6 +1,7 @@
 import { Package } from 'lucide-react';
 import type { Item } from '../../types';
 import { RarityDots } from '../ui/rarity-dots';
+import { GridLayout } from '../ui/grid-layout';
 
 interface ItemsGridProps {
     items: Item[];
@@ -20,7 +21,7 @@ const iconColorMap: Record<string, string> = {
 
 export function ItemsGrid({ items, onSelect }: ItemsGridProps) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <GridLayout>
             {items.map(item => {
                 const iconColor = iconColorMap[item.icon?.color || ''] || 'bg-white/5 border-white/10 text-slate-400';
                 return (
@@ -43,6 +44,6 @@ export function ItemsGrid({ items, onSelect }: ItemsGridProps) {
                     </div>
                 );
             })}
-        </div>
+        </GridLayout>
     );
 }

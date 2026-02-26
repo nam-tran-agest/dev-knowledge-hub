@@ -1,7 +1,8 @@
-import { Shield, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import type { Armor, ArmorSet } from '../../types';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ArmorCard } from '../armor-card';
+import { getArmorSetIconUrl } from '../../constants/mh-icons';
 
 interface ArmorSetsGridProps {
     sets: ArmorSet[];
@@ -17,8 +18,9 @@ export function ArmorSetsGrid({ sets, onSelectArmor }: ArmorSetsGridProps) {
                     <AccordionItem key={set.id} value={String(set.id)} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all border-b-0">
                         <AccordionTrigger className="px-4 py-4 hover:no-underline">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                                    <Shield className="w-4 h-4" />
+                                <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={getArmorSetIconUrl(set.pieces?.[0]?.rarity || 1)} alt="Armor Set" className="w-6 h-6 object-contain" />
                                 </div>
                                 <div className="text-left">
                                     <h3 className="text-sm font-bold text-white">{set.name}</h3>

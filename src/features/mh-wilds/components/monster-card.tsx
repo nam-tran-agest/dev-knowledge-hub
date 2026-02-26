@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import type { Monster } from '../types';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Heart, Swords } from 'lucide-react';
 import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS } from '../constants/shared';
+import { getMonsterIconUrl } from '../constants/mh-icons';
 
 interface MonsterCardProps {
     monster: Monster;
@@ -9,6 +11,8 @@ interface MonsterCardProps {
 }
 
 export function MonsterCard({ monster, onClick }: MonsterCardProps) {
+    const [imgError, setImgError] = useState(false);
+
     const weakElements = monster.weaknesses
         .filter(w => w.kind === 'element')
         .sort((a, b) => b.level - a.level)
@@ -23,20 +27,19 @@ export function MonsterCard({ monster, onClick }: MonsterCardProps) {
             <div className="p-5 pb-3">
                 <div className="flex items-start gap-4 mb-3">
                     <div className="w-14 h-14 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 overflow-hidden shadow-inner">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src={`https://monsterhunterwiki.org/wiki/Special:FilePath/MHWilds-${monster.name.replace(/ /g, '_')}_Icon.webp`}
-                            alt={monster.name}
-                            className="w-[120%] h-[120%] object-contain opacity-90 drop-shadow-md"
-                            loading="lazy"
-                            referrerPolicy="no-referrer"
-                            onError={(e) => {
-                                e.currentTarget.style.display = 'none';
-                                if (e.currentTarget.parentElement) {
-                                    e.currentTarget.parentElement.innerHTML = '<span class="text-2xl opacity-50">🐉</span>';
-                                }
-                            }}
-                        />
+                        {imgError ? (
+                            <span className="text-2xl opacity-50">🐉</span>
+                        ) : (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                                src={getMonsterIconUrl(monster.name)}
+                                alt={monster.name}
+                                className="w-[120%] h-[120%] object-contain opacity-90 drop-shadow-md"
+                                loading="lazy"
+                                referrerPolicy="no-referrer"
+                                onError={() => setImgError(true)}
+                            />
+                        )}
                     </div>
 
                     <div className="flex-1 min-w-0">
@@ -109,3 +112,4 @@ export function MonsterCard({ monster, onClick }: MonsterCardProps) {
         </button>
     );
 }
+

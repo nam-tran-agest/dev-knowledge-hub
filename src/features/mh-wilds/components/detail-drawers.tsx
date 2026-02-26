@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Sword, Package, Star, Shield, Hammer } from 'lucide-react';
-import { Weapon, Item, Skill, Armor } from '../types';
+import type { Weapon, Item, Skill, Armor } from '../types';
 import { WEAPON_KIND_LABELS } from '../constants/shared';
-import { RarityDots } from './ui/rarity-dots';
+import { getArmorKindIconUrl } from '../constants/mh-icons';
 
 // Helper for the slide-over
-function DrawerLayout({ title, icon, onClose, children, subtitle }: { title: string, icon: React.ReactNode, subtitle?: React.ReactNode, onClose: () => void, children: React.ReactNode }) {
+export function DrawerLayout({ title, icon, onClose, children, subtitle }: { title: string, icon: React.ReactNode, subtitle?: React.ReactNode, onClose: () => void, children: React.ReactNode }) {
+    // Escape key to close & body scroll lock
+    useEffect(() => {
+        const handleKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.removeEventListener('keydown', handleKey);
+            document.body.style.overflow = '';
+        };
+    }, [onClose]);
+
     return (
         <div className="fixed inset-0 z-50 flex items-start justify-end">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
@@ -31,6 +44,7 @@ function DrawerLayout({ title, icon, onClose, children, subtitle }: { title: str
         </div>
     );
 }
+
 
 function Section({ title, children }: { title: string, children: React.ReactNode }) {
     return (
@@ -257,36 +271,113 @@ export function SkillDetail({ skill, onClose }: { skill: Skill, onClose: () => v
 
 // === Armor Detail ===
 export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => void }) {
+    const resEntries = [
+        { key: 'fire', icon: '🔥', label: 'Fire', value: armor.resistances?.fire ?? 0 },
+        { key: 'water', icon: '💧', label: 'Water', value: armor.resistances?.water ?? 0 },
+        { key: 'thunder', icon: '⚡', label: 'Thunder', value: armor.resistances?.thunder ?? 0 },
+        { key: 'ice', icon: '❄️', label: 'Ice', value: armor.resistances?.ice ?? 0 },
+        { key: 'dragon', icon: '🐉', label: 'Dragon', value: armor.resistances?.dragon ?? 0 },
+    ];
+
     return (
         <DrawerLayout
             title={armor.name}
-            icon={<Shield className="w-6 h-6 text-blue-400" />}
-            subtitle={<p className="text-xs text-slate-400 capitalize">{armor.kind} — Rarity {armor.rarity}</p>}
+            icon={
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={getArmorKindIconUrl(armor.kind, armor.rarity)} alt={armor.kind} className="w-6 h-6 object-contain" />
+            }
+            subtitle={
+                <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-xs text-slate-400 capitalize">{armor.kind}</span>
+                    <span className="text-slate-600">·</span>
+                    <span className="text-xs text-amber-400 font-bold">Rarity {armor.rarity}</span>
+                    {armor.armorSet && (
+                        <>
+                            <span className="text-slate-600">·</span>
+                            <span className="text-xs text-blue-400">{armor.armorSet.name}</span>
+                        </>
+                    )}
+                </div>
+            }
             onClose={onClose}
         >
-            {/* Implement armor details later if needed */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4">
-                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">Stats</p>
-                <StatRow label="Defense (Base / Max)" value={`${armor.defense?.base || 0} / ${armor.defense?.max || 0}`} />
-                <StatRow label="Slots" value={
-                    armor.slots?.length > 0
-                        ? <span className="text-cyan-400 tracking-widest">{armor.slots.map(s => '◆'.repeat(s)).join(' ')}</span>
-                        : 'None'
-                } />
+            {/* Defense & Slots */}
+            <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">Defense</p>
+                    <StatRow label="Base" value={<span className="text-white font-bold">{armor.defense?.base ?? 0}</span>} />
+                    <StatRow label="Max" value={<span className="text-emerald-400 font-bold">{armor.defense?.max ?? 0}</span>} />
+                </div>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">Properties</p>
+                    <StatRow label="Rank" value={<span className="capitalize text-amber-400">{armor.rank}</span>} />
+                    <StatRow label="Slots" value={
+                        armor.slots?.length > 0
+                            ? <span className="text-cyan-400 tracking-widest">{armor.slots.map(s => '◆'.repeat(s)).join(' ')}</span>
+                            : 'None'
+                    } />
+                </div>
             </div>
 
+            {/* Elemental Resistances */}
+            <Section title="Elemental Resistances">
+                <div className="grid grid-cols-5 gap-2">
+                    {resEntries.map(res => (
+                        <div key={res.key} className="bg-white/[0.02] border border-white/5 rounded-lg p-3 text-center">
+                            <span className="text-lg">{res.icon}</span>
+                            <p className={`text-sm font-bold mt-1 ${res.value > 0 ? 'text-emerald-400' : res.value < 0 ? 'text-red-400' : 'text-slate-600'
+                                }`}>
+                                {res.value > 0 ? '+' : ''}{res.value}
+                            </p>
+                            <p className="text-[9px] text-slate-600 uppercase tracking-wider mt-0.5">{res.label}</p>
+                        </div>
+                    ))}
+                </div>
+            </Section>
+
+            {/* Skills */}
             {armor.skills?.length > 0 && (
                 <Section title="Skills">
                     <div className="space-y-2">
                         {armor.skills.map(s => (
-                            <div key={s.id} className="flex justify-between items-center text-xs bg-white/[0.02] p-2 rounded">
-                                <span className="text-white">{s.skill.name}</span>
-                                <span className="text-emerald-400 font-bold">Lv {s.level}</span>
+                            <div key={s.id} className="flex gap-3 bg-white/[0.02] border border-white/5 rounded-lg p-3">
+                                <span className="shrink-0 w-10 text-center font-bold text-emerald-400 bg-emerald-500/10 rounded py-1 text-xs">Lv {s.level}</span>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-xs font-bold text-white">{s.skill.name}</p>
+                                    {s.description && <p className="text-xs text-slate-400 mt-0.5">{s.description}</p>}
+                                </div>
                             </div>
                         ))}
+                    </div>
+                </Section>
+            )}
+
+            {/* Crafting Materials */}
+            {armor.crafting && armor.crafting.materials?.length > 0 && (
+                <Section title="Crafting Materials">
+                    <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4 relative overflow-hidden">
+                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+                        <div className="space-y-2 relative z-10">
+                            {armor.crafting.materials.map(mat => (
+                                <div key={mat.id} className="flex items-center justify-between text-xs bg-white/[0.03] border border-white/5 rounded-lg px-3 py-2.5">
+                                    <div className="flex items-center gap-2">
+                                        <Package className="w-4 h-4 text-slate-400" />
+                                        <span className="text-slate-200 font-medium">{mat.item.name}</span>
+                                    </div>
+                                    <span className="text-amber-400 font-bold">×{mat.quantity}</span>
+                                </div>
+                            ))}
+                        </div>
+                        {armor.crafting.zennyCost > 0 && (
+                            <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5 text-xs relative z-10">
+                                <span className="text-slate-500">Zenny Cost</span>
+                                <span className="text-amber-400 font-bold">{armor.crafting.zennyCost.toLocaleString()}z</span>
+                            </div>
+                        )}
                     </div>
                 </Section>
             )}
         </DrawerLayout>
     );
 }
+

@@ -1,7 +1,7 @@
 import type { Weapon, Sharpness } from '../types';
 import { Badge } from '@/components/ui/badge';
 import { ELEMENT_COLORS, ELEMENT_ICONS, WEAPON_KIND_LABELS, RARITY_TEXT_COLORS } from '../constants/shared';
-import { WEAPON_TYPE_ICONS } from '../constants/mh-icons';
+import { getWeaponIconUrl, WEAPON_TYPE_ICONS } from '../constants/mh-icons';
 
 function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
     const total = Object.values(sharpness).reduce((sum, val) => sum + val, 0);
@@ -26,12 +26,12 @@ function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
     );
 }
 
-export function WeaponTypeIcon({ kind, size = 20 }: { kind: string; size?: number }) {
-    const iconUrl = WEAPON_TYPE_ICONS[kind];
+export function WeaponTypeIcon({ kind, size = 20, rarity }: { kind: string; size?: number; rarity?: number }) {
+    const iconUrl = rarity ? getWeaponIconUrl(kind, rarity) : WEAPON_TYPE_ICONS[kind];
     if (!iconUrl) return null;
     return (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={iconUrl} alt={WEAPON_KIND_LABELS[kind] || kind} style={{ width: size, height: size }} className="object-contain brightness-150" loading="lazy" referrerPolicy="no-referrer" />
+        <img src={iconUrl} alt={WEAPON_KIND_LABELS[kind] || kind} style={{ width: size, height: size }} className="object-contain" loading="lazy" />
     );
 }
 
@@ -48,7 +48,7 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
                 <div className="flex items-start justify-between gap-2 mb-3">
                     <div className="flex items-center gap-2.5 flex-1 min-w-0">
                         <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center shrink-0">
-                            <WeaponTypeIcon kind={weapon.kind} />
+                            <WeaponTypeIcon kind={weapon.kind} rarity={weapon.rarity} />
                         </div>
                         <div className="flex-1 min-w-0">
                             <h3 className="text-base font-bold text-white truncate">{weapon.name}</h3>

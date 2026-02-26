@@ -2,6 +2,7 @@ import type { Weapon } from '../../types';
 import { WEAPON_KIND_LABELS } from '../../constants/shared';
 import { GroupHeader } from '../ui/group-header';
 import { WeaponCard, WeaponTypeIcon } from '../weapon-card';
+import { GridLayout } from '../ui/grid-layout';
 
 interface WeaponsGridProps {
     weapons: Weapon[];
@@ -12,11 +13,11 @@ interface WeaponsGridProps {
 export function WeaponsGrid({ weapons, groupByType, onSelect }: WeaponsGridProps) {
     if (!groupByType) {
         return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <GridLayout>
                 {weapons.map(w => (
                     <WeaponCard key={w.id} weapon={w} onClick={onSelect} />
                 ))}
-            </div>
+            </GridLayout>
         );
     }
 
@@ -33,7 +34,7 @@ export function WeaponsGrid({ weapons, groupByType, onSelect }: WeaponsGridProps
     });
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <GridLayout>
             {groups.map(group => (
                 <div key={group.label} className="contents">
                     <GroupHeader label={group.label} count={group.items.length} iconNode={<WeaponTypeIcon kind={group.kind} size={18} />} />
@@ -42,6 +43,6 @@ export function WeaponsGrid({ weapons, groupByType, onSelect }: WeaponsGridProps
                     ))}
                 </div>
             ))}
-        </div>
+        </GridLayout>
     );
 }

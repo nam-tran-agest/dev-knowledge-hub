@@ -1,9 +1,10 @@
 import { Skull } from 'lucide-react';
 import type { Ailment } from '../../types';
+import { GridLayout } from '../ui/grid-layout';
 
 export function AilmentsList({ ailments }: { ailments: Ailment[] }) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <GridLayout cols={2}>
             {ailments.map(ail => (
                 <div key={ail.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all flex flex-col h-full">
                     <div className="p-5 flex flex-col h-full">
@@ -47,6 +48,6 @@ export function AilmentsList({ ailments }: { ailments: Ailment[] }) {
                     </div>
                 </div>
             ))}
-        </div>
+        </GridLayout>
     );
 }

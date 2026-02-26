@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { ScrollText } from 'lucide-react';
 import type { Charm } from '../../types';
+import { GridLayout } from '../ui/grid-layout';
+import { getCharmIconUrl } from '../../constants/mh-icons';
 
 export function CharmsList({ charms }: { charms: Charm[] }) {
     const groupedCharms = useMemo(() => {
@@ -26,14 +27,15 @@ export function CharmsList({ charms }: { charms: Charm[] }) {
     }, [charms]);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <GridLayout>
             {groupedCharms.map((group) => {
                 const maxRank = group.allRanks[group.allRanks.length - 1];
                 return (
                     <div key={group.baseName} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all card-group cursor-pointer flex flex-col h-full">
                         <div className="flex items-start gap-3 mb-3 shrink-0">
                             <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                <ScrollText className="w-4 h-4 text-cyan-400" />
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={getCharmIconUrl(maxRank?.rarity || 1)} alt={group.baseName} className="w-6 h-6 object-contain" />
                             </div>
                             <div className="flex-1 min-w-0">
                                 <h3 className="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{group.baseName}</h3>
@@ -64,6 +66,6 @@ export function CharmsList({ charms }: { charms: Charm[] }) {
                     </div>
                 );
             })}
-        </div>
+        </GridLayout>
     );
 }

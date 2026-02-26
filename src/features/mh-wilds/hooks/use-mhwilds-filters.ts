@@ -3,8 +3,9 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import type { Monster, Weapon, Skill, Item, Decoration, Charm, Location as MHLocation, Ailment, ArmorSet } from '../types';
 import { SPECIES_LABELS, WEAPON_KIND_LABELS, PER_PAGE, type SortOption } from '../constants/shared';
+import type { Category } from './use-mhwilds-data';
 
-export type Category = 'monsters' | 'weapons' | 'armor-sets' | 'skills' | 'items' | 'decorations' | 'charms' | 'locations' | 'ailments';
+export type { Category };
 
 export function useMHWildsFilters(activeCategory: Category, currentData: unknown[]) {
     const [searchQuery, setSearchQuery] = useState('');

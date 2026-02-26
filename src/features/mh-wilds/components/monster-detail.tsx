@@ -1,7 +1,8 @@
 import type { Monster } from '../types';
 import { Badge } from '@/components/ui/badge';
-import { X, Heart, MapPin, Shield, Swords, Target } from 'lucide-react';
+import { Heart, MapPin, Shield, Swords, Target, Bug } from 'lucide-react';
 import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS } from '../constants/shared';
+import { DrawerLayout } from './detail-drawers';
 
 interface MonsterDetailProps {
     monster: Monster;
@@ -195,31 +196,15 @@ function RewardsSection({ monster }: { monster: Monster }) {
 
 export function MonsterDetail({ monster, onClose }: MonsterDetailProps) {
     return (
-        <div className="fixed inset-0 z-50 flex items-start justify-end">
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-
-            {/* Panel */}
-            <div className="relative h-full w-full max-w-2xl bg-[#0a0a0c] border-l border-white/5 overflow-y-auto animate-in slide-in-from-right duration-300">
-                {/* Header */}
-                <div className="sticky top-0 z-10 bg-[#0a0a0c]/95 backdrop-blur-md border-b border-white/5 p-6">
-                    <div className="flex items-start justify-between">
-                        <div>
-                            <h2 className="text-2xl font-bold text-white">{monster.name}</h2>
-                            <p className="text-sm text-slate-500 mt-1">
-                                {SPECIES_LABELS[monster.species] || monster.species}
-                            </p>
-                        </div>
-                        <button
-                            onClick={onClose}
-                            className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-                        >
-                            <X className="w-5 h-5 text-slate-400" />
-                        </button>
-                    </div>
-
-                    {/* Quick stats */}
-                    <div className="flex gap-4 mt-4 text-xs text-slate-500">
+        <DrawerLayout
+            title={monster.name}
+            icon={<Bug className="w-6 h-6 text-red-400" />}
+            subtitle={
+                <div>
+                    <p className="text-sm text-slate-500">
+                        {SPECIES_LABELS[monster.species] || monster.species}
+                    </p>
+                    <div className="flex gap-4 mt-2 text-xs text-slate-500">
                         <span className="flex items-center gap-1.5">
                             <Heart className="w-3.5 h-3.5 text-red-400" />
                             HP: {monster.baseHealth?.toLocaleString()}
@@ -232,45 +217,44 @@ export function MonsterDetail({ monster, onClose }: MonsterDetailProps) {
                         )}
                     </div>
                 </div>
-
-                {/* Body */}
-                <div className="p-6 space-y-8">
-                    {/* Description */}
-                    <div>
-                        <p className="text-sm text-slate-400 leading-relaxed">{monster.description}</p>
-                    </div>
-
-                    {/* Tips */}
-                    {monster.tips && (
-                        <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-xl p-4">
-                            <p className="text-[10px] text-emerald-500 uppercase tracking-widest font-bold mb-2">Hunter Tips</p>
-                            <p className="text-sm text-slate-400 leading-relaxed">{monster.tips}</p>
-                        </div>
-                    )}
-
-                    <WeaknessSection monster={monster} />
-                    <ResistanceSection monster={monster} />
-                    <PartsTable monster={monster} />
-                    <RewardsSection monster={monster} />
-
-                    {/* Variants */}
-                    {monster.variants?.length > 0 && (
-                        <div className="space-y-3">
-                            <h4 className="text-sm font-bold text-white">Variants</h4>
-                            <div className="flex gap-2 flex-wrap">
-                                {monster.variants.map((v) => (
-                                    <Badge
-                                        key={v.id}
-                                        className="bg-amber-500/15 text-amber-400 border border-amber-500/30 text-xs capitalize"
-                                    >
-                                        {v.name}
-                                    </Badge>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
+            }
+            onClose={onClose}
+        >
+            {/* Description */}
+            <div>
+                <p className="text-sm text-slate-400 leading-relaxed">{monster.description}</p>
             </div>
-        </div>
+
+            {/* Tips */}
+            {monster.tips && (
+                <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-xl p-4">
+                    <p className="text-[10px] text-emerald-500 uppercase tracking-widest font-bold mb-2">Hunter Tips</p>
+                    <p className="text-sm text-slate-400 leading-relaxed">{monster.tips}</p>
+                </div>
+            )}
+
+            <WeaknessSection monster={monster} />
+            <ResistanceSection monster={monster} />
+            <PartsTable monster={monster} />
+            <RewardsSection monster={monster} />
+
+            {/* Variants */}
+            {monster.variants?.length > 0 && (
+                <div className="space-y-3">
+                    <h4 className="text-sm font-bold text-white">Variants</h4>
+                    <div className="flex gap-2 flex-wrap">
+                        {monster.variants.map((v) => (
+                            <Badge
+                                key={v.id}
+                                className="bg-amber-500/15 text-amber-400 border border-amber-500/30 text-xs capitalize"
+                            >
+                                {v.name}
+                            </Badge>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </DrawerLayout>
     );
 }
+

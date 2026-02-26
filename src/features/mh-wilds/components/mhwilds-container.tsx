@@ -5,9 +5,9 @@ import { Search, Bug, Swords, Shield, Gem, ScrollText, MapPin, Skull, Star, Pack
 import { Input } from '@/components/ui/input';
 import type { Monster, Weapon, Armor, Item, ArmorSet, Skill, Decoration, Charm, Location as MHLocation, Ailment } from '../types';
 
-// Hooks
 import { useMHWildsData } from '../hooks/use-mhwilds-data';
 import { useMHWildsFilters, type Category } from '../hooks/use-mhwilds-filters';
+import { useDetailSelection } from '../hooks/use-detail-selection';
 
 // UI pieces
 import { Pagination } from './ui/pagination';
@@ -45,10 +45,7 @@ const CATEGORIES: { key: Category; label: string; icon: React.ReactNode; color: 
 // === Main Container ===
 export function MHWildsContainer() {
     const [activeCategory, setActiveCategory] = useState<Category>('monsters');
-    const [selectedMonster, setSelectedMonster] = useState<Monster | null>(null);
-    const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
-    const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-    const [selectedArmor, setSelectedArmor] = useState<Armor | null>(null);
+    const details = useDetailSelection();
 
     const { data, currentData, loading, error, refetch } = useMHWildsData(activeCategory);
     const filters = useMHWildsFilters(activeCategory, currentData);
@@ -62,15 +59,15 @@ export function MHWildsContainer() {
 
         switch (activeCategory) {
             case 'monsters':
-                return <MonstersGrid monsters={filters.pagedData as Monster[]} onSelect={setSelectedMonster} groupBySpecies={filters.groupBySpecies} />;
+                return <MonstersGrid monsters={filters.pagedData as Monster[]} onSelect={details.setSelectedMonster} groupBySpecies={filters.groupBySpecies} />;
             case 'weapons':
-                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType && filters.weaponTypeFilter === 'all'} onSelect={setSelectedWeapon} />;
+                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType && filters.weaponTypeFilter === 'all'} onSelect={details.setSelectedWeapon} />;
             case 'armor-sets':
-                return <ArmorSetsGrid sets={filters.pagedData as ArmorSet[]} onSelectArmor={setSelectedArmor} />;
+                return <ArmorSetsGrid sets={filters.pagedData as ArmorSet[]} onSelectArmor={details.setSelectedArmor} />;
             case 'skills':
                 return <SkillsList skills={filters.pagedData as Skill[]} />;
             case 'items':
-                return <ItemsGrid items={filters.pagedData as Item[]} onSelect={setSelectedItem} />;
+                return <ItemsGrid items={filters.pagedData as Item[]} onSelect={details.setSelectedItem} />;
             case 'decorations':
                 return <DecorationsGrid decorations={filters.pagedData as Decoration[]} />;
             case 'charms':
@@ -200,10 +197,10 @@ export function MHWildsContainer() {
                 </main>
             </div>
 
-            {selectedMonster && <MonsterDetail monster={selectedMonster} onClose={() => setSelectedMonster(null)} />}
-            {selectedWeapon && <WeaponDetail weapon={selectedWeapon} onClose={() => setSelectedWeapon(null)} />}
-            {selectedItem && <ItemDetail item={selectedItem} onClose={() => setSelectedItem(null)} />}
-            {selectedArmor && <ArmorDetail armor={selectedArmor} onClose={() => setSelectedArmor(null)} />}
+            {details.selectedMonster && <MonsterDetail monster={details.selectedMonster} onClose={() => details.setSelectedMonster(null)} />}
+            {details.selectedWeapon && <WeaponDetail weapon={details.selectedWeapon} onClose={() => details.setSelectedWeapon(null)} />}
+            {details.selectedItem && <ItemDetail item={details.selectedItem} onClose={() => details.setSelectedItem(null)} />}
+            {details.selectedArmor && <ArmorDetail armor={details.selectedArmor} onClose={() => details.setSelectedArmor(null)} />}
         </div>
     );
 }

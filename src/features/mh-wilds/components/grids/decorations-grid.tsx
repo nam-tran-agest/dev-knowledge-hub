@@ -1,17 +1,19 @@
-import { Gem } from 'lucide-react';
 import type { Decoration } from '../../types';
 import { RarityDots } from '../ui/rarity-dots';
+import { GridLayout } from '../ui/grid-layout';
+import { getDecorationIconUrl } from '../../constants/mh-icons';
 
 const slotDiamonds = (s: number) => '◆'.repeat(s) + '◇'.repeat(3 - s);
 
 export function DecorationsGrid({ decorations }: { decorations: Decoration[] }) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <GridLayout>
             {decorations.map(deco => (
                 <div key={deco.id} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group flex flex-col h-full">
                     <div className="flex items-start gap-3 mb-2 shrink-0">
                         <div className="w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
-                            <Gem className="w-4 h-4 text-purple-400" />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={getDecorationIconUrl(deco.slot)} alt={deco.name} className="w-6 h-6 object-contain" />
                         </div>
                         <div className="flex-1 min-w-0">
                             <h3 className="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{deco.name}</h3>
@@ -31,6 +33,6 @@ export function DecorationsGrid({ decorations }: { decorations: Decoration[] }) 
                     </div>
                 </div>
             ))}
-        </div>
+        </GridLayout>
     );
 }

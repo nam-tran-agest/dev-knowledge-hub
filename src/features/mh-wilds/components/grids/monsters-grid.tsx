@@ -2,6 +2,7 @@ import type { Monster } from '../../types';
 import { SPECIES_LABELS } from '../../constants/shared';
 import { GroupHeader } from '../ui/group-header';
 import { MonsterCard } from '../monster-card';
+import { GridLayout } from '../ui/grid-layout';
 
 interface MonstersGridProps {
     monsters: Monster[];
@@ -12,11 +13,11 @@ interface MonstersGridProps {
 export function MonstersGrid({ monsters, onSelect, groupBySpecies }: MonstersGridProps) {
     if (!groupBySpecies) {
         return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <GridLayout>
                 {monsters.map(m => (
                     <MonsterCard key={m.id} monster={m} onClick={onSelect} />
                 ))}
-            </div>
+            </GridLayout>
         );
     }
 
@@ -29,7 +30,7 @@ export function MonstersGrid({ monsters, onSelect, groupBySpecies }: MonstersGri
     });
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <GridLayout>
             {Object.entries(groups).map(([species, mons]) => (
                 <div key={species} className="contents">
                     <GroupHeader label={species} count={mons.length} />
@@ -38,6 +39,6 @@ export function MonstersGrid({ monsters, onSelect, groupBySpecies }: MonstersGri
                     ))}
                 </div>
             ))}
-        </div>
+        </GridLayout>
     );
 }

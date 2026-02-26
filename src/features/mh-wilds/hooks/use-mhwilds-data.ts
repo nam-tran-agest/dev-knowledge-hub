@@ -1,17 +1,22 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import * as api from '../services/mhwilds-api';
 
-type Category = 'monsters' | 'weapons' | 'armor-sets' | 'skills' | 'items' | 'decorations' | 'charms' | 'locations' | 'ailments';
+export type Category = 'monsters' | 'weapons' | 'armor-sets' | 'skills' | 'items' | 'decorations' | 'charms' | 'locations' | 'ailments';
 
 export function useMHWildsData(activeCategory: Category) {
     const [data, setData] = useState<Record<string, unknown[]>>({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [refetchKey, setRefetchKey] = useState(0);
 
-    const fetchCategoryData = useCallback(async (cat: Category) => {
-        if (data[cat]) return;
+    // Use a ref to check cache without adding `data` to callback deps
+    const dataRef = useRef(data);
+    dataRef.current = data;
+
+    const fetchCategoryData = useCallback(async (cat: Category, force = false) => {
+        if (!force && dataRef.current[cat]) return;
         setLoading(true);
         setError(null);
         try {
@@ -34,11 +39,11 @@ export function useMHWildsData(activeCategory: Category) {
         } finally {
             setLoading(false);
         }
-    }, [data]);
+    }, []);
 
     useEffect(() => {
-        fetchCategoryData(activeCategory);
-    }, [activeCategory, fetchCategoryData]);
+        fetchCategoryData(activeCategory, refetchKey > 0);
+    }, [activeCategory, fetchCategoryData, refetchKey]);
 
     const refetch = useCallback(() => {
         setData(prev => {
@@ -46,8 +51,8 @@ export function useMHWildsData(activeCategory: Category) {
             delete n[activeCategory];
             return n;
         });
-        fetchCategoryData(activeCategory);
-    }, [activeCategory, fetchCategoryData]);
+        setRefetchKey(k => k + 1);
+    }, [activeCategory]);
 
     return {
         data,

@@ -1,7 +1,8 @@
 import type { Armor } from '../types';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ARMOR_KIND_ICONS, ELEMENT_RES_COLORS } from '../constants/shared';
+import { ELEMENT_RES_COLORS } from '../constants/shared';
+import { getArmorKindIconUrl } from '../constants/mh-icons';
 
 interface ArmorCardProps {
     armor: Armor;
@@ -9,7 +10,6 @@ interface ArmorCardProps {
 }
 
 export function ArmorCard({ armor, onClick }: ArmorCardProps) {
-    const kindIcon = ARMOR_KIND_ICONS[armor.kind] || '🛡️';
 
     const resEntries = [
         { key: 'fire', icon: '🔥', value: armor.resistances.fire },
@@ -25,9 +25,13 @@ export function ArmorCard({ armor, onClick }: ArmorCardProps) {
                 <AccordionItem value="details" className="border-b-0">
                     <AccordionTrigger className="px-5 py-4 hover:no-underline">
                         <div className="flex-1 min-w-0 text-left">
-                            <h3 className="text-base font-bold text-white truncate">{armor.name}</h3>
-                            <p className="text-xs text-slate-500 mt-0.5">
-                                {kindIcon} {armor.kind} · {armor.armorSet?.name}
+                            <div className="flex items-center gap-2">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={getArmorKindIconUrl(armor.kind, armor.rarity)} alt={armor.kind} className="w-5 h-5 object-contain" />
+                                <h3 className="text-base font-bold text-white truncate">{armor.name}</h3>
+                            </div>
+                            <p className="text-xs text-slate-500 mt-0.5 capitalize">
+                                {armor.kind} · {armor.armorSet?.name}
                             </p>
                         </div>
                         <div className="flex flex-col items-end gap-1 mr-2">
