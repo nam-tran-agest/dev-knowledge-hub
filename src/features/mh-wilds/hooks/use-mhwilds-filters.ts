@@ -143,39 +143,39 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
                 const filtered = (currentData as Skill[]).filter(s =>
                     s.name.toLowerCase().includes(q) && (skillKindFilter === 'all' || s.kind === skillKindFilter)
                 );
-                // Sort by kind group priority, then name
+                // Sort by kind group priority, then gameId/id
                 const kindOrder: Record<string, number> = { armor: 0, weapon: 1, 'set-bonus': 2, 'group-bonus': 3 };
                 return filtered.sort((a, b) => {
                     const ka = kindOrder[a.kind] ?? 99;
                     const kb = kindOrder[b.kind] ?? 99;
-                    return (ka - kb) || a.name.localeCompare(b.name);
+                    return (ka - kb) || ((a.gameId || a.id) - (b.gameId || b.id));
                 });
             }
             case 'items': {
                 const filtered = (currentData as Item[]).filter(i => i.name.toLowerCase().includes(q));
-                // Sort by rarity low→high, then name
-                return filtered.sort((a, b) => (a.rarity - b.rarity) || a.name.localeCompare(b.name));
+                // Sort by rarity low→high, then gameId/id to group related items
+                return filtered.sort((a, b) => (a.rarity - b.rarity) || ((a.gameId || a.id) - (b.gameId || b.id)));
             }
             case 'decorations': {
                 const filtered = (currentData as Decoration[]).filter(d =>
                     d.name.toLowerCase().includes(q) && (decoSlotFilter === 'all' || String(d.slot) === decoSlotFilter)
                 );
-                // Sort by slot ascending, then rarity low→high
-                return filtered.sort((a, b) => (a.slot - b.slot) || (a.rarity - b.rarity) || a.name.localeCompare(b.name));
+                // Sort by slot ascending, then rarity, then gameId
+                return filtered.sort((a, b) => (a.slot - b.slot) || (a.rarity - b.rarity) || ((a.gameId || a.id) - (b.gameId || b.id)));
             }
             case 'charms': {
-                // Sort by name
+                // Sort by gameId/id
                 return (currentData as Charm[]).filter(c =>
                     c.ranks.some(r => r.name.toLowerCase().includes(q))
-                ).sort((a, b) => (a.ranks[0]?.name || '').localeCompare(b.ranks[0]?.name || ''));
+                ).sort((a, b) => (a.gameId || a.id) - (b.gameId || b.id));
             }
             case 'locations': {
                 return (currentData as MHLocation[]).filter(l => l.name.toLowerCase().includes(q))
-                    .sort((a, b) => (a.zoneCount - b.zoneCount) || a.name.localeCompare(b.name));
+                    .sort((a, b) => (a.zoneCount - b.zoneCount) || (a.id - b.id));
             }
             case 'ailments': {
                 return (currentData as Ailment[]).filter(a => a.name.toLowerCase().includes(q))
-                    .sort((a, b) => a.name.localeCompare(b.name));
+                    .sort((a, b) => a.id - b.id);
             }
             default:
                 return currentData;

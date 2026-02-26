@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Heart, MapPin, Shield, Swords, Target, Bug } from 'lucide-react';
 import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS } from '../constants';
 import { DrawerLayout } from './detail-drawers';
+import { getMonsterIconUrl } from '../constants';
 
 interface MonsterDetailProps {
     monster: Monster;
@@ -198,7 +199,12 @@ export function MonsterDetail({ monster, onClose }: MonsterDetailProps) {
     return (
         <DrawerLayout
             title={monster.name}
-            icon={<Bug className="w-6 h-6 text-red-400" />}
+            icon={
+                <div className="w-8 h-8 rounded shrink-0 bg-white/5 border border-white/10 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={getMonsterIconUrl(monster.name)} alt={monster.name} className="w-6 h-6 object-contain" />
+                </div>
+            }
             subtitle={
                 <div>
                     <p className="text-sm text-slate-500">

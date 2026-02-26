@@ -87,8 +87,9 @@ export function MHWildsContainer() {
             {/* Header */}
             <div className="border-b border-white/5 bg-gradient-to-r from-emerald-600/5 via-transparent to-purple-600/5">
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-5">
-                    <div className="flex items-center gap-3">
-                        <span className="text-2xl">🐉</span>
+                    <div className="flex items-center gap-4">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/img/MHW/MHWilds_logo.webp" alt="MHWilds Logo" className="w-14 h-14 object-contain brightness-150 drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]" />
                         <div>
                             <h1 className="text-2xl font-black text-white tracking-tight">Monster Hunter: Wilds</h1>
                             <p className="text-xs text-slate-500">Complete database — Monsters, Weapons, Armor, Skills & more</p>
