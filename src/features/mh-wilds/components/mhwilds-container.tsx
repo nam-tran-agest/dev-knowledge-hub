@@ -62,7 +62,7 @@ export function MHWildsContainer() {
             case 'monsters':
                 return <MonstersGrid monsters={filters.pagedData as Monster[]} onSelect={setSelectedMonster} groupBySpecies={filters.groupBySpecies} />;
             case 'weapons':
-                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType && filters.weaponTypeFilter === 'all'} onSelect={setSelectedWeapon} />;
+                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType} onSelect={setSelectedWeapon} />;
             case 'armor-sets':
                 return <ArmorSetsGrid sets={filters.pagedData as ArmorSet[]} onSelectArmor={setSelectedArmor} />;
             case 'skills':

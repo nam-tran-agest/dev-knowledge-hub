@@ -119,7 +119,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
                     }
                     return true;
                 });
-                if (groupByWeaponType && weaponTypeFilter === 'all') {
+                if (groupByWeaponType) {
                     // Canonical MH weapon order + internal ID for true weapon tree relationships
                     const kindOrder = Object.keys(WEAPON_KIND_LABELS);
                     return filtered.sort((a, b) => {

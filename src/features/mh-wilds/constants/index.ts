@@ -32,7 +32,7 @@ export const SPECIES_LABELS: Record<string, string> = {
 
 export const WEAPON_KIND_LABELS: Record<string, string> = {
     'great-sword': 'Great Sword', 'long-sword': 'Long Sword',
-    'sword-and-shield': 'Sword & Shield', 'dual-blades': 'Dual Blades',
+    'sword-shield': 'Sword & Shield', 'dual-blades': 'Dual Blades',
     'hammer': 'Hammer', 'hunting-horn': 'Hunting Horn',
     'lance': 'Lance', 'gunlance': 'Gunlance',
     'switch-axe': 'Switch Axe', 'charge-blade': 'Charge Blade',
@@ -76,7 +76,7 @@ function rr(rarity: number): string {
 
 const WEAPON_FOLDERS: Record<string, string> = {
     'great-sword': 'Great_Sword', 'long-sword': 'Long_Sword',
-    'sword-and-shield': 'Sword_&_Shield', 'dual-blades': 'Dual_Blades',
+    'sword-shield': 'Sword_And_Shield', 'dual-blades': 'Dual_Blades',
     'hammer': 'Hammer', 'hunting-horn': 'Hunting_Horn',
     'lance': 'Lance', 'gunlance': 'Gunlance',
     'switch-axe': 'Switch_Axe', 'charge-blade': 'Charge_Blade',
