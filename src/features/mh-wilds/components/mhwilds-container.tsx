@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Search, Bug, Swords, Shield, Gem, ScrollText, MapPin, Skull, Star, Package } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import type { Monster, Weapon, Armor, Item, ArmorSet, Skill, Decoration, Charm, Location as MHLocation, Ailment } from '../types';
@@ -8,8 +8,16 @@ import type { Monster, Weapon, Armor, Item, ArmorSet, Skill, Decoration, Charm, 
 import { useMHWildsData } from '../hooks/use-mhwilds-data';
 import { useMHWildsFilters, type Category } from '../hooks/use-mhwilds-filters';
 
-import { Pagination, LoadingState, ErrorState } from './ui/shared';
+import { LoadingState, ErrorState } from './ui/shared';
 import { FilterControls } from './ui/filter-controls';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/pagination';
 
 // Grid / List renderers
 import { MonstersGrid } from './grids/monsters-grid';
@@ -189,8 +197,49 @@ export function MHWildsContainer() {
 
                     {renderContent()}
 
-                    {!loading && !error && filters.filteredData.length > 0 && (
-                        <Pagination current={filters.page} total={filters.totalPages} onChange={filters.setPage} />
+                    {!loading && !error && filters.filteredData.length > 0 && filters.totalPages > 1 && (
+                        <div className="pt-8 pb-4">
+                            <Pagination>
+                                <PaginationContent>
+                                    <PaginationItem>
+                                        <PaginationPrevious
+                                            onClick={() => filters.setPage(Math.max(1, filters.page - 1))}
+                                            disabled={filters.page === 1}
+                                            className={filters.page === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                                        />
+                                    </PaginationItem>
+
+                                    {Array.from({ length: filters.totalPages }, (_, i) => i + 1)
+                                        .filter(p => p === 1 || p === filters.totalPages || Math.abs(p - filters.page) <= 1)
+                                        .map((p, i, arr) => (
+                                            <React.Fragment key={p}>
+                                                {i > 0 && arr[i - 1] !== p - 1 && (
+                                                    <PaginationItem>
+                                                        <span className="px-3 text-slate-500">...</span>
+                                                    </PaginationItem>
+                                                )}
+                                                <PaginationItem>
+                                                    <PaginationLink
+                                                        isActive={filters.page === p}
+                                                        onClick={() => filters.setPage(p)}
+                                                        className="cursor-pointer"
+                                                    >
+                                                        {p}
+                                                    </PaginationLink>
+                                                </PaginationItem>
+                                            </React.Fragment>
+                                        ))}
+
+                                    <PaginationItem>
+                                        <PaginationNext
+                                            onClick={() => filters.setPage(Math.min(filters.totalPages, filters.page + 1))}
+                                            disabled={filters.page === filters.totalPages}
+                                            className={filters.page === filters.totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                                        />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
+                        </div>
                     )}
                     {!loading && !error && filters.filteredData.length === 0 && (
                         <div className="text-center py-16"><p className="text-slate-500">No results found.</p></div>
