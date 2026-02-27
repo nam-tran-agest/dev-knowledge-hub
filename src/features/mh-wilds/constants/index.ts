@@ -66,7 +66,6 @@ export const SKILL_KIND_COLORS: Record<string, string> = {
 };
 
 // ─── Glassmorphism Tokens ───────────────────────────────────
-export const PAGE_BG = 'bg-[#0c0e14]';
 export const CARD_CLS = 'bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-xl overflow-hidden hover:border-emerald-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10';
 export const STAT_BOX_CLS = 'bg-white/[0.10] backdrop-blur-sm rounded-lg';
 

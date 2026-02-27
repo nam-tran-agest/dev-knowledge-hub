@@ -24,7 +24,10 @@ import { AilmentsList } from './grids/ailments-list';
 
 // Detail drawers
 import { MonsterDetail } from './monster-detail';
-import { WeaponDetail, ItemDetail, ArmorDetail, SkillDetail } from './detail-drawers';
+import { WeaponDetail } from './weapon-detail';
+import { ItemDetail } from './item-detail';
+import { ArmorDetail } from './armor-detail';
+import { SkillDetail } from './skill-detail';
 
 // === Category definitions ===
 const CATEGORIES: { key: Category; label: string; icon: React.ReactNode; color: string }[] = [
@@ -39,19 +42,25 @@ const CATEGORIES: { key: Category; label: string; icon: React.ReactNode; color: 
     { key: 'ailments', label: 'Ailments', icon: <Skull className="w-4 h-4" />, color: 'text-pink-400' },
 ];
 
+// === Detail drawer union ===
+type DetailTarget =
+    | { type: 'monster'; data: Monster }
+    | { type: 'weapon'; data: Weapon }
+    | { type: 'item'; data: Item }
+    | { type: 'armor'; data: Armor }
+    | { type: 'skill'; data: Skill }
+    | null;
+
 // === Main Container ===
 export function MHWildsContainer() {
     const [activeCategory, setActiveCategory] = useState<Category>('monsters');
-    const [selectedMonster, setSelectedMonster] = useState<Monster | null>(null);
-    const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
-    const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-    const [selectedArmor, setSelectedArmor] = useState<Armor | null>(null);
-    const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+    const [detail, setDetail] = useState<DetailTarget>(null);
 
     const { data, currentData, loading, error, refetch } = useMHWildsData(activeCategory);
     const filters = useMHWildsFilters(activeCategory, currentData);
 
     const catMeta = CATEGORIES.find(c => c.key === activeCategory)!;
+    const closeDetail = () => setDetail(null);
 
     // === Content Renderer ===
     const renderContent = () => {
@@ -60,15 +69,15 @@ export function MHWildsContainer() {
 
         switch (activeCategory) {
             case 'monsters':
-                return <MonstersGrid monsters={filters.pagedData as Monster[]} onSelect={setSelectedMonster} groupBySpecies={filters.groupBySpecies} />;
+                return <MonstersGrid monsters={filters.pagedData as Monster[]} onSelect={d => setDetail({ type: 'monster', data: d })} groupBySpecies={filters.groupBySpecies} />;
             case 'weapons':
-                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType} onSelect={setSelectedWeapon} />;
+                return <WeaponsGrid weapons={filters.pagedData as Weapon[]} groupByType={filters.groupByWeaponType} onSelect={d => setDetail({ type: 'weapon', data: d })} />;
             case 'armor-sets':
-                return <ArmorSetsGrid sets={filters.pagedData as ArmorSet[]} onSelectArmor={setSelectedArmor} />;
+                return <ArmorSetsGrid sets={filters.pagedData as ArmorSet[]} onSelectArmor={d => setDetail({ type: 'armor', data: d })} />;
             case 'skills':
-                return <SkillsGrid skills={filters.pagedData as Skill[]} onSelect={setSelectedSkill} />;
+                return <SkillsGrid skills={filters.pagedData as Skill[]} onSelect={d => setDetail({ type: 'skill', data: d })} />;
             case 'items':
-                return <ItemsGrid items={filters.pagedData as Item[]} onSelect={setSelectedItem} />;
+                return <ItemsGrid items={filters.pagedData as Item[]} onSelect={d => setDetail({ type: 'item', data: d })} />;
             case 'decorations':
                 return <DecorationsGrid decorations={filters.pagedData as Decoration[]} />;
             case 'charms':
@@ -79,6 +88,18 @@ export function MHWildsContainer() {
                 return <AilmentsList ailments={filters.pagedData as Ailment[]} />;
             default:
                 return null;
+        }
+    };
+
+    // === Detail Drawer Renderer ===
+    const renderDetail = () => {
+        if (!detail) return null;
+        switch (detail.type) {
+            case 'monster': return <MonsterDetail monster={detail.data} onClose={closeDetail} />;
+            case 'weapon': return <WeaponDetail weapon={detail.data} onClose={closeDetail} />;
+            case 'item': return <ItemDetail item={detail.data} onClose={closeDetail} />;
+            case 'armor': return <ArmorDetail armor={detail.data} onClose={closeDetail} />;
+            case 'skill': return <SkillDetail skill={detail.data} onClose={closeDetail} />;
         }
     };
 
@@ -163,11 +184,7 @@ export function MHWildsContainer() {
 
                     {/* Filters */}
                     <div className="mb-5">
-                        <FilterControls
-                            activeCategory={activeCategory}
-                            filters={filters}
-                            currentData={currentData}
-                        />
+                        <FilterControls activeCategory={activeCategory} filters={filters} currentData={currentData} />
                     </div>
 
                     {renderContent()}
@@ -181,11 +198,7 @@ export function MHWildsContainer() {
                 </main>
             </div>
 
-            {selectedMonster && <MonsterDetail monster={selectedMonster} onClose={() => setSelectedMonster(null)} />}
-            {selectedWeapon && <WeaponDetail weapon={selectedWeapon} onClose={() => setSelectedWeapon(null)} />}
-            {selectedItem && <ItemDetail item={selectedItem} onClose={() => setSelectedItem(null)} />}
-            {selectedArmor && <ArmorDetail armor={selectedArmor} onClose={() => setSelectedArmor(null)} />}
-            {selectedSkill && <SkillDetail skill={selectedSkill} onClose={() => setSelectedSkill(null)} />}
+            {renderDetail()}
         </div>
     );
 }
