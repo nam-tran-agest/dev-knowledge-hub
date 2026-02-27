@@ -16,6 +16,7 @@ interface FilterControlsProps {
         monsterWeaknessFilter: string;
         setMonsterWeaknessFilter: (v: string) => void;
         monsterWeaknesses: string[];
+        monsterKinds: string[];
         groupBySpecies: boolean;
         setGroupBySpecies: (v: boolean) => void;
         weaponTypeFilter: string;
@@ -101,17 +102,21 @@ export function FilterControls({ activeCategory, currentData, filters: f }: Filt
             {/* Monster filters */}
             {activeCategory === 'monsters' && (
                 <>
-                    <FilterDropdown
-                        value={f.monsterKindFilter}
-                        onValueChange={f.setMonsterKindFilter}
-                        options={[
-                            { value: 'all', label: 'All Sizes' },
-                            { value: 'large', label: '🔴 Large' },
-                            { value: 'small', label: '⚪ Small' },
-                        ]}
-                        triggerClassName={`w-[130px] ${triggerCls}`}
-                        contentClassName={contentCls}
-                    />
+                    {f.monsterKinds.length > 1 && (
+                        <FilterDropdown
+                            value={f.monsterKindFilter}
+                            onValueChange={f.setMonsterKindFilter}
+                            options={[
+                                { value: 'all', label: 'All Sizes' },
+                                ...f.monsterKinds.map(k => ({
+                                    value: k,
+                                    label: k === 'large' ? '🔴 Large' : k === 'small' ? '⚪ Small' : `🟡 ${k.charAt(0).toUpperCase() + k.slice(1)}`
+                                }))
+                            ]}
+                            triggerClassName={`w-[130px] ${triggerCls}`}
+                            contentClassName={contentCls}
+                        />
+                    )}
 
                     <FilterDropdown
                         value={f.monsterWeaknessFilter}

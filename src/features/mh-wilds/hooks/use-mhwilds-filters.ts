@@ -36,31 +36,25 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
     const setGroupBySpecies = (v: boolean) => { _setGroupBySpecies(v); setPage(1); };
     const setGroupByWeaponType = (v: boolean) => { _setGroupByWeaponType(v); setPage(1); };
 
-    // Reset on category change
+    // Reset page on category change, but persist the user's filters
     useEffect(() => {
         setPage(1);
-        _setSearchQuery('');
-        _setWeaponTypeFilter('all');
-        _setSkillKindFilter('all');
-        _setDecoSlotFilter('all');
-        _setMonsterKindFilter('all');
-        _setMonsterWeaknessFilter('all');
-        _setWeaponElementFilter('all');
-        _setSortBy('name-asc');
     }, [activeCategory]);
 
     // Sort helper
-    const sortItems = useCallback(<T extends { name?: string; rarity?: number }>(items: T[]): T[] => {
-        return [...items].sort((a, b) => {
-            switch (_sortBy) {
-                case 'name-asc': return (a.name || '').localeCompare(b.name || '');
-                case 'name-desc': return (b.name || '').localeCompare(a.name || '');
-                case 'rarity-asc': return (a.rarity || 0) - (b.rarity || 0);
-                case 'rarity-desc': return (b.rarity || 0) - (a.rarity || 0);
-                default: return 0;
-            }
-        });
+    const compareItems = useCallback((a: any, b: any) => {
+        switch (_sortBy) {
+            case 'name-asc': return (a.name || '').localeCompare(b.name || '') || ((a.id || 0) - (b.id || 0));
+            case 'name-desc': return (b.name || '').localeCompare(a.name || '') || ((a.id || 0) - (b.id || 0));
+            case 'rarity-asc': return ((a.rarity || 0) - (b.rarity || 0)) || ((a.id || 0) - (b.id || 0));
+            case 'rarity-desc': return ((b.rarity || 0) - (a.rarity || 0)) || ((a.id || 0) - (b.id || 0));
+            default: return ((a.id || 0) - (b.id || 0));
+        }
     }, [_sortBy]);
+
+    const sortItems = useCallback(<T extends { name?: string; rarity?: number; id?: number }>(items: T[]): T[] => {
+        return [...items].sort(compareItems);
+    }, [compareItems]);
 
     // Derived filter options
     const weaponTypes = useMemo(() => {
@@ -94,6 +88,11 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
         return Array.from(eSet).sort();
     }, [currentData, activeCategory]);
 
+    const monsterKinds = useMemo(() => {
+        if (activeCategory !== 'monsters') return [];
+        return Array.from(new Set((currentData as Monster[]).map(m => m.kind).filter(Boolean))).sort();
+    }, [currentData, activeCategory]);
+
     // Filtered + sorted data
     const filteredData = useMemo(() => {
         const q = _searchQuery.toLowerCase();
@@ -101,7 +100,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
         switch (activeCategory) {
             case 'monsters': {
                 const filtered = (currentData as Monster[]).filter(m => {
-                    const matchesText = m.name.toLowerCase().includes(q) || m.species.toLowerCase().includes(q);
+                    const matchesText = (m.name || '').toLowerCase().includes(q) || (m.species || '').toLowerCase().includes(q);
                     const matchesKind = monsterKindFilter === 'all' || m.kind === monsterKindFilter;
                     if (!matchesText || !matchesKind) return false;
                     if (monsterWeaknessFilter !== 'all') {
@@ -115,14 +114,17 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
                     return filtered.sort((a, b) => {
                         const sa = SPECIES_LABELS[a.species] || a.species;
                         const sb = SPECIES_LABELS[b.species] || b.species;
-                        return sa.localeCompare(sb) || (a.id - b.id);
+                        const diff = sa.localeCompare(sb);
+                        if (diff !== 0) return diff;
+                        return compareItems(a, b);
                     });
                 }
                 return sortItems(filtered as (Monster & { rarity?: number })[]);
             }
             case 'weapons': {
                 const filtered = (currentData as Weapon[]).filter(w => {
-                    if (!w.name.toLowerCase().includes(q)) return false;
+                    const matchesText = (w.name || '').toLowerCase().includes(q);
+                    if (!matchesText) return false;
                     if (weaponTypeFilter !== 'all' && w.kind !== weaponTypeFilter) return false;
                     if (weaponElementFilter !== 'all') {
                         return w.specials?.some(s => s.element === weaponElementFilter || s.status === weaponElementFilter);
@@ -135,13 +137,14 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
                     return filtered.sort((a, b) => {
                         const ia = kindOrder.indexOf(a.kind);
                         const ib = kindOrder.indexOf(b.kind);
-                        return (ia - ib) || (a.id - b.id);
+                        if (ia !== ib) return ia - ib;
+                        return compareItems(a, b);
                     });
                 }
                 return sortItems(filtered);
             }
             case 'armor-sets': {
-                const filtered = (currentData as ArmorSet[]).filter(s => s.name.toLowerCase().includes(q));
+                const filtered = (currentData as ArmorSet[]).filter(s => (s.name || '').toLowerCase().includes(q));
                 // Sort by min rarity of pieces (low→high), then by ID to keep relationships
                 return filtered.sort((a, b) => {
                     const ra = Math.min(...(a.pieces?.map(p => p.rarity) || [99]));
@@ -150,9 +153,11 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
                 });
             }
             case 'skills': {
-                const filtered = (currentData as Skill[]).filter(s =>
-                    s.name.toLowerCase().includes(q) && (skillKindFilter === 'all' || s.kind === skillKindFilter)
-                );
+                const filtered = (currentData as Skill[]).filter(s => {
+                    const matchesText = (s.name || '').toLowerCase().includes(q) || (s.description || '').toLowerCase().includes(q);
+                    const matchesKind = skillKindFilter === 'all' || s.kind === skillKindFilter;
+                    return matchesText && matchesKind;
+                });
                 // Sort by kind group priority, then gameId/id
                 const kindOrder: Record<string, number> = { armor: 0, weapon: 1, 'set-bonus': 2, 'group-bonus': 3 };
                 return filtered.sort((a, b) => {
@@ -162,14 +167,16 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
                 });
             }
             case 'items': {
-                const filtered = (currentData as Item[]).filter(i => i.name.toLowerCase().includes(q));
+                const filtered = (currentData as Item[]).filter(i => (i.name || '').toLowerCase().includes(q));
                 // Sort by rarity low→high, then gameId/id to group related items
                 return filtered.sort((a, b) => (a.rarity - b.rarity) || ((a.gameId || a.id) - (b.gameId || b.id)));
             }
             case 'decorations': {
-                const filtered = (currentData as Decoration[]).filter(d =>
-                    d.name.toLowerCase().includes(q) && (decoSlotFilter === 'all' || String(d.slot) === decoSlotFilter)
-                );
+                const filtered = (currentData as Decoration[]).filter(d => {
+                    const matchesText = (d.name || '').toLowerCase().includes(q);
+                    const matchesSlot = decoSlotFilter === 'all' || String(d.slot) === decoSlotFilter;
+                    return matchesText && matchesSlot;
+                });
                 // Sort by slot ascending, then rarity, then gameId
                 return filtered.sort((a, b) => (a.slot - b.slot) || (a.rarity - b.rarity) || ((a.gameId || a.id) - (b.gameId || b.id)));
             }
@@ -190,7 +197,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
             default:
                 return currentData;
         }
-    }, [currentData, _searchQuery, activeCategory, weaponTypeFilter, weaponElementFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, monsterWeaknessFilter, _sortBy, sortItems, groupBySpecies, groupByWeaponType]);
+    }, [currentData, _searchQuery, activeCategory, weaponTypeFilter, weaponElementFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, monsterWeaknessFilter, _sortBy, sortItems, compareItems, groupBySpecies, groupByWeaponType]);
 
     const totalPages = Math.ceil(filteredData.length / PER_PAGE);
     const pagedData = filteredData.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -215,6 +222,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
 
         // Derived
         weaponTypes,
+        monsterKinds,
         monsterWeaknesses,
         weaponElements,
         filteredData,

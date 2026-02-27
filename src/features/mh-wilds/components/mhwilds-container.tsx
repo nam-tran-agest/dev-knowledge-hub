@@ -147,7 +147,9 @@ export function MHWildsContainer() {
                                 <span className={activeCategory === cat.key ? 'text-amber-500' : cat.color}>{cat.icon}</span>
                                 {cat.label}
                                 {data[cat.key] && (
-                                    <span className="ml-auto text-[10px] font-bold text-slate-600 bg-white/[0.10] rounded-full px-1.5 py-0.5">{(data[cat.key] as unknown[]).length}</span>
+                                    <span className="ml-auto text-[10px] font-bold text-slate-600 bg-white/[0.10] rounded-full px-1.5 py-0.5">
+                                        {activeCategory === cat.key ? filters.filteredData.length : (data[cat.key] as unknown[]).length}
+                                    </span>
                                 )}
                             </button>
                         ))}
