@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Monster } from '../types';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Heart, Swords } from 'lucide-react';
-import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS, getMonsterIconUrl } from '../constants';
+import { ELEMENT_COLORS, ELEMENT_ICONS, SPECIES_LABELS, CARD_CLS, getMonsterIconUrl } from '../constants';
 
 interface MonsterCardProps {
     monster: Monster;
@@ -20,7 +20,7 @@ export function MonsterCard({ monster, onClick }: MonsterCardProps) {
     return (
         <button
             onClick={() => onClick(monster)}
-            className="group text-left w-full bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5"
+            className={`group ${CARD_CLS} flex flex-col h-full`}
         >
             {/* Header */}
             <div className="p-5 pb-3">

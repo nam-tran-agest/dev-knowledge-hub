@@ -1,6 +1,6 @@
 import type { Decoration } from '../../types';
 import { RarityDots, GridLayout } from '../ui/shared';
-import { getDecorationIconUrl } from '../../constants';
+import { CARD_CLS, getDecorationIconUrl } from '../../constants';
 
 const slotDiamonds = (s: number) => '◆'.repeat(s) + '◇'.repeat(3 - s);
 
@@ -8,7 +8,7 @@ export function DecorationsGrid({ decorations }: { decorations: Decoration[] }) 
     return (
         <GridLayout>
             {decorations.map(deco => (
-                <div key={deco.id} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group flex flex-col h-full">
+                <div key={deco.id} className={`${CARD_CLS} p-4 group flex flex-col h-full`}>
                     <div className="flex items-start gap-3 mb-2 shrink-0">
                         <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
                             {/* eslint-disable-next-line @next/next/no-img-element */}

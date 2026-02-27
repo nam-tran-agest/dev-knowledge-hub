@@ -57,6 +57,19 @@ export const ELEMENT_RES_COLORS = {
     positive: 'text-emerald-400', negative: 'text-red-400', neutral: 'text-slate-600',
 };
 
+// ─── Skill Kind Colors ──────────────────────────────────────
+export const SKILL_KIND_COLORS: Record<string, string> = {
+    armor: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
+    weapon: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
+    'set-bonus': 'bg-purple-500/15 text-purple-400 border-purple-500/20',
+    'group-bonus': 'bg-cyan-500/15 text-cyan-400 border-cyan-500/20',
+};
+
+// ─── Glassmorphism Tokens ───────────────────────────────────
+export const PAGE_BG = 'bg-[#0c0e14]';
+export const CARD_CLS = 'bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-xl overflow-hidden hover:border-emerald-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10';
+export const STAT_BOX_CLS = 'bg-white/[0.10] backdrop-blur-sm rounded-lg';
+
 // ─── Sorting & Pagination ───────────────────────────────────
 export type SortOption = 'name-asc' | 'name-desc' | 'rarity-asc' | 'rarity-desc';
 

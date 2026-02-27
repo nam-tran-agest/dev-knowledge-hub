@@ -1,12 +1,13 @@
 import { MapPin } from 'lucide-react';
 import type { Location as MHLocation } from '../../types';
 import { GridLayout } from '../ui/shared';
+import { CARD_CLS } from '../../constants';
 
 export function LocationsList({ locations }: { locations: MHLocation[] }) {
     return (
         <GridLayout cols={2}>
             {locations.map(loc => (
-                <div key={loc.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all flex flex-col h-full">
+                <div key={loc.id} className={`${CARD_CLS} flex flex-col h-full`}>
                     {/* Location header with gradient */}
                     <div className="bg-gradient-to-r from-lime-600/10 to-emerald-600/5 p-5 border-b border-white/5 shrink-0">
                         <div className="flex items-start justify-between">

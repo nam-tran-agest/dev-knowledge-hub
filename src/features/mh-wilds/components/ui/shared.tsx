@@ -41,7 +41,7 @@ export function RarityDots({ rarity }: { rarity: number }) {
 // ─── Skeleton Loading ───────────────────────────────────────
 function SkeletonCard() {
     return (
-        <div className="bg-[#111114] border border-white/5 rounded-xl p-5 animate-pulse">
+        <div className="bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-xl p-5 animate-pulse">
             <div className="flex items-start gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-white/[0.06]" />
                 <div className="flex-1 space-y-2">
@@ -95,7 +95,7 @@ export function Pagination({ current, total, onChange }: { current: number; tota
     const end = Math.min(total, current + 2);
     for (let i = start; i <= end; i++) pages.push(i);
     const btnCls = 'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors';
-    const defCls = `${btnCls} bg-white/[0.03] border border-white/5 text-slate-400 hover:text-white hover:bg-white/[0.06]`;
+    const defCls = `${btnCls} bg-white/[0.08] border border-white/[0.12] text-slate-400 hover:text-white hover:bg-white/[0.14]`;
     return (
         <div className="flex items-center justify-center gap-1.5 pt-6 pb-2">
             <button disabled={current === 1} onClick={() => onChange(current - 1)} className={`${defCls} disabled:opacity-30 disabled:cursor-not-allowed`}>←</button>

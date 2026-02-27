@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { X, Sword, Package, Shield, Hammer, Star } from 'lucide-react';
+import { X, Sword, Package, Hammer, Star } from 'lucide-react';
 import type { Weapon, Item, Armor, Skill } from '../types';
-import { WEAPON_KIND_LABELS, getArmorKindIconUrl } from '../constants';
+import { WEAPON_KIND_LABELS, SKILL_KIND_COLORS, getArmorKindIconUrl } from '../constants';
 
 // Helper for the slide-over
 export function DrawerLayout({ title, icon, onClose, children, subtitle }: { title: string, icon: React.ReactNode, subtitle?: React.ReactNode, onClose: () => void, children: React.ReactNode }) {
@@ -21,8 +21,8 @@ export function DrawerLayout({ title, icon, onClose, children, subtitle }: { tit
     return (
         <div className="fixed inset-0 z-50 flex items-start justify-end">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-            <div className="relative h-full w-full max-w-xl bg-[#0a0a0c] border-l border-white/5 overflow-y-auto animate-in slide-in-from-right duration-300">
-                <div className="sticky top-0 z-10 bg-[#0a0a0c]/95 backdrop-blur-md border-b border-white/5 p-6 flex items-start justify-between">
+            <div className="relative h-full w-full max-w-xl bg-[#0c0e14]/95 backdrop-blur-xl border-l border-white/[0.12] overflow-y-auto animate-in slide-in-from-right duration-300">
+                <div className="sticky top-0 z-10 bg-[#0c0e14]/90 backdrop-blur-xl border-b border-white/[0.12] p-6 flex items-start justify-between">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center">
                             {icon}
@@ -354,20 +354,13 @@ export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => v
 }
 
 // === Skill Detail ===
-const skillKindColors: Record<string, string> = {
-    armor: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
-    weapon: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
-    'set-bonus': 'bg-purple-500/15 text-purple-400 border-purple-500/20',
-    'group-bonus': 'bg-cyan-500/15 text-cyan-400 border-cyan-500/20',
-};
-
 export function SkillDetail({ skill, onClose }: { skill: Skill; onClose: () => void }) {
     return (
         <DrawerLayout
             title={skill.name}
             icon={<Star className="w-6 h-6 text-yellow-400" />}
             subtitle={
-                <span className={`text-[10px] rounded px-1.5 py-0.5 font-bold border capitalize ${skillKindColors[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
+                <span className={`text-[10px] rounded px-1.5 py-0.5 font-bold border capitalize ${SKILL_KIND_COLORS[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
                     {skill.kind.replace('-', ' ')}
                 </span>
             }

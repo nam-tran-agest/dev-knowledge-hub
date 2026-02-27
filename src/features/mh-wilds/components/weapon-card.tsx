@@ -1,6 +1,6 @@
 import type { Weapon, Sharpness } from '../types';
 import { Badge } from '@/components/ui/badge';
-import { ELEMENT_COLORS, ELEMENT_ICONS, WEAPON_KIND_LABELS, RARITY_TEXT_COLORS, getWeaponIconUrl } from '../constants';
+import { ELEMENT_COLORS, ELEMENT_ICONS, WEAPON_KIND_LABELS, RARITY_TEXT_COLORS, CARD_CLS, STAT_BOX_CLS, getWeaponIconUrl } from '../constants';
 
 function SharpnessBar({ sharpness }: { sharpness: Sharpness }) {
     const total = Object.values(sharpness).reduce((sum, val) => sum + val, 0);
@@ -38,7 +38,7 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
 
     return (
         <div
-            className={`bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5 ${onClick ? 'cursor-pointer' : ''}`}
+            className={`${CARD_CLS} ${onClick ? 'cursor-pointer' : ''}`}
             onClick={() => onClick?.(weapon)}
         >
             <div className="p-5">
@@ -56,17 +56,17 @@ export function WeaponCard({ weapon, onClick }: { weapon: Weapon; onClick?: (w: 
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 mb-3">
-                    <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
+                    <div className={`${STAT_BOX_CLS} px-3 py-2 text-center`}>
                         <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Attack</p>
                         <p className="text-base font-bold text-white mt-0.5">{weapon.damage.display}</p>
                     </div>
-                    <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
+                    <div className={`${STAT_BOX_CLS} px-3 py-2 text-center`}>
                         <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Affinity</p>
                         <p className={`text-base font-bold mt-0.5 ${weapon.affinity > 0 ? 'text-emerald-400' : weapon.affinity < 0 ? 'text-red-400' : 'text-slate-400'}`}>
                             {weapon.affinity > 0 ? '+' : ''}{weapon.affinity}%
                         </p>
                     </div>
-                    <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
+                    <div className={`${STAT_BOX_CLS} px-3 py-2 text-center`}>
                         <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Slots</p>
                         <p className="text-base font-bold text-white mt-0.5">
                             {weapon.slots.length > 0 ? weapon.slots.map(s => `[${s}]`).join('') : '—'}

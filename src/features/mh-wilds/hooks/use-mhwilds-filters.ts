@@ -24,8 +24,6 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
     const [groupBySpecies, setGroupBySpecies] = useState(true);
     const [groupByWeaponType, setGroupByWeaponType] = useState(true);
 
-
-
     // Reset on category change
     useEffect(() => {
         setPage(1);
@@ -185,8 +183,6 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
     const totalPages = Math.ceil(filteredData.length / PER_PAGE);
     const pagedData = filteredData.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-
-
     return {
         // Search & Sort
         searchQuery, setSearchQuery,
@@ -204,8 +200,6 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
         // Grouping
         groupBySpecies, setGroupBySpecies,
         groupByWeaponType, setGroupByWeaponType,
-
-
 
         // Derived
         weaponTypes,

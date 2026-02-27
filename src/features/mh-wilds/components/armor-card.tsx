@@ -1,6 +1,6 @@
 import type { Armor } from '../types';
 import { Badge } from '@/components/ui/badge';
-import { ELEMENT_RES_COLORS, getArmorKindIconUrl } from '../constants';
+import { ELEMENT_RES_COLORS, CARD_CLS, STAT_BOX_CLS, getArmorKindIconUrl } from '../constants';
 
 interface ArmorCardProps {
     armor: Armor;
@@ -18,7 +18,7 @@ export function ArmorCard({ armor, onClick }: ArmorCardProps) {
 
     return (
         <div
-            className={`bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5 ${onClick ? 'cursor-pointer' : ''}`}
+            className={`${CARD_CLS} ${onClick ? 'cursor-pointer' : ''}`}
             onClick={() => onClick?.(armor)}
         >
             <div className="p-5">
@@ -41,11 +41,11 @@ export function ArmorCard({ armor, onClick }: ArmorCardProps) {
 
                 {/* Defense stats */}
                 <div className="grid grid-cols-2 gap-2 mb-3">
-                    <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
+                    <div className={`${STAT_BOX_CLS} px-3 py-2 text-center`}>
                         <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Defense</p>
                         <p className="text-base font-bold text-white mt-0.5">{armor.defense.base}</p>
                     </div>
-                    <div className="bg-white/[0.03] rounded-lg px-3 py-2 text-center">
+                    <div className={`${STAT_BOX_CLS} px-3 py-2 text-center`}>
                         <p className="text-xs text-slate-600 uppercase tracking-widest font-bold">Max Def</p>
                         <p className="text-base font-bold text-white mt-0.5">{armor.defense.max}</p>
                     </div>

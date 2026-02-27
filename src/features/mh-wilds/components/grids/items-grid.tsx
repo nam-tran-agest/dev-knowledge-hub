@@ -1,6 +1,7 @@
 import { Package } from 'lucide-react';
 import type { Item } from '../../types';
 import { RarityDots, GridLayout } from '../ui/shared';
+import { CARD_CLS } from '../../constants';
 
 interface ItemsGridProps {
     items: Item[];
@@ -24,7 +25,7 @@ export function ItemsGrid({ items, onSelect }: ItemsGridProps) {
             {items.map(item => {
                 const iconColor = iconColorMap[item.icon?.color || ''] || 'bg-white/5 border-white/10 text-slate-400';
                 return (
-                    <div key={item.id} onClick={() => onSelect(item)} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all group cursor-pointer flex flex-col h-full">
+                    <div key={item.id} className={`${CARD_CLS} p-4 group flex flex-col h-full cursor-pointer`} onClick={() => onSelect(item)}>
                         <div className="flex items-start gap-3 mb-2 shrink-0">
                             <div className={`w-10 h-10 rounded-lg border flex items-center justify-center shrink-0 ${iconColor}`}>
                                 <Package className="w-5 h-5" />

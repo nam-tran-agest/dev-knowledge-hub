@@ -83,7 +83,10 @@ export function MHWildsContainer() {
     };
 
     return (
-        <div className="min-h-screen bg-[#09090b] pt-18">
+        <div
+            className="min-h-screen pt-18 text-white"
+            style={{ background: 'linear-gradient(135deg, #0f1923 0%, #0c1018 25%, #101520 50%, #0e1a1f 75%, #0f1923 100%)' }}
+        >
             {/* Header */}
             <div className="border-b border-white/5 bg-gradient-to-r from-emerald-600/5 via-transparent to-purple-600/5">
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-5">
@@ -100,7 +103,7 @@ export function MHWildsContainer() {
 
             <div className="max-w-[1400px] mx-auto flex">
                 {/* Sidebar */}
-                <aside className="hidden md:block w-56 shrink-0 border-r border-white/5 sticky top-0 h-screen overflow-y-auto py-4 px-2">
+                <aside className="hidden md:block w-56 shrink-0 border-r border-white/[0.12] sticky top-0 h-screen overflow-y-auto py-4 px-2 bg-white/[0.04] backdrop-blur-md">
                     <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold px-3 mb-2">Database</p>
                     <nav className="space-y-0.5">
                         {CATEGORIES.map(cat => (
@@ -115,7 +118,7 @@ export function MHWildsContainer() {
                                 <span className={activeCategory === cat.key ? 'text-emerald-400' : cat.color}>{cat.icon}</span>
                                 {cat.label}
                                 {data[cat.key] && (
-                                    <span className="ml-auto text-[10px] font-bold text-slate-600 bg-white/[0.03] rounded-full px-1.5 py-0.5">{(data[cat.key] as unknown[]).length}</span>
+                                    <span className="ml-auto text-[10px] font-bold text-slate-600 bg-white/[0.10] rounded-full px-1.5 py-0.5">{(data[cat.key] as unknown[]).length}</span>
                                 )}
                             </button>
                         ))}
@@ -123,7 +126,7 @@ export function MHWildsContainer() {
                 </aside>
 
                 {/* Mobile bottom bar */}
-                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#09090b]/95 backdrop-blur-md border-t border-white/5 overflow-x-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0c0e14]/90 backdrop-blur-xl border-t border-white/[0.12] overflow-x-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className="flex gap-1 px-2 py-2">
                         {CATEGORIES.map(cat => (
                             <button key={cat.key} onClick={() => setActiveCategory(cat.key)}
@@ -154,7 +157,7 @@ export function MHWildsContainer() {
                             placeholder={`Search ${catMeta.label.toLowerCase()}...`}
                             value={filters.searchQuery}
                             onChange={e => { filters.setSearchQuery(e.target.value); filters.setPage(1); }}
-                            className="pl-10 bg-white/[0.03] border-white/5 text-white placeholder:text-slate-600 focus-visible:ring-emerald-500/30"
+                            className="pl-10 bg-white/[0.08] border-white/[0.12] text-white placeholder:text-slate-600 focus-visible:ring-emerald-500/30"
                         />
                     </div>
 
@@ -162,29 +165,8 @@ export function MHWildsContainer() {
                     <div className="mb-5">
                         <FilterControls
                             activeCategory={activeCategory}
+                            filters={filters}
                             currentData={currentData}
-                            sortBy={filters.sortBy}
-                            setSortBy={filters.setSortBy}
-                            setPage={filters.setPage}
-                            monsterKindFilter={filters.monsterKindFilter}
-                            setMonsterKindFilter={filters.setMonsterKindFilter}
-                            monsterWeaknessFilter={filters.monsterWeaknessFilter}
-                            setMonsterWeaknessFilter={filters.setMonsterWeaknessFilter}
-                            monsterWeaknesses={filters.monsterWeaknesses}
-                            groupBySpecies={filters.groupBySpecies}
-                            setGroupBySpecies={filters.setGroupBySpecies}
-                            weaponTypeFilter={filters.weaponTypeFilter}
-                            setWeaponTypeFilter={filters.setWeaponTypeFilter}
-                            weaponElementFilter={filters.weaponElementFilter}
-                            setWeaponElementFilter={filters.setWeaponElementFilter}
-                            weaponTypes={filters.weaponTypes}
-                            weaponElements={filters.weaponElements}
-                            groupByWeaponType={filters.groupByWeaponType}
-                            setGroupByWeaponType={filters.setGroupByWeaponType}
-                            skillKindFilter={filters.skillKindFilter}
-                            setSkillKindFilter={filters.setSkillKindFilter}
-                            decoSlotFilter={filters.decoSlotFilter}
-                            setDecoSlotFilter={filters.setDecoSlotFilter}
                         />
                     </div>
 

@@ -1,75 +1,82 @@
 import { ArrowUpDown } from 'lucide-react';
 import type { Weapon } from '../../types';
 import { SORT_OPTIONS, WEAPON_KIND_LABELS, type SortOption } from '../../constants';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { Category } from '../../hooks/use-mhwilds-filters';
 
 interface FilterControlsProps {
     activeCategory: Category;
-    sortBy: SortOption;
-    setSortBy: (v: SortOption) => void;
-    setPage: (p: number) => void;
     currentData: unknown[];
-    // Monster filters
-    monsterKindFilter: string;
-    setMonsterKindFilter: (v: string) => void;
-    monsterWeaknessFilter: string;
-    setMonsterWeaknessFilter: (v: string) => void;
-    monsterWeaknesses: string[];
-    groupBySpecies: boolean;
-    setGroupBySpecies: (v: boolean) => void;
-    // Weapon filters
-    weaponTypeFilter: string;
-    setWeaponTypeFilter: (v: string) => void;
-    weaponElementFilter: string;
-    setWeaponElementFilter: (v: string) => void;
-    weaponTypes: string[];
-    weaponElements: string[];
-    groupByWeaponType: boolean;
-    setGroupByWeaponType: (v: boolean) => void;
-    // Skill filter
-    skillKindFilter: string;
-    setSkillKindFilter: (v: string) => void;
-    // Deco filter
-    decoSlotFilter: string;
-    setDecoSlotFilter: (v: string) => void;
+    filters: {
+        sortBy: SortOption;
+        setSortBy: (v: SortOption) => void;
+        setPage: (p: number) => void;
+        monsterKindFilter: string;
+        setMonsterKindFilter: (v: string) => void;
+        monsterWeaknessFilter: string;
+        setMonsterWeaknessFilter: (v: string) => void;
+        monsterWeaknesses: string[];
+        groupBySpecies: boolean;
+        setGroupBySpecies: (v: boolean) => void;
+        weaponTypeFilter: string;
+        setWeaponTypeFilter: (v: string) => void;
+        weaponElementFilter: string;
+        setWeaponElementFilter: (v: string) => void;
+        weaponTypes: string[];
+        weaponElements: string[];
+        groupByWeaponType: boolean;
+        setGroupByWeaponType: (v: boolean) => void;
+        skillKindFilter: string;
+        setSkillKindFilter: (v: string) => void;
+        decoSlotFilter: string;
+        setDecoSlotFilter: (v: string) => void;
+    };
 }
 
-export function FilterControls(props: FilterControlsProps) {
-    const {
-        activeCategory, sortBy, setSortBy, setPage, currentData,
-        monsterKindFilter, setMonsterKindFilter, monsterWeaknessFilter, setMonsterWeaknessFilter,
-        monsterWeaknesses, groupBySpecies, setGroupBySpecies,
-        weaponTypeFilter, setWeaponTypeFilter, weaponElementFilter, setWeaponElementFilter,
-        weaponTypes, weaponElements, groupByWeaponType, setGroupByWeaponType,
-        skillKindFilter, setSkillKindFilter,
-        decoSlotFilter, setDecoSlotFilter,
-    } = props;
+const triggerCls = 'h-9 bg-white/[0.08] border-white/[0.12] text-slate-300 text-sm focus:ring-emerald-500/30 [&>svg]:text-slate-500';
+const contentProps = { className: 'bg-[#161b24] border-white/[0.12] backdrop-blur-xl', side: 'bottom' as const, sideOffset: 4 };
+const itemCls = 'text-slate-300 focus:bg-emerald-500/15 focus:text-emerald-300';
+const toggleCls = (active: boolean) => `text-xs px-3 py-2 rounded-lg border transition-colors font-medium cursor-pointer ${active ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-white/[0.08] text-slate-400 border-white/[0.12] hover:text-white'}`;
 
+export function FilterControls({ activeCategory, currentData, filters: f }: FilterControlsProps) {
     return (
         <div className="flex flex-wrap gap-2">
-            {/* Sort dropdown — always visible */}
-            <div className="flex items-center gap-1.5 bg-white/[0.03] border border-white/5 rounded-lg px-2">
-                <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" />
-                <select value={sortBy} onChange={e => { setSortBy(e.target.value as SortOption); setPage(1); }} className="bg-transparent text-sm text-slate-300 py-2 focus:outline-none cursor-pointer">
-                    {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
-            </div>
+            {/* Sort */}
+            <Select value={f.sortBy} onValueChange={(v) => { f.setSortBy(v as SortOption); f.setPage(1); }}>
+                <SelectTrigger className={`w-[140px] ${triggerCls}`}>
+                    <ArrowUpDown className="w-3.5 h-3.5 mr-1 shrink-0" />
+                    <SelectValue />
+                </SelectTrigger>
+                <SelectContent {...contentProps}>
+                    {SORT_OPTIONS.map(o => <SelectItem key={o.value} value={o.value} className={itemCls}>{o.label}</SelectItem>)}
+                </SelectContent>
+            </Select>
 
             {/* Monster filters */}
             {activeCategory === 'monsters' && (
                 <>
-                    <select value={monsterKindFilter} onChange={e => { setMonsterKindFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30">
-                        <option value="all">All Sizes</option>
-                        <option value="large">🔴 Large</option>
-                        <option value="small">⚪ Small</option>
-                    </select>
-                    <select value={monsterWeaknessFilter} onChange={e => { setMonsterWeaknessFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 capitalize">
-                        <option value="all">Any Weakness</option>
-                        {monsterWeaknesses.map(w => (
-                            <option key={w} value={w}>{w}</option>
-                        ))}
-                    </select>
-                    <button onClick={() => setGroupBySpecies(!groupBySpecies)} className={`text-xs px-3 py-2 rounded-lg border transition-colors font-medium ${groupBySpecies ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-white/[0.03] text-slate-400 border-white/5'}`}>
+                    <Select value={f.monsterKindFilter} onValueChange={(v) => { f.setMonsterKindFilter(v); f.setPage(1); }}>
+                        <SelectTrigger className={`w-[130px] ${triggerCls}`}>
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent {...contentProps}>
+                            <SelectItem value="all" className={itemCls}>All Sizes</SelectItem>
+                            <SelectItem value="large" className={itemCls}>🔴 Large</SelectItem>
+                            <SelectItem value="small" className={itemCls}>⚪ Small</SelectItem>
+                        </SelectContent>
+                    </Select>
+
+                    <Select value={f.monsterWeaknessFilter} onValueChange={(v) => { f.setMonsterWeaknessFilter(v); f.setPage(1); }}>
+                        <SelectTrigger className={`w-[160px] ${triggerCls} capitalize`}>
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent {...contentProps}>
+                            <SelectItem value="all" className={itemCls}>Any Weakness</SelectItem>
+                            {f.monsterWeaknesses.map(w => <SelectItem key={w} value={w} className={`${itemCls} capitalize`}>{w}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+
+                    <button onClick={() => f.setGroupBySpecies(!f.groupBySpecies)} className={toggleCls(f.groupBySpecies)}>
                         Group by Species
                     </button>
                 </>
@@ -78,19 +85,29 @@ export function FilterControls(props: FilterControlsProps) {
             {/* Weapon filters */}
             {activeCategory === 'weapons' && (
                 <>
-                    {weaponTypes.length > 0 && (
-                        <select value={weaponTypeFilter} onChange={e => { setWeaponTypeFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30">
-                            <option value="all">All Types ({(currentData as Weapon[]).length})</option>
-                            {weaponTypes.map(t => <option key={t} value={t}>{WEAPON_KIND_LABELS[t] || t}</option>)}
-                        </select>
+                    {f.weaponTypes.length > 0 && (
+                        <Select value={f.weaponTypeFilter} onValueChange={(v) => { f.setWeaponTypeFilter(v); f.setPage(1); }}>
+                            <SelectTrigger className={`w-[180px] ${triggerCls}`}>
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent {...contentProps}>
+                                <SelectItem value="all" className={itemCls}>All Types ({(currentData as Weapon[]).length})</SelectItem>
+                                {f.weaponTypes.map(t => <SelectItem key={t} value={t} className={itemCls}>{WEAPON_KIND_LABELS[t] || t}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
                     )}
-                    <select value={weaponElementFilter} onChange={e => { setWeaponElementFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 capitalize">
-                        <option value="all">Any Element/Status</option>
-                        {weaponElements.map(e => (
-                            <option key={e} value={e}>{e}</option>
-                        ))}
-                    </select>
-                    <button onClick={() => setGroupByWeaponType(!groupByWeaponType)} className={`text-xs px-3 py-2 rounded-lg border transition-colors font-medium ${groupByWeaponType ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-white/[0.03] text-slate-400 border-white/5'}`}>
+
+                    <Select value={f.weaponElementFilter} onValueChange={(v) => { f.setWeaponElementFilter(v); f.setPage(1); }}>
+                        <SelectTrigger className={`w-[180px] ${triggerCls} capitalize`}>
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent {...contentProps}>
+                            <SelectItem value="all" className={itemCls}>Any Element/Status</SelectItem>
+                            {f.weaponElements.map(e => <SelectItem key={e} value={e} className={`${itemCls} capitalize`}>{e}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+
+                    <button onClick={() => f.setGroupByWeaponType(!f.groupByWeaponType)} className={toggleCls(f.groupByWeaponType)}>
                         Group by Type
                     </button>
                 </>
@@ -98,23 +115,33 @@ export function FilterControls(props: FilterControlsProps) {
 
             {/* Skill filter */}
             {activeCategory === 'skills' && (
-                <select value={skillKindFilter} onChange={e => { setSkillKindFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30">
-                    <option value="all">All Kinds</option>
-                    <option value="armor">🛡 Armor</option>
-                    <option value="weapon">⚔ Weapon</option>
-                    <option value="set-bonus">💎 Set Bonus</option>
-                    <option value="group-bonus">👥 Group Bonus</option>
-                </select>
+                <Select value={f.skillKindFilter} onValueChange={(v) => { f.setSkillKindFilter(v); f.setPage(1); }}>
+                    <SelectTrigger className={`w-[160px] ${triggerCls}`}>
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent {...contentProps}>
+                        <SelectItem value="all" className={itemCls}>All Kinds</SelectItem>
+                        <SelectItem value="armor" className={itemCls}>🛡 Armor</SelectItem>
+                        <SelectItem value="weapon" className={itemCls}>⚔ Weapon</SelectItem>
+                        <SelectItem value="set-bonus" className={itemCls}>💎 Set Bonus</SelectItem>
+                        <SelectItem value="group-bonus" className={itemCls}>👥 Group Bonus</SelectItem>
+                    </SelectContent>
+                </Select>
             )}
 
             {/* Deco filter */}
             {activeCategory === 'decorations' && (
-                <select value={decoSlotFilter} onChange={e => { setDecoSlotFilter(e.target.value); setPage(1); }} className="bg-white/[0.03] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-emerald-500/30">
-                    <option value="all">All Slots</option>
-                    <option value="1">◆ Slot [1]</option>
-                    <option value="2">◆◆ Slot [2]</option>
-                    <option value="3">◆◆◆ Slot [3]</option>
-                </select>
+                <Select value={f.decoSlotFilter} onValueChange={(v) => { f.setDecoSlotFilter(v); f.setPage(1); }}>
+                    <SelectTrigger className={`w-[140px] ${triggerCls}`}>
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent {...contentProps}>
+                        <SelectItem value="all" className={itemCls}>All Slots</SelectItem>
+                        <SelectItem value="1" className={itemCls}>◆ Slot [1]</SelectItem>
+                        <SelectItem value="2" className={itemCls}>◆◆ Slot [2]</SelectItem>
+                        <SelectItem value="3" className={itemCls}>◆◆◆ Slot [3]</SelectItem>
+                    </SelectContent>
+                </Select>
             )}
         </div>
     );

@@ -1,12 +1,13 @@
 import { Skull } from 'lucide-react';
 import type { Ailment } from '../../types';
 import { GridLayout } from '../ui/shared';
+import { CARD_CLS } from '../../constants';
 
 export function AilmentsList({ ailments }: { ailments: Ailment[] }) {
     return (
         <GridLayout cols={2}>
             {ailments.map(ail => (
-                <div key={ail.id} className="bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all flex flex-col h-full">
+                <div key={ail.id} className={`${CARD_CLS} flex flex-col h-full`}>
                     <div className="p-5 flex flex-col h-full">
                         <div className="flex items-center gap-3 mb-3 shrink-0">
                             <div className="w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import type { Charm } from '../../types';
 import { GridLayout } from '../ui/shared';
-import { getCharmIconUrl } from '../../constants';
+import { CARD_CLS, getCharmIconUrl } from '../../constants';
 
 export function CharmsList({ charms }: { charms: Charm[] }) {
     const groupedCharms = useMemo(() => {
@@ -31,7 +31,7 @@ export function CharmsList({ charms }: { charms: Charm[] }) {
             {groupedCharms.map((group) => {
                 const maxRank = group.allRanks[group.allRanks.length - 1];
                 return (
-                    <div key={group.baseName} className="bg-[#111114] border border-white/5 rounded-xl p-4 hover:border-emerald-500/30 transition-all card-group cursor-pointer flex flex-col h-full">
+                    <div key={group.baseName} className={`${CARD_CLS} p-4 flex flex-col h-full group`}>
                         <div className="flex items-start gap-3 mb-3 shrink-0">
                             <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}

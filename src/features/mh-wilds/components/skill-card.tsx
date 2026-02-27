@@ -1,19 +1,13 @@
 import type { Skill } from '../types';
 import { Star } from 'lucide-react';
-
-const kindColors: Record<string, string> = {
-    armor: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
-    weapon: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
-    'set-bonus': 'bg-purple-500/15 text-purple-400 border-purple-500/20',
-    'group-bonus': 'bg-cyan-500/15 text-cyan-400 border-cyan-500/20',
-};
+import { CARD_CLS, SKILL_KIND_COLORS } from '../constants';
 
 export function SkillCard({ skill, onClick }: { skill: Skill; onClick?: (s: Skill) => void }) {
     const maxLevel = skill.ranks.length;
 
     return (
         <div
-            className={`bg-[#111114] border border-white/5 rounded-xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5 ${onClick ? 'cursor-pointer' : ''}`}
+            className={`${CARD_CLS} ${onClick ? 'cursor-pointer' : ''}`}
             onClick={() => onClick?.(skill)}
         >
             <div className="p-5">
@@ -24,7 +18,7 @@ export function SkillCard({ skill, onClick }: { skill: Skill; onClick?: (s: Skil
                         </div>
                         <div className="flex-1 min-w-0">
                             <h3 className="text-lg font-bold text-white truncate">{skill.name}</h3>
-                            <span className={`text-xs rounded px-1.5 py-0.5 font-bold border capitalize ${kindColors[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
+                            <span className={`text-xs rounded px-1.5 py-0.5 font-bold border capitalize ${SKILL_KIND_COLORS[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
                                 {skill.kind.replace('-', ' ')}
                             </span>
                         </div>
