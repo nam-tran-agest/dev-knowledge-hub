@@ -22,7 +22,7 @@ export function SkillDetail({ skill, onClose }: { skill: Skill; onClose: () => v
                     {skill.ranks.map((r, i) => (
                         <div key={r.id} className="relative flex items-start gap-4">
                             <div className="relative z-10 w-[10px] h-[10px] rounded-full bg-emerald-500 border-[3px] border-[#0a0a0c] mt-1.5 shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-                            <div className="flex-1 min-w-0 bg-white/[0.04] border border-white/[0.08] rounded-lg p-3 hover:bg-white/[0.06] transition-colors">
+                            <div className="flex-1 min-w-0 bg-[#1c1816]/60 border border-[#c8a97e]/15 rounded-lg p-3 hover:bg-[#c8a97e]/10 transition-colors">
                                 <div className="flex items-center gap-2 mb-1">
                                     <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Level {r.level}</span>
                                     {i === skill.ranks.length - 1 && (

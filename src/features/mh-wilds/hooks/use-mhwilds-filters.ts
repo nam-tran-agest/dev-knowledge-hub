@@ -8,39 +8,51 @@ import type { Category } from './use-mhwilds-data';
 export type { Category };
 
 export function useMHWildsFilters(activeCategory: Category, currentData: unknown[]) {
-    const [searchQuery, setSearchQuery] = useState('');
+    const [_searchQuery, _setSearchQuery] = useState('');
     const [page, setPage] = useState(1);
-    const [sortBy, setSortBy] = useState<SortOption>('name-asc');
+    const [_sortBy, _setSortBy] = useState<SortOption>('name-asc');
 
     // Category-specific filters
-    const [weaponTypeFilter, setWeaponTypeFilter] = useState('all');
-    const [weaponElementFilter, setWeaponElementFilter] = useState('all');
-    const [skillKindFilter, setSkillKindFilter] = useState('all');
-    const [decoSlotFilter, setDecoSlotFilter] = useState('all');
-    const [monsterKindFilter, setMonsterKindFilter] = useState('all');
-    const [monsterWeaknessFilter, setMonsterWeaknessFilter] = useState('all');
+    const [weaponTypeFilter, _setWeaponTypeFilter] = useState('all');
+    const [weaponElementFilter, _setWeaponElementFilter] = useState('all');
+    const [skillKindFilter, _setSkillKindFilter] = useState('all');
+    const [decoSlotFilter, _setDecoSlotFilter] = useState('all');
+    const [monsterKindFilter, _setMonsterKindFilter] = useState('all');
+    const [monsterWeaknessFilter, _setMonsterWeaknessFilter] = useState('all');
 
     // Grouping toggles
-    const [groupBySpecies, setGroupBySpecies] = useState(true);
-    const [groupByWeaponType, setGroupByWeaponType] = useState(true);
+    const [groupBySpecies, _setGroupBySpecies] = useState(true);
+    const [groupByWeaponType, _setGroupByWeaponType] = useState(true);
+
+    // Filter wrappers that auto-reset pagination
+    const setSearchQuery = (v: string) => { _setSearchQuery(v); setPage(1); };
+    const setSortBy = (v: SortOption) => { _setSortBy(v); setPage(1); };
+    const setWeaponTypeFilter = (v: string) => { _setWeaponTypeFilter(v); setPage(1); };
+    const setWeaponElementFilter = (v: string) => { _setWeaponElementFilter(v); setPage(1); };
+    const setSkillKindFilter = (v: string) => { _setSkillKindFilter(v); setPage(1); };
+    const setDecoSlotFilter = (v: string) => { _setDecoSlotFilter(v); setPage(1); };
+    const setMonsterKindFilter = (v: string) => { _setMonsterKindFilter(v); setPage(1); };
+    const setMonsterWeaknessFilter = (v: string) => { _setMonsterWeaknessFilter(v); setPage(1); };
+    const setGroupBySpecies = (v: boolean) => { _setGroupBySpecies(v); setPage(1); };
+    const setGroupByWeaponType = (v: boolean) => { _setGroupByWeaponType(v); setPage(1); };
 
     // Reset on category change
     useEffect(() => {
         setPage(1);
-        setSearchQuery('');
-        setWeaponTypeFilter('all');
-        setSkillKindFilter('all');
-        setDecoSlotFilter('all');
-        setMonsterKindFilter('all');
-        setMonsterWeaknessFilter('all');
-        setWeaponElementFilter('all');
-        setSortBy('name-asc');
+        _setSearchQuery('');
+        _setWeaponTypeFilter('all');
+        _setSkillKindFilter('all');
+        _setDecoSlotFilter('all');
+        _setMonsterKindFilter('all');
+        _setMonsterWeaknessFilter('all');
+        _setWeaponElementFilter('all');
+        _setSortBy('name-asc');
     }, [activeCategory]);
 
     // Sort helper
     const sortItems = useCallback(<T extends { name?: string; rarity?: number }>(items: T[]): T[] => {
         return [...items].sort((a, b) => {
-            switch (sortBy) {
+            switch (_sortBy) {
                 case 'name-asc': return (a.name || '').localeCompare(b.name || '');
                 case 'name-desc': return (b.name || '').localeCompare(a.name || '');
                 case 'rarity-asc': return (a.rarity || 0) - (b.rarity || 0);
@@ -48,7 +60,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
                 default: return 0;
             }
         });
-    }, [sortBy]);
+    }, [_sortBy]);
 
     // Derived filter options
     const weaponTypes = useMemo(() => {
@@ -84,7 +96,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
 
     // Filtered + sorted data
     const filteredData = useMemo(() => {
-        const q = searchQuery.toLowerCase();
+        const q = _searchQuery.toLowerCase();
 
         switch (activeCategory) {
             case 'monsters': {
@@ -178,15 +190,15 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
             default:
                 return currentData;
         }
-    }, [currentData, searchQuery, activeCategory, weaponTypeFilter, weaponElementFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, monsterWeaknessFilter, sortBy, sortItems, groupBySpecies, groupByWeaponType]);
+    }, [currentData, _searchQuery, activeCategory, weaponTypeFilter, weaponElementFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, monsterWeaknessFilter, _sortBy, sortItems, groupBySpecies, groupByWeaponType]);
 
     const totalPages = Math.ceil(filteredData.length / PER_PAGE);
     const pagedData = filteredData.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
     return {
         // Search & Sort
-        searchQuery, setSearchQuery,
-        sortBy, setSortBy,
+        searchQuery: _searchQuery, setSearchQuery,
+        sortBy: _sortBy, setSortBy,
         page, setPage,
 
         // Category-specific filters

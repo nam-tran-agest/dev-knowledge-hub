@@ -56,7 +56,7 @@ export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => v
             <Section title="Elemental Resistances">
                 <div className="grid grid-cols-5 gap-2">
                     {resEntries.map(res => (
-                        <div key={res.key} className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-3 text-center">
+                        <div key={res.key} className="bg-[#1c1816]/60 border border-[#c8a97e]/15 rounded-lg p-3 text-center">
                             <span className="text-lg">{res.icon}</span>
                             <p className={`text-sm font-bold mt-1 ${res.value > 0 ? 'text-emerald-400' : res.value < 0 ? 'text-red-400' : 'text-slate-600'}`}>
                                 {res.value > 0 ? '+' : ''}{res.value}
@@ -72,7 +72,7 @@ export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => v
                 <Section title="Skills">
                     <div className="space-y-2">
                         {armor.skills.map(s => (
-                            <div key={s.id} className="flex gap-3 bg-white/[0.04] border border-white/[0.08] rounded-lg p-3">
+                            <div key={s.id} className="flex gap-3 bg-[#1c1816]/60 border border-[#c8a97e]/15 rounded-lg p-3">
                                 <span className="shrink-0 w-10 text-center font-bold text-emerald-400 bg-emerald-500/10 rounded py-1 text-xs">Lv {s.level}</span>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-xs font-bold text-white">{s.skill.name}</p>
@@ -91,7 +91,7 @@ export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => v
                         <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
                         <div className="space-y-2 relative z-10">
                             {armor.crafting.materials.map(mat => (
-                                <div key={mat.id} className="flex items-center justify-between text-xs bg-white/[0.03] border border-white/5 rounded-lg px-3 py-2.5">
+                                <div key={mat.id} className="flex items-center justify-between text-xs bg-[#151210]/60 border border-[#c8a97e]/15 rounded-lg px-3 py-2.5">
                                     <div className="flex items-center gap-2">
                                         <Package className="w-4 h-4 text-slate-400" />
                                         <span className="text-slate-200 font-medium">{mat.item.name}</span>
@@ -101,7 +101,7 @@ export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => v
                             ))}
                         </div>
                         {armor.crafting.zennyCost > 0 && (
-                            <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5 text-xs relative z-10">
+                            <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#c8a97e]/15 text-xs relative z-10">
                                 <span className="text-slate-500">Zenny Cost</span>
                                 <span className="text-amber-400 font-bold">{armor.crafting.zennyCost.toLocaleString()}z</span>
                             </div>

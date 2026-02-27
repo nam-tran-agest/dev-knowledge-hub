@@ -36,7 +36,7 @@ export function ItemDetail({ item, onClose }: { item: Item, onClose: () => void 
                                 <div className="flex flex-wrap items-center gap-2">
                                     {recipe.inputs.map((input, idx) => (
                                         <React.Fragment key={input.id}>
-                                            <div className="flex items-center gap-2 bg-white/[0.04] border border-white/10 px-3 py-2 rounded-lg relative z-10 shadow-sm">
+                                            <div className="flex items-center gap-2 bg-[#1c1816]/60 border border-[#c8a97e]/15 px-3 py-2 rounded-lg relative z-10 shadow-sm">
                                                 <Package className="w-4 h-4 text-slate-400" />
                                                 <span className="text-sm font-medium text-slate-200">{input.name}</span>
                                             </div>

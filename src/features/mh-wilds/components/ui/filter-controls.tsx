@@ -1,7 +1,7 @@
-import { ArrowUpDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { ArrowUpDown, ChevronDown } from 'lucide-react';
 import type { Weapon } from '../../types';
 import { SORT_OPTIONS, WEAPON_KIND_LABELS, type SortOption } from '../../constants';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { Category } from '../../hooks/use-mhwilds-filters';
 
 interface FilterControlsProps {
@@ -33,48 +33,96 @@ interface FilterControlsProps {
     };
 }
 
-const triggerCls = 'h-9 bg-white/[0.08] border-white/[0.12] text-slate-300 text-sm focus:ring-emerald-500/30 [&>svg]:text-slate-500';
-const contentProps = { className: 'bg-[#161b24] border-white/[0.12] backdrop-blur-xl', side: 'bottom' as const, sideOffset: 4 };
-const itemCls = 'text-slate-300 focus:bg-emerald-500/15 focus:text-emerald-300';
-const toggleCls = (active: boolean) => `text-xs px-3 py-2 rounded-lg border transition-colors font-medium cursor-pointer ${active ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-white/[0.08] text-slate-400 border-white/[0.12] hover:text-white'}`;
+const triggerCls = 'h-9 bg-[#1c1816]/60 border border-[#c8a97e]/15 text-slate-300 text-sm focus:ring-amber-500/30 [&>svg]:text-amber-700/50';
+const contentCls = 'bg-[#151210]/95 border-[#c8a97e]/15 backdrop-blur-xl max-h-72';
+const toggleCls = (active: boolean) => `text-xs px-3 py-2 rounded-lg border transition-all font-medium cursor-pointer ${active ? 'bg-amber-500/15 text-amber-500 border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.05)]' : 'bg-[#1c1816]/60 text-slate-400 border-[#c8a97e]/15 hover:text-white'}`;
+
+function FilterDropdown({ value, onValueChange, options, triggerClassName, contentClassName, icon: Icon }: any) {
+    const [open, setOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                setOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const selectedLabel = options.find((o: any) => o.value === value)?.label || value;
+
+    return (
+        <div ref={ref} className="relative">
+            <button
+                type="button"
+                onClick={() => setOpen(!open)}
+                className={`flex items-center justify-between rounded-lg px-3 py-2 ${triggerClassName}`}
+            >
+                <div className="flex items-center truncate">
+                    {Icon && <Icon className="w-3.5 h-3.5 mr-1.5 shrink-0 text-amber-700/50" />}
+                    <span className="truncate">{selectedLabel}</span>
+                </div>
+                <ChevronDown className="w-3.5 h-3.5 ml-2 opacity-50 shrink-0 text-amber-500/80" />
+            </button>
+            {open && (
+                <div className={`absolute left-0 top-full mt-1 z-50 w-full min-w-max rounded-lg border shadow-lg overflow-y-auto ${contentClassName}`}>
+                    <div className="p-1 flex flex-col gap-0.5">
+                        {options.map((o: any) => (
+                            <button
+                                key={o.value}
+                                onClick={() => { onValueChange(o.value); setOpen(false); }}
+                                className={`text-left px-2 py-1.5 rounded-md text-sm transition-colors ${value === o.value ? 'bg-amber-500/15 text-amber-500 font-medium' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}
+                            >
+                                {o.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
 
 export function FilterControls({ activeCategory, currentData, filters: f }: FilterControlsProps) {
     return (
         <div className="flex flex-wrap gap-2">
             {/* Sort */}
-            <Select value={f.sortBy} onValueChange={(v) => { f.setSortBy(v as SortOption); f.setPage(1); }}>
-                <SelectTrigger className={`w-[140px] ${triggerCls}`}>
-                    <ArrowUpDown className="w-3.5 h-3.5 mr-1 shrink-0" />
-                    <SelectValue />
-                </SelectTrigger>
-                <SelectContent {...contentProps}>
-                    {SORT_OPTIONS.map(o => <SelectItem key={o.value} value={o.value} className={itemCls}>{o.label}</SelectItem>)}
-                </SelectContent>
-            </Select>
+            <FilterDropdown
+                value={f.sortBy}
+                onValueChange={f.setSortBy}
+                options={SORT_OPTIONS}
+                triggerClassName={`w-[140px] ${triggerCls}`}
+                contentClassName={contentCls}
+                icon={ArrowUpDown}
+            />
 
             {/* Monster filters */}
             {activeCategory === 'monsters' && (
                 <>
-                    <Select value={f.monsterKindFilter} onValueChange={(v) => { f.setMonsterKindFilter(v); f.setPage(1); }}>
-                        <SelectTrigger className={`w-[130px] ${triggerCls}`}>
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent {...contentProps}>
-                            <SelectItem value="all" className={itemCls}>All Sizes</SelectItem>
-                            <SelectItem value="large" className={itemCls}>🔴 Large</SelectItem>
-                            <SelectItem value="small" className={itemCls}>⚪ Small</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <FilterDropdown
+                        value={f.monsterKindFilter}
+                        onValueChange={f.setMonsterKindFilter}
+                        options={[
+                            { value: 'all', label: 'All Sizes' },
+                            { value: 'large', label: '🔴 Large' },
+                            { value: 'small', label: '⚪ Small' },
+                        ]}
+                        triggerClassName={`w-[130px] ${triggerCls}`}
+                        contentClassName={contentCls}
+                    />
 
-                    <Select value={f.monsterWeaknessFilter} onValueChange={(v) => { f.setMonsterWeaknessFilter(v); f.setPage(1); }}>
-                        <SelectTrigger className={`w-[160px] ${triggerCls} capitalize`}>
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent {...contentProps}>
-                            <SelectItem value="all" className={itemCls}>Any Weakness</SelectItem>
-                            {f.monsterWeaknesses.map(w => <SelectItem key={w} value={w} className={`${itemCls} capitalize`}>{w}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
+                    <FilterDropdown
+                        value={f.monsterWeaknessFilter}
+                        onValueChange={f.setMonsterWeaknessFilter}
+                        options={[
+                            { value: 'all', label: 'Any Weakness' },
+                            ...f.monsterWeaknesses.map(w => ({ value: w, label: w.charAt(0).toUpperCase() + w.slice(1) }))
+                        ]}
+                        triggerClassName={`w-[160px] capitalize ${triggerCls}`}
+                        contentClassName={contentCls}
+                    />
 
                     <button onClick={() => f.setGroupBySpecies(!f.groupBySpecies)} className={toggleCls(f.groupBySpecies)}>
                         Group by Species
@@ -86,26 +134,28 @@ export function FilterControls({ activeCategory, currentData, filters: f }: Filt
             {activeCategory === 'weapons' && (
                 <>
                     {f.weaponTypes.length > 0 && (
-                        <Select value={f.weaponTypeFilter} onValueChange={(v) => { f.setWeaponTypeFilter(v); f.setPage(1); }}>
-                            <SelectTrigger className={`w-[180px] ${triggerCls}`}>
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent {...contentProps}>
-                                <SelectItem value="all" className={itemCls}>All Types ({(currentData as Weapon[]).length})</SelectItem>
-                                {f.weaponTypes.map(t => <SelectItem key={t} value={t} className={itemCls}>{WEAPON_KIND_LABELS[t] || t}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
+                        <FilterDropdown
+                            value={f.weaponTypeFilter}
+                            onValueChange={f.setWeaponTypeFilter}
+                            options={[
+                                { value: 'all', label: `All Types (${(currentData as Weapon[]).length})` },
+                                ...f.weaponTypes.map(t => ({ value: t, label: WEAPON_KIND_LABELS[t] || t }))
+                            ]}
+                            triggerClassName={`w-[180px] ${triggerCls}`}
+                            contentClassName={contentCls}
+                        />
                     )}
 
-                    <Select value={f.weaponElementFilter} onValueChange={(v) => { f.setWeaponElementFilter(v); f.setPage(1); }}>
-                        <SelectTrigger className={`w-[180px] ${triggerCls} capitalize`}>
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent {...contentProps}>
-                            <SelectItem value="all" className={itemCls}>Any Element/Status</SelectItem>
-                            {f.weaponElements.map(e => <SelectItem key={e} value={e} className={`${itemCls} capitalize`}>{e}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
+                    <FilterDropdown
+                        value={f.weaponElementFilter}
+                        onValueChange={f.setWeaponElementFilter}
+                        options={[
+                            { value: 'all', label: 'Any Element/Status' },
+                            ...f.weaponElements.map(e => ({ value: e, label: e.charAt(0).toUpperCase() + e.slice(1) }))
+                        ]}
+                        triggerClassName={`w-[180px] capitalize ${triggerCls}`}
+                        contentClassName={contentCls}
+                    />
 
                     <button onClick={() => f.setGroupByWeaponType(!f.groupByWeaponType)} className={toggleCls(f.groupByWeaponType)}>
                         Group by Type
@@ -115,33 +165,35 @@ export function FilterControls({ activeCategory, currentData, filters: f }: Filt
 
             {/* Skill filter */}
             {activeCategory === 'skills' && (
-                <Select value={f.skillKindFilter} onValueChange={(v) => { f.setSkillKindFilter(v); f.setPage(1); }}>
-                    <SelectTrigger className={`w-[160px] ${triggerCls}`}>
-                        <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent {...contentProps}>
-                        <SelectItem value="all" className={itemCls}>All Kinds</SelectItem>
-                        <SelectItem value="armor" className={itemCls}>🛡 Armor</SelectItem>
-                        <SelectItem value="weapon" className={itemCls}>⚔ Weapon</SelectItem>
-                        <SelectItem value="set-bonus" className={itemCls}>💎 Set Bonus</SelectItem>
-                        <SelectItem value="group-bonus" className={itemCls}>👥 Group Bonus</SelectItem>
-                    </SelectContent>
-                </Select>
+                <FilterDropdown
+                    value={f.skillKindFilter}
+                    onValueChange={f.setSkillKindFilter}
+                    options={[
+                        { value: 'all', label: 'All Kinds' },
+                        { value: 'armor', label: '🛡 Armor' },
+                        { value: 'weapon', label: '⚔ Weapon' },
+                        { value: 'set-bonus', label: '💎 Set Bonus' },
+                        { value: 'group-bonus', label: '👥 Group Bonus' },
+                    ]}
+                    triggerClassName={`w-[160px] ${triggerCls}`}
+                    contentClassName={contentCls}
+                />
             )}
 
             {/* Deco filter */}
             {activeCategory === 'decorations' && (
-                <Select value={f.decoSlotFilter} onValueChange={(v) => { f.setDecoSlotFilter(v); f.setPage(1); }}>
-                    <SelectTrigger className={`w-[140px] ${triggerCls}`}>
-                        <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent {...contentProps}>
-                        <SelectItem value="all" className={itemCls}>All Slots</SelectItem>
-                        <SelectItem value="1" className={itemCls}>◆ Slot [1]</SelectItem>
-                        <SelectItem value="2" className={itemCls}>◆◆ Slot [2]</SelectItem>
-                        <SelectItem value="3" className={itemCls}>◆◆◆ Slot [3]</SelectItem>
-                    </SelectContent>
-                </Select>
+                <FilterDropdown
+                    value={f.decoSlotFilter}
+                    onValueChange={f.setDecoSlotFilter}
+                    options={[
+                        { value: 'all', label: 'All Slots' },
+                        { value: '1', label: '◆ Slot [1]' },
+                        { value: '2', label: '◆◆ Slot [2]' },
+                        { value: '3', label: '◆◆◆ Slot [3]' },
+                    ]}
+                    triggerClassName={`w-[140px] ${triggerCls}`}
+                    contentClassName={contentCls}
+                />
             )}
         </div>
     );

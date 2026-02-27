@@ -18,9 +18,9 @@ export function DrawerLayout({ title, icon, onClose, children, subtitle }: { tit
 
     return (
         <div className="fixed inset-0 z-50 flex items-start justify-end">
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-            <div className="relative h-full w-full max-w-xl bg-[#0c0e14]/95 backdrop-blur-xl border-l border-white/[0.12] overflow-y-auto animate-in slide-in-from-right duration-300">
-                <div className="sticky top-0 z-10 bg-[#0c0e14]/90 backdrop-blur-xl border-b border-white/[0.12] p-6 flex items-start justify-between">
+            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+            <div className="relative h-full w-full max-w-xl bg-[#151210]/95 backdrop-blur-xl border-l border-[#c8a97e]/15 overflow-y-auto animate-in slide-in-from-right duration-300">
+                <div className="sticky top-0 z-10 bg-[#151210]/90 backdrop-blur-xl border-b border-[#c8a97e]/15 p-6 flex items-start justify-between">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center">
                             {icon}
@@ -61,4 +61,4 @@ export function StatRow({ label, value }: { label: string, value: React.ReactNod
 }
 
 /** Shared stat panel used inside detail drawers */
-export const DETAIL_PANEL_CLS = 'bg-white/[0.04] border border-white/[0.08] rounded-xl p-4';
+export const DETAIL_PANEL_CLS = 'bg-[#1c1816]/60 border border-[#c8a97e]/10 rounded-xl p-4';

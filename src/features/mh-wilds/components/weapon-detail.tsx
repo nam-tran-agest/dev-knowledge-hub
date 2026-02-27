@@ -60,8 +60,8 @@ export function WeaponDetail({ weapon, onClose }: { weapon: Weapon, onClose: () 
 
                             {weapon.crafting.previous && (
                                 <div className="flex flex-col">
-                                    <div className="flex items-center gap-3 p-3 bg-white/[0.03] border border-white/5 rounded-lg opacity-70">
-                                        <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center shrink-0">
+                                    <div className="flex items-center gap-3 p-3 bg-[#1c1816]/60 border border-[#c8a97e]/15 rounded-lg opacity-70">
+                                        <div className="w-8 h-8 rounded bg-[#c8a97e]/10 flex items-center justify-center shrink-0">
                                             <Sword className="w-4 h-4 text-slate-400" />
                                         </div>
                                         <div>
@@ -86,9 +86,9 @@ export function WeaponDetail({ weapon, onClose }: { weapon: Weapon, onClose: () 
                                     <div className="space-y-2 mt-1 pl-4 border-l-2 border-white/10 ml-7 relative before:absolute before:-top-1 before:left-[-2px] before:w-2 before:h-2 before:bg-orange-500 before:rounded-full">
                                         <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2 ml-2">Upgrades To</p>
                                         {weapon.crafting.branches.map((b) => (
-                                            <div key={b.id} className="relative flex items-center gap-3 p-3 bg-white/[0.03] border border-white/5 rounded-lg ml-2 hover:bg-white/[0.05] transition-colors">
-                                                <div className="absolute top-1/2 -left-4 w-4 h-0.5 bg-white/10" />
-                                                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center shrink-0">
+                                            <div key={b.id} className="relative flex items-center gap-3 p-3 bg-[#1c1816]/60 border border-[#c8a97e]/15 rounded-lg ml-2 hover:bg-[#c8a97e]/10 transition-colors">
+                                                <div className="absolute top-1/2 -left-4 w-4 h-0.5 bg-[#c8a97e]/30" />
+                                                <div className="w-8 h-8 rounded bg-[#c8a97e]/10 flex items-center justify-center shrink-0">
                                                     <Sword className="w-4 h-4 text-slate-400" />
                                                 </div>
                                                 <p className="text-sm text-slate-300 font-bold">{b.name}</p>

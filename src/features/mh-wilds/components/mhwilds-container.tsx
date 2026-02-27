@@ -105,15 +105,15 @@ export function MHWildsContainer() {
 
     return (
         <div
-            className="min-h-screen pt-18 text-white"
-            style={{ background: 'linear-gradient(135deg, #0f1923 0%, #0c1018 25%, #101520 50%, #0e1a1f 75%, #0f1923 100%)' }}
+            className="min-h-screen pt-18 text-white relative"
+            style={{ background: 'linear-gradient(135deg, #1c1816 0%, #12100e 25%, #181512 50%, #1a1510 75%, #12100e 100%)' }}
         >
             {/* Header */}
-            <div className="border-b border-white/5 bg-gradient-to-r from-emerald-600/5 via-transparent to-purple-600/5">
+            <div className="border-b border-white/5 bg-gradient-to-r from-amber-600/5 via-transparent to-emerald-600/5">
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-5">
                     <div className="flex items-center gap-4">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/img/MHW/MHWilds_logo.webp" alt="MHWilds Logo" className="w-14 h-14 object-contain brightness-150 drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]" />
+                        <img src="/img/MHW/MHWilds_logo.webp" alt="MHWilds Logo" className="w-14 h-14 object-contain brightness-150 drop-shadow-[0_0_15px_rgba(217,119,6,0.3)]" />
                         <div>
                             <h1 className="text-2xl font-black text-white tracking-tight">Monster Hunter: Wilds</h1>
                             <p className="text-xs text-slate-500">Complete database — Monsters, Weapons, Armor, Skills & more</p>
@@ -132,11 +132,11 @@ export function MHWildsContainer() {
                                 key={cat.key}
                                 onClick={() => setActiveCategory(cat.key)}
                                 className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${activeCategory === cat.key
-                                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                    ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)]'
                                     : 'text-slate-400 hover:text-white hover:bg-white/[0.03] border border-transparent'
                                     }`}
                             >
-                                <span className={activeCategory === cat.key ? 'text-emerald-400' : cat.color}>{cat.icon}</span>
+                                <span className={activeCategory === cat.key ? 'text-amber-500' : cat.color}>{cat.icon}</span>
                                 {cat.label}
                                 {data[cat.key] && (
                                     <span className="ml-auto text-[10px] font-bold text-slate-600 bg-white/[0.10] rounded-full px-1.5 py-0.5">{(data[cat.key] as unknown[]).length}</span>
@@ -151,7 +151,7 @@ export function MHWildsContainer() {
                     <div className="flex gap-1 px-2 py-2">
                         {CATEGORIES.map(cat => (
                             <button key={cat.key} onClick={() => setActiveCategory(cat.key)}
-                                className={`shrink-0 flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${activeCategory === cat.key ? 'text-emerald-400 bg-emerald-500/10' : 'text-slate-500'}`}
+                                className={`shrink-0 flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${activeCategory === cat.key ? 'text-amber-500 bg-amber-500/10' : 'text-slate-500'}`}
                             >
                                 {cat.icon}
                                 {cat.label}
@@ -177,8 +177,8 @@ export function MHWildsContainer() {
                         <Input
                             placeholder={`Search ${catMeta.label.toLowerCase()}...`}
                             value={filters.searchQuery}
-                            onChange={e => { filters.setSearchQuery(e.target.value); filters.setPage(1); }}
-                            className="pl-10 bg-white/[0.08] border-white/[0.12] text-white placeholder:text-slate-600 focus-visible:ring-emerald-500/30"
+                            onChange={e => filters.setSearchQuery(e.target.value)}
+                            className="pl-10 bg-[#1c1816]/60 border-[#c8a97e]/15 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/30"
                         />
                     </div>
 
