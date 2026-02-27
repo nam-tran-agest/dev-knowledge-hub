@@ -86,25 +86,3 @@ export function ErrorState({ error, onRetry }: { error: string; onRetry: () => v
         </div>
     );
 }
-
-// ─── Pagination ─────────────────────────────────────────────
-export function Pagination({ current, total, onChange }: { current: number; total: number; onChange: (p: number) => void }) {
-    if (total <= 1) return null;
-    const pages: number[] = [];
-    const start = Math.max(1, current - 2);
-    const end = Math.min(total, current + 2);
-    for (let i = start; i <= end; i++) pages.push(i);
-    const btnCls = 'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors';
-    const defCls = `${btnCls} bg-white/[0.08] border border-white/[0.12] text-slate-400 hover:text-white hover:bg-white/[0.14]`;
-    return (
-        <div className="flex items-center justify-center gap-1.5 pt-6 pb-2">
-            <button disabled={current === 1} onClick={() => onChange(current - 1)} className={`${defCls} disabled:opacity-30 disabled:cursor-not-allowed`}>←</button>
-            {start > 1 && <><button onClick={() => onChange(1)} className={defCls}>1</button>{start > 2 && <span className="text-slate-600 text-xs">…</span>}</>}
-            {pages.map(p => (
-                <button key={p} onClick={() => onChange(p)} className={p === current ? `${btnCls} bg-emerald-500 text-white shadow-lg shadow-emerald-500/25` : defCls}>{p}</button>
-            ))}
-            {end < total && <>{end < total - 1 && <span className="text-slate-600 text-xs">…</span>}<button onClick={() => onChange(total)} className={defCls}>{total}</button></>}
-            <button disabled={current === total} onClick={() => onChange(current + 1)} className={`${defCls} disabled:opacity-30 disabled:cursor-not-allowed`}>→</button>
-        </div>
-    );
-}

@@ -157,7 +157,7 @@ export function MHWildsContainer() {
                 </aside>
 
                 {/* Mobile bottom bar */}
-                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0c0e14]/90 backdrop-blur-xl border-t border-white/[0.12] overflow-x-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0c0e14]/90 backdrop-blur-xl border-t border-white/[0.12] overflow-x-auto scrollbar-none" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className="flex gap-1 px-2 py-2">
                         {CATEGORIES.map(cat => (
                             <button key={cat.key} onClick={() => setActiveCategory(cat.key)}
