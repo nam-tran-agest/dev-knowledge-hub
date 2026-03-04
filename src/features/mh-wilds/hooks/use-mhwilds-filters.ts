@@ -42,7 +42,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
     }, [activeCategory]);
 
     // Sort helper
-    const compareItems = useCallback((a: any, b: any) => {
+    const compareItems = useCallback((a: { name?: string; id?: number; rarity?: number }, b: { name?: string; id?: number; rarity?: number }) => {
         switch (_sortBy) {
             case 'name-asc': return (a.name || '').localeCompare(b.name || '') || ((a.id || 0) - (b.id || 0));
             case 'name-desc': return (b.name || '').localeCompare(a.name || '') || ((a.id || 0) - (b.id || 0));

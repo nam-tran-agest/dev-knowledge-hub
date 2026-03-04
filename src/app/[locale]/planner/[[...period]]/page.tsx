@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { TodayView } from '@/features/planner/components/today-view';
 
 export default async function PlannerPage({
     params
@@ -15,6 +16,10 @@ export default async function PlannerPage({
     }
 
     const tNav = await getTranslations({ locale, namespace: 'navigation.items.planner' });
+
+    if (period === 'today') {
+        return <TodayView />;
+    }
 
     return (
         <div className="min-h-screen pt-32 bg-[#050505] flex flex-col items-center justify-center p-6 space-y-8">

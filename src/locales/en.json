@@ -268,8 +268,8 @@
                 "url": "/planner"
             },
             {
-                "label": "Bookmarks",
-                "url": "/bookmarks"
+                "label": "Scanner",
+                "url": "/scanner"
             }
         ],
         "addresses": [
@@ -332,14 +332,12 @@
                     "someday": "Someday"
                 }
             },
-            "bookmarks": {
-                "label": "Bookmarks",
+            "scanner": {
+                "label": "Scanner",
                 "items": {
-                    "work": "Work",
-                    "learn": "Learn",
-                    "inspire": "Inspire",
-                    "life": "Life",
-                    "fun": "Fun"
+                    "section1": "Section 1",
+                    "section2": "Section 2",
+                    "section3": "Section 3"
                 }
             },
             "mh wilds": {

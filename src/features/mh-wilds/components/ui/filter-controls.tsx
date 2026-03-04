@@ -38,7 +38,22 @@ const triggerCls = 'h-9 bg-[#1c1816]/60 border border-[#c8a97e]/15 text-slate-30
 const contentCls = 'bg-[#151210]/95 border-[#c8a97e]/15 backdrop-blur-xl max-h-72';
 const toggleCls = (active: boolean) => `text-xs px-3 py-2 rounded-lg border transition-all font-medium cursor-pointer ${active ? 'bg-amber-500/15 text-amber-500 border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.05)]' : 'bg-[#1c1816]/60 text-slate-400 border-[#c8a97e]/15 hover:text-white'}`;
 
-function FilterDropdown({ value, onValueChange, options, triggerClassName, contentClassName, icon: Icon }: any) {
+interface FilterOption {
+    value: string;
+    label: string;
+}
+
+interface FilterDropdownProps {
+    value: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onValueChange: (v: any) => void;
+    options: FilterOption[];
+    triggerClassName?: string;
+    contentClassName?: string;
+    icon?: React.ComponentType<{ className?: string }>;
+}
+
+function FilterDropdown({ value, onValueChange, options, triggerClassName, contentClassName, icon: Icon }: FilterDropdownProps) {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -52,7 +67,7 @@ function FilterDropdown({ value, onValueChange, options, triggerClassName, conte
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const selectedLabel = options.find((o: any) => o.value === value)?.label || value;
+    const selectedLabel = options.find((o: FilterOption) => o.value === value)?.label || value;
 
     return (
         <div ref={ref} className="relative">
@@ -70,7 +85,7 @@ function FilterDropdown({ value, onValueChange, options, triggerClassName, conte
             {open && (
                 <div className={`absolute left-0 top-full mt-1 z-50 w-full min-w-max rounded-lg border shadow-lg overflow-y-auto ${contentClassName}`}>
                     <div className="p-1 flex flex-col gap-0.5">
-                        {options.map((o: any) => (
+                        {options.map((o: FilterOption) => (
                             <button
                                 key={o.value}
                                 onClick={() => { onValueChange(o.value); setOpen(false); }}

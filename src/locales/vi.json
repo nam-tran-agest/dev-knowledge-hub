@@ -332,14 +332,12 @@
                     "someday": "Khi nào đó"
                 }
             },
-            "bookmarks": {
-                "label": "Dấu Trang",
+            "scanner": {
+                "label": "Quét Ảnh",
                 "items": {
-                    "work": "Công việc",
-                    "learn": "Học tập",
-                    "inspire": "Cảm hứng",
-                    "life": "Đời sống",
-                    "fun": "Vui vẻ"
+                    "section1": "Phần 1",
+                    "section2": "Phần 2",
+                    "section3": "Phần 3"
                 }
             },
             "mh wilds": {

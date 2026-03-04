@@ -50,14 +50,12 @@ export const MAIN_NAVIGATION: NavItem[] = [
         ]
     },
     {
-        name: 'Bookmarks',
-        href: '/bookmarks',
+        name: 'Scanner',
+        href: '/scanner',
         items: [
-            { name: 'Work', href: '/bookmarks/work' },
-            { name: 'Learn', href: '/bookmarks/learn' },
-            { name: 'Inspire', href: '/bookmarks/inspire' },
-            { name: 'Life', href: '/bookmarks/life' },
-            { name: 'Fun', href: '/bookmarks/fun' },
+            { name: 'Section 1', href: '/scanner/section-1' },
+            { name: 'Section 2', href: '/scanner/section-2' },
+            { name: 'Section 3', href: '/scanner/section-3' },
         ]
     },
     {
