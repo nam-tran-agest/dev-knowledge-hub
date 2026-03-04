@@ -105,12 +105,6 @@ export const validators = {
     description: { maxLength: 10000 }
   }),
 
-  bug: createValidator({
-    title: { required: true, maxLength: 255 },
-    error_message: { maxLength: 10000 },
-    stack_trace: { maxLength: 20000 }
-  }),
-
   category: createValidator({
     name: { required: true, maxLength: 100 }
   }),
@@ -158,10 +152,6 @@ export function validateSnippet(title: string, content: string, language?: strin
 
 export function validateTask(title: string, description?: string): ValidationResult {
   return validators.task({ title, description })
-}
-
-export function validateBug(title: string): ValidationResult {
-  return validators.bug({ title })
 }
 
 export function validateCategoryName(name: string): ValidationResult {

@@ -6,7 +6,8 @@ import { CTAButton } from "@/components/ui/cta-btn";
 import { ShowcaseSectionProps } from "@/features/landing/types/section/showcase";
 import { getMediaUrl } from "@/components/common/media/AppImage";
 import Image from "next/image";
-import { TYPOGRAPHY, LAYOUT } from "@/lib/constants";
+import { TYPOGRAPHY, LAYOUT, EFFECTS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 import show1 from "@/assets/images/home/show1.webp";
 import show2 from "@/assets/images/home/show2.webp";
@@ -58,14 +59,13 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                                 >
                                     {/* Image / Visual Column */}
                                     <div className={`relative ${isEven ? "lg:order-1" : "lg:order-2"}`}>
-                                        <div className="w-full rounded-3xl overflow-hidden shadow-sm">
+                                        <div className="w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-video relative group">
                                             <Image
                                                 src={imageUrl}
                                                 alt={feature.title}
-                                                width={0}
-                                                height={0}
-                                                sizes="100vw"
-                                                className="w-full h-auto object-contain"
+                                                fill
+                                                sizes="(max-width: 1024px) 100vw, 50vw"
+                                                className="object-cover transition-transform duration-700 group-hover:scale-105"
                                                 priority
                                             />
                                         </div>
@@ -74,20 +74,17 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                                     {/* Content Column */}
                                     <div className={`${isEven ? "lg:order-2" : "lg:order-1 flex justify-end"}`}>
                                         <Card
-                                            style={{
-                                                backgroundImage: "linear-gradient(#fff, #e1e0f6ff), linear-gradient(180deg, #80D2E7 0%, #1690FD 100%)",
-                                                backgroundOrigin: "border-box",
-                                                backgroundClip: "padding-box, border-box",
-                                                border: "2px solid transparent",
-                                            }}
-                                            className="w-full !gap-2 lg:w-[450px] lg:min-h-[167px] h-auto rounded-[30px] flex flex-col justify-center py-8 px-6 transition-all duration-300 shadow-none hover:shadow-xl hover:-translate-y-1"
+                                            className={cn(
+                                                "w-full lg:w-[450px] min-h-[167px] h-auto rounded-[30px] flex flex-col justify-center py-8 px-6 transition-all duration-300 shadow-none hover:shadow-2xl hover:-translate-y-1 border-white/20",
+                                                EFFECTS.glass
+                                            )}
                                         >
-                                            <CardHeader className="p-0 mb-2">
-                                                <CardTitle className={TYPOGRAPHY.cardTitle + " text-gradient font-semibold"}>
+                                            <CardHeader className="p-0 mb-4">
+                                                <CardTitle className={TYPOGRAPHY.cardTitle + " text-gradient font-bold tracking-tight"}>
                                                     {feature.title}
                                                 </CardTitle>
                                             </CardHeader>
-                                            <CardContent className={TYPOGRAPHY.bodySub + " p-0 text-slate-600 font-medium"}>
+                                            <CardContent className={TYPOGRAPHY.bodySub + " p-0 text-white/70 font-medium leading-relaxed"}>
                                                 {feature.sub_title}
                                             </CardContent>
                                         </Card>

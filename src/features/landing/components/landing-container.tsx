@@ -26,16 +26,12 @@ export async function LandingContainer({ locale }: LandingContainerProps) {
                 ctaUrl={t('hero.ctaUrl')}
             />
 
-            {/* FeatureSection commented out in original */}
-
             <ShowcaseSection
                 title1={t('showcase.title1')}
                 title2={t('showcase.title2')}
                 items={t.raw('showcase.items') as ShowcaseItem[]}
                 cta={t.raw('showcase.cta') as { label: string; url: string; id?: string }}
             />
-
-            {/* GridLinksSection commented out in original */}
 
             <MarqueeSection
                 title={t('marquee.title')}

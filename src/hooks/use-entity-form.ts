@@ -5,7 +5,7 @@
 import { useState, useCallback } from 'react'
 import { validators, type ValidationResult } from '@/lib/utils/validation'
 
-type EntityType = 'note' | 'snippet' | 'bug' | 'task' | 'category' | 'tag'
+type EntityType = 'note' | 'snippet' | 'task' | 'category' | 'tag'
 
 interface UseEntityFormOptions<T> {
   entityType: EntityType
@@ -118,10 +118,6 @@ export function useNoteForm(options: Omit<UseEntityFormOptions<Record<string, un
 
 export function useSnippetForm(options: Omit<UseEntityFormOptions<Record<string, unknown>>, 'entityType'>) {
   return useEntityForm({ ...options, entityType: 'snippet' })
-}
-
-export function useBugForm(options: Omit<UseEntityFormOptions<Record<string, unknown>>, 'entityType'>) {
-  return useEntityForm({ ...options, entityType: 'bug' })
 }
 
 export function useTaskForm(options: Omit<UseEntityFormOptions<Record<string, unknown>>, 'entityType'>) {
