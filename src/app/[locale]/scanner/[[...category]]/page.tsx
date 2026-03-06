@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { ScannerView } from '@/features/scanner/components/scanner-view';
+import { TemplateScannerView } from '@/features/scanner/components/template-scanner-view';
 import { MatrixRain } from '@/components/ui/matrix-rain';
 
 export default async function ScannerPage({
@@ -27,13 +28,15 @@ export default async function ScannerPage({
                     {category === 'all' ? tNav('label') : tNav(`items.${category.replace('-', '')}`)}
                 </h1>
                 <p className="text-slate-400 mt-2 text-lg mix-blend-lighten">
-                    Extract text from images instantly using local OCR technology.
+                    {category === 'section-2'
+                        ? 'Extract specific fields from templates using ROI scanning.'
+                        : 'Extract text from images instantly using local OCR technology.'}
                 </p>
             </div>
 
             {/* Main Scanner UI */}
-            <div className="relative z-10">
-                <ScannerView />
+            <div className="relative z-10 w-full">
+                {category === 'section-2' ? <TemplateScannerView /> : <ScannerView />}
             </div>
         </div>
     );
