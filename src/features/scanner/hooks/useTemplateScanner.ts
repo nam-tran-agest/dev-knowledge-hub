@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import Tesseract from 'tesseract.js';
 import { ScannerTemplate } from '../config/section2-template';
 import { loadImage, getAbsoluteROIBox, getIntersectionPercentage, BoundingBox } from '../utils/image-utils';
 
@@ -42,6 +41,7 @@ export const useTemplateScanner = () => {
             const langs = template.id === 'credit-card' ? 'eng' : 'eng+vie';
             setStatusText(`Initializing ${langs} engine...`);
 
+            const Tesseract = (await import('tesseract.js')).default;
             const resultObj = (await Tesseract.recognize(img, langs, {
                 logger: m => {
                     if (m.status === 'recognizing text') {

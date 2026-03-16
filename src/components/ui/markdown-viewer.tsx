@@ -2,30 +2,38 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
-import rehypeRaw from 'rehype-raw';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import dynamic from 'next/dynamic';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
-import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
-import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
-import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
-import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
-import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
-import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown';
 import { cn } from '@/lib/utils';
 
-// Register languages
-SyntaxHighlighter.registerLanguage('typescript', ts);
-SyntaxHighlighter.registerLanguage('ts', ts);
-SyntaxHighlighter.registerLanguage('tsx', tsx);
-SyntaxHighlighter.registerLanguage('javascript', js);
-SyntaxHighlighter.registerLanguage('js', js);
-SyntaxHighlighter.registerLanguage('jsx', jsx);
-SyntaxHighlighter.registerLanguage('css', css);
-SyntaxHighlighter.registerLanguage('json', json);
-SyntaxHighlighter.registerLanguage('bash', bash);
-SyntaxHighlighter.registerLanguage('markdown', markdown);
+const SyntaxHighlighter = dynamic(
+    () => import('react-syntax-highlighter').then(mod => {
+        const { PrismLight } = mod;
+        return Promise.all([
+            import('react-syntax-highlighter/dist/esm/languages/prism/typescript'),
+            import('react-syntax-highlighter/dist/esm/languages/prism/tsx'),
+            import('react-syntax-highlighter/dist/esm/languages/prism/javascript'),
+            import('react-syntax-highlighter/dist/esm/languages/prism/jsx'),
+            import('react-syntax-highlighter/dist/esm/languages/prism/css'),
+            import('react-syntax-highlighter/dist/esm/languages/prism/json'),
+            import('react-syntax-highlighter/dist/esm/languages/prism/bash'),
+            import('react-syntax-highlighter/dist/esm/languages/prism/markdown'),
+        ]).then(([ts, tsx, js, jsx, css, json, bash, markdown]) => {
+            PrismLight.registerLanguage('typescript', ts.default);
+            PrismLight.registerLanguage('ts', ts.default);
+            PrismLight.registerLanguage('tsx', tsx.default);
+            PrismLight.registerLanguage('javascript', js.default);
+            PrismLight.registerLanguage('js', js.default);
+            PrismLight.registerLanguage('jsx', jsx.default);
+            PrismLight.registerLanguage('css', css.default);
+            PrismLight.registerLanguage('json', json.default);
+            PrismLight.registerLanguage('bash', bash.default);
+            PrismLight.registerLanguage('markdown', markdown.default);
+            return PrismLight;
+        });
+    }),
+    { ssr: false, loading: () => <pre className="rounded-xl !bg-slate-900 !p-6 !my-6 animate-pulse h-48" /> }
+);
 
 interface MarkdownViewerProps {
     content: string;
@@ -39,7 +47,6 @@ export function MarkdownViewer({ content, className = '', accentClass = 'text-pr
         <div className={cn("prose prose-lg max-w-none text-slate-900 leading-relaxed border border-transparent rounded-xl", className)}>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkBreaks]}
-                rehypePlugins={[rehypeRaw]}
                 components={{
                     code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode;[key: string]: any }) { // eslint-disable-line @typescript-eslint/no-explicit-any
                         const match = /language-(\w+)/.exec(className || '');

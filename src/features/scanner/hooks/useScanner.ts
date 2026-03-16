@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import Tesseract from 'tesseract.js';
 
 export interface ScanResult {
     text: string;
@@ -22,6 +21,7 @@ export const useScanner = () => {
         setError(null);
 
         try {
+            const Tesseract = (await import('tesseract.js')).default;
             const worker = await Tesseract.createWorker('eng+vie', 1, {
                 logger: m => {
                     // m.status usually gives "loading tesseract core", "initializing api", "recognizing text", etc.
