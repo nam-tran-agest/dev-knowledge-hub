@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
+import rehypeRaw from 'rehype-raw';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
@@ -38,21 +39,29 @@ export function MarkdownViewer({ content, className = '', accentClass = 'text-pr
         <div className={cn("prose prose-lg max-w-none text-slate-900 leading-relaxed border border-transparent rounded-xl", className)}>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkBreaks]}
+                rehypePlugins={[rehypeRaw]}
                 components={{
                     code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode;[key: string]: any }) { // eslint-disable-line @typescript-eslint/no-explicit-any
                         const match = /language-(\w+)/.exec(className || '');
-                        return !inline && match ? (
-                            <SyntaxHighlighter
-                                {...props}
-                                style={vscDarkPlus}
-                                language={match[1]}
-                                PreTag="div"
-                                className="rounded-xl !bg-slate-900 !p-6 !my-6 shadow-sm"
-                            >
-                                {String(children).replace(/\n$/, '')}
-                            </SyntaxHighlighter>
-                        ) : (
-                            <code {...props} className={cn("bg-slate-100 px-1.5 py-0.5 rounded font-mono text-sm", accentClass, className)}>
+                        
+                        // Handle code blocks (not inline) even if no language is detected
+                        if (!inline) {
+                            return (
+                                <SyntaxHighlighter
+                                    {...props}
+                                    style={vscDarkPlus}
+                                    language={match ? match[1] : 'text'}
+                                    PreTag="div"
+                                    className="rounded-xl !bg-slate-900 !p-6 !my-6 shadow-sm border border-white/5"
+                                >
+                                    {String(children).replace(/\n$/, '')}
+                                </SyntaxHighlighter>
+                            );
+                        }
+
+                        // Inline code fallback
+                        return (
+                            <code {...props} className={cn("bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono text-sm !bg-transparent", accentClass, className)}>
                                 {children}
                             </code>
                         );

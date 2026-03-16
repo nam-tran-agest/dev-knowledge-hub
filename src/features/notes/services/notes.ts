@@ -117,7 +117,7 @@ export async function createNote(input: CreateNoteInput): Promise<Note> {
   }
 
   revalidatePath(`/notes/${categorySlug}`)
-  redirect(`/notes/${data.id}`)
+  redirect(`/notes/${data.id}?edit=true`)
 }
 
 export async function updateNote(id: string, input: UpdateNoteInput): Promise<Note> {

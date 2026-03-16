@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Trash2, Type, Check, X, ChevronLeft } from 'lucide-react'
+import { Trash2, Type, Check, X, ChevronLeft, Code, Bold, Italic, Underline, Undo, Redo } from 'lucide-react'
 import type { Note } from '@/features/notes/types'
 import { cn } from '@/lib/utils'
 import { MarkdownViewer } from '@/components/ui/markdown-viewer'
@@ -12,9 +12,10 @@ import { useNoteEditor } from '@/features/notes/hooks/use-note-editor'
 
 interface NoteEditorProps {
     note: Note
+    initialEditMode?: boolean
 }
 
-export function NoteEditor({ note }: NoteEditorProps) {
+export function NoteEditor({ note, initialEditMode }: NoteEditorProps) {
     const config = NOTES_CONFIG[note.category?.slug || 'work'] || NOTES_CONFIG.work
     const {
         mode,
@@ -29,7 +30,50 @@ export function NoteEditor({ note }: NoteEditorProps) {
         onSave,
         onDelete,
         router
-    } = useNoteEditor(note)
+    } = useNoteEditor(note, initialEditMode)
+
+    const applyFormatting = (prefix: string, suffix: string = prefix) => {
+        const textarea = document.querySelector('textarea');
+        if (!textarea) return;
+
+        textarea.focus();
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = textarea.value;
+        const selection = text.substring(start, end);
+
+        const textToInsert = prefix + selection + suffix;
+
+        // Use execCommand to preserve undo/redo history
+        try {
+            document.execCommand('insertText', false, textToInsert);
+        } catch (e) {
+            console.error('execCommand failed, falling back to manual state update', e);
+            const before = text.substring(0, start);
+            const after = text.substring(end, text.length);
+            setContent(before + textToInsert + after);
+        }
+
+        // Defer cursor placement if it was an empty wrap
+        if (selection.length === 0) {
+            setTimeout(() => {
+                const newPos = start + prefix.length;
+                textarea.setSelectionRange(newPos, newPos);
+            }, 0);
+        } else {
+            setTimeout(() => {
+                textarea.setSelectionRange(start + prefix.length, start + prefix.length + selection.length);
+            }, 0);
+        }
+    }
+
+    const handleUndo = () => {
+        document.execCommand('undo');
+    }
+
+    const handleRedo = () => {
+        document.execCommand('redo');
+    }
 
     return (
         <div className="flex-1 w-full flex flex-col h-full relative group">
@@ -58,19 +102,19 @@ export function NoteEditor({ note }: NoteEditorProps) {
                                 <Input
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    className="text-4xl md:text-5xl font-bold h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent placeholder:text-muted/30 rounded-none mb-2 text-slate-900 dark:text-slate-900"
+                                    className="text-xl md:text-2xl font-bold h-auto border-b border-black dark:border-white/10 focus:border-primary pl-4 pr-0 bg-transparent placeholder:text-muted/30 rounded-none mb-2 text-slate-900"
                                     placeholder="Untitled Note"
                                 />
                                 <Input
                                     value={tags}
                                     onChange={(e) => setTags(e.target.value)}
-                                    className="text-base text-primary font-medium h-auto border-b border-black dark:border-white/10 focus:border-primary px-0 bg-transparent rounded-none text-slate-900 dark:text-slate-900"
+                                    className="text-base text-primary font-medium h-auto border-b border-black dark:border-white/10 focus:border-primary pl-4 pr-0 bg-transparent rounded-none text-slate-900"
                                     placeholder="#tags..."
                                 />
                             </div>
                         ) : (
                             <div className="space-y-4 animate-in fade-in duration-300">
-                                <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-950">
+                                <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-950">
                                     {title || 'Untitled'}
                                 </h1>
                                 {tags && (
@@ -87,12 +131,78 @@ export function NoteEditor({ note }: NoteEditorProps) {
                     {/* Content Region */}
                     <div className="min-h-[400px]">
                         {mode === 'edit' ? (
-                            <Textarea
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                placeholder="Start writing your thoughts..."
-                                className="w-full h-[60vh] font-sans text-lg leading-relaxed border border-black dark:border-white/10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary/50 resize-none p-6 bg-transparent rounded-xl text-slate-900 dark:text-slate-900"
-                            />
+                            <div className="relative group/editor">
+                                <div className="absolute -top-3 left-4 flex items-center gap-0.5 px-0.5 bg-white/80 backdrop-blur-sm border border-slate-200 rounded shadow-sm z-10 opacity-0 group-hover/editor:opacity-100 transition-opacity">
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        type="button"
+                                        onClick={handleUndo}
+                                        className="h-8 w-8 text-slate-600 hover:text-primary hover:bg-primary/5"
+                                        title="Undo (Ctrl+Z)"
+                                    >
+                                        <Undo className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        type="button"
+                                        onClick={handleRedo}
+                                        className="h-8 w-8 text-slate-600 hover:text-primary hover:bg-primary/5"
+                                        title="Redo (Ctrl+Y)"
+                                    >
+                                        <Redo className="h-4 w-4" />
+                                    </Button>
+                                    <div className="w-[1px] h-4 bg-slate-200 mx-0.5" />
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        type="button"
+                                        onClick={() => applyFormatting('**')}
+                                        className="h-8 w-8 text-slate-600 hover:text-primary hover:bg-primary/5 font-bold"
+                                        title="Bold"
+                                    >
+                                        <Bold className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        type="button"
+                                        onClick={() => applyFormatting('_')}
+                                        className="h-8 w-8 text-slate-600 hover:text-primary hover:bg-primary/5 italic"
+                                        title="Italic"
+                                    >
+                                        <Italic className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        type="button"
+                                        onClick={() => applyFormatting('<u>', '</u>')}
+                                        className="h-8 w-8 text-slate-600 hover:text-primary hover:bg-primary/5"
+                                        title="Underline"
+                                    >
+                                        <Underline className="h-4 w-4" />
+                                    </Button>
+                                    <div className="w-[1px] h-4 bg-slate-200 mx-0.5" />
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        type="button"
+                                        onClick={() => applyFormatting('\n```typescript\n', '\n```\n')}
+                                        className="h-8 w-8 text-slate-600 hover:text-primary hover:bg-primary/5 condensed"
+                                        title="Code Block"
+                                    >
+                                        <Code className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                                <Textarea
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                    placeholder="Start writing your thoughts..."
+                                    className="w-full h-[60vh] font-mono text-base leading-relaxed border border-black/10 dark:border-white/10 shadow-inner focus-visible:ring-1 focus-visible:ring-primary/30 resize-none p-8 bg-slate-50/30 rounded-2xl text-slate-900 custom-scrollbar transition-all"
+                                />
+                            </div>
                         ) : (
                             <MarkdownViewer content={content} accentBorder={config.accentBorder} accentClass={config.accentClass} />
                         )}
@@ -104,6 +214,15 @@ export function NoteEditor({ note }: NoteEditorProps) {
             <div className="absolute bottom-8 right-8 flex gap-4 animate-in slide-in-from-bottom-4 duration-500">
                 {mode === 'edit' ? (
                     <>
+                        <Button
+                            size="icon"
+                            variant="secondary"
+                            onClick={() => applyFormatting('\n```typescript\n', '\n```\n')}
+                            className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all md:hidden"
+                            title="Insert Code Block"
+                        >
+                            <Code className="h-6 w-6" />
+                        </Button>
                         <Button
                             size="icon"
                             variant="secondary"

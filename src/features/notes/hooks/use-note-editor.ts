@@ -3,9 +3,9 @@ import { useRouter } from 'next/navigation';
 import { updateNote, deleteNote } from '@/features/notes/services/notes';
 import type { Note } from '@/features/notes/types';
 
-export function useNoteEditor(note: Note) {
+export function useNoteEditor(note: Note, initialEditMode?: boolean) {
     const router = useRouter();
-    const [mode, setMode] = useState<'view' | 'edit'>('view');
+    const [mode, setMode] = useState<'view' | 'edit'>(initialEditMode ? 'edit' : 'view');
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content || '');
     const [tags, setTags] = useState(note.tags?.join(', ') || '');
@@ -15,8 +15,8 @@ export function useNoteEditor(note: Note) {
         setTitle(note.title);
         setContent(note.content || '');
         setTags(note.tags?.join(', ') || '');
-        setMode('view');
-    }, [note.id, note.title, note.content, note.tags]);
+        setMode(initialEditMode ? 'edit' : 'view');
+    }, [note.id, note.title, note.content, note.tags, initialEditMode]);
 
     async function onSave() {
         setSaving(true);

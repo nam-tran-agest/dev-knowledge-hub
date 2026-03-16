@@ -7,9 +7,10 @@ import { NOTES_CONFIG } from '@/features/notes/constants/notes-config'
 
 interface NoteContainerProps {
     id: string
+    initialEditMode?: boolean
 }
 
-export async function NoteContainer({ id }: NoteContainerProps) {
+export async function NoteContainer({ id, initialEditMode }: NoteContainerProps) {
     // Check if id is a category (for list view) or a note ID
     const isCategory = Object.keys(NOTES_CONFIG).includes(id)
 
@@ -53,7 +54,7 @@ export async function NoteContainer({ id }: NoteContainerProps) {
                     selectedNoteId ? "flex" : "hidden lg:flex"
                 )}>
                     {selectedNoteId && initialNoteData ? (
-                        <NoteEditor note={initialNoteData} />
+                        <NoteEditor note={initialNoteData} initialEditMode={initialEditMode} />
                     ) : (
                         <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-4">
                             <div className={cn("p-6 rounded-full backdrop-blur-md border border-slate-200/50 shadow-sm", config.iconBg)}>
