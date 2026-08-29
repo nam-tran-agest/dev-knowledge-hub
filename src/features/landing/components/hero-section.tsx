@@ -6,7 +6,7 @@ const ParticlesBackground = dynamic(() => import('@/components/ui/particles-back
 import { motion } from "motion/react";
 import { CTAButton } from '@/components/ui/cta-btn';
 import { TYPOGRAPHY } from '@/lib/constants';
-import { Sparkles, ArrowRight, Terminal, Layers, Music, Newspaper, Flame, CheckCircle2, Calendar } from 'lucide-react';
+import { Layers, Newspaper, Flame, CheckCircle2, Calendar } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 interface HeroSectionProps {

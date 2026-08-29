@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TimeTimeline } from './time-timeline';
 import { TaskItem } from './task-item';
-import { Plus, CheckCircle2, Sparkles } from 'lucide-react';
+import { Plus, CheckCircle2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export const TodayView = () => {

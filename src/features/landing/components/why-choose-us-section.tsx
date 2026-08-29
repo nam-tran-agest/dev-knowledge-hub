@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Minus, CheckCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { ServiceWhyChooseUsProps } from "@/features/landing/types/service/service";
 import {
     Accordion,
