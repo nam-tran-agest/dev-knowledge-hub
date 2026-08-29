@@ -78,16 +78,20 @@ export function HeroSection({
                 >
                     {/* Primary Widget: Planner */}
                     <Link href="/planner/today" className="lg:col-span-2 group">
-                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-primary)]">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-colors" />
-                            <div>
-                                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-primary/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-primary)] hover:border-primary/50">
+                            <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono">
+                                // SYS_PLANNER
+                            </div>
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-colors pointer-events-none" />
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 cyber-clip-button bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform border border-primary/30">
                                     <Calendar className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-foreground mb-2">Daily Planner</h2>
-                                <p className="text-muted-foreground">Manage your tasks, track your schedule, and optimize your productivity.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">Daily Planner</h2>
+                                <p className="text-primary/60 font-mono">Manage your tasks, track your schedule, and optimize your productivity.</p>
                             </div>
-                            <div className="mt-8 flex items-center gap-2 text-primary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-primary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
                                 <span>Launch Module</span>
                                 <span className="text-lg">→</span>
                             </div>
@@ -96,16 +100,20 @@ export function HeroSection({
 
                     {/* Secondary Widget: Working Hub */}
                     <Link href="/working" className="group">
-                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_var(--color-secondary)] hover:border-secondary/50">
-                            <div className="absolute top-0 right-0 w-48 h-48 bg-secondary/10 blur-[60px] rounded-full group-hover:bg-secondary/20 transition-colors" />
-                            <div>
-                                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-secondary/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_var(--color-secondary)] hover:border-secondary/50">
+                            <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-secondary/30 text-[10px] uppercase tracking-widest text-secondary/70 font-mono">
+                                // SYS_WORKING
+                            </div>
+                            <div className="absolute top-0 right-0 w-48 h-48 bg-secondary/10 blur-[60px] rounded-full group-hover:bg-secondary/20 transition-colors pointer-events-none" />
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 cyber-clip-button bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform border border-secondary/30">
                                     <Layers className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-foreground mb-2">Working Hub</h2>
-                                <p className="text-muted-foreground">Active projects and kanban boards.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">Working Hub</h2>
+                                <p className="text-secondary/60 font-mono">Active projects and kanban boards.</p>
                             </div>
-                            <div className="mt-8 flex items-center gap-2 text-secondary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-secondary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
                                 <span>Access</span>
                                 <span className="text-lg">→</span>
                             </div>
@@ -114,16 +122,20 @@ export function HeroSection({
 
                     {/* Media & News */}
                     <Link href="/media/youtube" className="group">
-                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(255,0,127,0.3)] hover:border-[#ff007f]/50">
-                            <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#ff007f]/10 blur-[60px] rounded-full group-hover:bg-[#ff007f]/20 transition-colors" />
-                            <div>
-                                <div className="w-12 h-12 rounded-2xl bg-[#ff007f]/10 flex items-center justify-center text-[#ff007f] mb-6 group-hover:scale-110 transition-transform">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-[#ff007f]/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(255,0,127,0.3)] hover:border-[#ff007f]/50">
+                            <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-[#ff007f]/30 text-[10px] uppercase tracking-widest text-[#ff007f]/70 font-mono">
+                                // SYS_MEDIA
+                            </div>
+                            <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#ff007f]/10 blur-[60px] rounded-full group-hover:bg-[#ff007f]/20 transition-colors pointer-events-none" />
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 cyber-clip-button bg-[#ff007f]/10 flex items-center justify-center text-[#ff007f] mb-6 group-hover:scale-110 transition-transform border border-[#ff007f]/30">
                                     <Newspaper className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-foreground mb-2">Media Center</h2>
-                                <p className="text-muted-foreground">YouTube bookmarks, Spotify integrations, and RSS News.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">Media Center</h2>
+                                <p className="text-[#ff007f]/60 font-mono">YouTube bookmarks, Spotify integrations, and RSS News.</p>
                             </div>
-                            <div className="mt-8 flex items-center gap-2 text-[#ff007f] font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-[#ff007f] font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
                                 <span>Browse</span>
                                 <span className="text-lg">→</span>
                             </div>
@@ -132,16 +144,20 @@ export function HeroSection({
 
                     {/* MH Wilds Vault */}
                     <Link href="/mh-wilds" className="lg:col-span-2 group">
-                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-destructive)] hover:border-destructive/50">
-                            <div className="absolute bottom-0 right-0 w-64 h-64 bg-destructive/10 blur-[80px] rounded-full group-hover:bg-destructive/20 transition-colors" />
-                            <div>
-                                <div className="w-12 h-12 rounded-2xl bg-destructive/10 flex items-center justify-center text-destructive mb-6 group-hover:scale-110 transition-transform">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-destructive/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-destructive)] hover:border-destructive/50">
+                            <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-destructive/30 text-[10px] uppercase tracking-widest text-destructive/70 font-mono">
+                                // SYS_MH_WILDS
+                            </div>
+                            <div className="absolute bottom-0 right-0 w-64 h-64 bg-destructive/10 blur-[80px] rounded-full group-hover:bg-destructive/20 transition-colors pointer-events-none" />
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 cyber-clip-button bg-destructive/10 flex items-center justify-center text-destructive mb-6 group-hover:scale-110 transition-transform border border-destructive/30">
                                     <Flame className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-foreground mb-2">Monster Hunter Wilds</h2>
-                                <p className="text-muted-foreground">Comprehensive database for weapons, armors, and monster weaknesses.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">MH Wilds Vault</h2>
+                                <p className="text-destructive/60 font-mono">Comprehensive database for weapons, armors, and monster weaknesses.</p>
                             </div>
-                            <div className="mt-8 flex items-center gap-2 text-destructive font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-destructive font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
                                 <span>Open Vault</span>
                                 <span className="text-lg">→</span>
                             </div>

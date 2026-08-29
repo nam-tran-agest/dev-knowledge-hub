@@ -29,24 +29,33 @@ export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanVi
                 return (
                     <div
                         key={column.id}
-                        className="flex-1 flex flex-col min-w-[320px] bg-[#070d1e]/50 rounded-3xl border border-white/10 p-5 sm:p-6 backdrop-blur-2xl shadow-xl glare-top"
+                        className="flex-1 flex flex-col min-w-[320px] bg-card/60 cyber-clip border border-primary/20 p-5 sm:p-6 backdrop-blur-2xl shadow-[0_0_20px_rgba(0,0,0,0.8)] relative group"
                     >
-                        <div className="flex items-center justify-between mb-5 px-1">
+                        {/* Brackets and Grid */}
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f0ff05_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff05_1px,transparent_1px)] bg-[size:14px_14px] pointer-events-none" />
+                        <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
+                        
+                        {/* Status Label FUI */}
+                        <div className="absolute top-0 right-4 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono px-2 py-0.5">
+                            // COL_{column.id.toUpperCase()}
+                        </div>
+
+                        <div className="relative z-10 flex items-center justify-between mb-5 px-1 pt-2">
                             <div className="flex items-center gap-2.5">
                                 <div
-                                    className={`w-2 h-2 rounded-full ${column.glow}`}
+                                    className={`w-2 h-2 ${column.glow}`}
                                     style={{ backgroundColor: column.color }}
                                 />
-                                <h3 className="font-bold text-white uppercase tracking-wider text-xs font-mono">
+                                <h3 className="font-bold text-white uppercase tracking-widest text-xs font-mono">
                                     {column.title}
                                 </h3>
-                                <span className={`text-[11px] font-mono border px-2 py-0.5 rounded-full ${column.badge}`}>
-                                    {columnTasks.length}
+                                <span className={`text-[10px] font-mono border-l-2 pl-2 pr-1 py-0.5 ${column.badge}`}>
+                                    {columnTasks.length} DATA
                                 </span>
                             </div>
                         </div>
 
-                        <div className="flex-1 space-y-3">
+                        <div className="relative z-10 flex-1 space-y-3">
                             {columnTasks.map((task) => (
                                 <TaskItem
                                     key={task.id}
@@ -58,8 +67,9 @@ export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanVi
                             ))}
 
                             {columnTasks.length === 0 && (
-                                <div className="h-28 border border-dashed border-white/10 rounded-2xl flex items-center justify-center text-slate-500 text-xs font-mono">
-                                    No tasks in {column.title.toLowerCase()}
+                                <div className="h-28 border border-dashed border-primary/20 bg-primary/5 cyber-clip-button flex items-center justify-center text-primary/40 text-xs font-mono uppercase tracking-widest relative overflow-hidden">
+                                    <div className="absolute left-0 top-0 w-full h-full opacity-10 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#00f0ff_10px,#00f0ff_20px)]" />
+                                    [ AWAITING_DATA ]
                                 </div>
                             )}
                         </div>

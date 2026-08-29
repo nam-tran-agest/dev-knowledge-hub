@@ -33,15 +33,15 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
 
     return (
         <Card className={cn(
-            "group relative bg-white/[0.03] border-white/10 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all duration-300 overflow-hidden rounded-2xl backdrop-blur-xl shadow-md",
-            isDone && "opacity-60"
+            "group relative bg-card/40 border-primary/20 hover:border-primary/50 transition-all duration-300 overflow-hidden cyber-clip-button",
+            isDone && "opacity-50 grayscale"
         )}>
-            <CardContent className="p-4">
+            <CardContent className="p-4 relative z-10">
                 <div className="flex items-start gap-3.5">
                     <button
                         onClick={() => onStatusChange?.(task.id, isDone ? 'todo' : 'done')}
                         className={cn(
-                            "mt-0.5 text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer",
+                            "mt-0.5 text-primary/50 hover:text-primary transition-colors cursor-pointer",
                             isDone && "text-emerald-400"
                         )}
                     >

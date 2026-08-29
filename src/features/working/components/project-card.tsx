@@ -21,18 +21,24 @@ export function ProjectCard({ project }: ProjectCardProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
         >
-            <Link href={`/working/${project.id}`} className="block">
-                <Card className="p-6 bg-white/[0.03] border-white/10 hover:border-indigo-500/40 hover:bg-white/[0.05] transition-all duration-300 cursor-pointer group relative overflow-hidden rounded-3xl backdrop-blur-xl shadow-xl hover:shadow-[0_0_25px_rgba(99,102,241,0.15)]">
+            <Link href={`/working/${project.id}`} className="block h-full">
+                <Card className="h-full p-6 bg-card/60 border-primary/30 hover:border-primary hover:bg-card/80 transition-all duration-300 cursor-pointer group relative overflow-hidden backdrop-blur-xl hover:shadow-[0_0_25px_var(--color-primary)]">
+                    {/* FUI Accent Corner */}
+                    <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 opacity-50 group-hover:opacity-100 transition-opacity" style={{ borderColor: project.color }} />
+                    <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
+                        // PROJ_{project.id.slice(0,4)}
+                    </div>
+                    
                     {/* Accent Glow */}
                     <div
-                        className="absolute top-0 right-0 w-32 h-32 blur-[80px] opacity-10 group-hover:opacity-20 transition-opacity"
+                        className="absolute top-0 right-0 w-32 h-32 blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity pointer-events-none"
                         style={{ backgroundColor: project.color }}
                     />
 
-                    <div className="flex items-start justify-between mb-4">
+                    <div className="relative z-10 flex items-start justify-between mb-4">
                         <div
-                            className="p-3 rounded-2xl bg-white/[0.05] border border-white/10 text-white shadow-inner"
-                            style={{ color: project.color }}
+                            className="p-3 cyber-clip-button bg-background border border-primary/20 text-white shadow-inner"
+                            style={{ color: project.color, borderColor: project.color }}
                         >
                             <IconComponent size={22} />
                         </div>
@@ -41,24 +47,24 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         )}
                     </div>
 
-                    <div className="space-y-2">
-                        <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors line-clamp-1">
+                    <div className="relative z-10 space-y-2">
+                        <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-1 uppercase font-mono tracking-wider">
                             {project.name}
                         </h3>
-                        <p className="text-sm text-slate-400 line-clamp-2 min-h-[40px] leading-relaxed">
-                            {project.description || 'No description provided.'}
+                        <p className="text-sm text-primary/60 font-mono line-clamp-2 min-h-[40px] leading-relaxed">
+                            {project.description || 'AWAITING DATA...'}
                         </p>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400 font-mono">
+                    <div className="relative z-10 mt-6 pt-4 border-t border-primary/20 flex items-center justify-between text-[10px] text-primary/70 font-mono uppercase tracking-widest">
                         <div className="flex items-center gap-2">
                             <div
-                                className="w-2 h-2 rounded-full"
+                                className="w-1.5 h-1.5"
                                 style={{ backgroundColor: project.color }}
                             />
-                            <span className="capitalize">{project.status}</span>
+                            <span>{project.status}</span>
                         </div>
-                        <span>Updated {project.updated_at ? new Date(project.updated_at).toLocaleDateString() : 'N/A'}</span>
+                        <span>UPDT: {project.updated_at ? new Date(project.updated_at).toLocaleDateString() : 'N/A'}</span>
                     </div>
                 </Card>
             </Link>
