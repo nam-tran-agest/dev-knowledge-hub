@@ -56,8 +56,8 @@ export function MainNav() {
                                         <span>{getItemLabel(item.name)}</span>
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
-                                        <ul className="grid w-[380px] gap-2 p-3 md:w-[480px] md:grid-cols-2 cyber-clip glass-panel border border-primary/30 shadow-[0_0_30px_rgba(0,0,0,0.8)] relative">
-                                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
+                                        <ul className="grid w-[380px] gap-2 p-4 md:w-[480px] md:grid-cols-2 relative">
+                                            <div className="absolute top-0 right-4 px-2 bg-[#050714] border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
                                                 // SYS_MODULES
                                             </div>
                                             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-40" />
@@ -107,13 +107,13 @@ const ListItem = React.forwardRef<
                     href={href as string}
                     ref={ref}
                     className={cn(
-                        "block select-none space-y-1 cyber-clip-button p-3 leading-none no-underline outline-none transition-all duration-200 border border-primary/10 hover:border-primary/40 hover:bg-primary/10 hover:text-foreground group",
-                        active && "bg-primary/20 border-primary/50 text-primary shadow-[inset_0_0_15px_rgba(0,240,255,0.15)]",
+                        "block select-none space-y-1 cyber-clip-button p-3 leading-none no-underline outline-none transition-all duration-200 border border-primary/15 hover:border-primary/50 hover:bg-primary/10 hover:text-foreground group cursor-pointer",
+                        active && "bg-primary/20 border-primary/60 text-primary shadow-[inset_0_0_15px_rgba(0,240,255,0.2)]",
                         className
                     )}
                     {...props}
                 >
-                    <div className="text-xs font-mono uppercase tracking-wider text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
+                    <div className="text-xs font-mono uppercase tracking-wider text-foreground group-hover:text-primary transition-colors flex items-center justify-between font-bold">
                         <span>{title}</span>
                         <span className="opacity-0 group-hover:opacity-100 text-primary transition-opacity text-xs">▶</span>
                     </div>

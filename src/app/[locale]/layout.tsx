@@ -64,7 +64,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col">
             {/* Desktop Header */}
-            <header className="fixed top-0 z-40 hidden md:flex h-16 w-full items-center justify-between px-8 bg-[#04060f]/90 backdrop-blur-2xl border-b border-primary/20 shadow-[0_4px_30px_rgba(0,0,0,0.8)] relative cyber-scanline">
+            <header className="fixed top-0 z-40 hidden md:flex h-16 w-full items-center justify-between px-8 bg-[#04060f]/90 backdrop-blur-2xl border-b border-primary/20 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
               {/* Top Neon Glare Line */}
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
               
