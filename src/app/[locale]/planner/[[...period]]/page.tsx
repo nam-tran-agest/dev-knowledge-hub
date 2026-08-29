@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { TodayView } from '@/features/planner/components/today-view';
+import { TodayView } from '@/features/planner';
 
 export default async function PlannerPage({
     params

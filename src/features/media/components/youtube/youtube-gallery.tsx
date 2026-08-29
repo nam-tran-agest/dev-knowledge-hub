@@ -4,31 +4,21 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations, useFormatter } from 'next-intl';
 
-import { PlayCircle, Plus, Clock, ListVideo, Heart } from 'lucide-react';
+import { Plus, Clock, ListVideo, Heart } from 'lucide-react';
 import { VideoModal } from './video-modal';
 import { VideoCard } from './video-card';
 import { PlaylistCard } from './playlist-card';
 import { CreatePlaylistDialog } from './create-playlist-dialog';
 import { EditPlaylistDialog } from './edit-playlist-dialog';
 import { AddToPlaylistDialog } from './add-to-playlist-dialog';
+import { YouTubeSearchBar } from './youtube-search-bar';
+import { YouTubeEmptyState } from './youtube-empty-state';
+import { YouTubeDeleteDialog } from './youtube-delete-dialog';
 import type { SavedVideo, SavedPlaylist } from '@/features/media/types';
 import { addVideo, deleteVideo, toggleFavorite, deletePlaylist, togglePlaylistFavorite } from '@/features/media/services/youtube';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { isToday, isYesterday } from 'date-fns';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
 interface YouTubeGalleryProps {
     videos: SavedVideo[];
@@ -108,15 +98,11 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
     const renderVideos = (list: SavedVideo[], emptyText: string) => {
         if (list.length === 0) {
             return (
-                <Card className="text-center py-20 bg-slate-900/30 border-white/10 backdrop-blur-sm">
-                    <CardContent>
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 mb-4">
-                            <PlayCircle className="w-8 h-8 text-red-500" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2 text-white">{t('gallery.noVideosFound')}</h3>
-                        <p className="text-gray-400">{emptyText}</p>
-                    </CardContent>
-                </Card>
+                <YouTubeEmptyState
+                    title={t('gallery.noVideosFound')}
+                    description={emptyText}
+                    type="videos"
+                />
             );
         }
 
@@ -157,24 +143,15 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
 
     return (
         <div className="space-y-8 pb-20">
-            <div className="bg-[#070d1e]/50 backdrop-blur-2xl p-4 sm:p-6 rounded-3xl border border-white/10 shadow-2xl glare-top">
-                <form onSubmit={handleAddVideo} className="flex flex-col sm:flex-row gap-4">
-                    <Input
-                        placeholder={t('gallery.searchPlaceholder')}
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        className="bg-[#040711]/80 border-white/10 text-white placeholder:text-slate-500 focus:border-rose-500/50 h-12 text-sm sm:text-base w-full rounded-2xl font-mono"
-                        disabled={isAdding}
-                    />
-                    <Button
-                        type="submit"
-                        disabled={isAdding || !url}
-                        className="bg-rose-600 hover:bg-rose-500 text-white px-8 h-12 text-sm sm:text-base font-semibold transition-all transform hover:scale-105 active:scale-95 w-full sm:w-auto shrink-0 rounded-2xl cursor-pointer shadow-[0_0_20px_rgba(244,63,94,0.3)]"
-                    >
-                        {isAdding ? t('actions.adding') : t('actions.addVideo')}
-                    </Button>
-                </form>
-            </div>
+            <YouTubeSearchBar
+                url={url}
+                setUrl={setUrl}
+                onSubmit={handleAddVideo}
+                isAdding={isAdding}
+                placeholder={t('gallery.searchPlaceholder')}
+                buttonLabel={t('actions.addVideo')}
+                addingLabel={t('actions.adding')}
+            />
 
             <Tabs defaultValue="recent" className="w-full">
                 <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-8">
@@ -211,7 +188,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                     {favoritePlaylists.length > 0 && (
                         <div className="space-y-6">
                             <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                                <Heart className="w-6 h-6 text-red-500 fill-red-500" />
+                                <Heart className="w-6 h-6 text-rose-500 fill-rose-500" />
                                 {t('gallery.favoritePlaylists')}
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -239,19 +216,13 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                             />
                         ))}
                         {playlists.length === 0 && (
-                            <div className="col-span-full py-20 text-center bg-slate-900/30 border border-dashed border-white/10 rounded-2xl space-y-4">
-                                <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <ListVideo className="w-10 h-10 text-gray-600" />
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-400">{t('gallery.noPlaylists')}</h3>
-                                <p className="text-gray-500">{t('gallery.noPlaylistsDesc')}</p>
-                                <Button
-                                    onClick={() => setIsCreatePlaylistOpen(true)}
-                                    className="bg-red-600 hover:bg-red-700"
-                                >
-                                    {t('gallery.createFirst')}
-                                </Button>
-                            </div>
+                            <YouTubeEmptyState
+                                title={t('gallery.noPlaylists')}
+                                description={t('gallery.noPlaylistsDesc')}
+                                actionLabel={t('gallery.createFirst')}
+                                onAction={() => setIsCreatePlaylistOpen(true)}
+                                type="playlists"
+                            />
                         )}
                     </div>
                 </TabsContent>
@@ -261,7 +232,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
 
                     {favoritePlaylists.length > 0 && (
                         <div className="space-y-4">
-                            <h2 className="text-xl font-bold text-white border-l-4 border-red-500 pl-3">{t('gallery.favoritePlaylists')}</h2>
+                            <h2 className="text-xl font-bold text-white border-l-4 border-rose-500 pl-3">{t('gallery.favoritePlaylists')}</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {favoritePlaylists.map((playlist) => (
                                     <PlaylistCard
@@ -284,20 +255,15 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                 video={selectedVideo}
             />
 
-            <AlertDialog open={!!videoToDelete || !!playlistToDelete} onOpenChange={(open) => !open && (setVideoToDelete(null), setPlaylistToDelete(null))}>
-                <AlertDialogContent className="bg-slate-900 border-white/10 text-white">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>{t('gallery.confirmDeleteTitle')}</AlertDialogTitle>
-                        <AlertDialogDescription className="text-gray-400">
-                            {t('gallery.confirmDeleteDesc')}
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/10 hover:text-white">{t('actions.cancel')}</AlertDialogCancel>
-                        <AlertDialogAction onClick={confirmDelete} className="bg-red-600 text-white hover:bg-red-700">{t('gallery.delete')}</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+            <YouTubeDeleteDialog
+                isOpen={!!videoToDelete || !!playlistToDelete}
+                onClose={() => { setVideoToDelete(null); setPlaylistToDelete(null); }}
+                onConfirm={confirmDelete}
+                title={t('gallery.confirmDeleteTitle')}
+                description={t('gallery.confirmDeleteDesc')}
+                cancelLabel={t('actions.cancel')}
+                deleteLabel={t('gallery.delete')}
+            />
 
             <CreatePlaylistDialog
                 open={isCreatePlaylistOpen}

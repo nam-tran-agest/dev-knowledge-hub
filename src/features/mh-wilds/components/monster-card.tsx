@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import type { Monster } from '../types';
 import { Badge } from '@/components/ui/badge';

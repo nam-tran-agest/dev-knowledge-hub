@@ -1,5 +1,5 @@
 import { PageShell } from '@/components/layout/page-shell';
-import { YouTubeContainer } from '@/features/media/components/youtube/youtube-container';
+import { YouTubeContainer } from '@/features/media';
 
 export default async function YouTubePage({
     params

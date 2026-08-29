@@ -1,4 +1,4 @@
-import { MHWildsContainer } from '@/features/mh-wilds/components/mhwilds-container';
+import { MHWildsContainer } from '@/features/mh-wilds';
 
 export default function MHWildsPage() {
     return <MHWildsContainer />;

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Droppable } from '@hello-pangea/dnd';
-import { usePlannerStore } from '@/store/usePlannerStore';
+import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TaskItem } from './task-item';
 import { cn } from '@/lib/utils';
 

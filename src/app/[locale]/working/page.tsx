@@ -1,5 +1,5 @@
 import { PageShell } from '@/components/layout/page-shell';
-import { WorkingContainer } from '@/features/working/components/working-container';
+import { WorkingContainer } from '@/features/working';
 import { MatrixRain } from '@/components/ui/matrix-rain';
 
 export default async function WorkingPage({

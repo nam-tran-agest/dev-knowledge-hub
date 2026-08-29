@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Draggable } from '@hello-pangea/dnd';
-import { PlannerTask, usePlannerStore } from '@/store/usePlannerStore';
+import { PlannerTask, usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { CheckCircle2, Circle, GripVertical } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

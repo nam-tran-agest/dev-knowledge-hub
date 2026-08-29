@@ -1,1 +1,2 @@
-// Working feature services — will be populated during Phase 4a
+export * from './projects';
+export * from './tasks';

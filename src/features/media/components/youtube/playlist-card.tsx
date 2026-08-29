@@ -1,3 +1,5 @@
+'use client';
+
 import { Trash2, Heart, ListVideo, Edit2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";

@@ -1,4 +1,4 @@
-import { NewsContainer } from '@/features/news/components/news-container';
+import { NewsContainer } from '@/features/news';
 
 export default async function NewsUnifiedPage({
     params

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
-import { usePlannerStore } from '@/store/usePlannerStore';
+import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TimeTimeline } from './time-timeline';
 import { TaskItem } from './task-item';
 import { Plus, CheckCircle2, Sparkles } from 'lucide-react';

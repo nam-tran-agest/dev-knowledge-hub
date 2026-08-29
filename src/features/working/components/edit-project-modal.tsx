@@ -16,6 +16,7 @@ import { updateProject, deleteProject } from '@/features/working/services/projec
 import { Loader2, Trash2 } from 'lucide-react'
 import { Project } from '@/features/working/types'
 import { useRouter } from '@/i18n/routing'
+import { ProjectColorPicker } from './project-color-picker'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -26,16 +27,6 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-
-const COLORS = [
-    '#6366f1', // Indigo
-    '#3b82f6', // Blue
-    '#10b981', // Emerald
-    '#f59e0b', // Amber
-    '#ef4444', // Red
-    '#ec4899', // Pink
-    '#8b5cf6', // Violet
-]
 
 interface EditProjectModalProps {
     project: Project
@@ -57,7 +48,6 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
         icon: project.icon || 'Layout'
     })
 
-    // Update form data if project changes
     useEffect(() => {
         setFormData({
             name: project.name,
@@ -103,53 +93,43 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
     return (
         <>
             <Dialog open={open} onOpenChange={onOpenChange}>
-                <DialogContent className="sm:max-w-[425px] bg-[#0a0a0c] border-white/10 text-white">
+                <DialogContent className="sm:max-w-[425px] bg-[#070d1e] border-white/10 text-white rounded-3xl backdrop-blur-2xl glare-top">
                     <DialogHeader>
-                        <DialogTitle>Project Settings</DialogTitle>
-                        <DialogDescription className="text-slate-400">
-                            Update your project details and appearance.
+                        <DialogTitle className="text-xl font-bold tracking-tight">Project Settings</DialogTitle>
+                        <DialogDescription className="text-slate-400 text-xs">
+                            Update your project details, color theme and preferences.
                         </DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleSubmit} className="space-y-6 pt-4">
+                    <form onSubmit={handleSubmit} className="space-y-5 pt-3">
                         {error && (
-                            <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium">
                                 {error}
                             </div>
                         )}
                         <div className="space-y-2">
-                            <Label htmlFor="edit-name" className="text-slate-200">Name</Label>
+                            <Label htmlFor="edit-name" className="text-slate-200 text-xs font-mono">Name</Label>
                             <Input
                                 id="edit-name"
                                 required
-                                className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20"
+                                className="bg-[#040711]/80 border-white/10 text-white focus:border-indigo-500/50 rounded-xl text-sm"
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="edit-description" className="text-slate-200">Description</Label>
+                            <Label htmlFor="edit-description" className="text-slate-200 text-xs font-mono">Description</Label>
                             <Input
                                 id="edit-description"
-                                className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20"
+                                className="bg-[#040711]/80 border-white/10 text-white focus:border-indigo-500/50 rounded-xl text-sm"
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-3">
-                            <Label className="text-slate-200">Theme Color</Label>
-                            <div className="flex flex-wrap gap-3">
-                                {COLORS.map((color) => (
-                                    <button
-                                        key={color}
-                                        type="button"
-                                        onClick={() => setFormData({ ...formData, color })}
-                                        className={`w-8 h-8 rounded-full transition-all hover:scale-110 ${formData.color === color ? 'ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0c]' : ''
-                                            }`}
-                                        style={{ backgroundColor: color }}
-                                    />
-                                ))}
-                            </div>
-                        </div>
+
+                        <ProjectColorPicker
+                            selectedColor={formData.color}
+                            onColorSelect={(color) => setFormData({ ...formData, color })}
+                        />
 
                         <div className="pt-4 border-t border-white/5 space-y-4">
                             <DialogFooter className="sm:justify-between gap-3 flex flex-col-reverse sm:flex-row">
@@ -157,15 +137,15 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
                                     type="button"
                                     variant="ghost"
                                     onClick={() => setShowDeleteConfirm(true)}
-                                    className="text-red-400 hover:text-red-300 hover:bg-red-500/10 gap-2 px-0 font-normal justify-start sm:justify-center"
+                                    className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 gap-2 px-3 font-normal rounded-xl cursor-pointer"
                                 >
-                                    <Trash2 size={16} />
-                                    Delete Project
+                                    <Trash2 size={14} />
+                                    Delete
                                 </Button>
                                 <Button
                                     type="submit"
                                     disabled={isPending || isDeleting || !formData.name}
-                                    className="bg-[#6366f1] hover:bg-[#5254e0] text-white px-8"
+                                    className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 rounded-xl font-medium cursor-pointer shadow-[0_0_15px_rgba(99,102,241,0.3)]"
                                 >
                                     {isPending ? (
                                         <>
@@ -183,23 +163,23 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
             </Dialog>
 
             <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-                <AlertDialogContent className="bg-[#0a0a0c] border-white/10 text-white">
+                <AlertDialogContent className="bg-[#070d1e] border-white/10 text-white rounded-3xl backdrop-blur-2xl glare-top">
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription className="text-slate-400">
-                            This action cannot be undone. This will permanently delete the
+                        <AlertDialogTitle className="text-lg font-bold">Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription className="text-slate-400 text-xs">
+                            This action cannot be undone. This will permanently delete
                             <span className="text-white font-semibold"> {project.name} </span>
-                            project and all its tasks.
+                            and all associated tasks.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel className="bg-transparent border-white/10 text-slate-400 hover:text-white hover:bg-white/5">
+                    <AlertDialogFooter className="gap-2">
+                        <AlertDialogCancel className="bg-white/[0.04] border-white/10 text-slate-300 hover:text-white rounded-xl cursor-pointer">
                             Cancel
                         </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={isDeleting}
-                            className="bg-red-500 hover:bg-red-600 text-white"
+                            className="bg-rose-600 hover:bg-rose-500 text-white rounded-xl cursor-pointer shadow-[0_0_15px_rgba(244,63,94,0.4)]"
                         >
                             {isDeleting ? (
                                 <>

@@ -1,4 +1,4 @@
-import { YouTubePlaylistContainer } from '@/features/media/components/youtube/youtube-playlist-container';
+import { YouTubePlaylistContainer } from '@/features/media';
 
 export default async function PlaylistPage({
     params

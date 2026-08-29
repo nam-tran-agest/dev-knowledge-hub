@@ -1,1 +1,2 @@
-// Working feature constants — will be populated during Phase 4c
+export const WORKING_DEFAULT_STATUSES = ['todo', 'doing', 'done'] as const;
+export const DEFAULT_WORKSPACE_COLOR = '#6366f1';

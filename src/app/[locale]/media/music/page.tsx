@@ -1,7 +1,6 @@
 
 
-
-import { MusicContainer } from '@/features/media/components/music/music-container';
+import { MusicContainer } from '@/features/media';
 
 interface MusicPageProps {
     params: Promise<{ locale: string }>;

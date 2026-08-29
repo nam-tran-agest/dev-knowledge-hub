@@ -1,5 +1,5 @@
 import { PageShell } from '@/components/layout/page-shell';
-import { LandingContainer } from '@/features/landing/components/landing-container';
+import { LandingContainer } from '@/features/landing';
 
 export default async function Dashboard({
   params

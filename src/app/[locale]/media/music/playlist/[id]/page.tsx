@@ -1,5 +1,4 @@
-
-import { SpotifyPlaylistContainer } from '@/features/media/components/music/spotify-playlist-container';
+import { SpotifyPlaylistContainer } from '@/features/media';
 
 interface SpotifyPlaylistPageProps {
     params: Promise<{ locale: string; id: string }>;

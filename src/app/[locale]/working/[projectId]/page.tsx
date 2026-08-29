@@ -1,4 +1,4 @@
-import { ProjectDetailContainer } from '@/features/working/components/project-detail-container';
+import { ProjectDetailContainer } from '@/features/working';
 
 export default async function ProjectPage({
     params
