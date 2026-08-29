@@ -234,11 +234,22 @@
 }
 
 /* Cyber Frame & Brackets */
-.cyber-brackets {
-  position: relative;
+.cyber-brackets,
+.cyber-brackets-pink,
+.cyber-brackets-red,
+.cyber-brackets-yellow {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none;
 }
 .cyber-brackets::before,
-.cyber-brackets::after {
+.cyber-brackets::after,
+.cyber-brackets-pink::before,
+.cyber-brackets-pink::after,
+.cyber-brackets-red::before,
+.cyber-brackets-red::after,
+.cyber-brackets-yellow::before,
+.cyber-brackets-yellow::after {
   content: '';
   position: absolute;
   width: 14px;
@@ -259,20 +270,30 @@
   border-right: 2px solid var(--color-primary);
 }
 
-.cyber-brackets-pink::before {
+.cyber-brackets-pink::before,
+.cyber-brackets-red::before {
+  top: -1px;
+  left: -1px;
   border-top: 2px solid #ff007f;
   border-left: 2px solid #ff007f;
 }
-.cyber-brackets-pink::after {
+.cyber-brackets-pink::after,
+.cyber-brackets-red::after {
+  bottom: -1px;
+  right: -1px;
   border-bottom: 2px solid #ff007f;
   border-right: 2px solid #ff007f;
 }
 
 .cyber-brackets-yellow::before {
+  top: -1px;
+  left: -1px;
   border-top: 2px solid #ffb703;
   border-left: 2px solid #ffb703;
 }
 .cyber-brackets-yellow::after {
+  bottom: -1px;
+  right: -1px;
   border-bottom: 2px solid #ffb703;
   border-right: 2px solid #ffb703;
 }
