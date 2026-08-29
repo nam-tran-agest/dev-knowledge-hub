@@ -102,31 +102,31 @@ export const TemplateScannerView = () => {
         <div className="w-full max-w-[1200px] mx-auto py-12 px-6 animate-fade-in flex flex-col gap-10 text-slate-200">
 
             {/* Header & Controls */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-slate-900/50 backdrop-blur-xl p-6 rounded-3xl border border-white/5 shadow-xl">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white/[0.03] backdrop-blur-2xl p-6 rounded-3xl border border-white/10 shadow-2xl">
                 <div className="flex items-center gap-6">
                     <div className="flex flex-col">
-                        <h2 className="text-xl font-black tracking-tight text-white uppercase">{selectedTemplate.name}</h2>
-                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Simplifed Functional Mode</span>
+                        <h2 className="text-xl font-bold tracking-tight text-white uppercase">{selectedTemplate.name}</h2>
+                        <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest">Simplified Functional Mode</span>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2.5">
                         <button
                             onClick={() => fileInputRef.current?.click()}
-                            className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                            className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(99,102,241,0.3)] cursor-pointer"
                         >
                             <UploadCloud className="w-4 h-4" /> Upload
                         </button>
                         <button
                             onClick={loadSample}
-                            className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                            className="bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-slate-200 px-5 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer"
                         >
                             <Search className="w-4 h-4" /> Load Sample
                         </button>
                         <button
                             onClick={onReset}
-                            className="text-slate-500 hover:text-red-400 p-2 transition-colors"
+                            className="text-slate-400 hover:text-rose-400 p-2.5 transition-colors cursor-pointer"
                             title="Reset All"
                         >
-                            <RotateCcw className="w-5 h-5" />
+                            <RotateCcw className="w-4 h-4" />
                         </button>
                     </div>
                 </div>
@@ -137,9 +137,9 @@ export const TemplateScannerView = () => {
                         value={urlInput}
                         onChange={e => setUrlInput(e.target.value)}
                         placeholder="Paste Matrix Image URL..."
-                        className="w-full bg-slate-950/50 border border-white/10 rounded-xl py-2.5 pl-5 pr-12 text-xs text-white focus:outline-none focus:border-blue-500/50 transition-all font-medium"
+                        className="w-full bg-[#07090e]/80 border border-white/10 rounded-xl py-2.5 pl-4 pr-12 text-xs text-white focus:outline-none focus:border-indigo-500/50 transition-all font-medium placeholder:text-slate-500"
                     />
-                    <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-blue-500">
+                    <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-400 cursor-pointer">
                         <LinkIcon className="w-4 h-4" />
                     </button>
                 </form>
@@ -153,41 +153,41 @@ export const TemplateScannerView = () => {
                 {/* Left: Portrait Area (lg:col-span-5) */}
                 <div className="lg:col-span-5 flex flex-col gap-6">
                     <div
-                        className="relative aspect-[3/4] rounded-[2.5rem] overflow-hidden bg-slate-950 border border-white/5 shadow-2xl group cursor-pointer"
+                        className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#07090e] border border-white/10 shadow-2xl group cursor-pointer"
                         onClick={() => fileInputRef.current?.click()}
                     >
                         {characterImage ? (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img src={characterImage} alt="Portrait" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900/50 group-hover:bg-slate-900/80 transition-all">
-                                <User className="w-24 h-24 text-white/5 mb-4" />
-                                <span className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em]">Awaiting Matrix</span>
+                            <div className="w-full h-full flex flex-col items-center justify-center bg-white/[0.02] group-hover:bg-white/[0.05] transition-all">
+                                <User className="w-20 h-20 text-white/10 mb-4" />
+                                <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">Awaiting Matrix</span>
                             </div>
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#07090e] via-transparent to-transparent opacity-70" />
 
-                        <div className="absolute bottom-8 left-8 right-8">
-                            <h1 className="text-5xl font-black text-white tracking-tighter uppercase leading-none mb-2">{charName}</h1>
-                            <div className="flex items-center gap-4">
-                                <span className="text-blue-400 font-bold text-sm tracking-widest italic uppercase">{imagePreview ? 'Unit Syncing...' : 'System Offline'}</span>
-                                {imagePreview && <div className="flex gap-1">{[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 text-amber-500 fill-amber-500" />)}</div>}
+                        <div className="absolute bottom-6 left-6 right-6">
+                            <h1 className="text-4xl font-extrabold text-white tracking-tight uppercase leading-none mb-2">{charName}</h1>
+                            <div className="flex items-center gap-3">
+                                <span className="text-cyan-400 font-mono text-xs tracking-wider uppercase">{imagePreview ? 'Unit Syncing...' : 'System Offline'}</span>
+                                {imagePreview && <div className="flex gap-1">{[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />)}</div>}
                             </div>
                         </div>
 
                         {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                            <div className="bg-white text-blue-600 px-6 py-2 rounded-full font-black text-[10px] uppercase tracking-widest shadow-2xl">
+                        <div className="absolute inset-0 bg-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                            <div className="bg-white text-indigo-900 px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider shadow-2xl">
                                 Replace Matrix Image
                             </div>
                         </div>
                     </div>
 
                     {/* Skill Icons */}
-                    <div className="flex gap-4 px-2">
+                    <div className="flex gap-3 px-1">
                         {[Wind, Sparkles, Flame].map((Icon, i) => (
-                            <div key={i} className="w-12 h-12 rounded-2xl bg-slate-900 border border-white/5 flex items-center justify-center text-slate-600 hover:text-white hover:border-blue-500/50 transition-all cursor-pointer">
-                                <Icon className="w-6 h-6" />
+                            <div key={i} className="w-11 h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-indigo-500/50 hover:bg-white/[0.06] transition-all cursor-pointer">
+                                <Icon className="w-5 h-5" />
                             </div>
                         ))}
                     </div>
@@ -197,44 +197,44 @@ export const TemplateScannerView = () => {
                 <div className="lg:col-span-7 flex flex-col gap-6">
 
                     {/* Stats Header */}
-                    <div className="flex items-center justify-between px-4">
-                        <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em]">Core Parameters</h3>
+                    <div className="flex items-center justify-between px-2">
+                        <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest">Core Parameters</h3>
                         <button
                             onClick={() => setIsEditing(!isEditing)}
-                            className={`text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-lg border transition-all ${isEditing ? 'bg-green-500/10 border-green-500/50 text-green-400' : 'bg-slate-800 border-white/5 text-slate-400 hover:text-white'}`}
+                            className={`text-xs font-semibold uppercase tracking-wider px-3.5 py-1.5 rounded-xl border transition-all cursor-pointer ${isEditing ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.2)]' : 'bg-white/[0.04] border-white/10 text-slate-300 hover:text-white hover:bg-white/[0.08]'}`}
                         >
                             {isEditing ? 'Save Changes' : 'Manual Edit'}
                         </button>
                     </div>
 
                     {/* Main Stats Card */}
-                    <div className="bg-slate-900/40 rounded-3xl border border-white/5 p-8 shadow-xl flex flex-col gap-8">
+                    <div className="bg-white/[0.03] rounded-3xl border border-white/10 p-7 shadow-2xl flex flex-col gap-7 backdrop-blur-2xl">
 
                         {/* Weapon Preview */}
-                        <div className="flex items-center gap-6 p-5 rounded-2xl bg-white/[0.02] border border-white/5">
-                            <div className="w-16 h-16 rounded-xl bg-slate-950 flex items-center justify-center border border-white/5">
-                                <Sword className="w-8 h-8 text-blue-500/50" />
+                        <div className="flex items-center gap-5 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                            <div className="w-14 h-14 rounded-xl bg-[#07090e] flex items-center justify-center border border-white/10">
+                                <Sword className="w-7 h-7 text-indigo-400/80" />
                             </div>
                             <div className="flex-1">
                                 {isEditing ? (
                                     <input
-                                        className="bg-transparent text-lg font-black text-white w-full focus:outline-none border-b border-blue-500/20 mb-1"
+                                        className="bg-transparent text-base font-bold text-white w-full focus:outline-none border-b border-indigo-500/40 mb-1"
                                         value={formValues['Weapon Name'] || ''}
                                         onChange={(e) => handleValueChange('Weapon Name', e.target.value)}
                                         placeholder="Enter Weapon Name..."
                                     />
                                 ) : (
-                                    <h4 className="text-lg font-black text-white">{formValues['Weapon Name'] || 'No Weapon Detected'}</h4>
+                                    <h4 className="text-base font-bold text-white">{formValues['Weapon Name'] || 'No Weapon Detected'}</h4>
                                 )}
-                                <div className="flex gap-4 text-[10px] font-bold text-slate-500 uppercase">
+                                <div className="flex gap-4 text-xs font-mono text-slate-400">
                                     <span>Lv. {formValues['Weapon Level'] || '??'} / 90</span>
-                                    <span className="text-amber-500">{formValues['Refinement'] || 'R?'}</span>
+                                    <span className="text-amber-400 font-semibold">{formValues['Refinement'] || 'R?'}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Grid Stats */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
                             {[
                                 { key: 'HP', icon: Heart, label: 'HP (Sinh Mệnh)' },
                                 { key: 'ATK', icon: Sword, label: 'Tấn Công' },
@@ -245,50 +245,50 @@ export const TemplateScannerView = () => {
                                 { key: 'ER', icon: Zap, label: 'Hiệu Quả Nạp' },
                                 { key: 'Elemental Bonus', icon: Sparkles, label: 'Tăng ST Nguyên Tố' },
                             ].map(stat => (
-                                <div key={stat.key} className="flex flex-col gap-2">
-                                    <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
-                                        <div className="flex items-center gap-2">
-                                            <stat.icon className="w-3 h-3 text-blue-500" />
+                                <div key={stat.key} className="flex flex-col gap-1.5">
+                                    <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                                        <div className="flex items-center gap-1.5">
+                                            <stat.icon className="w-3.5 h-3.5 text-indigo-400" />
                                             <span>{stat.label}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         {isEditing ? (
                                             <input
-                                                className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-sm font-black text-white w-full focus:border-blue-500/50 focus:outline-none"
+                                                className="bg-white/5 border border-white/10 rounded-lg px-3 py-1 text-sm font-bold text-white w-full focus:border-indigo-500/50 focus:outline-none"
                                                 value={formValues[stat.key] || ''}
                                                 onChange={(e) => handleValueChange(stat.key, e.target.value)}
                                             />
                                         ) : (
-                                            <span className="text-xl font-black text-white tracking-tight">{formValues[stat.key] || '---'}</span>
+                                            <span className="text-lg font-bold text-white tracking-tight">{formValues[stat.key] || '---'}</span>
                                         )}
                                     </div>
                                     <div className="w-full h-1 bg-white/[0.05] rounded-full overflow-hidden">
-                                        <div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: formValues[stat.key] ? '70%' : '0%' }} />
+                                        <div className="h-full bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-1000" style={{ width: formValues[stat.key] ? '70%' : '0%' }} />
                                     </div>
                                 </div>
                             ))}
                         </div>
 
                         {/* Artifact Set */}
-                        <div className="mt-4 pt-6 border-t border-white/5 text-center">
-                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] mb-2 block">Active Resonance Set</span>
+                        <div className="mt-2 pt-5 border-t border-white/10 text-center">
+                            <span className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1.5 block">Active Resonance Set</span>
                             {isEditing ? (
                                 <input
-                                    className="bg-transparent text-sm font-black text-white text-center w-full focus:outline-none border-b border-blue-500/20"
+                                    className="bg-transparent text-sm font-bold text-white text-center w-full focus:outline-none border-b border-indigo-500/40"
                                     value={formValues['Artifact Set'] || ''}
                                     onChange={(e) => handleValueChange('Artifact Set', e.target.value)}
                                     placeholder="Enter Artifact Set Name..."
                                 />
                             ) : (
-                                <h5 className="text-sm font-black text-white uppercase tracking-wider">{formValues['Artifact Set'] || '---'}</h5>
+                                <h5 className="text-sm font-bold text-white uppercase tracking-wider">{formValues['Artifact Set'] || '---'}</h5>
                             )}
                         </div>
                     </div>
                 </div>
 
                 {/* Horizontal Stat Ribbon */}
-                <div className="bg-slate-900 border border-white/5 rounded-2xl p-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 shadow-lg h-auto min-h-[4rem]">
+                <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 shadow-xl backdrop-blur-xl h-auto min-h-[4rem] lg:col-span-12">
                     {[
                         { key: 'HP', icon: <Heart className="w-4 h-4" /> },
                         { key: 'ATK', icon: <Sword className="w-4 h-4" /> },
@@ -300,8 +300,8 @@ export const TemplateScannerView = () => {
                         { key: 'Elemental Bonus', icon: <Wind className="w-4 h-4" /> },
                     ].map(s => (
                         <div key={s.key} className="flex items-center gap-2 group cursor-default">
-                            <div className="text-blue-500 group-hover:scale-110 transition-transform">{s.icon}</div>
-                            <span className="text-[11px] font-black text-white tracking-widest">{formValues[s.key] || '---'}</span>
+                            <div className="text-indigo-400 group-hover:scale-110 transition-transform">{s.icon}</div>
+                            <span className="text-xs font-mono font-bold text-white tracking-wider">{formValues[s.key] || '---'}</span>
                         </div>
                     ))}
                 </div>
@@ -309,27 +309,27 @@ export const TemplateScannerView = () => {
 
             {/* Scanning Overlay */}
             {isScanning && (
-                <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-xl flex flex-col items-center justify-center p-8">
-                    <div className="w-24 h-24 rounded-full border-4 border-blue-500/10 border-t-blue-500 animate-spin mb-8" />
-                    <h3 className="text-2xl font-black text-white uppercase tracking-tighter animate-pulse mb-2">{statusText}</h3>
-                    <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{scanProgress}% Analysis Complete</p>
+                <div className="fixed inset-0 z-[100] bg-[#07090e]/90 backdrop-blur-2xl flex flex-col items-center justify-center p-8">
+                    <div className="w-20 h-20 rounded-full border-4 border-indigo-500/10 border-t-indigo-500 animate-spin mb-6" />
+                    <h3 className="text-2xl font-bold text-white uppercase tracking-tight animate-pulse mb-2">{statusText}</h3>
+                    <p className="text-xs font-mono text-cyan-400 uppercase tracking-widest">{scanProgress}% Analysis Complete</p>
                     <div className="w-64 h-1.5 bg-white/10 rounded-full mt-6 overflow-hidden">
-                        <div className="h-full bg-blue-500 transition-all duration-300" style={{ width: `${scanProgress}%` }} />
+                        <div className="h-full bg-indigo-500 transition-all duration-300 shadow-[0_0_10px_rgba(99,102,241,0.5)]" style={{ width: `${scanProgress}%` }} />
                     </div>
                 </div>
             )}
 
             {error && (
-                <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl text-red-400 text-xs font-bold text-center uppercase tracking-widest">
+                <div className="bg-rose-500/10 border border-rose-500/20 p-4 rounded-2xl text-rose-300 text-xs font-semibold text-center uppercase tracking-wider">
                     {error}
                 </div>
             )}
 
             {/* Plain Debug info for the user if they want to see what failed */}
             {result?.rawText && (
-                <div className="mt-12 p-8 rounded-3xl bg-slate-900/20 border border-white/5">
-                    <h4 className="text-[10px] font-black text-slate-700 uppercase tracking-[0.4em] mb-4">OCR Raw Data Extract</h4>
-                    <pre className="text-[10px] text-slate-600 font-mono whitespace-pre-wrap leading-relaxed opacity-40 hover:opacity-100 transition-opacity">
+                <div className="mt-8 p-6 rounded-3xl bg-white/[0.02] border border-white/5">
+                    <h4 className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-3">OCR Raw Data Extract</h4>
+                    <pre className="text-xs text-slate-500 font-mono whitespace-pre-wrap leading-relaxed opacity-40 hover:opacity-100 transition-opacity">
                         {result.rawText}
                     </pre>
                 </div>

@@ -33,7 +33,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
     }, []);
 
     const handleSelect = (idx: number, scrollToSection = false) => {
-        if (isAnimating) return; // Prevent rapid clicks
+        if (isAnimating) return;
         setIsAnimating(true);
         setCurrentIndex(idx);
         if (swiperRef.current && swiperRef.current.swiper.activeIndex !== idx) {
@@ -42,19 +42,18 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
         if (scrollToSection) {
             sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-        // Reset after animation duration
         if (animTimerRef.current) clearTimeout(animTimerRef.current);
         animTimerRef.current = setTimeout(() => setIsAnimating(false), 500);
     };
 
     const handlePrev = () => {
         const newIndex = currentIndex === 0 ? caseStudies.length - 1 : currentIndex - 1;
-        handleSelect(newIndex, false); // No scroll on desktop arrows
+        handleSelect(newIndex, false);
     };
 
     const handleNext = () => {
         const newIndex = currentIndex === caseStudies.length - 1 ? 0 : currentIndex + 1;
-        handleSelect(newIndex, false); // No scroll on desktop arrows
+        handleSelect(newIndex, false);
     };
 
     if (!caseStudies || caseStudies.length === 0) return null;
@@ -71,14 +70,14 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
     ];
 
     return (
-        <section ref={sectionRef} className="py-14 bg-gradient-to-br from-[#122550] via-[#2a5ca8] to-[#0a1430]">
+        <section ref={sectionRef} className="relative py-20 overflow-hidden">
             <div className={cn(LAYOUT.container, "flex flex-col items-center")}>
                 <motion.h2
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
-                    className={TYPOGRAPHY.sectionTitle + " text-center mb-4 xl:mb-12"}
+                    className={TYPOGRAPHY.sectionTitle + " text-center mb-16"}
                 >
                     {title}
                 </motion.h2>
@@ -94,12 +93,12 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                     >
                         {caseStudies.map((caseStudy, idx) => (
                             <SwiperSlide key={`case-study-mobile-${idx}`}>
-                                <div className="flex flex-col gap-6">
+                                <div className="flex flex-col gap-6 p-6 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl">
                                     <Link
                                         href={caseStudy.slug}
                                         target={caseStudy.slug.startsWith('http') ? "_blank" : undefined}
                                         rel={caseStudy.slug.startsWith('http') ? "noopener noreferrer" : undefined}
-                                        className="w-full rounded-3xl overflow-hidden shadow-lg block aspect-video relative"
+                                        className="w-full rounded-2xl overflow-hidden shadow-lg block aspect-video relative"
                                     >
                                         <Image
                                             src={getMediaUrl(caseStudy.image) || FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length]}
@@ -110,22 +109,22 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                             priority={idx < 2}
                                         />
                                     </Link>
-                                    <div className="space-y-4">
-                                        <h3 className="text-2xl font-semibold text-white leading-relaxed">
+                                    <div className="space-y-3">
+                                        <h3 className="text-xl font-bold text-white">
                                             {caseStudy.title}
                                         </h3>
-                                        <p className="text-gray-300 leading-relaxed text-justify line-clamp-4">
+                                        <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">
                                             {caseStudy.description}
                                         </p>
                                         <Link
                                             href={caseStudy.slug}
                                             target={caseStudy.slug.startsWith('http') ? "_blank" : undefined}
                                             rel={caseStudy.slug.startsWith('http') ? "noopener noreferrer" : undefined}
-                                            className="inline-flex items-center gap-2 text-gradient text-lg font-semibold hover:gap-3 transition-all"
+                                            className="inline-flex items-center gap-2 text-indigo-400 text-sm font-semibold hover:gap-3 transition-all pt-2"
                                             aria-label="Read more about this case study"
                                         >
                                             {readMoreLabel}
-                                            <ChevronRight className="text-blue-500/90 size-5" />
+                                            <ChevronRight className="size-4" />
                                         </Link>
                                     </div>
                                 </div>
@@ -146,23 +145,23 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                 </div>
 
                 {/* Desktop Layout (xl and above) */}
-                <div className="relative max-w-screen-xl mx-auto hidden xl:block w-full">
-                    <div className="grid xl:grid-cols-2 gap-12 items-center xl:px-4 2xl:px-2">
+                <div className="relative max-w-6xl mx-auto hidden xl:block w-full">
+                    <div className="grid xl:grid-cols-2 gap-12 items-center p-8 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-2xl">
                         {/* Left - Image */}
                         <motion.div
                             key={`image-${currentIndex}`}
-                            initial={{ opacity: 0, x: -40 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, ease: "easeInOut" }}
-                            className="order-2 xl:order-1 flex justify-center xl:justify-start"
+                            className="order-2 xl:order-1 flex justify-center"
                         >
                             <Link
                                 href={currentCase.slug}
                                 target={currentCase.slug.startsWith('http') ? "_blank" : undefined}
                                 rel={currentCase.slug.startsWith('http') ? "noopener noreferrer" : undefined}
-                                className="w-full max-w-xl rounded-3xl overflow-hidden shadow-lg block aspect-[4/3] relative group"
+                                className="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl block aspect-[4/3] relative group border border-white/10"
                             >
-                                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10" />
+                                <div className="absolute inset-0 bg-[#07090e]/30 group-hover:bg-transparent transition-colors z-10" />
                                 <Image
                                     src={getMediaUrl(imageUrl) || FALLBACK_IMAGES[currentIndex % FALLBACK_IMAGES.length]}
                                     alt={currentCase.title}
@@ -177,16 +176,16 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                         {/* Right - Content */}
                         <motion.div
                             key={`content-${currentIndex}`}
-                            initial={{ opacity: 0, x: 40 }}
+                            initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, ease: "easeInOut" }}
                             className="space-y-6 order-1 xl:order-2"
                         >
-                            <h3 className="text-3xl md:text-4xl font-serif font-bold text-white leading-tight">
+                            <h3 className="text-3xl font-bold text-white leading-tight">
                                 {currentCase.title}
                             </h3>
 
-                            <p className="text-gray-300 text-lg leading-relaxed text-justify">
+                            <p className="text-slate-300 text-base leading-relaxed">
                                 {currentCase.description}
                             </p>
 
@@ -194,31 +193,31 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                 href={currentCase.slug}
                                 target={currentCase.slug.startsWith('http') ? "_blank" : undefined}
                                 rel={currentCase.slug.startsWith('http') ? "noopener noreferrer" : undefined}
-                                className="inline-flex items-center gap-2 text-gradient text-lg font-semibold hover:gap-3 transition-all"
+                                className="inline-flex items-center gap-2 text-indigo-400 text-base font-semibold hover:gap-3 transition-all"
                                 aria-label="Read more about this case study"
                             >
                                 {readMoreLabel}
-                                <ChevronRight className="text-blue-500/90 size-5" />
+                                <ChevronRight className="size-5 text-indigo-400" />
                             </Link>
                         </motion.div>
                     </div>
 
                     {/* Navigation Arrows */}
-                    <div className="flex items-center justify-center gap-4 mt-8 xl:mt-0 xl:absolute xl:inset-y-1/2 xl:-translate-y-1/2 xl:left-0 xl:right-0 xl:justify-between pointer-events-none w-full z-20">
+                    <div className="flex items-center justify-between pointer-events-none w-full absolute top-1/2 -translate-y-1/2 -left-6 -right-6 z-20">
                         <button
                             onClick={handlePrev}
-                            className="size-12 xl:size-14 pointer-events-auto grid place-items-center rounded-full border border-gray-200 bg-white shadow-lg hover:bg-gray-50 transition-colors xl:-ml-14 2xl:-ml-24 group/nav"
+                            className="size-12 pointer-events-auto grid place-items-center rounded-full border border-white/10 bg-zinc-900/90 text-white shadow-xl hover:bg-zinc-800 hover:border-indigo-500/50 hover:scale-105 transition-all group/nav"
                             aria-label="Previous case study"
                         >
-                            <ChevronLeft className="size-6 text-gray-700 group-hover/nav:text-primary transition-colors" />
+                            <ChevronLeft className="size-5 group-hover/nav:text-indigo-400 transition-colors" />
                         </button>
 
                         <button
                             onClick={handleNext}
-                            className="size-12 xl:size-14 pointer-events-auto grid place-items-center rounded-full border border-gray-200 bg-white shadow-lg hover:bg-gray-50 transition-colors xl:-mr-14 2xl:-mr-24 group/nav"
+                            className="size-12 pointer-events-auto grid place-items-center rounded-full border border-white/10 bg-zinc-900/90 text-white shadow-xl hover:bg-zinc-800 hover:border-indigo-500/50 hover:scale-105 transition-all group/nav"
                             aria-label="Next case study"
                         >
-                            <ChevronRight className="size-6 text-gray-700 group-hover/nav:text-primary transition-colors" />
+                            <ChevronRight className="size-5 group-hover/nav:text-indigo-400 transition-colors" />
                         </button>
                     </div>
                 </div>

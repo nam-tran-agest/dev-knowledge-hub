@@ -6,7 +6,7 @@ import { CTAButton } from "@/components/ui/cta-btn";
 import { ShowcaseSectionProps } from "@/features/landing/types/section/showcase";
 import { getMediaUrl } from "@/components/common/media/AppImage";
 import Image from "next/image";
-import { TYPOGRAPHY, LAYOUT, EFFECTS } from "@/lib/constants";
+import { TYPOGRAPHY, LAYOUT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 import show1 from "@/assets/images/home/show1.webp";
@@ -22,28 +22,32 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
     ];
 
     return (
-        <section className="py-10 bg-gradient-to-br from-[#122550] via-[#2a5ca8] to-[#0a1430]">
+        <section className="relative py-20 overflow-hidden">
+            {/* Ambient Glow */}
+            <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none -translate-y-1/2" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
+
             <div className={LAYOUT.container}>
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
                 >
                     {/* Section Header */}
-                    <div className="text-center mb-12">
+                    <div className="text-center mb-16 space-y-3">
                         <h2 className={TYPOGRAPHY.sectionTitle}>
                             {title1}
                         </h2>
                         {title2 && (
-                            <h2 className={TYPOGRAPHY.sectionTitle + " opacity-60"}>
+                            <p className="text-slate-400 text-lg md:text-xl font-normal max-w-2xl mx-auto">
                                 {title2}
-                            </h2>
+                            </p>
                         )}
                     </div>
 
                     {/* Features Loop */}
-                    <div className="flex flex-col gap-12 p-8 md:p-12">
+                    <div className="flex flex-col gap-16 md:gap-24">
                         {items.map((feature, idx) => {
                             const isEven = idx % 2 === 0;
                             const imageUrl = (feature.image ? getMediaUrl(feature.image.url) : null) || FALLBACK_SHOWCASE_IMAGES[idx % FALLBACK_SHOWCASE_IMAGES.length];
@@ -55,11 +59,11 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.6, delay: 0.1 }}
                                     viewport={{ once: true }}
-                                    className="grid lg:grid-cols-2 gap-6 lg:gap-10 xl:gap-14 items-center lg:w-[95%] xl:w-[85%] mx-auto"
+                                    className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center"
                                 >
                                     {/* Image / Visual Column */}
                                     <div className={`relative ${isEven ? "lg:order-1" : "lg:order-2"}`}>
-                                        <div className="w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-video relative group">
+                                        <div className="w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-video relative group bg-white/[0.02]">
                                             <Image
                                                 src={imageUrl}
                                                 alt={feature.title}
@@ -68,23 +72,23 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
                                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                                 priority
                                             />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#07090e]/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                                         </div>
                                     </div>
 
                                     {/* Content Column */}
-                                    <div className={`${isEven ? "lg:order-2" : "lg:order-1 flex justify-end"}`}>
+                                    <div className={`${isEven ? "lg:order-2" : "lg:order-1"}`}>
                                         <Card
                                             className={cn(
-                                                "w-full lg:w-[450px] min-h-[167px] h-auto rounded-[30px] flex flex-col justify-center py-8 px-6 transition-all duration-300 shadow-none hover:shadow-2xl hover:-translate-y-1 border-white/20",
-                                                EFFECTS.glass
+                                                "w-full rounded-3xl p-8 sm:p-10 transition-all duration-300 border border-white/10 bg-white/[0.03] backdrop-blur-xl hover:border-indigo-500/30 hover:bg-white/[0.05] shadow-[0_0_30px_rgba(0,0,0,0.5)]"
                                             )}
                                         >
                                             <CardHeader className="p-0 mb-4">
-                                                <CardTitle className={TYPOGRAPHY.cardTitle + " text-gradient font-bold tracking-tight"}>
+                                                <CardTitle className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
                                                     {feature.title}
                                                 </CardTitle>
                                             </CardHeader>
-                                            <CardContent className={TYPOGRAPHY.bodySub + " p-0 text-white/70 font-medium leading-relaxed"}>
+                                            <CardContent className="p-0 text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
                                                 {feature.sub_title}
                                             </CardContent>
                                         </Card>
@@ -95,13 +99,13 @@ const ShowcaseSection = ({ title1, title2, items = [], cta }: ShowcaseSectionPro
 
                         {/* Bottom CTA */}
                         {cta && (
-                            <div className="flex justify-center pt-20">
+                            <div className="flex justify-center pt-8">
                                 <CTAButton
                                     id={cta.id}
                                     href={cta.url}
                                     label={cta.label}
                                     variant="premium"
-                                    className="!px-8 !py-6 text-lg border-0"
+                                    className="!px-8 !py-5 text-base rounded-full font-semibold shadow-[0_0_25px_rgba(99,102,241,0.3)]"
                                 />
                             </div>
                         )}

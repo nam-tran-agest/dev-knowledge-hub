@@ -6,7 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Lock, Mail, Sparkles } from 'lucide-react'
+import Image from 'next/image'
+import { Link } from '@/i18n/routing'
 
 export function LoginContainer() {
     const [isLoading, setIsLoading] = useState(false)
@@ -34,20 +36,36 @@ export function LoginContainer() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-muted/40 p-4">
-            <Card className="w-full max-w-sm bg-background border-none shadow-xl">
-                <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl font-bold tracking-tight text-center">
-                        Welcome back
+        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#07090e]">
+            {/* Background Ambient Glows */}
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
+
+            <Card className="w-full max-w-md bg-white/[0.03] border border-white/10 shadow-2xl backdrop-blur-2xl rounded-3xl relative z-10 p-2 sm:p-4">
+                <CardHeader className="space-y-3 text-center pb-6">
+                    <Link href="/" className="inline-flex items-center justify-center mx-auto mb-2">
+                        <div className="relative h-12 w-12 transition-transform hover:scale-105">
+                            <Image
+                                src="/img/home/nav_ico.svg"
+                                alt="Dev Hub Logo"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
+                    </Link>
+                    <CardTitle className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+                        Welcome Back
                     </CardTitle>
-                    <CardDescription className="text-center">
-                        Enter your credentials to access your account
+                    <CardDescription className="text-slate-400 text-sm">
+                        Enter your credentials to access your workspace
                     </CardDescription>
                 </CardHeader>
                 <form action={handleSubmit}>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email" className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <Mail className="w-3.5 h-3.5 text-indigo-400" /> Email
+                            </Label>
                             <Input
                                 id="email"
                                 name="email"
@@ -55,35 +73,43 @@ export function LoginContainer() {
                                 placeholder="name@example.com"
                                 required
                                 disabled={isLoading}
-                                className="bg-muted/30"
+                                className="bg-[#07090e]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5"
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password" className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <Lock className="w-3.5 h-3.5 text-indigo-400" /> Password
+                            </Label>
                             <Input
                                 id="password"
                                 name="password"
                                 type="password"
                                 required
                                 disabled={isLoading}
-                                className="bg-muted/30"
+                                className="bg-[#07090e]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5"
                             />
                         </div>
                         {error && (
-                            <div className="text-sm text-destructive font-medium text-center bg-destructive/10 p-2 rounded-md">
+                            <div className="text-xs text-rose-300 font-semibold text-center bg-rose-500/15 border border-rose-500/30 p-3 rounded-xl">
                                 {error}
                             </div>
                         )}
                     </CardContent>
-                    <CardFooter>
-                        <Button className="w-full font-semibold" type="submit" disabled={isLoading}>
+                    <CardFooter className="pt-2">
+                        <Button
+                            className="w-full font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] rounded-xl py-5 cursor-pointer transition-all duration-300 hover:shadow-[0_0_25px_rgba(99,102,241,0.5)]"
+                            type="submit"
+                            disabled={isLoading}
+                        >
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                     Signing in...
                                 </>
                             ) : (
-                                'Sign In'
+                                <span className="flex items-center justify-center gap-2">
+                                    <Sparkles className="w-4 h-4" /> Sign In
+                                </span>
                             )}
                         </Button>
                     </CardFooter>

@@ -12,11 +12,10 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
     background_image,
 }) => {
     return (
-        <section className="flex flex-col gap-4 py-10 md:py-16 relative overflow-hidden bg-gradient-to-b from-black/90 via-slate-950 to-blue-950">
-            {/* Background Overlay if Image Provided */}
+        <section className="flex flex-col gap-4 py-16 relative overflow-hidden">
             {background_image && (
-                <div className="absolute inset-0 w-full h-full -z-10 opacity-30">
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50 z-10" />
+                <div className="absolute inset-0 w-full h-full -z-10 opacity-20">
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#07090e] via-transparent to-[#07090e] z-10" />
                     <AppImage
                         documentId={background_image.documentId}
                         url={background_image.url}
@@ -27,19 +26,18 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
                 </div>
             )}
 
-            <div className="relative w-full flex flex-col justify-center gap-8 md:gap-12">
+            <div className="relative w-full flex flex-col justify-center gap-8">
                 <div className="flex flex-col justify-center items-center gap-2 z-20 px-4">
-                    {/* Section Title */}
-                    <h2 className={cn(TYPOGRAPHY.sectionTitle, "text-center mb-4")}>{title}</h2>
+                    <h2 className={cn(TYPOGRAPHY.sectionTitle, "text-center mb-2 text-2xl sm:text-3xl")}>{title}</h2>
                 </div>
 
                 {logos && logos.length > 0 && (
                     <div dir="ltr" className="w-full">
-                        <Marquee autoFill gradient={false} speed={50} direction="left" pauseOnHover className="py-4 overflow-y-visible">
+                        <Marquee autoFill gradient={true} gradientColor="#07090e" speed={40} direction="left" pauseOnHover className="py-4 overflow-y-visible">
                             {logos.map((logo: { url: string; alternativeText?: string; href?: string }, index: number) => (
-                                <div key={index} className="mx-8 md:mx-16 flex items-center group/logo" onClick={() => logo.href && window.open(logo.href, '_blank')}>
+                                <div key={index} className="mx-8 md:mx-14 flex items-center group/logo" onClick={() => logo.href && window.open(logo.href, '_blank')}>
                                     <div
-                                        className="relative h-12 w-24 md:h-24 md:w-48 transition-all duration-300 hover:scale-110 cursor-pointer flex items-center justify-center filter mix-blend-multiply"
+                                        className="relative h-12 w-28 md:h-16 md:w-36 transition-all duration-300 hover:scale-110 cursor-pointer flex items-center justify-center opacity-40 hover:opacity-100 filter brightness-125"
                                     >
                                         {logo.href ? (
                                             <a

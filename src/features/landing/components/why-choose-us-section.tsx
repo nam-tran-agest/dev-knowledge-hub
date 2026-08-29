@@ -14,35 +14,35 @@ import why1 from "@/assets/images/home/why1.webp";
 
 export default function WhyChooseUsSection({ title = "Why Choose Us", items }: ServiceWhyChooseUsProps) {
     return (
-        <section className="py-10 bg-gradient-to-br from-[#122550] via-[#2a5ca8] to-[#0a1430]">
+        <section className="relative py-20 overflow-hidden">
             <div className={LAYOUT.container}>
-                <div className="flex flex-col justify-center items-center gap-5 mb-10">
+                <div className="flex flex-col justify-center items-center gap-3 mb-16 text-center">
                     <h2 className={TYPOGRAPHY.sectionTitle}>{title}</h2>
                 </div>
 
-                <div className="flex flex-col md:flex-row-reverse gap-10 md:gap-20 items-center md:items-start">
+                <div className="flex flex-col lg:flex-row-reverse gap-10 lg:gap-16 items-center lg:items-start">
                     {/* Right side - Accordion */}
                     <Accordion
                         type="multiple"
                         defaultValue={["item-0"]}
-                        className="flex flex-col gap-4 md:gap-8 w-full md:w-[45%]"
+                        className="flex flex-col gap-4 w-full lg:w-1/2"
                     >
                         {items.map((item, index) => (
                             <AccordionItem
                                 key={item.id}
                                 value={`item-${index}`}
-                                className="border-0"
+                                className="border-0 rounded-2xl overflow-hidden bg-white/[0.02] border border-white/5 data-[state=open]:border-indigo-500/30 data-[state=open]:bg-white/[0.04] transition-all"
                             >
-                                <AccordionTrigger className="group flex items-center justify-between w-full px-4 md:px-6 py-3 md:py-4 rounded-full border border-[#D5D6D8] bg-white hover:bg-gray-50 hover:no-underline data-[state=open]:text-primary data-[state=open]:shadow-sm [&>svg]:hidden">
-                                    <span className={TYPOGRAPHY.label + " normal-case text-left text-gradient"}>
+                                <AccordionTrigger className="group flex items-center justify-between w-full px-6 py-5 hover:no-underline text-white [&>svg]:hidden">
+                                    <span className="text-base sm:text-lg font-semibold text-left text-white group-hover:text-indigo-300 transition-colors">
                                         {item.title}
                                     </span>
-                                    <span className="relative rounded-full p-1.5 md:p-2 border flex items-center justify-center bg-white border-[#D5D6D8] text-secondary group-data-[state=open]:border-primary group-data-[state=open]:text-primary">
-                                        <Plus strokeWidth={3} size={16} className="md:w-[18px] md:h-[18px] group-data-[state=open]:hidden" />
-                                        <Minus strokeWidth={3} size={16} className="md:w-[18px] md:h-[18px] hidden group-data-[state=open]:block" />
+                                    <span className="relative rounded-full p-2 border flex items-center justify-center bg-white/[0.05] border-white/10 text-slate-400 group-data-[state=open]:border-indigo-500/50 group-data-[state=open]:bg-indigo-500/20 group-data-[state=open]:text-indigo-300 transition-all shrink-0 ml-4">
+                                        <Plus strokeWidth={2.5} size={16} className="group-data-[state=open]:hidden" />
+                                        <Minus strokeWidth={2.5} size={16} className="hidden group-data-[state=open]:block" />
                                     </span>
                                 </AccordionTrigger>
-                                <AccordionContent className={TYPOGRAPHY.bodySub + " text-white/90 font-semibold px-4 md:px-6 pb-4 pt-2"}>
+                                <AccordionContent className="text-slate-300 text-sm sm:text-base leading-relaxed px-6 pb-6 pt-1 font-normal">
                                     {item.subTitle}
                                 </AccordionContent>
                             </AccordionItem>
@@ -50,14 +50,16 @@ export default function WhyChooseUsSection({ title = "Why Choose Us", items }: S
                     </Accordion>
 
                     {/* Left side - Image */}
-                    <div className="relative w-full md:w-[50%] flex justify-center self-start">
-                        <div className="max-w-[625px] w-full overflow-hidden rounded-xl shadow-lg border">
+                    <div className="relative w-full lg:w-1/2 flex justify-center self-center">
+                        <div className="w-full max-w-xl overflow-hidden rounded-3xl shadow-2xl border border-white/10 bg-white/[0.02] relative aspect-[4/3] group">
                             <Image
                                 src={why1}
                                 alt="Why Choose Us"
-                                className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-700"
+                                fill
+                                className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                                 placeholder="blur"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#07090e]/70 via-transparent to-transparent opacity-50" />
                         </div>
                     </div>
                 </div>

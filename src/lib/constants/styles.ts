@@ -1,140 +1,67 @@
 /**
- * Unified Design System Constants
- * Focus: Bright White / Playfair Display Serif / Teal-Blue-Indigo Gradient
+ * Unified Modern Design System Constants
+ * Style: Titanium Neo-Dark / Clean Glassmorphism / Electric Accents
  */
 
 export const TYPOGRAPHY = {
     // Fonts
-    fontSerif: 'font-serif',
     fontSans: 'font-sans',
+    fontMono: 'font-mono',
 
     // Titles
-    heroTitle: 'font-serif text-4xl md:text-6xl font-bold tracking-tight leading-tight text-gradient',
-    sectionTitle: 'font-serif text-3xl md:text-5xl font-semibold tracking-tight text-gradient pb-2 leading-relaxed',
-    cardTitle: 'font-serif text-2xl md:text-3xl font-bold text-slate-900',
+    heroTitle: 'font-sans text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400',
+    sectionTitle: 'font-sans text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight',
+    cardTitle: 'font-sans text-xl sm:text-2xl font-bold text-white tracking-tight',
 
     // Body & Labels
-    bodyMain: 'font-sans text-lg md:text-xl text-slate-800 leading-relaxed',
-    bodySub: 'font-sans text-base text-slate-600 leading-snug',
-    label: 'font-sans text-sm font-medium uppercase tracking-widest text-slate-500',
+    bodyMain: 'font-sans text-base sm:text-lg text-slate-300 leading-relaxed font-normal',
+    bodySub: 'font-sans text-sm sm:text-base text-slate-400 leading-relaxed',
+    label: 'font-sans text-xs font-semibold uppercase tracking-wider text-slate-400',
 
     // Special Utilities
-    textGradient: 'text-gradient',
+    textGradient: 'text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400',
+    textGradientCyan: 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400',
+    textGradientAmber: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-400 to-amber-500',
 } as const;
 
 export const COLORS = {
-    background: 'bg-[#f8fafc]',
-    foreground: 'text-slate-900',
-    primary: 'text-[#3b82f6]',
-    secondary: 'text-[#4f46e5]',
+    background: 'bg-[#07090e]',
+    surface: 'bg-[#0e131f]/70',
+    surfaceHover: 'bg-[#151c2d]/80',
+    foreground: 'text-white',
+    primary: 'text-indigo-400',
+    primaryBg: 'bg-indigo-600',
+    secondary: 'text-slate-400',
     muted: 'text-slate-500',
-    accent: 'text-[#2dd4bf]',
+    accent: 'text-cyan-400',
+    border: 'border-white/10',
+    borderGlow: 'border-indigo-500/30',
 } as const;
 
 export const EFFECTS = {
-    glass: 'bg-white/10 backdrop-blur-[4px] border border-white shadow-sm hover:shadow-lg transition-all',
-    shadow: 'shadow-sm hover:shadow-md transition-shadow',
-} as const;
-
-// Adobe CC Style Classes (Mapped to new Design System)
-export const CC_STYLES = {
-    // Layout
-    header: 'bg-gray-200/30 backdrop-blur-md border-b border-slate-200/50 shadow-md',
-    sidebar: 'bg-slate-50/80 backdrop-blur-lg border-r border-slate-200',
-    sidebarSection: 'space-y-4 p-4',
-    sidebarItem: 'flex items-center gap-3 px-4 py-2 rounded-lg transition-colors hover:bg-slate-100 text-slate-600',
-    sidebarItemActive: 'bg-blue-50 text-blue-600 font-medium',
-
-    // Components
-    card: 'bg-white/60 backdrop-blur-sm border border-white rounded-2xl shadow-sm overflow-hidden',
-    hero: 'relative overflow-hidden bg-slate-50',
-    listItem: 'flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors',
-
-    // Buttons
-    btnPrimary: 'bg-blue-600 text-white hover:bg-blue-700 rounded-full px-6 py-2 font-medium transition-all shadow-sm',
-    btnSecondary: 'bg-white border border-slate-200 text-slate-800 hover:bg-slate-50 rounded-full px-6 py-2 font-medium transition-all',
-    btnAccent: 'bg-teal-500 text-white hover:bg-teal-600 rounded-full px-6 py-2 font-medium transition-all',
-
-    // Interactive
-    tabs: 'flex gap-2 p-1 bg-slate-100 rounded-full boder border-slate-200',
-    tab: 'px-4 py-1.5 rounded-full text-sm font-medium text-slate-500 transition-all',
-    tabActive: 'bg-white text-slate-900 shadow-sm',
-    input: 'w-full bg-white border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none',
-    dialog: 'bg-white border border-slate-200 shadow-xl rounded-2xl overflow-hidden',
-
-    // Status & Badges
-    iconBadge: 'size-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600',
-    statusDot: 'size-2.5 rounded-full bg-slate-300',
-    statusUpdated: 'bg-blue-500',
-    statusAvailable: 'bg-teal-500',
-} as const;
-
-export const SPACING = {
-    xs: 'space-y-2',
-    sm: 'space-y-4',
-    md: 'space-y-6',
-    lg: 'space-y-8',
-    gapXs: 'gap-1',
-    gapSm: 'gap-2',
-    gapMd: 'gap-4',
-    gapLg: 'gap-6',
-    gapXl: 'gap-8',
-} as const;
-
-export const PADDING = {
-    xs: 'p-2',
-    sm: 'p-3',
-    md: 'p-4',
-    lg: 'p-5',
-    xl: 'p-6',
-    responsive: 'px-4 md:px-8 lg:px-16 2xl:px-0',
-} as const;
-
-export const RADIUS = {
-    sm: 'rounded-sm',
-    md: 'rounded-md',
-    lg: 'rounded-lg',
-    xl: 'rounded-xl',
-    '2xl': 'rounded-2xl',
-    '3xl': 'rounded-3xl',
-    full: 'rounded-full',
+    glass: 'bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-2xl hover:border-white/20 transition-all duration-300',
+    glassCard: 'bg-gradient-to-b from-white/[0.05] to-white/[0.01] backdrop-blur-2xl border border-white/10 hover:border-indigo-500/30 hover:shadow-[0_0_30px_rgba(99,102,241,0.12)] transition-all duration-300',
+    glow: 'shadow-[0_0_20px_rgba(99,102,241,0.25)]',
+    subtleGlow: 'shadow-[0_0_15px_rgba(255,255,255,0.05)]',
 } as const;
 
 export const LAYOUT = {
-    container: 'container mx-auto px-4 md:px-8 lg:px-16 2xl:px-0 2xl:min-w-[1440px]',
+    container: 'w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
     flexRowCenter: 'flex items-center justify-center',
     flexColCenter: 'flex flex-col items-center justify-center',
+    flexBetween: 'flex items-center justify-between',
 } as const;
 
-export const SIZES = {
-    minH300: 'min-h-[300px]',
-    minH400: 'min-h-[400px]',
-    icon: 'w-4 h-4',
-    iconSm: 'w-2 h-2',
-    iconMd: 'w-4 h-4',
-    iconLg: 'w-6 h-6',
-} as const;
-
-export const BORDERS = {
-    default: 'border border-slate-200',
-    subtle: 'border border-slate-100',
-    none: 'border-none',
-} as const;
-
-export const BACKGROUNDS = {
-    light: 'bg-slate-50',
-    white: 'bg-white',
-    transparent: 'bg-transparent',
-    subtle: 'bg-slate-50/50',
+export const RADIUS = {
+    sm: 'rounded-lg',
+    md: 'rounded-xl',
+    lg: 'rounded-2xl',
+    xl: 'rounded-3xl',
+    full: 'rounded-full',
 } as const;
 
 export const ANIMATIONS = {
-    spin: 'animate-spin',
-    transition: 'transition-all duration-300',
-    fadeIn: 'animate-fade-in',
-} as const;
-
-export const PATTERNS = {
-    spinner: 'h-4 w-4 shrink-0 rounded-full border-2 border-slate-300 border-t-blue-500 animate-spin',
-    buttonGroup: 'flex justify-end gap-3',
+    transition: 'transition-all duration-300 ease-out',
+    fadeIn: 'animate-in fade-in duration-500',
+    slideUp: 'animate-in fade-in slide-in-from-bottom-4 duration-500',
 } as const;

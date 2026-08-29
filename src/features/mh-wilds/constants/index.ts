@@ -66,8 +66,8 @@ export const SKILL_KIND_COLORS: Record<string, string> = {
 };
 
 // ─── Glassmorphism Tokens (Wilds Theme) ─────────────────────
-export const CARD_CLS = 'bg-[#1c1816]/60 backdrop-blur-xl border border-[#c8a97e]/15 hover:border-amber-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10 rounded-xl overflow-hidden';
-export const STAT_BOX_CLS = 'bg-amber-900/10 border border-amber-900/20 backdrop-blur-sm rounded-lg';
+export const CARD_CLS = 'bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] transition-all duration-300 hover:shadow-[0_0_25px_rgba(245,158,11,0.15)] rounded-3xl overflow-hidden';
+export const STAT_BOX_CLS = 'bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-2xl';
 
 // ─── Sorting & Pagination ───────────────────────────────────
 export type SortOption = 'name-asc' | 'name-desc' | 'rarity-asc' | 'rarity-desc';

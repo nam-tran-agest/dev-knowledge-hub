@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "../globals.css"; // Fixed path
 import { Link } from "@/i18n/routing"; // Localized Link
-import { CC_STYLES } from "@/lib/constants";
 import { MainNav } from "@/components/layout/main-nav";
 import { FooterData } from '@/types/layout';
 import Footer from '@/components/layout/footer';
@@ -75,7 +74,7 @@ export default async function RootLayout({
             {/* Main Content */}
             <div className="flex-1 min-w-0">
               {/* Desktop Header */}
-              <header className={`fixed top-0 z-30 hidden md:flex h-16 w-full items-center justify-center px-6 ${CC_STYLES.header}`}>
+              <header className="fixed top-0 z-30 hidden md:flex h-16 w-full items-center justify-center px-6 bg-[#07090e]/80 backdrop-blur-xl border-b border-white/10">
                 <Link href="/" className="absolute left-6 flex h-16 items-center gap-3">
                   <Image
                     src="/img/home/nav_ico.svg"
