@@ -8,6 +8,7 @@ import { usePipDraggable } from '@/hooks/use-pip-draggable';
 import { useRouter } from 'next/navigation';
 import { updateVideoProgress } from '@/features/media/services/youtube';
 import type { SavedVideo } from '@/features/media/types';
+import { extractCleanVideoId, formatVideoTime } from '@/features/media/utils';
 import { YouTubePlayer } from './youtube-player';
 
 interface VideoModalProps {
@@ -144,7 +145,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                             </a>
                         </div>
                         <div className="text-slate-400 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
-                            // {t('startedAt', { time: formatTime(video.saved_time) })}
+                            // {t('startedAt', { time: formatVideoTime(video.saved_time) })}
                         </div>
                     </div>
 
@@ -193,25 +194,4 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
             </div>
         </div>
     );
-}
-
-function extractCleanVideoId(urlOrId: string): string {
-    if (!urlOrId) return '';
-    const clean = urlOrId.trim();
-    if (/^[a-zA-Z0-9_-]{11}$/.test(clean)) {
-        return clean;
-    }
-    const match = clean.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/);
-    if (match && match[1]) {
-        return match[1];
-    }
-    const fallback = clean.match(/[\w-]{11}/);
-    return fallback ? fallback[0] : clean;
-}
-
-function formatTime(seconds: number) {
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = Math.floor(seconds % 60);
-    return `${h > 0 ? h + ':' : ''}${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 }

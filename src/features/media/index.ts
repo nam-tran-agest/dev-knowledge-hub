@@ -1,4 +1,5 @@
 export * from './types';
+export * from './utils';
 export * from './services/youtube';
 export * from './services/spotify';
 export { YouTubeContainer } from './components/youtube/youtube-container';

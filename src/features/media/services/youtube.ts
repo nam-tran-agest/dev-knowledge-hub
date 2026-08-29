@@ -2,13 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
-
-// Helper to extract Video ID
-function getYouTubeId(url: string) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-}
+import { extractCleanVideoId, getYoutubeThumbnail } from '@/features/media/utils';
 
 export async function getVideos() {
     const supabase = await createClient();
@@ -42,13 +36,13 @@ export async function addVideo(formData: FormData) {
     const url = formData.get('url') as string;
     if (!url) return;
 
-    const videoId = getYouTubeId(url);
+    const videoId = extractCleanVideoId(url);
     if (!videoId) {
         throw new Error('Invalid YouTube URL');
     }
 
     const supabase = await createClient();
-    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    const thumbnailUrl = getYoutubeThumbnail(videoId);
 
     let title = `Video ${videoId}`;
     try {

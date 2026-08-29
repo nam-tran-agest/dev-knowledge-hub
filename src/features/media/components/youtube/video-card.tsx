@@ -5,6 +5,7 @@ import { Play, Trash2, Clock, Heart, ListPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { SavedVideo, SavedPlaylist } from "@/features/media/types";
+import { formatVideoTime } from "@/features/media/utils";
 import { useTranslations } from "next-intl";
 
 interface VideoCardProps {
@@ -104,7 +105,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                         {video.saved_time > 0 && (
                             <div className="inline-flex flex-row items-center gap-1.5 whitespace-nowrap leading-none px-2 py-1 bg-black/90 backdrop-blur-md text-primary font-mono text-[10px] font-bold border border-primary/40 cyber-clip-tag shadow-[0_0_10px_rgba(0,240,255,0.2)]">
                                 <Clock className="w-3 h-3 text-primary shrink-0" />
-                                <span className="tracking-wider">{formatTime(video.saved_time)}</span>
+                                <span className="tracking-wider">{formatVideoTime(video.saved_time)}</span>
                             </div>
                         )}
                     </div>
@@ -129,13 +130,4 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
             </div>
         </Card>
     );
-}
-
-function formatTime(seconds: number) {
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = Math.floor(seconds % 60);
-    if (h > 0)
-        return `${h}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-    return `${m}:${s.toString().padStart(2, "0")}`;
 }
