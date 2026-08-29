@@ -18,7 +18,7 @@ const AlertDialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <AlertDialogPrimitive.Overlay
         className={cn(
-            "fixed inset-0 z-50 bg-[#04060f]/85 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            "fixed inset-0 z-[99] bg-[#02040a]/85 backdrop-blur-md transition-opacity duration-200",
             className
         )}
         {...props}
@@ -40,9 +40,8 @@ const AlertDialogContent = React.forwardRef<
         <AlertDialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4",
-                "bg-[#050714]/95 text-slate-100 p-6 cyber-clip-lg border border-destructive/40 shadow-[0_0_50px_rgba(255,0,60,0.25)] backdrop-blur-2xl duration-200",
-                "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+                "fixed left-1/2 top-1/2 z-[100] grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4",
+                "bg-[#050714] text-slate-100 p-6 cyber-clip-lg border border-destructive/40 shadow-[0_0_50px_rgba(255,0,60,0.3)] duration-200 transition-all",
                 className
             )}
             {...props}
@@ -56,7 +55,7 @@ const AlertDialogContent = React.forwardRef<
             </div>
 
             {/* Corner Brackets */}
-            <div className="absolute inset-0 cyber-brackets-pink pointer-events-none opacity-60" />
+            <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-60" />
 
             <div className="relative z-10 space-y-4">
                 {children}
