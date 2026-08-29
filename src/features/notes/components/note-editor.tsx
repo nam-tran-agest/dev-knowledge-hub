@@ -1,5 +1,5 @@
 'use client'
-
+import { useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -16,6 +16,7 @@ interface NoteEditorProps {
 }
 
 export function NoteEditor({ note, initialEditMode }: NoteEditorProps) {
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
     const config = NOTES_CONFIG[note.category?.slug || 'work'] || NOTES_CONFIG.work
     const {
         mode,
@@ -33,8 +34,8 @@ export function NoteEditor({ note, initialEditMode }: NoteEditorProps) {
     } = useNoteEditor(note, initialEditMode)
 
     const applyFormatting = (prefix: string, suffix: string = prefix) => {
-        const textarea = document.querySelector('textarea');
-        if (!textarea) return;
+        const textarea = textareaRef.current
+        if (!textarea) return
 
         textarea.focus();
         const start = textarea.selectionStart;
@@ -197,6 +198,7 @@ export function NoteEditor({ note, initialEditMode }: NoteEditorProps) {
                                     </Button>
                                 </div>
                                 <Textarea
+                                    ref={textareaRef}
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
                                     placeholder="Start writing your thoughts..."

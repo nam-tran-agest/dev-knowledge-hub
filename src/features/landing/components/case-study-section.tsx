@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { getMediaUrl } from "@/components/common/media/AppImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
@@ -24,6 +24,13 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
     const [isAnimating, setIsAnimating] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
     const swiperRef = useRef<SwiperRef>(null);
+    const animTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (animTimerRef.current) clearTimeout(animTimerRef.current);
+        };
+    }, []);
 
     const handleSelect = (idx: number, scrollToSection = false) => {
         if (isAnimating) return; // Prevent rapid clicks
@@ -36,7 +43,8 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
             sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         }
         // Reset after animation duration
-        setTimeout(() => setIsAnimating(false), 500);
+        if (animTimerRef.current) clearTimeout(animTimerRef.current);
+        animTimerRef.current = setTimeout(() => setIsAnimating(false), 500);
     };
 
     const handlePrev = () => {

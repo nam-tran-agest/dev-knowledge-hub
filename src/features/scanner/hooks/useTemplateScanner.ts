@@ -27,15 +27,11 @@ export const useTemplateScanner = () => {
         setResult(null);
         setError(null);
 
-        const startTime = Date.now();
-
         try {
             // 1. Load Image
             const img = await loadImage(imageInput);
             const imgW = img.naturalWidth || img.width;
             const imgH = img.naturalHeight || img.height;
-
-            console.log(`[OCR DEBUG] Image Resolution: ${imgW}x${imgH}`);
 
             // 2. Run OCR
             const langs = template.id === 'credit-card' ? 'eng' : 'eng+vie';
@@ -55,11 +51,8 @@ export const useTemplateScanner = () => {
 
             // Defensive parsing for Tesseract.js internal structures
             const data = resultObj.data || resultObj;
-            console.log('[OCR DEBUG] Raw Result Keys:', Object.keys(resultObj));
-            console.log(`[OCR DEBUG] Engine completed in ${Date.now() - startTime}ms`);
 
             if (!data || !('words' in data) || !data.words || data.words.length === 0) {
-                console.warn('[OCR DEBUG] No words detected in original scan.');
                 setStatusText('No text detected. Try a clearer photo.');
                 setIsScanning(false);
                 return;
@@ -67,8 +60,6 @@ export const useTemplateScanner = () => {
 
             const rawText = data.text || '';
             const normalizedRawText = normalizeText(rawText);
-            console.log(`[OCR DEBUG] Total Words found: ${data.words.length}`);
-            console.log(`[OCR DEBUG] First 50 chars of raw text: "${rawText.substring(0, 50)}..."`);
 
             const allWords: OCRWord[] = data.words.map((w) => ({
                 text: w.text,
@@ -111,8 +102,6 @@ export const useTemplateScanner = () => {
 
                 // 4. SMART FALLBACK: Keyword Hunting
                 if (!combined && field.keywords && field.keywords.length > 0) {
-                    console.log(`[OCR DEBUG] ROI failed for ${field.id}. Trying keywords...`);
-
                     for (const kw of field.keywords) {
                         const normalizedKw = normalizeText(kw);
                         const escapedKw = normalizedKw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -123,7 +112,6 @@ export const useTemplateScanner = () => {
 
                         if (strictMatch && strictMatch[1]) {
                             combined = strictMatch[1].trim();
-                            console.log(`[OCR DEBUG]   >> Strict Match (${kw}): "${combined}"`);
                             break;
                         }
 
@@ -144,7 +132,6 @@ export const useTemplateScanner = () => {
                                 // Substitution for common OCR errors
                                 val = val.replace(/[oO]/g, '0').replace(/[sS]/g, '5').replace(/[lI]/g, '1');
                                 combined = val;
-                                console.log(`[OCR DEBUG]   >> Proximity Match (${kw}): "${combined}"`);
                                 break;
                             }
                         }
@@ -160,7 +147,6 @@ export const useTemplateScanner = () => {
                                     let val = m[1].trim();
                                     val = val.replace(/[oO]/g, '0').replace(/[sS]/g, '5').replace(/[lI]/g, '1');
                                     combined = val;
-                                    console.log(`[OCR DEBUG]   >> Global Fuzzy Match (${kw}): "${combined}"`);
                                     break;
                                 }
                             }
@@ -188,16 +174,6 @@ export const useTemplateScanner = () => {
                 fields: fieldData,
                 rawText: rawText,
                 words: allWords
-            };
-
-            // Snapshot for console debugging
-            console.log('[OCR DEBUG] FINAL FIELD DATA:', fieldData);
-            (window as unknown as { _OCR_DEBUG: unknown })._OCR_DEBUG = {
-                templateId: template.id,
-                dimensions: { width: imgW, height: imgH },
-                result: finalResult,
-                rawText: rawText,
-                normalizedText: normalizedRawText
             };
 
             setResult(finalResult);

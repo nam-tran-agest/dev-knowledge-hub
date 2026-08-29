@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { usePlannerStore } from '@/store/usePlannerStore';
 import { TimeTimeline } from './time-timeline';
 import { TaskItem } from './task-item';
-import { Plus } from 'lucide-react';
+import { Plus, CheckCircle2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export const TodayView = () => {
@@ -130,22 +130,3 @@ export const TodayView = () => {
         </DragDropContext>
     );
 };
-
-// Simple SVG for empty state
-const CheckCircle2 = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <circle cx="12" cy="12" r="10" />
-        <path d="m9 12 2 2 4-4" />
-    </svg>
-)

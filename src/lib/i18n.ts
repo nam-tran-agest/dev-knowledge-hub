@@ -23,7 +23,9 @@ export function t(key: TranslationKey): string {
         if (result && typeof result === 'object' && k in result) {
             result = (result as Record<string, unknown>)[k];
         } else {
-            console.warn(`Translation key not found: ${key}`);
+            if (process.env.NODE_ENV === 'development') {
+                console.warn(`Translation key not found: ${key}`);
+            }
             return key;
         }
     }
@@ -43,7 +45,9 @@ export function tObject<T = unknown>(key: string): T {
         if (result && typeof result === 'object' && k in result) {
             result = (result as Record<string, unknown>)[k];
         } else {
-            console.warn(`Translation key not found: ${key}`);
+            if (process.env.NODE_ENV === 'development') {
+                console.warn(`Translation key not found: ${key}`);
+            }
             return {} as T;
         }
     }
