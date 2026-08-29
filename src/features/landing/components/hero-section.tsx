@@ -4,12 +4,12 @@ import dynamic from 'next/dynamic';
 const ParticlesBackground = dynamic(() => import('@/components/ui/particles-background').then(mod => mod.ParticlesBackground), { ssr: false });
 
 import { motion } from "motion/react";
-import { Layers, Newspaper, Flame, Calendar, Terminal, Cpu } from 'lucide-react';
+import { Terminal, Cpu } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 import { RadarHUD } from '@/components/ui/cyber/radar-hud';
 import { TacticalActionButton } from '@/components/ui/cyber/tactical-action-button';
-import { MODULE_THEMES } from '@/lib/constants/styles';
+import { HERO_MODULES } from '../constants/hero-modules';
 
 interface HeroSectionProps {
     title: string;
@@ -81,112 +81,47 @@ export function HeroSection({
                     </motion.div>
                 </div>
 
-                {/* Bento Grid Command Center */}
+                {/* Bento Grid Command Center - 100% Config-Driven */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
-                    {/* Primary Widget: Planner */}
-                    <Link href="/planner/today" className="lg:col-span-2 group">
-                        <div className={`cyber-clip glass-panel h-full p-7 sm:p-8 border ${MODULE_THEMES.planner.cardBorder} flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${MODULE_THEMES.planner.cardHoverShadow} ${MODULE_THEMES.planner.cardHoverBorder}`}>
-                            <div className={`absolute inset-0 ${MODULE_THEMES.planner.bracketsClass} pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity`} />
-                            <div className={`absolute top-4 right-6 px-3 py-1 ${MODULE_THEMES.planner.tagBg} border ${MODULE_THEMES.planner.tagBorder} cyber-clip-tag text-[10px] uppercase tracking-widest ${MODULE_THEMES.planner.tagText} font-mono font-bold`}>
-                                // SYS_PLANNER
-                            </div>
-                            <div className={`absolute top-0 right-0 w-64 h-64 ${MODULE_THEMES.planner.blurBlob} blur-[80px] rounded-full transition-colors pointer-events-none`} />
-                            <div className="relative z-10">
-                                <div className={`w-12 h-12 cyber-clip-button ${MODULE_THEMES.planner.iconBg} flex items-center justify-center ${MODULE_THEMES.planner.iconColor} mb-6 group-hover:scale-110 transition-transform border ${MODULE_THEMES.planner.iconBorder} ${MODULE_THEMES.planner.iconShadow}`}>
-                                    <Calendar className="w-6 h-6" />
+                    {HERO_MODULES.map((module) => {
+                        const { theme, href, description, icon: Icon, colSpan } = module;
+                        const isLarge = colSpan.includes('col-span-2');
+
+                        return (
+                            <Link key={theme.id} href={href} className={`group ${colSpan}`}>
+                                <div className={`cyber-clip glass-panel h-full p-7 sm:p-8 border ${theme.cardBorder} flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${theme.cardHoverShadow} ${theme.cardHoverBorder}`}>
+                                    <div className={`absolute inset-0 ${theme.bracketsClass} pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity`} />
+                                    <div className={`absolute top-4 right-6 px-3 py-1 ${theme.tagBg} border ${theme.tagBorder} cyber-clip-tag text-[10px] uppercase tracking-widest ${theme.tagText} font-mono font-bold`}>
+                                        // SYS_{theme.id.toUpperCase().replace('-', '_')}
+                                    </div>
+                                    <div className={`absolute top-0 right-0 w-64 h-64 ${theme.blurBlob} blur-[80px] rounded-full transition-colors pointer-events-none`} />
+                                    <div className="relative z-10">
+                                        <div className={`w-12 h-12 cyber-clip-button ${theme.iconBg} flex items-center justify-center ${theme.iconColor} mb-6 group-hover:scale-110 transition-transform border ${theme.iconBorder} ${theme.iconShadow}`}>
+                                            <Icon className="w-6 h-6" />
+                                        </div>
+                                        <h2 className={`text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:${theme.iconColor} transition-colors`}>
+                                            {theme.name}
+                                        </h2>
+                                        <p className="text-slate-300 font-mono text-sm leading-relaxed max-w-xl">
+                                            {description}
+                                        </p>
+                                    </div>
+
+                                    <TacticalActionButton
+                                        label={theme.actionLabel}
+                                        moduleCode={theme.code}
+                                        color={theme.color}
+                                        size={isLarge ? 'lg' : 'md'}
+                                    />
                                 </div>
-                                <h2 className={`text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:${MODULE_THEMES.planner.iconColor} transition-colors`}>{MODULE_THEMES.planner.name}</h2>
-                                <p className="text-slate-300 font-mono text-sm leading-relaxed max-w-xl">Manage your tasks, track your schedule, and optimize your productivity.</p>
-                            </div>
-
-                            <TacticalActionButton
-                                label={MODULE_THEMES.planner.actionLabel}
-                                moduleCode={MODULE_THEMES.planner.code}
-                                color={MODULE_THEMES.planner.color}
-                                size="lg"
-                            />
-                        </div>
-                    </Link>
-
-                    {/* Secondary Widget: Working Hub */}
-                    <Link href="/working" className="group">
-                        <div className={`cyber-clip glass-panel h-full p-7 sm:p-8 border ${MODULE_THEMES.working.cardBorder} flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${MODULE_THEMES.working.cardHoverShadow} ${MODULE_THEMES.working.cardHoverBorder}`}>
-                            <div className={`absolute inset-0 ${MODULE_THEMES.working.bracketsClass} pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity`} />
-                            <div className={`absolute top-4 right-6 px-3 py-1 ${MODULE_THEMES.working.tagBg} border ${MODULE_THEMES.working.tagBorder} cyber-clip-tag text-[10px] uppercase tracking-widest ${MODULE_THEMES.working.tagText} font-mono font-bold`}>
-                                // SYS_WORKING
-                            </div>
-                            <div className={`absolute top-0 right-0 w-48 h-48 ${MODULE_THEMES.working.blurBlob} blur-[60px] rounded-full transition-colors pointer-events-none`} />
-                            <div className="relative z-10">
-                                <div className={`w-12 h-12 cyber-clip-button ${MODULE_THEMES.working.iconBg} flex items-center justify-center ${MODULE_THEMES.working.iconColor} mb-6 group-hover:scale-110 transition-transform border ${MODULE_THEMES.working.iconBorder} ${MODULE_THEMES.working.iconShadow}`}>
-                                    <Layers className="w-6 h-6" />
-                                </div>
-                                <h2 className={`text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:${MODULE_THEMES.working.iconColor} transition-colors`}>{MODULE_THEMES.working.name}</h2>
-                                <p className="text-slate-300 font-mono text-sm leading-relaxed">Active projects and kanban boards.</p>
-                            </div>
-
-                            <TacticalActionButton
-                                label={MODULE_THEMES.working.actionLabel}
-                                moduleCode={MODULE_THEMES.working.code}
-                                color={MODULE_THEMES.working.color}
-                                size="md"
-                            />
-                        </div>
-                    </Link>
-
-                    {/* Media & News */}
-                    <Link href="/media/youtube" className="group">
-                        <div className={`cyber-clip glass-panel h-full p-7 sm:p-8 border ${MODULE_THEMES.media.cardBorder} flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${MODULE_THEMES.media.cardHoverShadow} ${MODULE_THEMES.media.cardHoverBorder}`}>
-                            <div className={`absolute inset-0 ${MODULE_THEMES.media.bracketsClass} pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity`} />
-                            <div className={`absolute top-4 right-6 px-3 py-1 ${MODULE_THEMES.media.tagBg} border ${MODULE_THEMES.media.tagBorder} cyber-clip-tag text-[10px] uppercase tracking-widest ${MODULE_THEMES.media.tagText} font-mono font-bold`}>
-                                // SYS_MEDIA
-                            </div>
-                            <div className={`absolute bottom-0 right-0 w-48 h-48 ${MODULE_THEMES.media.blurBlob} blur-[60px] rounded-full transition-colors pointer-events-none`} />
-                            <div className="relative z-10">
-                                <div className={`w-12 h-12 cyber-clip-button ${MODULE_THEMES.media.iconBg} flex items-center justify-center ${MODULE_THEMES.media.iconColor} mb-6 group-hover:scale-110 transition-transform border ${MODULE_THEMES.media.iconBorder} ${MODULE_THEMES.media.iconShadow}`}>
-                                    <Newspaper className="w-6 h-6" />
-                                </div>
-                                <h2 className={`text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:${MODULE_THEMES.media.iconColor} transition-colors`}>{MODULE_THEMES.media.name}</h2>
-                                <p className="text-slate-300 font-mono text-sm leading-relaxed">YouTube bookmarks, Spotify integrations, and RSS News.</p>
-                            </div>
-
-                            <TacticalActionButton
-                                label={MODULE_THEMES.media.actionLabel}
-                                moduleCode={MODULE_THEMES.media.code}
-                                color={MODULE_THEMES.media.color}
-                                size="md"
-                            />
-                        </div>
-                    </Link>
-
-                    {/* MH Wilds Vault */}
-                    <Link href="/mh-wilds" className="lg:col-span-2 group">
-                        <div className={`cyber-clip glass-panel h-full p-7 sm:p-8 border ${MODULE_THEMES.mhWilds.cardBorder} flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${MODULE_THEMES.mhWilds.cardHoverShadow} ${MODULE_THEMES.mhWilds.cardHoverBorder}`}>
-                            <div className={`absolute inset-0 ${MODULE_THEMES.mhWilds.bracketsClass} pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity`} />
-                            <div className={`absolute top-4 right-6 px-3 py-1 ${MODULE_THEMES.mhWilds.tagBg} border ${MODULE_THEMES.mhWilds.tagBorder} cyber-clip-tag text-[10px] uppercase tracking-widest ${MODULE_THEMES.mhWilds.tagText} font-mono font-bold`}>
-                                // SYS_MH_WILDS
-                            </div>
-                            <div className={`absolute bottom-0 right-0 w-64 h-64 ${MODULE_THEMES.mhWilds.blurBlob} blur-[80px] rounded-full transition-colors pointer-events-none`} />
-                            <div className="relative z-10">
-                                <div className={`w-12 h-12 cyber-clip-button ${MODULE_THEMES.mhWilds.iconBg} flex items-center justify-center ${MODULE_THEMES.mhWilds.iconColor} mb-6 group-hover:scale-110 transition-transform border ${MODULE_THEMES.mhWilds.iconBorder} ${MODULE_THEMES.mhWilds.iconShadow}`}>
-                                    <Flame className="w-6 h-6" />
-                                </div>
-                                <h2 className={`text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:${MODULE_THEMES.mhWilds.iconColor} transition-colors`}>{MODULE_THEMES.mhWilds.name}</h2>
-                                <p className="text-slate-300 font-mono text-sm leading-relaxed max-w-xl">Comprehensive database for weapons, armors, and monster weaknesses.</p>
-                            </div>
-
-                            <TacticalActionButton
-                                label={MODULE_THEMES.mhWilds.actionLabel}
-                                moduleCode={MODULE_THEMES.mhWilds.code}
-                                color={MODULE_THEMES.mhWilds.color}
-                                size="lg"
-                            />
-                        </div>
-                    </Link>
+                            </Link>
+                        );
+                    })}
                 </motion.div>
             </div>
         </section>
