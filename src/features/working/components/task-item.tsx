@@ -33,25 +33,25 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
 
     return (
         <Card className={cn(
-            "group relative bg-[#111114] border-[#1e1e24] hover:border-[#6366f1]/30 transition-all duration-300 overflow-hidden",
+            "group relative bg-white/[0.03] border-white/10 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all duration-300 overflow-hidden rounded-2xl backdrop-blur-xl shadow-md",
             isDone && "opacity-60"
         )}>
             <CardContent className="p-4">
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3.5">
                     <button
                         onClick={() => onStatusChange?.(task.id, isDone ? 'todo' : 'done')}
                         className={cn(
-                            "mt-1 text-slate-500 hover:text-[#6366f1] transition-colors",
-                            isDone && "text-[#6366f1]"
+                            "mt-0.5 text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer",
+                            isDone && "text-emerald-400"
                         )}
                     >
-                        {isDone ? <CheckCircle2 size={20} /> : <Circle size={20} />}
+                        {isDone ? <CheckCircle2 size={18} /> : <Circle size={18} />}
                     </button>
 
                     <div className="flex-1 space-y-1">
                         <div className="flex items-center gap-2">
                             <h3 className={cn(
-                                "text-base font-medium text-white transition-colors",
+                                "text-sm font-semibold text-white transition-colors",
                                 isDone && "line-through text-slate-500"
                             )}>
                                 {task.title}
@@ -59,10 +59,10 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
                             <Badge
                                 variant="outline"
                                 className={cn(
-                                    "text-[10px] h-5 px-1.5",
-                                    task.priority === 'high' && "text-red-400 border-red-500/20 bg-red-500/5",
-                                    task.priority === 'medium' && "text-yellow-400 border-yellow-500/20 bg-yellow-500/5",
-                                    task.priority === 'low' && "text-emerald-400 border-emerald-500/20 bg-emerald-500/5",
+                                    "text-[10px] font-mono h-4 px-1.5",
+                                    task.priority === 'high' && "text-rose-400 border-rose-500/30 bg-rose-500/10",
+                                    task.priority === 'medium' && "text-amber-400 border-amber-500/30 bg-amber-500/10",
+                                    task.priority === 'low' && "text-emerald-400 border-emerald-500/30 bg-emerald-500/10",
                                 )}
                             >
                                 {task.priority}
@@ -70,14 +70,14 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
                         </div>
 
                         {task.description && (
-                            <p className="text-sm text-slate-400 line-clamp-2">
+                            <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
                                 {task.description}
                             </p>
                         )}
 
-                        <div className="flex items-center gap-3 pt-2">
+                        <div className="flex items-center gap-3 pt-1.5">
                             {task.due_date && (
-                                <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                                <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
                                     <Clock size={12} />
                                     <span>{new Date(task.due_date).toLocaleDateString()}</span>
                                 </div>
@@ -85,7 +85,7 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
                             {task.tags && task.tags.length > 0 && (
                                 <div className="flex items-center gap-1.5">
                                     {task.tags.map(tag => (
-                                        <span key={tag} className="text-[10px] bg-[#1e1e24] text-slate-400 px-1.5 py-0.5 rounded">
+                                        <span key={tag} className="text-[10px] font-mono bg-white/[0.04] border border-white/5 text-slate-400 px-1.5 py-0.5 rounded-md">
                                             #{tag}
                                         </span>
                                     ))}
@@ -96,22 +96,22 @@ export function TaskItem({ task, onStatusChange, onDelete, onEdit }: TaskItemPro
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-white hover:bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <MoreVertical size={16} />
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-slate-400 hover:text-white hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg cursor-pointer">
+                                <MoreVertical size={14} />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-[#16161a] border-[#2a2a30] text-slate-200">
+                        <DropdownMenuContent align="end" className="bg-[#07090e]/95 border-white/10 backdrop-blur-2xl text-slate-200 rounded-2xl">
                             <DropdownMenuItem
                                 onClick={() => onEdit?.(task)}
-                                className="gap-2 focus:bg-white/5 focus:text-white cursor-pointer"
+                                className="gap-2 focus:bg-white/10 focus:text-white cursor-pointer text-xs"
                             >
-                                <Edit2 size={14} /> Edit
+                                <Edit2 size={13} /> Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 onClick={() => onDelete?.(task.id)}
-                                className="gap-2 text-red-400 focus:bg-red-500/5 focus:text-red-400 cursor-pointer"
+                                className="gap-2 text-rose-400 focus:bg-rose-500/10 focus:text-rose-300 cursor-pointer text-xs"
                             >
-                                <Trash2 size={14} /> Delete
+                                <Trash2 size={13} /> Delete
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

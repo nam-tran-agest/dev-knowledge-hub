@@ -1,6 +1,4 @@
 import {
-    FileText,
-    Bug,
     Settings,
     type LucideIcon
 } from 'lucide-react'
@@ -47,15 +45,6 @@ export const MAIN_NAVIGATION: NavItem[] = [
         ]
     },
     {
-        name: 'Scanner',
-        href: '/scanner',
-        items: [
-            { name: 'Section 1', href: '/scanner/section-1' },
-            { name: 'Section 2', href: '/scanner/section-2' },
-            { name: 'Section 3', href: '/scanner/section-3' },
-        ]
-    },
-    {
         name: 'MH Wilds',
         href: '/mh-wilds',
     },
@@ -65,22 +54,4 @@ export const FOOTER_NAVIGATION: NavItem[] = [
     { name: 'Settings', href: '/settings', icon: Settings },
 ]
 
-// Search result type mappings
-export type SearchResultTypeKey = 'note' | 'bug'
-
-export const SEARCH_TYPE_ICONS: Record<SearchResultTypeKey, LucideIcon> = {
-    note: FileText,
-    bug: Bug,
-}
-
-export const SEARCH_TYPE_COLORS: Record<SearchResultTypeKey, string> = {
-    note: 'bg-blue-500/20 text-blue-600',
-    bug: 'bg-red-500/20 text-red-600',
-}
-
-// Stats card gradients used in Dashboard
-export const STATS_GRADIENTS = {
-    notes: 'bg-gradient-to-br from-blue-500 to-cyan-500',
-    bugs: 'bg-gradient-to-br from-red-500 to-pink-500',
-} as const
 

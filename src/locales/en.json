@@ -332,14 +332,6 @@
                     "someday": "Someday"
                 }
             },
-            "scanner": {
-                "label": "Scanner",
-                "items": {
-                    "section1": "Section 1",
-                    "section2": "Section 2",
-                    "section3": "Section 3"
-                }
-            },
             "mh wilds": {
                 "label": "MH Wilds"
             }
