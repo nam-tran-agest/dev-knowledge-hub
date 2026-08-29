@@ -197,7 +197,7 @@ export function useMHWildsFilters(activeCategory: Category, currentData: unknown
             default:
                 return currentData;
         }
-    }, [currentData, _searchQuery, activeCategory, weaponTypeFilter, weaponElementFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, monsterWeaknessFilter, _sortBy, sortItems, compareItems, groupBySpecies, groupByWeaponType]);
+    }, [currentData, _searchQuery, activeCategory, weaponTypeFilter, weaponElementFilter, skillKindFilter, decoSlotFilter, monsterKindFilter, monsterWeaknessFilter, sortItems, compareItems, groupBySpecies, groupByWeaponType]);
 
     const totalPages = Math.ceil(filteredData.length / PER_PAGE);
     const pagedData = filteredData.slice((page - 1) * PER_PAGE, page * PER_PAGE);

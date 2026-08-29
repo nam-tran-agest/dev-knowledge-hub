@@ -5,15 +5,7 @@ import {
     Heart,
     Target,
     Sparkles,
-    User,
-    Hash,
-    Calendar,
-    Globe,
-    MapPin,
-    Droplets,
-    Flame,
-    Wind,
-    Star
+    User
 } from 'lucide-react';
 
 export interface ROIField {

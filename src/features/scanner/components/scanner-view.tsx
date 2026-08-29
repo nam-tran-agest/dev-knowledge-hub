@@ -93,6 +93,7 @@ export const ScannerView = () => {
 
                 {imagePreview ? (
                     <div className="w-full h-full flex items-center justify-center relative">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={imagePreview}
                             alt="Scanned item"

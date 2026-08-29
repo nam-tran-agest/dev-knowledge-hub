@@ -51,14 +51,14 @@ export const useTemplateScanner = () => {
                         setStatusText(m.status.replace(/_/g, ' '));
                     }
                 }
-            })) as any;
+            })) as { data?: { text?: string; words?: { text: string; bbox: { x0: number; y0: number; x1: number; y1: number } }[] } };
 
             // Defensive parsing for Tesseract.js internal structures
             const data = resultObj.data || resultObj;
             console.log('[OCR DEBUG] Raw Result Keys:', Object.keys(resultObj));
             console.log(`[OCR DEBUG] Engine completed in ${Date.now() - startTime}ms`);
 
-            if (!data || !data.words || data.words.length === 0) {
+            if (!data || !('words' in data) || !data.words || data.words.length === 0) {
                 console.warn('[OCR DEBUG] No words detected in original scan.');
                 setStatusText('No text detected. Try a clearer photo.');
                 setIsScanning(false);
@@ -70,7 +70,7 @@ export const useTemplateScanner = () => {
             console.log(`[OCR DEBUG] Total Words found: ${data.words.length}`);
             console.log(`[OCR DEBUG] First 50 chars of raw text: "${rawText.substring(0, 50)}..."`);
 
-            const allWords: OCRWord[] = data.words.map((w: any) => ({
+            const allWords: OCRWord[] = data.words.map((w) => ({
                 text: w.text,
                 bbox: {
                     x0: w.bbox.x0,
@@ -192,7 +192,7 @@ export const useTemplateScanner = () => {
 
             // Snapshot for console debugging
             console.log('[OCR DEBUG] FINAL FIELD DATA:', fieldData);
-            (window as any)._OCR_DEBUG = {
+            (window as unknown as { _OCR_DEBUG: unknown })._OCR_DEBUG = {
                 templateId: template.id,
                 dimensions: { width: imgW, height: imgH },
                 result: finalResult,
@@ -204,12 +204,13 @@ export const useTemplateScanner = () => {
             setStatusText(`Complete (${data.words.length} segments)`);
             setIsScanning(false);
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('[OCR DEBUG] Fatal Process Error:', err);
-            setError(`Error: ${err?.message || 'The scan failed unexpectedly.'}`);
+            const errorMessage = err instanceof Error ? err.message : String(err);
+            setError(`Error: ${errorMessage || 'The scan failed unexpectedly.'}`);
             setIsScanning(false);
         }
-    }, [isScanning]);
+    }, []);
 
     const resetScanner = useCallback(() => {
         setIsScanning(false);

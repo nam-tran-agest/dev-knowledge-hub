@@ -15,65 +15,13 @@ import {
     UploadCloud,
     Link as LinkIcon,
     Star,
-    Droplets,
     Flame,
     Wind,
-    ChevronRight,
     Search
 } from 'lucide-react';
 
-const StatRow = ({ icon: Icon, label, value, subValue, progress = 70 }: { icon: any, label: string, value: string, subValue?: string, progress?: number }) => (
-    <div className="group/stat flex flex-col gap-1.5 cursor-pointer">
-        <div className="flex items-center justify-between px-1">
-            <div className="flex items-center gap-3">
-                <div className="text-blue-400 group-hover/stat:text-blue-300 transition-colors drop-shadow-[0_0_8px_rgba(96,165,250,0.5)]">
-                    <Icon className="w-4 h-4" />
-                </div>
-                <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover/stat:text-slate-200 transition-colors">{label}</span>
-            </div>
-            <div className="text-right flex flex-col items-end">
-                <div className="flex items-center gap-2">
-                    <span className="text-lg font-black text-white tracking-tight leading-none">{value}</span>
-                </div>
-                {subValue && <span className="text-[9px] font-bold text-slate-500 uppercase mt-0.5">{subValue}</span>}
-            </div>
-        </div>
-        <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-blue-600 to-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.5)] transition-all duration-1000 ease-out" style={{ width: `${progress}%` }} />
-        </div>
-    </div>
-);
-
-const ArtifactCard = ({ label, value, substats, icon: Icon = Sparkles }: { label: string, value: string, substats: { label: string, val: string, icon?: any }[], icon?: any }) => (
-    <div className="group/artifact relative bg-[#0a0a0c]/90 border border-white/5 rounded-[1.8rem] p-5 hover:border-blue-500/30 transition-all hover:translate-y-[-4px] backdrop-blur-3xl shadow-2xl min-h-[160px]">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-3xl rounded-full -mr-10 -mt-10" />
-        <div className="absolute top-4 right-4 w-12 h-12 rounded-2xl bg-[#161824] border border-white/10 flex items-center justify-center text-blue-400 shadow-inner group-hover/artifact:scale-110 transition-transform">
-            <Icon className="w-6 h-6" />
-        </div>
-        <div className="mb-4 relative z-10">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{label}</p>
-            <h3 className="text-2xl font-black text-white tracking-tight drop-shadow-md">{value}</h3>
-            <div className="flex gap-0.5 mt-2 items-center">
-                {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 text-amber-500 fill-amber-500" />)}
-                <span className="text-[10px] font-black text-white ml-2 bg-blue-600/40 px-2 py-0.5 rounded-md">+20</span>
-            </div>
-        </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-3 pt-4 border-t border-white/5 relative z-10">
-            {substats.map((sub, i) => (
-                <div key={i} className="flex flex-col group/sub">
-                    <div className="flex items-center gap-2 mb-0.5">
-                        {sub.icon && <sub.icon className="w-3 h-3 text-blue-400/60 group-hover/sub:text-blue-400" />}
-                        <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider">{sub.label}</span>
-                    </div>
-                    <span className="text-[11px] font-black text-white group-hover/sub:text-blue-400 transition-colors">{sub.val}</span>
-                </div>
-            ))}
-        </div>
-    </div>
-);
-
 export const TemplateScannerView = () => {
-    const [selectedTemplate, setSelectedTemplate] = useState(SCANNER_TEMPLATES[0]);
+    const selectedTemplate = SCANNER_TEMPLATES[0];
     const {
         scanImageWithTemplate,
         isScanning,
@@ -209,6 +157,7 @@ export const TemplateScannerView = () => {
                         onClick={() => fileInputRef.current?.click()}
                     >
                         {characterImage ? (
+                            // eslint-disable-next-line @next/next/no-img-element
                             <img src={characterImage} alt="Portrait" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         ) : (
                             <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900/50 group-hover:bg-slate-900/80 transition-all">
