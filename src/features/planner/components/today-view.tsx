@@ -67,7 +67,7 @@ export const TodayView = () => {
                     <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
                     
                     {/* Header Tag */}
-                    <div className="absolute top-0 right-6 px-3 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono">
+                    <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold">
                         // SYS_SCHEDULE_TIMELINE
                     </div>
 
@@ -102,7 +102,7 @@ export const TodayView = () => {
                     <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
                     
                     {/* Header Tag */}
-                    <div className="absolute top-0 right-6 px-3 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono">
+                    <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold">
                         // SYS_TASK_QUEUE
                     </div>
 

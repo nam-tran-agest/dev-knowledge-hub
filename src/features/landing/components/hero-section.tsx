@@ -90,7 +90,7 @@ export function HeroSection({
                     <Link href="/planner/today" className="lg:col-span-2 group">
                         <div className="cyber-clip glass-panel h-full p-8 border border-primary/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-primary)] hover:border-primary/50">
                             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono">
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold">
                                 // SYS_PLANNER
                             </div>
                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-colors pointer-events-none" />
@@ -112,7 +112,7 @@ export function HeroSection({
                     <Link href="/working" className="group">
                         <div className="cyber-clip glass-panel h-full p-8 border border-secondary/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_var(--color-secondary)] hover:border-secondary/50">
                             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-secondary/30 text-[10px] uppercase tracking-widest text-secondary/70 font-mono">
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-secondary/10 border border-secondary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-secondary font-mono font-bold">
                                 // SYS_WORKING
                             </div>
                             <div className="absolute top-0 right-0 w-48 h-48 bg-secondary/10 blur-[60px] rounded-full group-hover:bg-secondary/20 transition-colors pointer-events-none" />
@@ -134,7 +134,7 @@ export function HeroSection({
                     <Link href="/media/youtube" className="group">
                         <div className="cyber-clip glass-panel h-full p-8 border border-[#ff007f]/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(255,0,127,0.3)] hover:border-[#ff007f]/50">
                             <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-[#ff007f]/30 text-[10px] uppercase tracking-widest text-[#ff007f]/70 font-mono">
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-[#ff007f]/10 border border-[#ff007f]/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-[#ff007f] font-mono font-bold">
                                 // SYS_MEDIA
                             </div>
                             <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#ff007f]/10 blur-[60px] rounded-full group-hover:bg-[#ff007f]/20 transition-colors pointer-events-none" />
@@ -156,7 +156,7 @@ export function HeroSection({
                     <Link href="/mh-wilds" className="lg:col-span-2 group">
                         <div className="cyber-clip glass-panel h-full p-8 border border-destructive/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-destructive)] hover:border-destructive/50">
                             <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-destructive/30 text-[10px] uppercase tracking-widest text-destructive/70 font-mono">
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-destructive/10 border border-destructive/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-destructive font-mono font-bold">
                                 // SYS_MH_WILDS
                             </div>
                             <div className="absolute bottom-0 right-0 w-64 h-64 bg-destructive/10 blur-[80px] rounded-full group-hover:bg-destructive/20 transition-colors pointer-events-none" />
