@@ -14,17 +14,17 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { createProject } from '@/features/working/services/projects'
-import { Plus, Loader2 } from 'lucide-react'
+import { Plus, Loader2, Sparkles } from 'lucide-react'
 import { useRouter } from '@/i18n/routing'
 
 const COLORS = [
-    '#6366f1', // Indigo
-    '#3b82f6', // Blue
-    '#10b981', // Emerald
-    '#f59e0b', // Amber
-    '#ef4444', // Red
-    '#ec4899', // Pink
-    '#8b5cf6', // Violet
+    '#00f0ff', // Cyber Cyan
+    '#ff007f', // Neon Magenta
+    '#ffb703', // Neon Amber
+    '#00f59b', // Neon Green
+    '#7928ca', // Cyber Purple
+    '#3b82f6', // Electric Blue
+    '#ff003c', // Cyber Red
 ]
 
 export function CreateProjectModal() {
@@ -61,57 +61,61 @@ export function CreateProjectModal() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="w-full h-full min-h-[160px] border-2 border-dashed border-white/10 bg-transparent hover:bg-white/5 hover:border-white/20 transition-all flex flex-col gap-2 group">
-                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#6366f1]/20 group-hover:text-[#6366f1] transition-all">
-                        <Plus size={24} />
+                <Button className="w-full h-full min-h-[160px] border border-dashed border-primary/30 bg-primary/[0.02] hover:bg-primary/[0.08] hover:border-primary transition-all flex flex-col gap-2 group cyber-clip cursor-pointer">
+                    <div className="w-10 h-10 cyber-clip-button bg-primary/10 border border-primary/40 flex items-center justify-center group-hover:bg-primary group-hover:text-black transition-all">
+                        <Plus size={20} className="text-primary group-hover:text-black" />
                     </div>
-                    <span className="text-slate-400 font-medium pt-2">Create New Project</span>
+                    <span className="text-primary/70 font-mono text-xs uppercase tracking-widest pt-2 group-hover:text-primary">
+                        [ + CREATE_NEW_PROJECT ]
+                    </span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] bg-[#0a0a0c] border-white/10 text-white">
+            <DialogContent tag="PROJ_INITIALIZER" className="sm:max-w-[450px]">
                 <DialogHeader>
-                    <DialogTitle>Create Project</DialogTitle>
-                    <DialogDescription className="text-slate-400">
-                        Give your project a name and choose a base color.
+                    <DialogTitle>
+                        <Sparkles className="w-4 h-4 text-primary" />
+                        INIT_NEW_PROJECT
+                    </DialogTitle>
+                    <DialogDescription>
+                        Allocate system resources and configure project parameters.
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-6 pt-4">
+                <form onSubmit={handleSubmit} className="space-y-5 pt-2">
                     {error && (
-                        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-                            {error}
+                        <div className="p-3 cyber-clip-button bg-destructive/10 border border-destructive/30 text-destructive text-xs font-mono">
+                            // ERROR: {error}
                         </div>
                     )}
-                    <div className="space-y-2">
-                        <Label htmlFor="name" className="text-slate-200">Name</Label>
+                    <div className="space-y-1.5">
+                        <Label htmlFor="name" className="text-primary/80 font-mono text-xs uppercase tracking-wider">Project Name *</Label>
                         <Input
                             id="name"
                             required
-                            placeholder="e.g. My Awesome App"
-                            className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20"
+                            placeholder="e.g. NEURAL_INTERFACE_V2"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="description" className="text-slate-200">Description (Optional)</Label>
+                    <div className="space-y-1.5">
+                        <Label htmlFor="description" className="text-primary/80 font-mono text-xs uppercase tracking-wider">Description (Optional)</Label>
                         <Input
                             id="description"
-                            placeholder="Briefly describe your project..."
-                            className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20"
+                            placeholder="Enter project telemetry details..."
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                         />
                     </div>
-                    <div className="space-y-3">
-                        <Label className="text-slate-200">Theme Color</Label>
-                        <div className="flex flex-wrap gap-3">
+                    <div className="space-y-2">
+                        <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Neon Theme Accent</Label>
+                        <div className="flex flex-wrap gap-2.5 pt-1">
                             {COLORS.map((color) => (
                                 <button
                                     key={color}
                                     type="button"
                                     onClick={() => setFormData({ ...formData, color })}
-                                    className={`w-8 h-8 rounded-full transition-all hover:scale-110 ${formData.color === color ? 'ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0c]' : ''
-                                        }`}
+                                    className={`w-7 h-7 cyber-clip-button transition-all hover:scale-110 cursor-pointer border ${
+                                        formData.color === color ? 'border-white shadow-[0_0_12px_var(--color-primary)] scale-110' : 'border-transparent opacity-70 hover:opacity-100'
+                                    }`}
                                     style={{ backgroundColor: color }}
                                 />
                             ))}
@@ -121,15 +125,15 @@ export function CreateProjectModal() {
                         <Button
                             type="submit"
                             disabled={isPending || !formData.name}
-                            className="bg-[#6366f1] hover:bg-[#5254e0] text-white w-full"
+                            className="bg-primary text-black font-mono font-bold uppercase tracking-wider w-full cyber-clip-button hover:bg-primary/90 shadow-[0_0_20px_var(--color-primary)]"
                         >
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Creating...
+                                    ALLOCATING...
                                 </>
                             ) : (
-                                'Create Project'
+                                '[ EXECUTE_CREATE ]'
                             )}
                         </Button>
                     </DialogFooter>

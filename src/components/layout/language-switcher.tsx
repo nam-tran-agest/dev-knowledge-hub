@@ -17,11 +17,13 @@ export function LanguageSwitcher() {
     return (
         <button
             onClick={toggleLocale}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-primary/40 text-xs font-mono text-muted-foreground hover:text-foreground transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(0,240,255,0.2)]"
+            className="flex items-center gap-2 px-3 py-1.5 cyber-clip-button bg-primary/10 hover:bg-primary/25 border border-primary/40 hover:border-primary text-xs font-mono text-primary transition-all cursor-pointer shadow-[0_0_10px_rgba(0,240,255,0.15)] hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] relative group"
             title={locale === 'en' ? 'Chuyển sang Tiếng Việt' : 'Switch to English'}
         >
-            <Globe className="w-3.5 h-3.5 text-primary" />
-            <span className="uppercase font-semibold">{locale}</span>
+            <span className="text-[9px] text-primary/60 font-bold">[</span>
+            <Globe className="w-3.5 h-3.5 text-primary group-hover:rotate-45 transition-transform" />
+            <span className="uppercase font-bold tracking-wider">{locale}</span>
+            <span className="text-[9px] text-primary/60 font-bold">]</span>
         </button>
     )
 }

@@ -23,11 +23,16 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
     return (
         <Card
             onClick={() => onSelect(video)}
-            className="group relative overflow-hidden bg-card border-white/10 hover:border-rose-500/40 hover:bg-background transition-all duration-300 hover:shadow-[0_0_30px_rgba(244,63,94,0.2)] hover:-translate-y-1 cursor-pointer p-0 rounded-3xl backdrop-blur-2xl glare-top"
+            className="group relative overflow-hidden bg-card/70 border-primary/30 hover:border-primary hover:bg-card transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] hover:-translate-y-1 cursor-pointer p-0 cyber-clip backdrop-blur-2xl"
         >
+            {/* Top Corner Bracket */}
+            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono z-20">
+                // VID_{video.id.slice(0, 4)}
+            </div>
+
             <div className="flex flex-col h-full">
                 {/* Thumbnail */}
-                <div className="relative aspect-video w-full overflow-hidden bg-card">
+                <div className="relative aspect-video w-full overflow-hidden bg-[#050714]">
                     {video.thumbnail_url ? (
                         <Image
                             src={video.thumbnail_url}
@@ -36,12 +41,12 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                             className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
                         />
                     ) : (
-                        <div className="flex items-center justify-center h-full w-full text-slate-500 text-sm">
-                            {t('noThumbnail')}
+                        <div className="flex items-center justify-center h-full w-full text-primary/40 font-mono text-xs uppercase">
+                            // NO_FEED_DATA
                         </div>
                     )}
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/90 via-transparent to-transparent opacity-70" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#04060f]/90 via-transparent to-transparent opacity-80" />
 
                     {/* Favorite Button */}
                     <Button
@@ -51,12 +56,11 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                             e.stopPropagation();
                             onToggleFavorite(e, video);
                         }}
-                        className="absolute top-3 left-3 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white backdrop-blur-md cursor-pointer border border-white/10 shadow-md"
+                        className="absolute top-2.5 left-2.5 cyber-clip-button z-10 w-7 h-7 bg-black/70 hover:bg-primary/20 text-white backdrop-blur-md cursor-pointer border border-primary/30"
                         title={t('toggleFavorite')}
                     >
                         <Heart
-                            className={`w-3.5 h-3.5 ${video.is_favorite ? "fill-rose-500 text-rose-500" : "text-white"
-                                }`}
+                            className={`w-3.5 h-3.5 ${video.is_favorite ? "fill-rose-500 text-rose-500" : "text-primary/70"}`}
                         />
                     </Button>
 
@@ -69,10 +73,10 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                                 e.stopPropagation();
                                 onAddToPlaylist(video.id);
                             }}
-                            className="absolute bottom-3 left-3 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white backdrop-blur-md cursor-pointer opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity border border-white/10 shadow-md"
+                            className="absolute bottom-2.5 left-2.5 cyber-clip-button z-10 w-7 h-7 bg-black/70 hover:bg-primary/20 text-primary backdrop-blur-md cursor-pointer opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity border border-primary/30"
                             title={t('addToPlaylist')}
                         >
-                            <ListPlus className="w-4 h-4" />
+                            <ListPlus className="w-3.5 h-3.5" />
                         </Button>
                     )}
 
@@ -80,9 +84,9 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                     {video.saved_time > 0 && (
                         <Badge
                             variant="secondary"
-                            className="absolute bottom-3 right-3 bg-black/80 backdrop-blur-md hover:bg-black/80 text-white gap-1 flex items-center text-xs font-mono border border-white/10"
+                            className="absolute bottom-2.5 right-2.5 bg-black/80 backdrop-blur-md text-primary gap-1 flex items-center text-[10px] font-mono border border-primary/30"
                         >
-                            <Clock className="w-3 h-3" />
+                            <Clock className="w-3 h-3 text-primary" />
                             {formatTime(video.saved_time)}
                         </Badge>
                     )}
@@ -95,7 +99,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                             e.stopPropagation();
                             onDelete(video.id);
                         }}
-                        className="absolute top-3 right-3 rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer shadow-md bg-rose-600 hover:bg-rose-500"
+                        className="absolute top-2.5 right-2.5 cyber-clip-button opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10 w-7 h-7 cursor-pointer bg-destructive/80 hover:bg-destructive border border-destructive/50"
                         title={t('delete')}
                     >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -103,16 +107,16 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
 
                     {/* Play Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                        <div className="w-12 h-12 rounded-full bg-rose-600/90 backdrop-blur-md flex items-center justify-center shadow-[0_0_25px_rgba(244,63,94,0.5)]">
-                            <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                        <div className="w-11 h-11 cyber-clip-button bg-primary/20 border border-primary backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_var(--color-primary)]">
+                            <Play className="w-4 h-4 text-primary fill-primary ml-0.5" />
                         </div>
                     </div>
                 </div>
 
                 {/* Content */}
-                <CardContent className="flex-1 p-4 sm:p-5 space-y-2">
+                <CardContent className="flex-1 p-4 space-y-2">
                     <h3
-                        className="font-bold text-sm sm:text-base line-clamp-2 leading-relaxed text-white group-hover:text-rose-300 transition-colors"
+                        className="font-mono font-bold text-xs sm:text-sm line-clamp-2 leading-relaxed text-white group-hover:text-primary transition-colors uppercase tracking-wide"
                         title={video.title || undefined}
                     >
                         {video.title}

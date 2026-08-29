@@ -9,7 +9,6 @@ import { List, LayoutGrid, Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { createTask, updateTask, deleteTask } from '@/features/working/services/tasks'
 import { EditTaskModal } from './edit-task-modal'
-// import { toast } from 'sonner' // Removed missing dependency
 
 interface ProjectWorkspaceProps {
     project: Project
@@ -44,7 +43,6 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
     }
 
     const handleStatusChange = async (id: string, status: TaskStatus) => {
-        // Optimistic update
         const oldTasks = [...tasks]
         setTasks(prev => prev.map(t => t.id === id ? { ...t, status } : t))
 
@@ -78,33 +76,37 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
     }
 
     return (
-        <div>
+        <div className="min-h-screen">
             <ProjectWorkspaceHeader project={project} locale={locale} />
 
             <main className="max-w-6xl mx-auto px-4 md:px-8 py-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                     <div className="relative flex-1 max-w-md">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-primary/50" size={16} />
                         <Input
-                            placeholder="Search tasks..."
+                            placeholder="SEARCH_TELEMETRY_TASKS..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 bg-[#111114] border-[#1e1e24] focus:border-[#6366f1]/50 text-white"
+                            className="pl-9 bg-[#040612]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
                         />
                     </div>
 
-                    <div className="flex items-center gap-2 bg-[#111114] p-1 rounded-lg border border-[#1e1e24]">
+                    <div className="flex items-center gap-1.5 bg-[#050714] p-1 cyber-clip-button border border-primary/30">
                         <button
                             onClick={() => setView('list')}
-                            className={`p-2 rounded-md transition-all ${view === 'list' ? 'bg-[#1e1e24] text-[#6366f1]' : 'text-slate-500 hover:text-white'}`}
+                            className={`px-3 py-1.5 cyber-clip-button transition-all text-xs font-mono uppercase tracking-wider cursor-pointer ${
+                                view === 'list' ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]' : 'text-primary/60 hover:text-white'
+                            }`}
                         >
-                            <List size={18} />
+                            <span className="flex items-center gap-1.5"><List size={14} /> LIST</span>
                         </button>
                         <button
                             onClick={() => setView('kanban')}
-                            className={`p-2 rounded-md transition-all ${view === 'kanban' ? 'bg-[#1e1e24] text-[#6366f1]' : 'text-slate-500 hover:text-white'}`}
+                            className={`px-3 py-1.5 cyber-clip-button transition-all text-xs font-mono uppercase tracking-wider cursor-pointer ${
+                                view === 'kanban' ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]' : 'text-primary/60 hover:text-white'
+                            }`}
                         >
-                            <LayoutGrid size={18} />
+                            <span className="flex items-center gap-1.5"><LayoutGrid size={14} /> KANBAN</span>
                         </button>
                     </div>
                 </div>

@@ -22,89 +22,93 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
 
     return (
         <Card
-            className="group relative overflow-hidden bg-white/5 border-white/10 hover:border-red-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/10 hover:-translate-y-1 p-0 cursor-pointer"
+            className="group relative overflow-hidden bg-card/70 border-primary/30 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] hover:-translate-y-1 p-0 cursor-pointer cyber-clip"
             onClick={() => router.push(`/media/youtube/playlist/${playlist.id}`)}
         >
+            {/* Top Corner Bracket */}
+            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono z-20">
+                // PL_{playlist.id.slice(0, 4)}
+            </div>
+
             <div className="flex flex-col h-full">
                 {/* Playlist Icon / Thumbnail placeholder */}
-                <div className="relative aspect-video w-full overflow-hidden bg-slate-950 group">
+                <div className="relative aspect-video w-full overflow-hidden bg-[#050714] group">
                     {/* Background Grid Pattern */}
-                    <div className="absolute inset-0 opacity-10 pointer-events-none z-0"
-                        style={{ backgroundImage: 'radial-gradient(circle, #444 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
+                    <div className="absolute inset-0 opacity-20 pointer-events-none z-0 bg-grid-cyber" />
 
                     <div className="absolute inset-0 flex items-center justify-center p-3 z-10">
-                        <div className={`relative w-full h-full rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900 transform transition-all duration-700 ease-out 
-                            ${playlist.video_thumbnails?.length ? 'rotate-[-2deg] skew-x-2 group-hover:rotate-0 group-hover:skew-x-0 group-hover:scale-[1.05]' : 'group-hover:scale-[1.02]'}`}>
+                        <div className={`relative w-full h-full cyber-clip overflow-hidden border border-primary/20 bg-[#07091a] transform transition-all duration-500 ease-out 
+                            ${playlist.video_thumbnails?.length ? 'group-hover:scale-105' : 'group-hover:scale-102'}`}>
 
                             {playlist.video_thumbnails?.length ? (
                                 <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-0.5">
                                     {[0, 1, 2, 3].map((idx) => (
-                                        <div key={idx} className="relative w-full h-full overflow-hidden bg-slate-800">
+                                        <div key={idx} className="relative w-full h-full overflow-hidden bg-[#04060f]">
                                             <Image
                                                 src={playlist.video_thumbnails?.[idx] || playlist.video_thumbnails?.[0] || ""}
-                                                alt="" fill className="object-cover"
+                                                alt="" fill className="object-cover opacity-80"
                                             />
-                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                                            <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors" />
                                         </div>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="relative w-full h-full bg-slate-800 flex items-center justify-center">
+                                <div className="relative w-full h-full bg-[#04060f] flex items-center justify-center">
                                     {playlist.thumbnail_url ? (
-                                        <Image src={playlist.thumbnail_url} alt={playlist.title} fill className="object-cover" />
+                                        <Image src={playlist.thumbnail_url} alt={playlist.title} fill className="object-cover opacity-80" />
                                     ) : (
-                                        <ListVideo className="w-12 h-12 text-slate-600" />
+                                        <ListVideo className="w-10 h-10 text-primary/40" />
                                     )}
-                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                                    <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors" />
                                 </div>
                             )}
 
-                            {/* Center Glass Play Icon (Shared) */}
+                            {/* Center Glass Play Icon */}
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <div className="bg-white/10 backdrop-blur-md p-4 rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
-                                    <ListVideo className="w-8 h-8 text-white drop-shadow-2xl" />
+                                <div className="bg-primary/20 backdrop-blur-md p-3 cyber-clip-button border border-primary/60 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_20px_var(--color-primary)]">
+                                    <ListVideo className="w-6 h-6 text-primary" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Interactive Controls Layer (Shared) */}
-                    <div className="absolute inset-0 p-4 pointer-events-none z-20">
+                    {/* Interactive Controls Layer */}
+                    <div className="absolute inset-0 p-3 pointer-events-none z-20">
                         {/* Top Actions */}
                         <div className="flex justify-between items-start w-full">
                             <div className="pointer-events-auto">
                                 <Button
                                     variant="ghost" size="icon"
                                     onClick={(e) => { e.stopPropagation(); onToggleFavorite(e, playlist); }}
-                                    className="rounded-full w-8 h-8 bg-black/40 hover:bg-black/60 text-white border-0 backdrop-blur-sm"
+                                    className="cyber-clip-button w-7 h-7 bg-black/70 hover:bg-primary/20 text-white border border-primary/30 backdrop-blur-sm"
                                 >
-                                    <Heart className={`w-4 h-4 ${playlist.is_favorite ? "fill-red-500 text-red-500" : "text-white"}`} />
+                                    <Heart className={`w-3.5 h-3.5 ${playlist.is_favorite ? "fill-rose-500 text-rose-500" : "text-primary/70"}`} />
                                 </Button>
                             </div>
 
-                            <div className="flex gap-2 pointer-events-auto opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
+                            <div className="flex gap-1.5 pointer-events-auto opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                                 {onEdit && (
                                     <Button
                                         variant="secondary" size="icon"
                                         onClick={(e) => { e.stopPropagation(); onEdit(playlist); }}
-                                        className="rounded-full w-8 h-8 bg-white/10 hover:bg-white/20 text-white border-0 backdrop-blur-sm"
+                                        className="cyber-clip-button w-7 h-7 bg-primary/10 hover:bg-primary/25 text-primary border border-primary/30 backdrop-blur-sm"
                                     >
-                                        <Edit2 className="w-4 h-4" />
+                                        <Edit2 className="w-3.5 h-3.5" />
                                     </Button>
                                 )}
                                 <Button
                                     variant="destructive" size="icon"
                                     onClick={(e) => { e.stopPropagation(); onDelete(playlist.id); }}
-                                    className="rounded-full w-8 h-8 bg-red-500/80 hover:bg-red-500 text-white border-0 shadow-lg"
+                                    className="cyber-clip-button w-7 h-7 bg-destructive/80 hover:bg-destructive text-white border border-destructive/50"
                                 >
-                                    <Trash2 className="w-4 h-4" />
+                                    <Trash2 className="w-3.5 h-3.5" />
                                 </Button>
                             </div>
                         </div>
 
                         {/* Bottom Badge */}
-                        <div className="absolute bottom-4 right-4 pointer-events-auto">
-                            <Badge variant="secondary" className="bg-red-600 font-bold text-white border-0 shadow-lg px-2 py-0.5 text-[10px]">
+                        <div className="absolute bottom-3 right-3 pointer-events-auto">
+                            <Badge variant="secondary" className="bg-primary/20 text-primary font-mono border border-primary/40 px-2 py-0.5 text-[10px]">
                                 {t('videoCount', { count: playlist.video_count || 0 })}
                             </Badge>
                         </div>
@@ -112,13 +116,13 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
                 </div>
 
                 {/* Content */}
-                <CardContent className="flex-1 p-3 sm:p-5 space-y-3">
+                <CardContent className="flex-1 p-4 space-y-2">
                     <div className="space-y-1">
-                        <h3 className="font-semibold text-base sm:text-lg text-white line-clamp-1 group-hover:text-red-400 transition-colors">
+                        <h3 className="font-mono font-bold text-xs sm:text-sm text-white line-clamp-1 group-hover:text-primary transition-colors uppercase tracking-wider">
                             {playlist.title}
                         </h3>
                         {playlist.description && (
-                            <p className="text-gray-400 text-xs sm:text-sm line-clamp-2 leading-relaxed">
+                            <p className="text-primary/60 text-[11px] font-mono line-clamp-2 leading-relaxed">
                                 {playlist.description}
                             </p>
                         )}
@@ -128,4 +132,3 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
         </Card>
     );
 }
-

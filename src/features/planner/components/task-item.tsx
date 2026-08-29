@@ -28,18 +28,21 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, index }) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     className={cn(
-                        "group flex items-center p-3 mb-2 rounded-2xl transition-all duration-200 border",
-                        "bg-[#040711]/60 backdrop-blur-xl border-white/10 hover:bg-[#0c142c]/80 hover:border-indigo-500/40 cursor-grab active:cursor-grabbing",
-                        snapshot.isDragging && "shadow-2xl shadow-indigo-500/20 border-indigo-500/50 rotate-1 scale-105 z-50 bg-[#0c142c]",
-                        isCompleted && "opacity-40"
+                        "group flex items-center p-3 mb-2 cyber-clip-button transition-all duration-200 border",
+                        "bg-[#040712]/80 backdrop-blur-xl border-primary/20 hover:bg-primary/10 hover:border-primary/50 cursor-grab active:cursor-grabbing relative overflow-hidden",
+                        snapshot.isDragging && "shadow-[0_0_25px_rgba(0,240,255,0.4)] border-primary rotate-1 scale-105 z-50 bg-[#060a1e]",
+                        isCompleted && "opacity-40 grayscale"
                     )}
                     style={{
                         ...provided.draggableProps.style,
                     }}
                 >
+                    {/* Top corner accent */}
+                    <span className="absolute top-0 left-0 w-1.5 h-1.5 bg-primary/40 pointer-events-none" />
+
                     <button
                         onClick={toggleStatus}
-                        className="mr-3 text-slate-500 hover:text-indigo-400 transition-colors focus:outline-none cursor-pointer"
+                        className="mr-3 text-primary/60 hover:text-primary transition-colors focus:outline-none cursor-pointer"
                     >
                         {isCompleted ? (
                             <CheckCircle2 className="w-4 h-4 text-emerald-400 animate-in zoom-in duration-200" />
@@ -50,15 +53,15 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, index }) => {
 
                     <span
                         className={cn(
-                            "flex-1 text-xs sm:text-sm font-medium transition-all duration-200",
-                            isCompleted ? "text-slate-500 line-through" : "text-slate-200 group-hover:text-white"
+                            "flex-1 text-xs font-mono tracking-wide transition-all duration-200",
+                            isCompleted ? "text-primary/40 line-through" : "text-slate-200 group-hover:text-white"
                         )}
                     >
                         {task.title}
                     </span>
 
                     {/* Visual drag handle indicator shown on hover */}
-                    <div className="opacity-0 group-hover:opacity-100 text-slate-500 transition-opacity">
+                    <div className="opacity-0 group-hover:opacity-100 text-primary/60 transition-opacity">
                         <GripVertical className="w-3.5 h-3.5" />
                     </div>
                 </div>

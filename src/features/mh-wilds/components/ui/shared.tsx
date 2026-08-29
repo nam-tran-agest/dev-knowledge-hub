@@ -1,6 +1,4 @@
 // === Shared UI helpers for MHWilds ===
-// Merged from: grid-layout, group-header, rarity-dots, loading-error-states, pagination
-
 import type { ReactNode } from 'react';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { RARITY_COLORS } from '../../constants';
@@ -19,10 +17,12 @@ export function GridLayout({ children, cols = 3 }: { children: ReactNode; cols?:
 export function GroupHeader({ label, count, iconNode }: { label: string; count: number; iconNode?: ReactNode }) {
     return (
         <div className="col-span-full flex items-center gap-3 pt-4 pb-2 first:pt-0">
-            {iconNode && <span className="shrink-0">{iconNode}</span>}
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider">{label}</h3>
-            <div className="flex-1 h-px bg-white/[0.06]" />
-            <span className="text-[10px] font-bold text-slate-600 bg-white/[0.03] rounded-full px-2 py-0.5">{count}</span>
+            {iconNode && <span className="shrink-0 text-primary">{iconNode}</span>}
+            <h3 className="text-xs font-mono font-bold text-white uppercase tracking-widest">// {label}</h3>
+            <div className="flex-1 h-px bg-primary/20" />
+            <span className="text-[10px] font-mono font-bold text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 cyber-clip-tag">
+                [ {count} ]
+            </span>
         </div>
     );
 }
@@ -30,9 +30,9 @@ export function GroupHeader({ label, count, iconNode }: { label: string; count: 
 // ─── Rarity Dots ────────────────────────────────────────────
 export function RarityDots({ rarity }: { rarity: number }) {
     return (
-        <div className="flex gap-0.5">
+        <div className="flex gap-1">
             {Array.from({ length: Math.min(rarity, 10) }).map((_, i) => (
-                <div key={i} className={`w-1.5 h-1.5 rounded-full ${RARITY_COLORS[rarity] || 'bg-slate-600'}`} />
+                <div key={i} className={`w-1.5 h-1.5 cyber-clip-sm ${RARITY_COLORS[rarity] || 'bg-primary/40'}`} />
             ))}
         </div>
     );
@@ -41,21 +41,21 @@ export function RarityDots({ rarity }: { rarity: number }) {
 // ─── Skeleton Loading ───────────────────────────────────────
 function SkeletonCard() {
     return (
-        <div className="bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-xl p-5 animate-pulse">
+        <div className="bg-card/60 border border-primary/20 cyber-clip p-5 animate-pulse relative overflow-hidden">
             <div className="flex items-start gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-white/[0.06]" />
+                <div className="w-10 h-10 cyber-clip-button bg-primary/10" />
                 <div className="flex-1 space-y-2">
-                    <div className="h-4 bg-white/[0.06] rounded w-3/4" />
-                    <div className="h-3 bg-white/[0.04] rounded w-1/2" />
+                    <div className="h-4 bg-primary/10 cyber-clip-tag w-3/4" />
+                    <div className="h-3 bg-primary/5 cyber-clip-tag w-1/2" />
                 </div>
             </div>
             <div className="space-y-2">
-                <div className="h-3 bg-white/[0.04] rounded w-full" />
-                <div className="h-3 bg-white/[0.04] rounded w-5/6" />
+                <div className="h-3 bg-primary/5 cyber-clip-tag w-full" />
+                <div className="h-3 bg-primary/5 cyber-clip-tag w-5/6" />
             </div>
-            <div className="flex gap-2 mt-4 pt-3 border-t border-white/[0.03]">
-                <div className="h-5 bg-white/[0.04] rounded-full w-16" />
-                <div className="h-5 bg-white/[0.04] rounded-full w-20" />
+            <div className="flex gap-2 mt-4 pt-3 border-t border-primary/10">
+                <div className="h-5 bg-primary/10 cyber-clip-tag w-16" />
+                <div className="h-5 bg-primary/10 cyber-clip-tag w-20" />
             </div>
         </div>
     );
@@ -64,9 +64,9 @@ function SkeletonCard() {
 export function LoadingState({ label }: { label: string }) {
     return (
         <div className="space-y-4 animate-in fade-in duration-300">
-            <div className="flex items-center gap-3 mb-2">
-                <Loader2 className="w-4 h-4 text-emerald-500 animate-spin" />
-                <p className="text-sm text-slate-500">Loading {label}...</p>
+            <div className="flex items-center gap-3 mb-2 font-mono text-xs text-primary">
+                <Loader2 className="w-4 h-4 text-primary animate-spin" />
+                <p className="uppercase tracking-wider">// QUERYING_VAULT: {label}...</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
@@ -78,10 +78,12 @@ export function LoadingState({ label }: { label: string }) {
 export function ErrorState({ error, onRetry }: { error: string; onRetry: () => void }) {
     return (
         <div className="flex items-center justify-center py-20">
-            <div className="flex flex-col items-center gap-3 text-center">
-                <AlertCircle className="w-8 h-8 text-red-400" />
-                <p className="text-sm text-red-400">{error}</p>
-                <button onClick={onRetry} className="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-colors">Retry</button>
+            <div className="flex flex-col items-center gap-3 text-center cyber-clip p-8 border border-destructive/40 bg-card/80">
+                <AlertCircle className="w-8 h-8 text-destructive" />
+                <p className="text-xs font-mono text-destructive uppercase tracking-wider">// ERROR: {error}</p>
+                <button onClick={onRetry} className="px-4 py-2 bg-destructive text-white cyber-clip-button text-xs font-mono uppercase tracking-widest hover:bg-destructive/90 transition-colors cursor-pointer">
+                    [ RETRY_QUERY ]
+                </button>
             </div>
         </div>
     );

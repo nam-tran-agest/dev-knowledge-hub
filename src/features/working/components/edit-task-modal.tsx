@@ -21,7 +21,7 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { updateTask } from '@/features/working/services/tasks'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Edit3 } from 'lucide-react'
 import { Task, TaskStatus, TaskPriority } from '@/features/working/types'
 import { useTranslations } from 'next-intl'
 
@@ -75,69 +75,71 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[425px] bg-[#0a0a0c] border-white/10 text-white">
+            <DialogContent tag="TASK_MODIFIER" className="sm:max-w-[450px]">
                 <DialogHeader>
-                    <DialogTitle>Edit Task</DialogTitle>
-                    <DialogDescription className="text-slate-400">
-                        Update the details of your task.
+                    <DialogTitle>
+                        <Edit3 className="w-4 h-4 text-primary" />
+                        // EDIT_TASK_PARAM
+                    </DialogTitle>
+                    <DialogDescription>
+                        Modify task parameters, status state, and priority rank.
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-6 pt-4">
+                <form onSubmit={handleSubmit} className="space-y-4 pt-2">
                     {error && (
-                        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-                            {error}
+                        <div className="p-3 cyber-clip-button bg-destructive/10 border border-destructive/30 text-destructive text-xs font-mono">
+                            // ERROR: {error}
                         </div>
                     )}
-                    <div className="space-y-2">
-                        <Label htmlFor="task-title" className="text-slate-200">Title</Label>
+                    <div className="space-y-1.5">
+                        <Label htmlFor="task-title" className="text-primary/80 font-mono text-xs uppercase tracking-wider">Title *</Label>
                         <Input
                             id="task-title"
                             required
-                            className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20"
                             value={formData.title}
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                         />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="task-desc" className="text-slate-200">Description</Label>
+                    <div className="space-y-1.5">
+                        <Label htmlFor="task-desc" className="text-primary/80 font-mono text-xs uppercase tracking-wider">Description</Label>
                         <Textarea
                             id="task-desc"
-                            className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20 min-h-[100px]"
+                            className="min-h-[90px]"
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                            <Label className="text-slate-200">Status</Label>
+                        <div className="space-y-1.5">
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Status Column</Label>
                             <Select
                                 value={formData.status}
                                 onValueChange={(value) => setFormData({ ...formData, status: value as TaskStatus })}
                             >
-                                <SelectTrigger className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20">
+                                <SelectTrigger>
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent className="bg-[#16161a] border-[#2a2a30] text-slate-200">
+                                <SelectContent>
                                     <SelectItem value="todo">{t('todo')}</SelectItem>
                                     <SelectItem value="doing">{t('doing')}</SelectItem>
                                     <SelectItem value="done">{t('done')}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
-                        <div className="space-y-2">
-                            <Label className="text-slate-200">Priority</Label>
+                        <div className="space-y-1.5">
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Priority Rank</Label>
                             <Select
                                 value={formData.priority}
                                 onValueChange={(value) => setFormData({ ...formData, priority: value as TaskPriority })}
                             >
-                                <SelectTrigger className="bg-white/5 border-white/10 focus:border-[#6366f1]/50 focus:ring-[#6366f1]/20">
+                                <SelectTrigger>
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent className="bg-[#16161a] border-[#2a2a30] text-slate-200">
-                                    <SelectItem value="low">Low</SelectItem>
-                                    <SelectItem value="medium">Medium</SelectItem>
-                                    <SelectItem value="high">High</SelectItem>
+                                <SelectContent>
+                                    <SelectItem value="low">LOW</SelectItem>
+                                    <SelectItem value="medium">MEDIUM</SelectItem>
+                                    <SelectItem value="high">HIGH</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -147,15 +149,15 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                         <Button
                             type="submit"
                             disabled={isPending || !formData.title}
-                            className="bg-[#6366f1] hover:bg-[#5254e0] text-white w-full"
+                            className="bg-primary text-black font-mono font-bold uppercase tracking-wider w-full cyber-clip-button hover:bg-primary/90 shadow-[0_0_20px_var(--color-primary)]"
                         >
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Saving...
+                                    UPDATING...
                                 </>
                             ) : (
-                                'Update Task'
+                                '[ EXECUTE_UPDATE ]'
                             )}
                         </Button>
                     </DialogFooter>

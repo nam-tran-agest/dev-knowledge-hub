@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TimeTimeline } from './time-timeline';
 import { TaskItem } from './task-item';
-import { Plus, CheckCircle2 } from 'lucide-react';
+import { Plus, CheckCircle2, Activity, Terminal } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export const TodayView = () => {
@@ -29,6 +29,7 @@ export const TodayView = () => {
     const todaysTaskIds = schedules[todayStr]?.tasks || [];
     const todaysTasks = todaysTaskIds.map(id => tasks[id]).filter(Boolean);
     const unassignedTasks = todaysTasks.filter(t => !t.timeBlockId);
+    const completedCount = todaysTasks.filter(t => t.status === 'done').length;
 
     const onDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
@@ -58,28 +59,61 @@ export const TodayView = () => {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8 min-h-[85vh] pt-32 p-6 animate-fade-in-up">
+            <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8 min-h-[85vh] pt-24 pb-12 px-4 sm:px-6">
 
-                {/* Left Column: Timeline */}
-                <div className="flex-[2] rounded-3xl bg-[#070d1e]/50 border border-white/10 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl overflow-y-auto max-h-[80vh] custom-scrollbar glare-top">
-                    <div className="mb-8">
-                        <h2 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
-                            {tNav('items.today')}
-                            <span suppressHydrationWarning className="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">
-                                {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
-                            </span>
-                        </h2>
-                        <p className="text-slate-400 text-sm mt-2">Schedule your deep work blocks and high-impact sessions.</p>
+                {/* Left Column: Timeline Control Deck */}
+                <div className="flex-[2] cyber-clip glass-panel border border-primary/30 p-6 sm:p-8 shadow-[0_0_40px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col max-h-[82vh]">
+                    {/* Corner Brackets */}
+                    <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
+                    
+                    {/* Header Tag */}
+                    <div className="absolute top-0 right-6 px-3 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono">
+                        // SYS_SCHEDULE_TIMELINE
                     </div>
 
-                    <TimeTimeline />
+                    <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-primary/20 pb-4">
+                        <div>
+                            <h2 className="text-2xl sm:text-3xl font-mono font-bold text-white uppercase tracking-wider flex items-center gap-3">
+                                {tNav('items.today')}
+                                <span suppressHydrationWarning className="text-xs font-mono font-semibold px-2.5 py-0.5 cyber-clip-button bg-primary/15 border border-primary/40 text-primary">
+                                    [ {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} ]
+                                </span>
+                            </h2>
+                            <p className="text-primary/60 font-mono text-xs mt-1 uppercase tracking-wide">
+                                // Schedule high-impact execution blocks
+                            </p>
+                        </div>
+
+                        {/* Telemetry Progress Pill */}
+                        <div className="flex items-center gap-2 font-mono text-xs text-primary/80 bg-primary/10 border border-primary/30 px-3 py-1.5 cyber-clip-button w-fit">
+                            <Activity className="w-3.5 h-3.5 text-primary animate-pulse" />
+                            <span>COMPLETED: {completedCount}/{todaysTasks.length}</span>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">
+                        <TimeTimeline />
+                    </div>
                 </div>
 
-                {/* Right Column: Task Backlog */}
-                <div className="flex-1 rounded-3xl bg-[#070d1e]/50 border border-white/10 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl flex flex-col max-h-[80vh] glare-top">
-                    <div className="mb-6">
-                        <h3 className="text-xl font-bold text-white tracking-tight">Daily Queue</h3>
-                        <p className="text-xs font-mono text-slate-400 mt-1">Unassigned tasks for today</p>
+                {/* Right Column: Task Queue Backlog */}
+                <div className="flex-1 cyber-clip glass-panel border border-primary/30 p-6 sm:p-8 shadow-[0_0_40px_rgba(0,0,0,0.8)] flex flex-col max-h-[82vh] relative overflow-hidden">
+                    {/* Corner Brackets */}
+                    <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
+                    
+                    {/* Header Tag */}
+                    <div className="absolute top-0 right-6 px-3 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono">
+                        // SYS_TASK_QUEUE
+                    </div>
+
+                    <div className="mb-6 border-b border-primary/20 pb-4">
+                        <h3 className="text-lg font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                            <Terminal className="w-4 h-4 text-primary" />
+                            Task Buffer
+                        </h3>
+                        <p className="text-[10px] font-mono text-primary/60 mt-1 uppercase tracking-wide">
+                            // Unassigned tasks waiting for allocation
+                        </p>
                     </div>
 
                     {/* Add Task Input */}
@@ -88,13 +122,13 @@ export const TodayView = () => {
                             type="text"
                             value={newTaskTitle}
                             onChange={(e) => setNewTaskTitle(e.target.value)}
-                            placeholder="Type a new task & press Enter..."
-                            className="w-full bg-[#040711]/80 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 transition-all pr-12"
+                            placeholder="INPUT_TASK_TITLE..."
+                            className="w-full bg-[#040711]/90 border border-primary/30 cyber-clip-button px-4 py-2.5 text-xs font-mono text-white placeholder:text-primary/40 focus:outline-none focus:border-primary focus:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all pr-12"
                         />
                         <button
                             type="submit"
                             disabled={!newTaskTitle.trim()}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white disabled:opacity-30 transition-all cursor-pointer shadow-md"
+                            className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 cyber-clip-button bg-primary/20 hover:bg-primary text-primary hover:text-black border border-primary/40 disabled:opacity-30 transition-all cursor-pointer"
                         >
                             <Plus className="w-4 h-4" />
                         </button>
@@ -105,8 +139,9 @@ export const TodayView = () => {
                             <div
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
-                                className={`flex-1 overflow-y-auto custom-scrollbar min-h-[100px] rounded-2xl transition-all p-1 ${snapshot.isDraggingOver ? 'bg-indigo-500/10 ring-1 ring-indigo-500/30' : ''
-                                    }`}
+                                className={`flex-1 overflow-y-auto custom-scrollbar min-h-[120px] cyber-clip transition-all p-1.5 ${
+                                    snapshot.isDraggingOver ? 'bg-primary/10 border border-primary/50 shadow-[0_0_20px_rgba(0,240,255,0.2)]' : ''
+                                }`}
                             >
                                 {unassignedTasks.map((task, index) => (
                                     <TaskItem key={task.id} task={task} index={index} />
@@ -114,11 +149,14 @@ export const TodayView = () => {
                                 {provided.placeholder}
 
                                 {unassignedTasks.length === 0 && !snapshot.isDraggingOver && (
-                                    <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-3 border-2 border-dashed border-white/10 rounded-2xl p-6">
-                                        <div className="w-12 h-12 rounded-full bg-white/[0.04] flex items-center justify-center">
-                                            <CheckCircle2 className="w-6 h-6 text-indigo-400/50" />
+                                    <div className="h-full flex flex-col items-center justify-center text-primary/40 gap-3 border border-dashed border-primary/20 cyber-clip-button p-6 relative overflow-hidden">
+                                        <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
+                                        <div className="w-10 h-10 cyber-clip-button bg-primary/10 border border-primary/30 flex items-center justify-center">
+                                            <CheckCircle2 className="w-5 h-5 text-primary/70" />
                                         </div>
-                                        <p className="text-xs font-mono text-center text-slate-400">Queue empty. Add a task or drag here.</p>
+                                        <p className="text-[10px] font-mono uppercase tracking-widest text-center text-primary/60">
+                                            [ BUFFER_EMPTY ]
+                                        </p>
                                     </div>
                                 )}
                             </div>

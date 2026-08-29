@@ -7,6 +7,8 @@ import { motion } from "motion/react";
 import { Layers, Newspaper, Flame, Calendar, Terminal, Cpu } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
+import { RadarHUD } from '@/components/ui/cyber/radar-hud';
+
 interface HeroSectionProps {
     title: string;
     subtitle: string;
@@ -28,43 +30,51 @@ export function HeroSection({
             </div>
 
             <div className="relative z-10 w-full max-w-7xl mx-auto space-y-10">
-                {/* Dashboard Header */}
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                {/* Dashboard Header with Radar HUD */}
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-primary/20 pb-8 relative">
+                    {/* Top Right Corner Notches */}
+                    <div className="absolute top-0 right-0 w-8 h-2 border-t-2 border-r-2 border-primary pointer-events-none" />
+
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="space-y-2"
+                        className="space-y-2 max-w-2xl"
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 mb-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 mb-2 cyber-clip-button bg-primary/10 border border-primary/30 backdrop-blur-md">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            <span className="text-[10px] font-mono text-primary uppercase tracking-wider">System Online</span>
+                            <span className="text-[10px] font-mono text-primary uppercase tracking-widest font-bold">SYS_ONLINE // PROTOCOL_NEO</span>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60">
+                        <h1 className="text-3xl sm:text-5xl font-mono font-extrabold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white/70">
                             {title}
                         </h1>
-                        <p className="text-muted-foreground max-w-xl">
-                            {subtitle}
+                        <p className="text-primary/70 font-mono text-xs sm:text-sm max-w-xl uppercase tracking-wide">
+                            // {subtitle}
                         </p>
                     </motion.div>
 
-                    {/* Quick System Stats */}
+                    {/* Quick System Stats + Radar HUD */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="flex items-center gap-4 text-sm font-mono text-muted-foreground"
+                        className="flex items-center gap-6"
                     >
-                        <div className="glass-panel px-4 py-2 flex items-center gap-2">
-                            <Cpu className="w-4 h-4 text-primary" />
-                            <span>v2.4.0-neo</span>
+                        <div className="hidden sm:block">
+                            <RadarHUD className="w-24 h-24" />
                         </div>
-                        <div className="glass-panel px-4 py-2 flex items-center gap-2">
-                            <Terminal className="w-4 h-4 text-destructive" />
-                            <span>Root</span>
+                        <div className="flex flex-col gap-2 text-xs font-mono text-primary/80">
+                            <div className="glass-panel px-3.5 py-1.5 cyber-clip-button flex items-center gap-2 border border-primary/30">
+                                <Cpu className="w-3.5 h-3.5 text-primary" />
+                                <span>KERNEL: V2.4.0-NEO</span>
+                            </div>
+                            <div className="glass-panel px-3.5 py-1.5 cyber-clip-button flex items-center gap-2 border border-destructive/30 text-destructive">
+                                <Terminal className="w-3.5 h-3.5 text-destructive" />
+                                <span>ACCESS: ROOT_PRIVILEGE</span>
+                            </div>
                         </div>
                     </motion.div>
                 </div>

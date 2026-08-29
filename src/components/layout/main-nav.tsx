@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { Link, usePathname } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 import {
@@ -12,7 +13,6 @@ import {
 } from '@/components/ui/navigation-menu'
 import { MAIN_NAVIGATION } from '@/lib/constants'
 import { useTranslations } from 'next-intl'
-import React from 'react'
 
 export function MainNav() {
     const pathname = usePathname()
@@ -35,25 +35,32 @@ export function MainNav() {
 
     return (
         <NavigationMenu className="p-0">
-            <NavigationMenuList className="gap-2">
-                {MAIN_NAVIGATION.map((item) => {
+            <NavigationMenuList className="gap-1.5 sm:gap-2">
+                {MAIN_NAVIGATION.map((item, idx) => {
                     const isParentActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
+                    const itemIndex = `0${idx + 1}`
+
                     return (
                         <NavigationMenuItem key={item.href}>
                             {item.items ? (
                                 <>
                                     <NavigationMenuTrigger
                                         className={cn(
-                                            "bg-transparent text-sm font-medium px-4 py-2 rounded-full transition-all duration-300 cursor-pointer",
+                                            "bg-transparent text-xs font-mono uppercase tracking-widest px-3.5 py-2 cyber-clip-button transition-all duration-300 cursor-pointer border border-transparent",
                                             isParentActive
-                                                ? "bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(0,240,255,0.15)]"
-                                                : "text-muted-foreground hover:text-foreground hover:bg-white/[0.05]"
+                                                ? "bg-primary/15 text-primary border-primary/40 shadow-[0_0_15px_rgba(0,240,255,0.25)] font-bold"
+                                                : "text-muted-foreground hover:text-foreground hover:bg-primary/5 hover:border-primary/20"
                                         )}
                                     >
-                                        {getItemLabel(item.name)}
+                                        <span className="opacity-40 text-[10px] mr-1.5 font-normal">{itemIndex}.</span>
+                                        <span>{getItemLabel(item.name)}</span>
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
-                                        <ul className="grid w-[380px] gap-2 p-3 md:w-[480px] md:grid-cols-2 rounded-2xl bg-popover border border-border backdrop-blur-2xl shadow-2xl">
+                                        <ul className="grid w-[380px] gap-2 p-3 md:w-[480px] md:grid-cols-2 cyber-clip glass-panel border border-primary/30 shadow-[0_0_30px_rgba(0,0,0,0.8)] relative">
+                                            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
+                                                // SYS_MODULES
+                                            </div>
+                                            <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-40" />
                                             {item.items.map((subItem) => (
                                                 <ListItem
                                                     key={subItem.href}
@@ -70,13 +77,14 @@ export function MainNav() {
                                     <Link
                                         href={item.href}
                                         className={cn(
-                                            "inline-flex items-center justify-center text-sm font-medium px-4 py-2 rounded-full transition-all duration-300 cursor-pointer",
+                                            "inline-flex items-center justify-center text-xs font-mono uppercase tracking-widest px-3.5 py-2 cyber-clip-button transition-all duration-300 cursor-pointer border border-transparent",
                                             isParentActive
-                                                ? "bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(0,240,255,0.15)]"
-                                                : "text-muted-foreground hover:text-foreground hover:bg-white/[0.05]"
+                                                ? "bg-primary/15 text-primary border-primary/40 shadow-[0_0_15px_rgba(0,240,255,0.25)] font-bold"
+                                                : "text-muted-foreground hover:text-foreground hover:bg-primary/5 hover:border-primary/20"
                                         )}
                                     >
-                                        {getItemLabel(item.name)}
+                                        <span className="opacity-40 text-[10px] mr-1.5 font-normal">{itemIndex}.</span>
+                                        <span>{getItemLabel(item.name)}</span>
                                     </Link>
                                 </NavigationMenuLink>
                             )}
@@ -99,18 +107,18 @@ const ListItem = React.forwardRef<
                     href={href as string}
                     ref={ref}
                     className={cn(
-                        "block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-all duration-200 border border-transparent hover:border-primary/30 hover:bg-primary/10 hover:text-foreground group",
-                        active && "bg-primary/15 border-primary/30 text-primary shadow-[inset_0_0_15px_rgba(0,240,255,0.1)]",
+                        "block select-none space-y-1 cyber-clip-button p-3 leading-none no-underline outline-none transition-all duration-200 border border-primary/10 hover:border-primary/40 hover:bg-primary/10 hover:text-foreground group",
+                        active && "bg-primary/20 border-primary/50 text-primary shadow-[inset_0_0_15px_rgba(0,240,255,0.15)]",
                         className
                     )}
                     {...props}
                 >
-                    <div className="text-sm font-medium text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
+                    <div className="text-xs font-mono uppercase tracking-wider text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
                         <span>{title}</span>
-                        <span className="opacity-0 group-hover:opacity-100 text-primary transition-opacity text-xs">→</span>
+                        <span className="opacity-0 group-hover:opacity-100 text-primary transition-opacity text-xs">▶</span>
                     </div>
                     {children && (
-                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground mt-1.5">
+                        <p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground mt-1.5 font-sans">
                             {children}
                         </p>
                     )}

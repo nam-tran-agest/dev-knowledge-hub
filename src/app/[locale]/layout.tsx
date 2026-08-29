@@ -64,21 +64,35 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col">
             {/* Desktop Header */}
-            <header className="fixed top-0 z-40 hidden md:flex h-16 w-full items-center justify-between px-8 bg-background/80 backdrop-blur-2xl border-b border-border glare-top">
+            <header className="fixed top-0 z-40 hidden md:flex h-16 w-full items-center justify-between px-8 bg-[#04060f]/90 backdrop-blur-2xl border-b border-primary/20 shadow-[0_4px_30px_rgba(0,0,0,0.8)] relative cyber-scanline">
+              {/* Top Neon Glare Line */}
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              
+              {/* Corner Tech Brackets */}
+              <div className="absolute bottom-0 left-4 w-4 h-1 border-l-2 border-b-2 border-primary/50" />
+              <div className="absolute bottom-0 right-4 w-4 h-1 border-r-2 border-b-2 border-primary/50" />
+
               <Link href="/" className="flex items-center gap-3 group">
                 <div className="relative">
-                  <div className="absolute -inset-1 rounded-xl bg-primary/20 blur-sm group-hover:bg-primary/40 transition-all" />
-                  <Image
-                    src="/img/home/nav_ico.svg"
-                    alt="Dev Hub Logo"
-                    width={36}
-                    height={36}
-                    className="relative rounded-lg shadow-md group-hover:scale-105 transition-transform"
-                  />
+                  <div className="absolute -inset-1 cyber-clip bg-primary/30 blur-sm group-hover:bg-primary/50 transition-all" />
+                  <div className="relative p-1.5 cyber-clip bg-card border border-primary/40 group-hover:border-primary transition-colors">
+                    <Image
+                      src="/img/home/nav_ico.svg"
+                      alt="Dev Hub Logo"
+                      width={24}
+                      height={24}
+                      className="group-hover:scale-110 transition-transform"
+                    />
+                  </div>
                 </div>
-                <span className="font-bold text-sm tracking-tight text-white group-hover:text-primary transition-colors">
-                  DEV HUB
-                </span>
+                <div className="flex flex-col">
+                  <span className="font-mono font-bold text-sm tracking-widest text-white group-hover:text-primary transition-colors uppercase">
+                    DEV_HUB <span className="text-primary text-xs">// SYS</span>
+                  </span>
+                  <span className="font-mono text-[9px] text-primary/60 tracking-wider">
+                    TERMINAL_ONLINE
+                  </span>
+                </div>
               </Link>
 
               <div className="flex items-center">

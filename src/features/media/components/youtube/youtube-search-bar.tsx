@@ -3,6 +3,7 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Terminal } from 'lucide-react';
 
 interface YouTubeSearchBarProps {
     url: string;
@@ -24,20 +25,29 @@ export function YouTubeSearchBar({
     addingLabel,
 }: YouTubeSearchBarProps) {
     return (
-        <div className="bg-card backdrop-blur-2xl p-4 sm:p-6 rounded-3xl border border-white/10 shadow-2xl glare-top">
-            <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-4">
-                <Input
-                    placeholder={placeholder}
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    className="bg-card border-white/10 text-white placeholder:text-slate-500 focus:border-rose-500/50 h-12 text-sm sm:text-base w-full rounded-2xl font-mono"
-                    disabled={isAdding}
-                />
+        <div className="cyber-clip glass-panel p-4 sm:p-6 border border-primary/30 shadow-[0_0_30px_rgba(0,0,0,0.8)] relative overflow-hidden">
+            {/* Top Tag */}
+            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
+                // INPUT_URL_STREAM
+            </div>
+            <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50" />
+
+            <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-4 relative z-10">
+                <div className="relative flex-1">
+                    <Input
+                        placeholder={placeholder}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                        className="bg-[#040612]/90 border-primary/30 text-white placeholder:text-primary/40 focus:border-primary h-11 text-xs sm:text-sm w-full cyber-clip-button font-mono"
+                        disabled={isAdding}
+                    />
+                </div>
                 <Button
                     type="submit"
                     disabled={isAdding || !url}
-                    className="bg-rose-600 hover:bg-rose-500 text-white px-8 h-12 text-sm sm:text-base font-semibold transition-all transform hover:scale-105 active:scale-95 w-full sm:w-auto shrink-0 rounded-2xl cursor-pointer shadow-[0_0_20px_rgba(244,63,94,0.3)]"
+                    className="bg-primary text-black font-mono font-bold uppercase tracking-wider px-8 h-11 text-xs sm:text-sm transition-all w-full sm:w-auto shrink-0 cyber-clip-button cursor-pointer shadow-[0_0_20px_var(--color-primary)] hover:bg-primary/90"
                 >
+                    <Terminal className="w-3.5 h-3.5 mr-1.5" />
                     {isAdding ? addingLabel : buttonLabel}
                 </Button>
             </form>

@@ -32,24 +32,25 @@ export function TaskList({
     })
 
     const getStatusLabel = (f: string) => {
-        if (f === 'all') return 'Tất cả' // Or add to translations if needed
+        if (f === 'all') return 'ALL'
         return t(f)
     }
 
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 bg-[#111114] p-1 rounded-lg border border-[#1e1e24]">
+                <div className="flex items-center gap-1 bg-[#050714] p-1 cyber-clip-button border border-primary/30">
                     {(['all', 'todo', 'doing', 'done'] as const).map((f) => (
                         <button
                             key={f}
                             onClick={() => setFilter(f)}
-                            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${filter === f
-                                ? 'bg-[#6366f1] text-white'
-                                : 'text-slate-500 hover:text-white'
-                                }`}
+                            className={`px-3 py-1 cyber-clip-button text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                                filter === f
+                                    ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]'
+                                    : 'text-primary/60 hover:text-white'
+                            }`}
                         >
-                            <span>{getStatusLabel(f)}</span>
+                            <span>[ {getStatusLabel(f)} ]</span>
                         </button>
                     ))}
                 </div>
@@ -86,16 +87,17 @@ export function TaskList({
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="flex flex-col items-center justify-center py-20 text-center bg-[#111114]/50 border border-dashed border-[#1e1e24] rounded-2xl"
+                                className="flex flex-col items-center justify-center py-20 text-center bg-[#050714]/60 border border-dashed border-primary/25 cyber-clip relative overflow-hidden"
                             >
-                                <div className="w-16 h-16 bg-[#16161a] rounded-full flex items-center justify-center mb-4 text-slate-600">
-                                    <Clock size={32} />
+                                <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
+                                <div className="w-12 h-12 bg-primary/10 border border-primary/30 cyber-clip-button flex items-center justify-center mb-4 text-primary">
+                                    <Clock size={24} />
                                 </div>
-                                <h3 className="text-xl font-semibold text-slate-300">No tasks found</h3>
-                                <p className="text-slate-500 max-w-sm mt-2">
+                                <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-white">[ NO_ACTIVE_TASKS ]</h3>
+                                <p className="text-primary/60 font-mono text-xs max-w-sm mt-1 uppercase">
                                     {filter === 'all'
-                                        ? "Start by creating your first task above."
-                                        : `No tasks currently in "${filter}" status.`}
+                                        ? "// Initialize your first task using the buffer above."
+                                        : `// No tasks allocated under "${filter}" status.`}
                                 </p>
                             </motion.div>
                         )}

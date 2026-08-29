@@ -20,7 +20,8 @@ export const TimeTimeline: React.FC = () => {
 
     return (
         <div className="flex flex-col gap-2 relative">
-            <div className="absolute left-[70px] top-0 bottom-0 w-[1px] bg-white/10" />
+            {/* Center Vertical Neon Wire */}
+            <div className="absolute left-[72px] top-0 bottom-0 w-[1px] bg-primary/20" />
 
             {HOURS.map((hour) => {
                 const tasksInThisBlock = todaysTasks.filter(t => t.timeBlockId === hour);
@@ -30,15 +31,15 @@ export const TimeTimeline: React.FC = () => {
                     <Droppable key={hour} droppableId={`timeblock-${hour}`}>
                         {(provided, snapshot) => (
                             <div
-                                className="flex gap-4 min-h-[60px] relative group"
+                                className="flex gap-4 min-h-[56px] relative group"
                             >
                                 {/* Time Label */}
                                 <div className="w-16 flex justify-end text-xs font-mono font-medium pt-2">
                                     <span className={cn(
-                                        "px-2.5 py-0.5 rounded-full transition-all duration-300",
+                                        "px-2 py-0.5 cyber-clip-button transition-all duration-300",
                                         isCurrentHour
-                                            ? "bg-indigo-600 text-white font-bold shadow-[0_0_15px_rgba(99,102,241,0.5)] border border-indigo-400"
-                                            : "text-slate-500 group-hover:text-slate-300"
+                                            ? "bg-primary text-black font-bold shadow-[0_0_15px_var(--color-primary)] border border-primary"
+                                            : "text-primary/50 group-hover:text-primary border border-transparent group-hover:border-primary/30"
                                     )}>
                                         {hour}
                                     </span>
@@ -46,10 +47,10 @@ export const TimeTimeline: React.FC = () => {
 
                                 {/* Timeline Node */}
                                 <div className={cn(
-                                    "absolute left-[67px] top-3.5 w-2 h-2 rounded-full border z-10 transition-all duration-300",
+                                    "absolute left-[69px] top-3.5 w-2 h-2 border z-10 transition-all duration-300",
                                     isCurrentHour
-                                        ? "bg-indigo-500 border-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.8)] scale-125"
-                                        : "border-white/20 bg-[#070d1e] group-hover:border-indigo-400 group-hover:scale-125"
+                                        ? "bg-primary border-primary shadow-[0_0_12px_var(--color-primary)] scale-125"
+                                        : "border-primary/30 bg-[#050714] group-hover:border-primary group-hover:scale-125"
                                 )} />
 
                                 {/* Drop Zone */}
@@ -57,10 +58,10 @@ export const TimeTimeline: React.FC = () => {
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                     className={cn(
-                                        "flex-1 p-2 rounded-2xl transition-all min-h-[60px]",
+                                        "flex-1 p-2 cyber-clip-button transition-all min-h-[56px]",
                                         snapshot.isDraggingOver
-                                            ? "bg-indigo-500/10 border border-indigo-500/30 ring-1 ring-indigo-500/20"
-                                            : "bg-transparent border border-transparent hover:bg-white/[0.02]"
+                                            ? "bg-primary/15 border border-primary/50 shadow-[inset_0_0_20px_rgba(0,240,255,0.2)]"
+                                            : "bg-transparent border border-primary/10 hover:border-primary/30 hover:bg-primary/[0.03]"
                                     )}
                                 >
                                     {tasksInThisBlock.map((task, index) => (
@@ -70,8 +71,8 @@ export const TimeTimeline: React.FC = () => {
 
                                     {/* Empty state hint */}
                                     {tasksInThisBlock.length === 0 && !snapshot.isDraggingOver && (
-                                        <div className="opacity-0 group-hover:opacity-100 h-full flex items-center px-4 text-xs font-mono text-slate-600 transition-opacity">
-                                            + Drop block
+                                        <div className="opacity-0 group-hover:opacity-100 h-full flex items-center px-4 text-[10px] font-mono uppercase tracking-widest text-primary/40 transition-opacity">
+                                            // DROP_TASK_BLOCK
                                         </div>
                                     )}
                                 </div>
