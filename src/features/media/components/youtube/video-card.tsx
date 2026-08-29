@@ -23,17 +23,17 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
     return (
         <Card
             onClick={() => onSelect(video)}
-            className="group relative overflow-hidden bg-white/[0.03] border-white/10 hover:border-rose-500/40 hover:bg-white/[0.05] transition-all duration-300 hover:shadow-[0_0_25px_rgba(244,63,94,0.15)] hover:-translate-y-1 cursor-pointer p-0 rounded-3xl backdrop-blur-xl"
+            className="group relative overflow-hidden bg-[#070d1e]/50 border-white/10 hover:border-rose-500/40 hover:bg-[#0c142c]/70 transition-all duration-300 hover:shadow-[0_0_30px_rgba(244,63,94,0.2)] hover:-translate-y-1 cursor-pointer p-0 rounded-3xl backdrop-blur-2xl glare-top"
         >
             <div className="flex flex-col h-full">
                 {/* Thumbnail */}
-                <div className="relative aspect-video w-full overflow-hidden bg-black/40">
+                <div className="relative aspect-video w-full overflow-hidden bg-[#030712]">
                     {video.thumbnail_url ? (
                         <Image
                             src={video.thumbnail_url}
                             alt={video.title || t('thumbnailAlt')}
                             fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                            className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
                         />
                     ) : (
                         <div className="flex items-center justify-center h-full w-full text-slate-500 text-sm">
@@ -41,7 +41,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                         </div>
                     )}
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#07090e]/80 via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/90 via-transparent to-transparent opacity-70" />
 
                     {/* Favorite Button */}
                     <Button
@@ -51,11 +51,11 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                             e.stopPropagation();
                             onToggleFavorite(e, video);
                         }}
-                        className="absolute top-3 left-3 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white backdrop-blur-md cursor-pointer border border-white/10"
+                        className="absolute top-3 left-3 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white backdrop-blur-md cursor-pointer border border-white/10 shadow-md"
                         title={t('toggleFavorite')}
                     >
                         <Heart
-                            className={`w-4 h-4 ${video.is_favorite ? "fill-rose-500 text-rose-500" : "text-white"
+                            className={`w-3.5 h-3.5 ${video.is_favorite ? "fill-rose-500 text-rose-500" : "text-white"
                                 }`}
                         />
                     </Button>
@@ -69,7 +69,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                                 e.stopPropagation();
                                 onAddToPlaylist(video.id);
                             }}
-                            className="absolute bottom-3 left-3 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white backdrop-blur-md cursor-pointer opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity border border-white/10"
+                            className="absolute bottom-3 left-3 rounded-full z-10 w-8 h-8 bg-black/60 hover:bg-black/80 text-white backdrop-blur-md cursor-pointer opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity border border-white/10 shadow-md"
                             title={t('addToPlaylist')}
                         >
                             <ListPlus className="w-4 h-4" />
@@ -95,15 +95,15 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                             e.stopPropagation();
                             onDelete(video.id);
                         }}
-                        className="absolute top-3 right-3 rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer shadow-md"
+                        className="absolute top-3 right-3 rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity z-10 w-8 h-8 cursor-pointer shadow-md bg-rose-600 hover:bg-rose-500"
                         title={t('delete')}
                     >
                         <Trash2 className="w-3.5 h-3.5" />
                     </Button>
 
                     {/* Play Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200">
-                        <div className="w-12 h-12 rounded-full bg-rose-600/90 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(244,63,94,0.4)]">
+                    <div className="absolute inset-0 flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                        <div className="w-12 h-12 rounded-full bg-rose-600/90 backdrop-blur-md flex items-center justify-center shadow-[0_0_25px_rgba(244,63,94,0.5)]">
                             <Play className="w-5 h-5 text-white fill-white ml-0.5" />
                         </div>
                     </div>
@@ -112,7 +112,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                 {/* Content */}
                 <CardContent className="flex-1 p-4 sm:p-5 space-y-2">
                     <h3
-                        className="font-semibold text-sm sm:text-base line-clamp-2 leading-relaxed text-white group-hover:text-rose-300 transition-colors"
+                        className="font-bold text-sm sm:text-base line-clamp-2 leading-relaxed text-white group-hover:text-rose-300 transition-colors"
                         title={video.title || undefined}
                     >
                         {video.title}

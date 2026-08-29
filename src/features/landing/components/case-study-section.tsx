@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { getMediaUrl } from "@/components/common/media/AppImage";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ServiceCaseStudiesProps } from "@/features/landing/types/section/case-study";
@@ -70,7 +70,10 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
     ];
 
     return (
-        <section ref={sectionRef} className="relative py-20 overflow-hidden">
+        <section ref={sectionRef} className="relative py-24 overflow-hidden">
+            {/* Ambient Lighting */}
+            <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 blur-[140px] rounded-full pointer-events-none -translate-y-1/2" />
+
             <div className={cn(LAYOUT.container, "flex flex-col items-center")}>
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
@@ -93,7 +96,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                     >
                         {caseStudies.map((caseStudy, idx) => (
                             <SwiperSlide key={`case-study-mobile-${idx}`}>
-                                <div className="flex flex-col gap-6 p-6 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl">
+                                <div className="flex flex-col gap-6 p-6 rounded-3xl bg-[#070d1e]/60 border border-white/10 backdrop-blur-xl glare-top">
                                     <Link
                                         href={caseStudy.slug}
                                         target={caseStudy.slug.startsWith('http') ? "_blank" : undefined}
@@ -120,11 +123,11 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                             href={caseStudy.slug}
                                             target={caseStudy.slug.startsWith('http') ? "_blank" : undefined}
                                             rel={caseStudy.slug.startsWith('http') ? "noopener noreferrer" : undefined}
-                                            className="inline-flex items-center gap-2 text-indigo-400 text-sm font-semibold hover:gap-3 transition-all pt-2"
+                                            className="inline-flex items-center gap-1.5 text-indigo-400 text-xs font-mono uppercase tracking-wider font-bold hover:text-indigo-300 transition-all pt-2"
                                             aria-label="Read more about this case study"
                                         >
-                                            {readMoreLabel}
-                                            <ChevronRight className="size-4" />
+                                            <span>{readMoreLabel}</span>
+                                            <ArrowUpRight className="size-4" />
                                         </Link>
                                     </div>
                                 </div>
@@ -145,12 +148,12 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                 </div>
 
                 {/* Desktop Layout (xl and above) */}
-                <div className="relative max-w-6xl mx-auto hidden xl:block w-full">
-                    <div className="grid xl:grid-cols-2 gap-12 items-center p-8 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-2xl">
+                <div className="relative max-w-5xl mx-auto hidden xl:block w-full">
+                    <div className="grid xl:grid-cols-2 gap-10 items-center p-8 sm:p-10 rounded-3xl bg-[#070d1e]/60 border border-white/10 backdrop-blur-2xl shadow-2xl glare-top">
                         {/* Left - Image */}
                         <motion.div
                             key={`image-${currentIndex}`}
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={{ opacity: 0, scale: 0.96 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, ease: "easeInOut" }}
                             className="order-2 xl:order-1 flex justify-center"
@@ -161,7 +164,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                 rel={currentCase.slug.startsWith('http') ? "noopener noreferrer" : undefined}
                                 className="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl block aspect-[4/3] relative group border border-white/10"
                             >
-                                <div className="absolute inset-0 bg-[#07090e]/30 group-hover:bg-transparent transition-colors z-10" />
+                                <div className="absolute inset-0 bg-[#030712]/30 group-hover:bg-transparent transition-colors z-10" />
                                 <Image
                                     src={getMediaUrl(imageUrl) || FALLBACK_IMAGES[currentIndex % FALLBACK_IMAGES.length]}
                                     alt={currentCase.title}
@@ -181,11 +184,15 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                             transition={{ duration: 0.5, ease: "easeInOut" }}
                             className="space-y-6 order-1 xl:order-2"
                         >
-                            <h3 className="text-3xl font-bold text-white leading-tight">
+                            <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-mono text-xs uppercase tracking-wider font-semibold">
+                                Highlight
+                            </span>
+
+                            <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight tracking-tight">
                                 {currentCase.title}
                             </h3>
 
-                            <p className="text-slate-300 text-base leading-relaxed">
+                            <p className="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
                                 {currentCase.description}
                             </p>
 
@@ -193,11 +200,11 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                                 href={currentCase.slug}
                                 target={currentCase.slug.startsWith('http') ? "_blank" : undefined}
                                 rel={currentCase.slug.startsWith('http') ? "noopener noreferrer" : undefined}
-                                className="inline-flex items-center gap-2 text-indigo-400 text-base font-semibold hover:gap-3 transition-all"
+                                className="inline-flex items-center gap-2 text-indigo-400 text-sm font-bold uppercase tracking-wider hover:text-indigo-300 transition-all font-mono"
                                 aria-label="Read more about this case study"
                             >
-                                {readMoreLabel}
-                                <ChevronRight className="size-5 text-indigo-400" />
+                                <span>{readMoreLabel}</span>
+                                <ArrowUpRight className="size-4 text-indigo-400" />
                             </Link>
                         </motion.div>
                     </div>
@@ -206,7 +213,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
                     <div className="flex items-center justify-between pointer-events-none w-full absolute top-1/2 -translate-y-1/2 -left-6 -right-6 z-20">
                         <button
                             onClick={handlePrev}
-                            className="size-12 pointer-events-auto grid place-items-center rounded-full border border-white/10 bg-zinc-900/90 text-white shadow-xl hover:bg-zinc-800 hover:border-indigo-500/50 hover:scale-105 transition-all group/nav"
+                            className="size-12 pointer-events-auto grid place-items-center rounded-full border border-white/10 bg-[#070d1e]/90 text-white shadow-2xl hover:bg-white/[0.08] hover:border-indigo-500/50 hover:scale-105 transition-all cursor-pointer group/nav backdrop-blur-xl"
                             aria-label="Previous case study"
                         >
                             <ChevronLeft className="size-5 group-hover/nav:text-indigo-400 transition-colors" />
@@ -214,7 +221,7 @@ export default function CaseStudySection({ title, readMoreLabel = "Read More", c
 
                         <button
                             onClick={handleNext}
-                            className="size-12 pointer-events-auto grid place-items-center rounded-full border border-white/10 bg-zinc-900/90 text-white shadow-xl hover:bg-zinc-800 hover:border-indigo-500/50 hover:scale-105 transition-all group/nav"
+                            className="size-12 pointer-events-auto grid place-items-center rounded-full border border-white/10 bg-[#070d1e]/90 text-white shadow-2xl hover:bg-white/[0.08] hover:border-indigo-500/50 hover:scale-105 transition-all cursor-pointer group/nav backdrop-blur-xl"
                             aria-label="Next case study"
                         >
                             <ChevronRight className="size-5 group-hover/nav:text-indigo-400 transition-colors" />

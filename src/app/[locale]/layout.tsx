@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
-import "../globals.css"; // Fixed path
-import { Link } from "@/i18n/routing"; // Localized Link
+import { Plus_Jakarta_Sans } from "next/font/google";
+import "../globals.css";
+import { Link } from "@/i18n/routing";
 import { MainNav } from "@/components/layout/main-nav";
 import { FooterData } from '@/types/layout';
 import Footer from '@/components/layout/footer';
@@ -12,16 +12,12 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import MobileMenu from "@/components/layout/mobile-menu";
-
-
-const playfair = Playfair_Display({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-playfair",
-});
+import LanguageSwitcher from "@/components/layout/language-switcher";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin", "vietnamese"],
   variable: "--font-plus-jakarta",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export async function generateMetadata({
@@ -62,41 +58,49 @@ export default async function RootLayout({
   const messages = await getMessages();
   const footerData = (messages as unknown as { footer: FooterData }).footer;
 
-  const fontClass = locale === 'vi'
-    ? `${plusJakartaSans.variable} font-sans tracking-tight`
-    : `${playfair.variable} font-serif`;
-
   return (
     <html lang={locale}>
-      <body className={`${fontClass} antialiased bg-main-gradient`}>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased bg-[#030712] text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200`}>
         <NextIntlClientProvider messages={messages}>
-          <div className="flex min-h-screen">
-            {/* Main Content */}
-            <div className="flex-1 min-w-0">
-              {/* Desktop Header */}
-              <header className="fixed top-0 z-30 hidden md:flex h-16 w-full items-center justify-center px-6 bg-[#07090e]/80 backdrop-blur-xl border-b border-white/10">
-                <Link href="/" className="absolute left-6 flex h-16 items-center gap-3">
+          <div className="flex min-h-screen flex-col">
+            {/* Desktop Header */}
+            <header className="fixed top-0 z-40 hidden md:flex h-16 w-full items-center justify-between px-8 bg-[#030712]/80 backdrop-blur-2xl border-b border-white/[0.08] glare-top">
+              <Link href="/" className="flex items-center gap-3 group">
+                <div className="relative">
+                  <div className="absolute -inset-1 rounded-xl bg-indigo-500/20 blur-sm group-hover:bg-indigo-500/40 transition-all" />
                   <Image
                     src="/img/home/nav_ico.svg"
                     alt="Dev Hub Logo"
-                    width={48}
-                    height={48}
-                    className="rounded-lg shadow-lg"
+                    width={36}
+                    height={36}
+                    className="relative rounded-lg shadow-md group-hover:scale-105 transition-transform"
                   />
-                </Link>
-                <MainNav />
-              </header>
+                </div>
+                <span className="font-bold text-sm tracking-tight text-white group-hover:text-indigo-300 transition-colors">
+                  DEV HUB
+                </span>
+              </Link>
 
-              {/* Mobile Navbar (Floating) */}
-              <div className="md:hidden">
-                <MobileMenu />
+              <div className="flex items-center">
+                <MainNav />
               </div>
-              <main className="w-full">
-                {children}
-              </main>
-              <Footer footer={footerData} />
-              <ScrollToTop />
+
+              <div className="flex items-center gap-4">
+                <LanguageSwitcher />
+              </div>
+            </header>
+
+            {/* Mobile Navbar (Floating) */}
+            <div className="md:hidden">
+              <MobileMenu />
             </div>
+
+            <main className="w-full flex-1">
+              {children}
+            </main>
+
+            <Footer footer={footerData} />
+            <ScrollToTop />
           </div>
         </NextIntlClientProvider>
       </body>

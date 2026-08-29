@@ -33,7 +33,7 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({
 
                 {logos && logos.length > 0 && (
                     <div dir="ltr" className="w-full">
-                        <Marquee autoFill gradient={true} gradientColor="#07090e" speed={40} direction="left" pauseOnHover className="py-4 overflow-y-visible">
+                        <Marquee autoFill gradient={true} gradientColor="#030712" speed={40} direction="left" pauseOnHover className="py-4 overflow-y-visible">
                             {logos.map((logo: { url: string; alternativeText?: string; href?: string }, index: number) => (
                                 <div key={index} className="mx-8 md:mx-14 flex items-center group/logo" onClick={() => logo.href && window.open(logo.href, '_blank')}>
                                     <div

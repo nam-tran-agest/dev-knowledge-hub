@@ -27,11 +27,11 @@ export function InlineTaskCreator({ onSuggest }: InlineTaskCreatorProps) {
         <div className="relative">
             <form
                 onSubmit={handleSubmit}
-                className={isFocused ? "bg-[#16161a] rounded-xl border border-[#6366f1]/30 p-1" : ""}
+                className={isFocused ? "bg-[#040711]/90 rounded-2xl border border-indigo-500/40 p-1 shadow-lg glare-top" : "bg-[#040711]/40 rounded-2xl border border-white/10 p-1"}
             >
                 <div className="relative flex items-center">
-                    <div className="absolute left-3 text-slate-500">
-                        <Plus size={18} />
+                    <div className="absolute left-3.5 text-slate-500">
+                        <Plus size={16} />
                     </div>
                     <Input
                         value={title}
@@ -39,7 +39,7 @@ export function InlineTaskCreator({ onSuggest }: InlineTaskCreatorProps) {
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => !title && setIsFocused(false)}
                         placeholder="Quickly add a task..."
-                        className="pl-10 bg-transparent border-none focus-visible:ring-0 text-white placeholder:text-slate-500 h-10"
+                        className="pl-10 bg-transparent border-none focus-visible:ring-0 text-white placeholder:text-slate-500 h-10 text-xs font-mono"
                     />
                 </div>
 
@@ -49,7 +49,7 @@ export function InlineTaskCreator({ onSuggest }: InlineTaskCreatorProps) {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="px-3 pb-3 flex justify-end gap-2"
+                            className="px-3 pb-2.5 pt-1 flex justify-end gap-3"
                         >
                             <button
                                 type="button"
@@ -57,16 +57,16 @@ export function InlineTaskCreator({ onSuggest }: InlineTaskCreatorProps) {
                                     setIsFocused(false)
                                     setTitle('')
                                 }}
-                                className="text-xs text-slate-500 hover:text-white transition-colors"
+                                className="text-xs font-mono text-slate-500 hover:text-white transition-colors cursor-pointer"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
                                 disabled={!title.trim()}
-                                className="text-xs font-bold text-[#6366f1] hover:text-[#4f46e5] transition-colors disabled:opacity-50"
+                                className="text-xs font-mono font-bold text-indigo-400 hover:text-indigo-300 transition-colors disabled:opacity-40 cursor-pointer"
                             >
-                                Press Enter to Save
+                                Enter ↵
                             </button>
                         </motion.div>
                     )}

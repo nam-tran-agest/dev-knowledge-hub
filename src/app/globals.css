@@ -5,22 +5,22 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #07090e;
+  --background: #030712;
   --foreground: #f8fafc;
 
-  --card: rgba(14, 19, 31, 0.7);
+  --card: rgba(10, 15, 29, 0.7);
   --card-foreground: #f8fafc;
 
-  --popover: rgba(14, 19, 31, 0.95);
+  --popover: rgba(8, 12, 22, 0.95);
   --popover-foreground: #f8fafc;
 
   --primary: #6366f1;
   --primary-foreground: #ffffff;
 
-  --secondary: rgba(255, 255, 255, 0.06);
+  --secondary: rgba(255, 255, 255, 0.05);
   --secondary-foreground: #e2e8f0;
 
-  --muted: rgba(255, 255, 255, 0.05);
+  --muted: rgba(255, 255, 255, 0.04);
   --muted-foreground: #94a3b8;
 
   --accent: rgba(99, 102, 241, 0.15);
@@ -30,15 +30,15 @@
   --destructive-foreground: #ffffff;
 
   --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.08);
   --ring: #6366f1;
-  --radius: 0.875rem;
+  --radius: 1rem;
 
-  --sidebar: rgba(10, 14, 23, 0.85);
+  --sidebar: rgba(8, 12, 22, 0.85);
   --sidebar-foreground: #f8fafc;
   --sidebar-primary: #6366f1;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(255, 255, 255, 0.06);
+  --sidebar-accent: rgba(255, 255, 255, 0.05);
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #6366f1;
@@ -69,11 +69,11 @@
   --radius-md: calc(var(--radius) - 3px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 10px);
+  --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 16px);
   --radius-full: 9999px;
 
-  --font-sans: var(--font-plus-jakarta), var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -88,25 +88,54 @@
     min-height: 100vh;
     overflow-x: hidden;
     background-image: 
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.12), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.05), transparent),
-      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(6, 182, 212, 0.05), transparent);
+      radial-gradient(circle 800px at 50% -100px, rgba(99, 102, 241, 0.15), transparent),
+      radial-gradient(circle 600px at 90% 20%, rgba(168, 85, 247, 0.08), transparent),
+      radial-gradient(circle 600px at 10% 60%, rgba(6, 182, 212, 0.08), transparent),
+      radial-gradient(circle 500px at 50% 100%, rgba(99, 102, 241, 0.06), transparent);
     background-attachment: fixed;
   }
 }
 
+/* Glare & Top Highlight */
+.glare-top {
+  position: relative;
+}
+
+.glare-top::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.glare-top-indigo::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(129, 140, 248, 0.6) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
 /* Glass Surfaces */
 .glass-panel {
-  background: rgba(14, 19, 31, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 15, 29, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card {
+  position: relative;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -115,19 +144,44 @@
 .glass-card:hover {
   border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
-  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.18);
+}
+
+.bento-card {
+  position: relative;
+  background: rgba(13, 18, 33, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  background: rgba(18, 25, 46, 0.75);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 30px -5px rgba(99, 102, 241, 0.2);
 }
 
 /* Kinetic Gradient Typography */
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #818cf8 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 45%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 45%, #06b6d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-purple {
-  background: linear-gradient(135deg, #c084fc 0%, #818cf8 50%, #38bdf8 100%);
+  background: linear-gradient(135deg, #f5d0fe 0%, #c084fc 45%, #818cf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -158,6 +212,21 @@
 }
 
 /* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
 @keyframes twinkle {
   0%, 100% {
     opacity: 0.2;

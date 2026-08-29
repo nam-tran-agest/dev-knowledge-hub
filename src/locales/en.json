@@ -10,28 +10,28 @@
             "title": "What can you do?",
             "items": [
                 {
-                    "title": "Notes",
-                    "slug": "/notes",
-                    "icon": "Notes",
-                    "features": "Capture ideas, document code, and keep your knowledge base organized."
+                    "title": "Working Hub",
+                    "slug": "/working",
+                    "icon": "Working",
+                    "features": "Track projects, manage kanban tasks, and streamline your workflow."
                 },
                 {
-                    "title": "Snippets",
-                    "slug": "/snippets",
-                    "icon": "Snippets",
-                    "features": "Save reusable code blocks. Syntax highlighting for all major languages."
+                    "title": "Planner",
+                    "slug": "/planner/today",
+                    "icon": "Planner",
+                    "features": "Organize your day, schedule upcoming tasks, and stay on top of goals."
                 },
                 {
-                    "title": "Tasks",
-                    "slug": "/tasks",
-                    "icon": "Tasks",
-                    "features": "Track your daily to-dos. Simple, focused task management."
+                    "title": "Media Vault",
+                    "slug": "/media/youtube",
+                    "icon": "Media",
+                    "features": "Save YouTube videos, read tech news, and enjoy curated Spotify music."
                 },
                 {
-                    "title": "Bugs",
-                    "slug": "/bugs",
-                    "icon": "Bugs",
-                    "features": "Log issues found during development. Priority tracking and status workflow."
+                    "title": "Monster Hunter Wilds",
+                    "slug": "/mh-wilds",
+                    "icon": "MHWilds",
+                    "features": "Comprehensive game database, weapons analysis, and hunting guides."
                 }
             ]
         },
@@ -40,12 +40,12 @@
             "title2": "Everything I use, in one place.",
             "cta": {
                 "label": "Enter my base",
-                "url": "/notes"
+                "url": "/working"
             },
             "items": [
                 {
-                    "title": "A place to think clearly",
-                    "sub_title": "Notes, code, ideas, and decisions — everything I need while working, without distractions."
+                    "title": "A place to work clearly",
+                    "sub_title": "Projects, kanban, planner, and decisions — everything I need while working, without distractions."
                 },
                 {
                     "title": "Know what I’m doing next",
@@ -315,15 +315,6 @@
                     "music": "Music"
                 }
             },
-            "notes": {
-                "label": "Notes",
-                "items": {
-                    "work": "Work",
-                    "learn": "Learn",
-                    "ideas": "Ideas",
-                    "life": "Life"
-                }
-            },
             "planner": {
                 "label": "Planner",
                 "items": {
@@ -375,94 +366,6 @@
             "title": "Something went wrong",
             "description": "An error occurred while rendering this component",
             "retry": "Try Again"
-        }
-    },
-    "notes": {
-        "form": {
-            "createTitle": "Create New Note",
-            "editTitle": "Edit Note",
-            "fields": {
-                "title": "Title",
-                "category": "Category",
-                "tags": "Tags",
-                "content": "Content"
-            },
-            "placeholders": {
-                "title": "Enter note title...",
-                "category": "Select a category",
-                "content": "Write your note content here..."
-            },
-            "emptyTags": "No tags created yet",
-            "actions": {
-                "cancel": "Cancel",
-                "create": "Create Note",
-                "update": "Update Note",
-                "creating": "Creating...",
-                "updating": "Updating..."
-            }
-        },
-        "filter": {
-            "search": "Search notes...",
-            "allCategories": "All Categories",
-            "allTags": "All Tags"
-        },
-        "dialogs": {
-            "createTag": {
-                "trigger": "New Tag",
-                "title": "Create Tag",
-                "nameLabel": "Name",
-                "namePlaceholder": "e.g. react, typescript",
-                "cancel": "Cancel",
-                "submit": "Create"
-            },
-            "createCategory": {
-                "trigger": "New Category",
-                "title": "Create Category",
-                "nameLabel": "Name",
-                "namePlaceholder": "e.g. Work, Personal",
-                "cancel": "Cancel",
-                "submit": "Create"
-            },
-            "manageTags": {
-                "trigger": "Manage Tags",
-                "title": "Manage Tags",
-                "confirmDelete": "Are you sure you want to delete this tag?",
-                "empty": "No tags found."
-            },
-            "manageCategories": {
-                "trigger": "Manage Categories",
-                "title": "Manage Categories",
-                "confirmDelete": "Are you sure you want to delete this category?",
-                "empty": "No categories found."
-            }
-        }
-    },
-    "bugs": {
-        "form": {
-            "editTitle": "Edit Bug",
-            "subtitle": "Update bug details and solution",
-            "sections": {
-                "details": "Bug Details"
-            },
-            "fields": {
-                "title": "Title",
-                "errorMessage": "Error Message",
-                "stackTrace": "Stack Trace",
-                "rootCause": "Root Cause",
-                "solution": "Solution"
-            },
-            "placeholders": {
-                "title": "Brief description of the bug...",
-                "errorMessage": "The error message you encountered...",
-                "stackTrace": "Paste the full stack trace here...",
-                "rootCause": "What caused this bug?",
-                "solution": "How did you fix it?"
-            },
-            "actions": {
-                "cancel": "Cancel",
-                "update": "Update Bug",
-                "updating": "Updating..."
-            }
         }
     },
     "media": {

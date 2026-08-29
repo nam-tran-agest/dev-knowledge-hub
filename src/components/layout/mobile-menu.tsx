@@ -19,6 +19,8 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
+
 export default function MobileMenu() {
     const [openId, setOpenId] = useState<string | null>(null);
     const tNav = useTranslations("navigation");
@@ -153,6 +155,11 @@ export default function MobileMenu() {
                                         );
                                     })}
                                 </ul>
+
+                                <div className="pt-3 border-t border-white/10 flex items-center justify-between px-2">
+                                    <span className="text-xs font-mono text-slate-400">Language</span>
+                                    <LanguageSwitcher />
+                                </div>
                             </div>
                         </PopoverContent>
 

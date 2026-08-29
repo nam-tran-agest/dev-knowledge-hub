@@ -26,16 +26,6 @@ export const MAIN_NAVIGATION: NavItem[] = [
         ]
     },
     {
-        name: 'Notes',
-        href: '/notes',
-        items: [
-            { name: 'Work', href: '/notes/work' },
-            { name: 'Learn', href: '/notes/learn' },
-            { name: 'Ideas', href: '/notes/ideas' },
-            { name: 'Life', href: '/notes/life' },
-        ]
-    },
-    {
         name: 'Planner',
         href: '/planner',
         items: [

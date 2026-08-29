@@ -3,7 +3,6 @@
 import React from 'react'
 import { Task, TaskStatus } from '@/features/working/types'
 import { TaskItem } from './task-item'
-
 import { useTranslations } from 'next-intl'
 
 interface KanbanViewProps {
@@ -16,10 +15,10 @@ interface KanbanViewProps {
 export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanViewProps) {
     const t = useTranslations('navigation.tasks.columns')
 
-    const COLUMNS: { id: TaskStatus; title: string; color: string; badge: string }[] = [
-        { id: 'todo', title: t('todo'), color: '#94a3b8', badge: 'bg-slate-500/20 text-slate-300 border-slate-500/30' },
-        { id: 'doing', title: t('doing'), color: '#818cf8', badge: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' },
-        { id: 'done', title: t('done'), color: '#34d399', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
+    const COLUMNS: { id: TaskStatus; title: string; color: string; badge: string; glow: string }[] = [
+        { id: 'todo', title: t('todo'), color: '#94a3b8', badge: 'bg-slate-500/10 text-slate-300 border-slate-500/20', glow: 'shadow-[0_0_10px_rgba(148,163,184,0.5)]' },
+        { id: 'doing', title: t('doing'), color: '#818cf8', badge: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20', glow: 'shadow-[0_0_10px_rgba(129,140,248,0.6)]' },
+        { id: 'done', title: t('done'), color: '#34d399', badge: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20', glow: 'shadow-[0_0_10px_rgba(52,211,153,0.6)]' },
     ]
 
     return (
@@ -30,15 +29,15 @@ export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanVi
                 return (
                     <div
                         key={column.id}
-                        className="flex-1 flex flex-col min-w-[320px] bg-white/[0.02] rounded-3xl border border-white/10 p-5 backdrop-blur-xl shadow-xl"
+                        className="flex-1 flex flex-col min-w-[320px] bg-[#070d1e]/50 rounded-3xl border border-white/10 p-5 sm:p-6 backdrop-blur-2xl shadow-xl glare-top"
                     >
                         <div className="flex items-center justify-between mb-5 px-1">
                             <div className="flex items-center gap-2.5">
                                 <div
-                                    className="w-2.5 h-2.5 rounded-full shadow-sm"
+                                    className={`w-2 h-2 rounded-full ${column.glow}`}
                                     style={{ backgroundColor: column.color }}
                                 />
-                                <h3 className="font-bold text-white uppercase tracking-wider text-xs">
+                                <h3 className="font-bold text-white uppercase tracking-wider text-xs font-mono">
                                     {column.title}
                                 </h3>
                                 <span className={`text-[11px] font-mono border px-2 py-0.5 rounded-full ${column.badge}`}>
@@ -59,7 +58,7 @@ export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanVi
                             ))}
 
                             {columnTasks.length === 0 && (
-                                <div className="h-28 border border-dashed border-white/10 rounded-2xl flex items-center justify-center text-slate-500 text-xs font-medium">
+                                <div className="h-28 border border-dashed border-white/10 rounded-2xl flex items-center justify-center text-slate-500 text-xs font-mono">
                                     No tasks in {column.title.toLowerCase()}
                                 </div>
                             )}
