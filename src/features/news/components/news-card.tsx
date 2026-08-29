@@ -12,8 +12,8 @@ export function NewsCard({ item }: { item: NewsItem }) {
 
     return (
         <a href={item.link} target="_blank" rel="noopener noreferrer" className="block h-full group cursor-pointer">
-            <Card className="bg-[#070d1e]/50 border-white/10 overflow-hidden hover:border-cyan-500/40 hover:bg-[#0c142c]/70 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-all duration-300 flex flex-col h-full rounded-3xl backdrop-blur-2xl glare-top">
-                <div className="h-52 relative overflow-hidden bg-[#030712]">
+            <Card className="bg-card border-white/10 overflow-hidden hover:border-cyan-500/40 hover:bg-background hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-all duration-300 flex flex-col h-full rounded-3xl backdrop-blur-2xl glare-top">
+                <div className="h-52 relative overflow-hidden bg-card">
                     <Image
                         src={item.image}
                         alt={item.title || "News"}
@@ -23,7 +23,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/90 via-transparent to-transparent" />
                     <div className="absolute top-3.5 left-3.5 z-10">
-                        <Badge className="bg-[#030712]/80 backdrop-blur-md border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold px-3 py-1 shadow-sm">
+                        <Badge className="bg-card backdrop-blur-md border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold px-3 py-1 shadow-sm">
                             {item.categoryId ? tCategories(item.categoryId) : item.category}
                         </Badge>
                     </div>

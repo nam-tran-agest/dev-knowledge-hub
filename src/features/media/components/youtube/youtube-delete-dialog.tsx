@@ -33,7 +33,7 @@ export function YouTubeDeleteDialog({
 }: YouTubeDeleteDialogProps) {
     return (
         <AlertDialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-            <AlertDialogContent className="bg-[#070d1e] border-white/10 text-white rounded-3xl backdrop-blur-2xl glare-top">
+            <AlertDialogContent className="bg-card border-white/10 text-white rounded-3xl backdrop-blur-2xl glare-top">
                 <AlertDialogHeader>
                     <AlertDialogTitle className="text-xl font-bold text-white tracking-tight">{title}</AlertDialogTitle>
                     <AlertDialogDescription className="text-slate-400 text-sm">

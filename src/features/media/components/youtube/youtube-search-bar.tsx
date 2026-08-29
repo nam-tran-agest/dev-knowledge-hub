@@ -24,13 +24,13 @@ export function YouTubeSearchBar({
     addingLabel,
 }: YouTubeSearchBarProps) {
     return (
-        <div className="bg-[#070d1e]/50 backdrop-blur-2xl p-4 sm:p-6 rounded-3xl border border-white/10 shadow-2xl glare-top">
+        <div className="bg-card backdrop-blur-2xl p-4 sm:p-6 rounded-3xl border border-white/10 shadow-2xl glare-top">
             <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-4">
                 <Input
                     placeholder={placeholder}
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="bg-[#040711]/80 border-white/10 text-white placeholder:text-slate-500 focus:border-rose-500/50 h-12 text-sm sm:text-base w-full rounded-2xl font-mono"
+                    className="bg-card border-white/10 text-white placeholder:text-slate-500 focus:border-rose-500/50 h-12 text-sm sm:text-base w-full rounded-2xl font-mono"
                     disabled={isAdding}
                 />
                 <Button

@@ -23,11 +23,11 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
     return (
         <Card
             onClick={() => onSelect(video)}
-            className="group relative overflow-hidden bg-[#070d1e]/50 border-white/10 hover:border-rose-500/40 hover:bg-[#0c142c]/70 transition-all duration-300 hover:shadow-[0_0_30px_rgba(244,63,94,0.2)] hover:-translate-y-1 cursor-pointer p-0 rounded-3xl backdrop-blur-2xl glare-top"
+            className="group relative overflow-hidden bg-card border-white/10 hover:border-rose-500/40 hover:bg-background transition-all duration-300 hover:shadow-[0_0_30px_rgba(244,63,94,0.2)] hover:-translate-y-1 cursor-pointer p-0 rounded-3xl backdrop-blur-2xl glare-top"
         >
             <div className="flex flex-col h-full">
                 {/* Thumbnail */}
-                <div className="relative aspect-video w-full overflow-hidden bg-[#030712]">
+                <div className="relative aspect-video w-full overflow-hidden bg-card">
                     {video.thumbnail_url ? (
                         <Image
                             src={video.thumbnail_url}

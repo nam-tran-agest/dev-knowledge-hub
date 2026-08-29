@@ -46,7 +46,7 @@ export default function MobileMenu() {
                     <div className={cn(
                         "flex items-center gap-3 w-fit rounded-2xl p-1.5 transition-all duration-300 relative z-[60]",
                         "translate-x-4 translate-y-4",
-                        "bg-popover border border-white/10 has-[[data-state=open]]:border-indigo-500/50 backdrop-blur-xl shadow-2xl"
+                        "bg-popover border border-white/10 has-[[data-state=open]]:border-primary/50 backdrop-blur-xl shadow-2xl"
                     )}>
                         <PopoverTrigger asChild>
                             <button
@@ -65,13 +65,13 @@ export default function MobileMenu() {
                                     <rect className={cn(rectBase, "group-data-[state=open]:scale-0 delay-150")} x="16" y="16" width="4" height="4" rx="1" />
 
                                     {/* Core */}
-                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-y-[2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-indigo-400 group-data-[state=open]:rotate-45")} x="10" y="4" width="4" height="4" rx="1" />
-                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-x-[-2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-indigo-400 group-data-[state=open]:rotate-45 delay-75")} x="16" y="10" width="4" height="4" rx="1" />
-                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-y-[-2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-indigo-400 group-data-[state=open]:rotate-45 delay-150")} x="10" y="16" width="4" height="4" rx="1" />
-                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-x-[2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-indigo-400 group-data-[state=open]:rotate-45 delay-75")} x="4" y="10" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-y-[2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-primary group-data-[state=open]:rotate-45")} x="10" y="4" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-x-[-2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-primary group-data-[state=open]:rotate-45 delay-75")} x="16" y="10" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-y-[-2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-primary group-data-[state=open]:rotate-45 delay-150")} x="10" y="16" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:translate-x-[2px] group-data-[state=open]:scale-[1.8] group-data-[state=open]:fill-primary group-data-[state=open]:rotate-45 delay-75")} x="4" y="10" width="4" height="4" rx="1" />
 
                                     {/* Center */}
-                                    <rect className={cn(rectBase, "group-data-[state=open]:scale-[2.2] group-data-[state=open]:fill-indigo-400 group-data-[state=open]:rotate-45 delay-[200ms]")} x="10" y="10" width="4" height="4" rx="1" />
+                                    <rect className={cn(rectBase, "group-data-[state=open]:scale-[2.2] group-data-[state=open]:fill-primary group-data-[state=open]:rotate-45 delay-[200ms]")} x="10" y="10" width="4" height="4" rx="1" />
                                 </svg>
                             </button>
                         </PopoverTrigger>
@@ -104,7 +104,7 @@ export default function MobileMenu() {
                                                             <div className={cn(
                                                                 "relative z-10 flex justify-between items-center px-4 py-3 rounded-2xl transition duration-200 cursor-pointer",
                                                                 "hover:bg-white/[0.06] text-white",
-                                                                "data-[state=open]:bg-indigo-500/20 data-[state=open]:text-indigo-300"
+                                                                "data-[state=open]:bg-primary/20 data-[state=open]:text-primary"
                                                             )}>
                                                                 <span className="flex-1 font-medium">
                                                                     {label}
@@ -113,7 +113,7 @@ export default function MobileMenu() {
                                                                     strokeWidth={2.5}
                                                                     className={cn(
                                                                         "w-4 h-4 transition-transform duration-300 ease-out text-slate-400",
-                                                                        "group-data-[state=open]:rotate-90 group-data-[state=open]:text-indigo-300"
+                                                                        "group-data-[state=open]:rotate-90 group-data-[state=open]:text-primary"
                                                                     )}
                                                                 />
                                                             </div>

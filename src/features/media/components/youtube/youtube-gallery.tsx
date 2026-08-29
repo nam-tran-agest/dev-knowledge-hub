@@ -155,7 +155,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
 
             <Tabs defaultValue="recent" className="w-full">
                 <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-8">
-                    <TabsList className="bg-[#070d1e]/50 border border-white/10 p-1.5 h-auto grid grid-cols-3 sm:flex w-full sm:w-auto rounded-2xl backdrop-blur-xl">
+                    <TabsList className="bg-card border border-white/10 p-1.5 h-auto grid grid-cols-3 sm:flex w-full sm:w-auto rounded-2xl backdrop-blur-xl">
                         <TabsTrigger value="recent" className="data-[state=active]:bg-rose-600 data-[state=active]:text-white px-2 sm:px-6 py-2.5 rounded-xl transition-all text-xs sm:text-sm font-mono gap-2 cursor-pointer">
                             <Clock className="w-3.5 h-3.5 hidden xs:block" />
                             {t('tabs.recent')}

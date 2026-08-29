@@ -18,7 +18,7 @@ const CATEGORIES = [
 
 export function MusicSidebar({ currentCategory }: MusicSidebarProps) {
     return (
-        <aside className="w-full lg:w-80 shrink-0 border-b lg:border-r border-white/5 bg-[#0a0a0c] flex flex-col">
+        <aside className="w-full lg:w-80 shrink-0 border-b lg:border-r border-white/5 bg-background flex flex-col">
             <div className="p-6 md:p-8 space-y-8">
                 <div className="space-y-4">
                     <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 px-2">Library</h3>

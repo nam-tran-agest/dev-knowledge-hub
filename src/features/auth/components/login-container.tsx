@@ -36,12 +36,12 @@ export function LoginContainer() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#030712]">
+        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-card">
             {/* Background Ambient Glows */}
             <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none" />
             <div className="absolute bottom-1/4 left-1/3 w-[450px] h-[450px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <Card className="w-full max-w-md bg-[#070d1e]/60 border border-white/10 shadow-2xl backdrop-blur-2xl rounded-3xl relative z-10 p-2 sm:p-4 glare-top">
+            <Card className="w-full max-w-md bg-card border border-white/10 shadow-2xl backdrop-blur-2xl rounded-3xl relative z-10 p-2 sm:p-4 glare-top">
                 <CardHeader className="space-y-3 text-center pb-6">
                     <Link href="/" className="inline-flex items-center justify-center mx-auto mb-2">
                         <div className="relative h-12 w-12 transition-transform hover:scale-105">
@@ -73,7 +73,7 @@ export function LoginContainer() {
                                 placeholder="name@example.com"
                                 required
                                 disabled={isLoading}
-                                className="bg-[#040711]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
+                                className="bg-card border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
                             />
                         </div>
                         <div className="space-y-2">
@@ -86,7 +86,7 @@ export function LoginContainer() {
                                 type="password"
                                 required
                                 disabled={isLoading}
-                                className="bg-[#040711]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
+                                className="bg-card border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
                             />
                         </div>
                         {error && (

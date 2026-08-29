@@ -52,7 +52,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                     <SwiperSlide key={item.link}>
                         <a href={item.link} target="_blank" rel="noopener noreferrer" className="relative block h-[340px] md:h-[520px] overflow-hidden group cursor-pointer">
                             <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/60 to-transparent z-10" />
-                            <div className="absolute inset-0 bg-[#030712]/20">
+                            <div className="absolute inset-0 bg-card">
                                 <Image
                                     src={item.image}
                                     alt={item.title || "Featured"}
@@ -100,7 +100,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                         type="button"
                         ref={prevRef}
                         aria-label="Previous article"
-                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-[#030712]/80 text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
+                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-card text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
                     >
                         <ArrowLeft className="size-4" />
                     </button>
@@ -108,7 +108,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                         type="button"
                         ref={nextRef}
                         aria-label="Next article"
-                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-[#030712]/80 text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
+                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-card text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
                     >
                         <ArrowRight className="size-4" />
                     </button>

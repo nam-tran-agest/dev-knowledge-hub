@@ -26,9 +26,9 @@ export function NewsSidebar({ categories, trendingItems }: NewsSidebarProps) {
     const hasMore = displayCount < trendingItems.length;
 
     return (
-        <aside className="w-full lg:w-80 min-w-0 bg-[#0a0e17]/60 backdrop-blur-xl border-b lg:border-r border-white/10 flex flex-col shrink-0">
+        <aside className="w-full lg:w-80 min-w-0 bg-background backdrop-blur-xl border-b lg:border-r border-white/10 flex flex-col shrink-0">
             {/* Mobile Categories Ribbon */}
-            <div className="lg:hidden p-4 border-b border-white/10 bg-[#07090e]/80 w-full min-w-0">
+            <div className="lg:hidden p-4 border-b border-white/10 bg-card w-full min-w-0">
                 <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar w-full min-w-0">
                     {categories.map((cat) => {
                         const isActive = cat.id === currentCategoryId;

@@ -76,7 +76,7 @@ export default async function RootLayout({
                     className="relative rounded-lg shadow-md group-hover:scale-105 transition-transform"
                   />
                 </div>
-                <span className="font-bold text-sm tracking-tight text-white group-hover:text-indigo-300 transition-colors">
+                <span className="font-bold text-sm tracking-tight text-white group-hover:text-primary transition-colors">
                   DEV HUB
                 </span>
               </Link>

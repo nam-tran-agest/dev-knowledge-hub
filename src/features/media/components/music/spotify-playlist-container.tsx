@@ -19,7 +19,7 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
 
     if (!playlist) {
         return (
-            <div className="min-h-screen pt-32 bg-[#050505] text-center">
+            <div className="min-h-screen pt-32 bg-background text-center">
                 <h1 className="text-2xl text-white">Playlist not found</h1>
                 <Link href="/media/music" className="text-emerald-500 hover:underline">Back to Music</Link>
             </div>
@@ -80,7 +80,7 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
 
                         {/* Tracks List */}
                         <div className="p-8 md:p-12 max-w-7xl mx-auto -mt-4 transition-all">
-                            <div className="bg-[#070d1e]/50 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-2xl shadow-2xl glare-top">
+                            <div className="bg-card border border-white/10 rounded-3xl overflow-hidden backdrop-blur-2xl shadow-2xl glare-top">
                                 <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-4 border-b border-white/10 text-slate-400 text-xs font-mono font-semibold uppercase tracking-wider px-8">
                                     <div className="w-8 text-center">#</div>
                                     <div>Title</div>

@@ -22,7 +22,7 @@ export function YouTubeEmptyState({
 }: YouTubeEmptyStateProps) {
     if (type === 'playlists') {
         return (
-            <div className="col-span-full py-20 text-center bg-[#070d1e]/50 border border-dashed border-white/10 rounded-3xl space-y-4 backdrop-blur-xl">
+            <div className="col-span-full py-20 text-center bg-card border border-dashed border-white/10 rounded-3xl space-y-4 backdrop-blur-xl">
                 <div className="w-16 h-16 bg-white/[0.04] border border-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <ListVideo className="w-8 h-8 text-slate-500" />
                 </div>
@@ -41,7 +41,7 @@ export function YouTubeEmptyState({
     }
 
     return (
-        <Card className="text-center py-20 bg-[#070d1e]/50 border-white/10 backdrop-blur-xl rounded-3xl glare-top">
+        <Card className="text-center py-20 bg-card border-white/10 backdrop-blur-xl rounded-3xl glare-top">
             <CardContent>
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-500/10 border border-rose-500/20 mb-4">
                     <PlayCircle className="w-8 h-8 text-rose-500" />

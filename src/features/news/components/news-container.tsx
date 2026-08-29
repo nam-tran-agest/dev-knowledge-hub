@@ -44,7 +44,7 @@ export async function NewsContainer({ locale, categoryId }: NewsContainerProps) 
 
     if (newsItems.length === 0 && categoryId === 'all') {
         return (
-            <PageShell variant="landing" className="bg-[#0a0a0c] text-center pt-32">
+            <PageShell variant="landing" className="bg-background text-center pt-32">
                 <h2 className="text-2xl font-bold">{t('noNews')}</h2>
                 <p className="text-slate-500 mt-2">{t('tryAgain')}</p>
             </PageShell>

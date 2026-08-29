@@ -16,7 +16,7 @@ export async function MusicContainer({ category }: MusicContainerProps) {
 
     if (!token) {
         return (
-            <PageShell variant="landing" className="bg-[#050505] flex flex-col items-center justify-center p-6 space-y-8">
+            <PageShell variant="landing" className="bg-background flex flex-col items-center justify-center p-6 space-y-8">
                 <div className="p-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 shadow-2xl shadow-emerald-500/10">
                     <Music2 className="h-20 w-20 text-emerald-500 animate-pulse" />
                 </div>
@@ -51,7 +51,7 @@ export async function MusicContainer({ category }: MusicContainerProps) {
     }
 
     return (
-        <PageShell variant="landing" className="bg-[#050505] flex flex-col">
+        <PageShell variant="landing" className="bg-background flex flex-col">
             <div className="flex flex-col lg:flex-row flex-1 min-h-[calc(100vh-64px)] overflow-hidden">
                 <MusicSidebar currentCategory={category} />
                 <main className="flex-1 overflow-hidden flex flex-col">
