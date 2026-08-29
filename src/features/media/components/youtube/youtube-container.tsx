@@ -14,13 +14,16 @@ export async function YouTubeContainer({ locale }: YouTubeContainerProps) {
     ]);
 
     return (
-        <div className="py-8 sm:py-12 space-y-8">
-            <div className="text-center space-y-4">
-                <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-rose-600">
+        <div className="py-6 sm:py-10 space-y-6 font-mono">
+            <div className="text-center space-y-2 border-b border-primary/20 pb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase text-primary tracking-widest">
+                    // VIDEO_TELEMETRY_STREAM
+                </div>
+                <h1 className="text-2xl sm:text-4xl font-mono font-bold uppercase tracking-wider text-white">
                     {t('title')}
                 </h1>
-                <p className="text-slate-200 text-lg max-w-2xl mx-auto">
-                    {t('subtitle')}
+                <p className="text-primary/60 text-xs sm:text-sm max-w-2xl mx-auto uppercase">
+                    // {t('subtitle')}
                 </p>
             </div>
 
