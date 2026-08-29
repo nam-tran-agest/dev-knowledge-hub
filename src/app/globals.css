@@ -460,6 +460,10 @@
   100% { transform: translateY(100%); }
 }
 
+.animate-cyber-scan {
+  animation: cyber-scan 1.4s linear infinite;
+}
+
 .cyber-scanline {
   position: relative;
   overflow: hidden;
@@ -488,4 +492,76 @@
 .bg-dots-cyber {
   background-image: radial-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px);
   background-size: 12px 12px;
+}
+
+/* ========================================================
+   SLOW SUBTLE CYBERPUNK FLICKER & PULSE ANIMATIONS
+   ======================================================== */
+@keyframes cyber-flicker-slow {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.7));
+  }
+  32% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.5));
+  }
+  34% {
+    opacity: 0.55;
+    filter: drop-shadow(0 0 1px rgba(0, 240, 255, 0.2));
+  }
+  36% {
+    opacity: 0.98;
+    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.75));
+  }
+  72% {
+    opacity: 0.92;
+    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.5));
+  }
+  74% {
+    opacity: 0.65;
+    filter: drop-shadow(0 0 2px rgba(0, 240, 255, 0.25));
+  }
+  76% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.8));
+  }
+}
+
+@keyframes cyber-pulse-slow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.2);
+    border-color: rgba(0, 240, 255, 0.6);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 6px rgba(0, 240, 255, 0.15), inset 0 0 2px rgba(0, 240, 255, 0.05);
+    border-color: rgba(0, 240, 255, 0.25);
+  }
+}
+
+@keyframes cyber-dot-blink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 6px rgba(0, 240, 255, 0.9);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(0.85);
+    box-shadow: 0 0 0px transparent;
+  }
+}
+
+.animate-cyber-flicker-slow {
+  animation: cyber-flicker-slow 5.5s infinite ease-in-out;
+}
+
+.animate-cyber-pulse-slow {
+  animation: cyber-pulse-slow 4s infinite ease-in-out;
+}
+
+.animate-cyber-dot {
+  animation: cyber-dot-blink 2.4s infinite ease-in-out;
 }

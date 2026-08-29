@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "../globals.css";
-import { Link } from "@/i18n/routing";
 import { MainNav } from "@/components/layout/main-nav";
 import { FooterData } from '@/types/layout';
 import Footer from '@/components/layout/footer';
 import ScrollToTop from '@/components/ui/scroll-to-top';
-import Image from "next/image";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import MobileMenu from "@/components/layout/mobile-menu";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { BrandLogo } from "@/components/layout/brand-logo";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin", "vietnamese"],
@@ -72,28 +71,7 @@ export default async function RootLayout({
               <div className="absolute bottom-0 left-4 w-4 h-1 border-l-2 border-b-2 border-primary/50" />
               <div className="absolute bottom-0 right-4 w-4 h-1 border-r-2 border-b-2 border-primary/50" />
 
-              <Link href="/" className="flex items-center gap-3 group">
-                <div className="relative">
-                  <div className="absolute -inset-1 cyber-clip bg-primary/30 blur-sm group-hover:bg-primary/50 transition-all" />
-                  <div className="relative p-1.5 cyber-clip bg-card border border-primary/40 group-hover:border-primary transition-colors">
-                    <Image
-                      src="/img/home/nav_ico.svg"
-                      alt="Dev Hub Logo"
-                      width={24}
-                      height={24}
-                      className="group-hover:scale-110 transition-transform"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-mono font-bold text-sm tracking-widest text-white group-hover:text-primary transition-colors uppercase">
-                    DEV_HUB <span className="text-primary text-xs">// SYS</span>
-                  </span>
-                  <span className="font-mono text-[9px] text-primary/60 tracking-wider">
-                    TERMINAL_ONLINE
-                  </span>
-                </div>
-              </Link>
+              <BrandLogo />
 
               <div className="flex items-center">
                 <MainNav />

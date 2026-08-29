@@ -68,7 +68,7 @@ export default function Footer({ footer }: { footer: FooterData }) {
                                     height={42}
                                 />
                             ) : (
-                                <div className="text-xl font-bold tracking-widest text-white uppercase drop-shadow-[0_0_15px_rgba(0,240,255,0.4)] flex items-center gap-2">
+                                <div className="text-xl font-bold tracking-widest text-white uppercase drop-shadow-[0_0_15px_rgba(0,240,255,0.4)] flex items-center gap-2 animate-cyber-flicker-slow">
                                     <Terminal className="w-5 h-5 text-primary" />
                                     <span>DEV_HUB <span className="text-primary">// SYS</span></span>
                                 </div>
