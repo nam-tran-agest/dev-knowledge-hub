@@ -9,7 +9,7 @@ import { StarryBackground } from "@/components/layout/starry-background";
 
 export default function Footer({ footer }: { footer: FooterData }) {
     return (
-        <footer className="relative bg-[#04060c] border-t border-white/10 overflow-hidden text-slate-300 glare-top">
+        <footer className="relative bg-background border-t border-border overflow-hidden text-muted-foreground glare-top">
             <StarryBackground />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-12 border-b border-white/10">

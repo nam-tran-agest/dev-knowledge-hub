@@ -53,7 +53,7 @@ export function MainNav() {
                                         {getItemLabel(item.name)}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
-                                        <ul className="grid w-[380px] gap-2 p-3 md:w-[480px] md:grid-cols-2 rounded-2xl bg-[#040711]/95 border border-white/10 backdrop-blur-2xl shadow-2xl">
+                                        <ul className="grid w-[380px] gap-2 p-3 md:w-[480px] md:grid-cols-2 rounded-2xl bg-popover border border-white/10 backdrop-blur-2xl shadow-2xl">
                                             {item.items.map((subItem) => (
                                                 <ListItem
                                                     key={subItem.href}

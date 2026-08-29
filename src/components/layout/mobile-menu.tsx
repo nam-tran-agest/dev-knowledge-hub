@@ -46,7 +46,7 @@ export default function MobileMenu() {
                     <div className={cn(
                         "flex items-center gap-3 w-fit rounded-2xl p-1.5 transition-all duration-300 relative z-[60]",
                         "translate-x-4 translate-y-4",
-                        "bg-[#0e131f]/80 border border-white/10 has-[[data-state=open]]:border-indigo-500/50 backdrop-blur-xl shadow-2xl"
+                        "bg-popover border border-white/10 has-[[data-state=open]]:border-indigo-500/50 backdrop-blur-xl shadow-2xl"
                     )}>
                         <PopoverTrigger asChild>
                             <button
@@ -86,7 +86,7 @@ export default function MobileMenu() {
                                 "border-none bg-transparent shadow-none text-inherit"
                             )}
                         >
-                            <div className="w-full border border-white/10 p-3 flex flex-col space-y-4 rounded-3xl bg-[#090d16]/95 backdrop-blur-2xl shadow-2xl text-slate-200">
+                            <div className="w-full border border-white/10 p-3 flex flex-col space-y-4 rounded-3xl bg-background/95 backdrop-blur-2xl shadow-2xl text-slate-200">
                                 <ul className="space-y-1.5 text-base py-2">
                                     {MAIN_NAVIGATION.map((item) => {
                                         const hasSubItems = item.items && item.items.length > 0;
