@@ -45,14 +45,18 @@ export async function addVideo(formData: FormData) {
     const thumbnailUrl = getYoutubeThumbnail(videoId);
 
     let title = `Video ${videoId}`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
     try {
         const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
-        const res = await fetch(oembedUrl);
+        const res = await fetch(oembedUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
         if (res.ok) {
             const data = await res.json();
             if (data.title) title = data.title;
         }
     } catch (e) {
+        clearTimeout(timeoutId);
         console.error('Error fetching oembed:', e);
     }
 

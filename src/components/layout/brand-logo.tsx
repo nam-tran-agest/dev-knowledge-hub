@@ -46,9 +46,10 @@ export function BrandLogo() {
         setGlitchActive(false);
     };
 
-    // Periodic slow subtle Sherpa-style tech pulse (every 5.5s)
+    // Periodic slow subtle Sherpa-style tech pulse (every 5.5s, only when tab is visible)
     useEffect(() => {
         const timer = setInterval(() => {
+            if (typeof document !== 'undefined' && document.hidden) return;
             setGlitchActive(true);
             setTimeout(() => setGlitchActive(false), 280);
         }, 5500);

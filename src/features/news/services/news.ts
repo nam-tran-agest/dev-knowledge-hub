@@ -39,11 +39,11 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
 
     const allNewsPromises = targetFeeds.map(async (feed) => {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+        const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout
 
         try {
             const response = await fetch(feed.url, {
-                next: { revalidate: 0 },
+                next: { revalidate: 180 }, // 3 minutes cache for super fast news loading
                 signal: controller.signal
             });
             clearTimeout(timeoutId);

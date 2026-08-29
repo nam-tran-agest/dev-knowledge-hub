@@ -2,13 +2,26 @@ import type { Monster, Weapon, Armor, Skill, Item, Decoration, Charm, Location, 
 
 const BASE_URL = '/data/mhwilds';
 
+// In-memory Promise cache to avoid duplicate network downloads and JSON parse overhead
+const jsonCache = new Map<string, Promise<unknown>>();
+
 async function fetchLocal<T>(filename: string): Promise<T> {
-    const url = `${BASE_URL}/${filename}`;
-    const res = await fetch(url);
-    if (!res.ok) {
-        throw new Error(`Failed to load static data: ${res.status} ${res.statusText}`);
+    if (jsonCache.has(filename)) {
+        return jsonCache.get(filename) as Promise<T>;
     }
-    return res.json();
+
+    const fetchPromise = (async () => {
+        const url = `${BASE_URL}/${filename}`;
+        const res = await fetch(url);
+        if (!res.ok) {
+            jsonCache.delete(filename); // Clean up failed request from cache
+            throw new Error(`Failed to load static data: ${res.status} ${res.statusText}`);
+        }
+        return res.json() as Promise<T>;
+    })();
+
+    jsonCache.set(filename, fetchPromise);
+    return fetchPromise;
 }
 
 // === Monsters ===
@@ -17,7 +30,7 @@ export async function getMonsters(): Promise<Monster[]> {
 }
 
 export async function getMonster(id: number): Promise<Monster> {
-    return fetchLocal<Monster[]>(`monsters.json`).then(res => res.find(m => m.id === id)!);
+    return fetchLocal<Monster[]>('monsters.json').then(res => res.find(m => m.id === id)!);
 }
 
 // === Weapons ===
@@ -26,7 +39,7 @@ export async function getWeapons(): Promise<Weapon[]> {
 }
 
 export async function getWeapon(id: number): Promise<Weapon> {
-    return fetchLocal<Weapon[]>(`weapons.json`).then(res => res.find(w => w.id === id)!);
+    return fetchLocal<Weapon[]>('weapons.json').then(res => res.find(w => w.id === id)!);
 }
 
 // === Armor ===
@@ -35,7 +48,7 @@ export async function getArmor(): Promise<Armor[]> {
 }
 
 export async function getArmorPiece(id: number): Promise<Armor> {
-    return fetchLocal<Armor[]>(`armor.json`).then(res => res.find(a => a.id === id)!);
+    return fetchLocal<Armor[]>('armor.json').then(res => res.find(a => a.id === id)!);
 }
 
 // === Armor Sets ===

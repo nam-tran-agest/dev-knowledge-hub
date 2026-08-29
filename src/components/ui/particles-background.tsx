@@ -39,7 +39,7 @@ export function ParticlesBackground({
                     value: "transparent",
                 },
             },
-            fpsLimit: 120,
+            fpsLimit: 60,
             interactivity: {
                 detectsOn: "canvas",
                 events: {
@@ -54,12 +54,12 @@ export function ParticlesBackground({
                 },
                 modes: {
                     push: {
-                        quantity: 8,
+                        quantity: 4,
                     },
                     grab: {
-                        distance: 180,
+                        distance: 140,
                         links: {
-                            opacity: 0.5
+                            opacity: 0.4
                         }
                     },
                 },
@@ -70,10 +70,10 @@ export function ParticlesBackground({
                 },
                 links: {
                     color: "#3b82f6",
-                    distance: 150,
+                    distance: 140,
                     enable: true,
-                    opacity: 0.8,
-                    width: 2, // Thicker links
+                    opacity: 0.6,
+                    width: 1.5,
                 },
                 move: {
                     direction: "none",
@@ -82,15 +82,15 @@ export function ParticlesBackground({
                         default: "bounce",
                     },
                     random: false,
-                    speed: 1,
+                    speed: 0.8,
                     straight: false,
                 },
                 number: {
                     density: {
                         enable: true,
-                        area: 800,
+                        area: 1000,
                     },
-                    value: 80, // Slightly fewer particles if they are bigger
+                    value: 45,
                 },
                 opacity: {
                     value: 0.5,
