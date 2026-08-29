@@ -20,14 +20,14 @@
   --primary-foreground: #000000;
 
   /* Neon Magenta / Pink */
-  --secondary: rgba(255, 0, 127, 0.15);
-  --secondary-foreground: #ff007f;
+  --secondary: #ff007f;
+  --secondary-foreground: #ffffff;
 
   --muted: rgba(255, 255, 255, 0.05);
-  --muted-foreground: #7a8ea8;
+  --muted-foreground: #94a3b8;
 
-  --accent: rgba(0, 240, 255, 0.15);
-  --accent-foreground: #00f0ff;
+  --accent: #00f0ff;
+  --accent-foreground: #000000;
 
   --destructive: #ff003c;
   --destructive-foreground: #ffffff;

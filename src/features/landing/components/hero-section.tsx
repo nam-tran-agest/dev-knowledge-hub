@@ -88,20 +88,20 @@ export function HeroSection({
                 >
                     {/* Primary Widget: Planner */}
                     <Link href="/planner/today" className="lg:col-span-2 group">
-                        <div className="cyber-clip glass-panel h-full p-8 border border-primary/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-primary)] hover:border-primary/50">
-                            <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-primary/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] hover:border-primary">
+                            <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-cyan-500/15 border border-cyan-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-cyan-300 font-mono font-bold">
                                 // SYS_PLANNER
                             </div>
                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-colors pointer-events-none" />
                             <div className="relative z-10">
-                                <div className="w-12 h-12 cyber-clip-button bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform border border-primary/30">
+                                <div className="w-12 h-12 cyber-clip-button bg-cyan-500/15 flex items-center justify-center text-cyan-300 mb-6 group-hover:scale-110 transition-transform border border-cyan-400/50 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
                                     <Calendar className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">Daily Planner</h2>
-                                <p className="text-primary/60 font-mono">Manage your tasks, track your schedule, and optimize your productivity.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:text-cyan-300 transition-colors">Daily Planner</h2>
+                                <p className="text-slate-300 font-mono text-sm leading-relaxed">Manage your tasks, track your schedule, and optimize your productivity.</p>
                             </div>
-                            <div className="relative z-10 mt-8 flex items-center gap-2 text-primary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-cyan-400 font-mono text-sm uppercase tracking-wider font-bold group-hover:gap-4 group-hover:text-white transition-all">
                                 <span>Launch Module</span>
                                 <span className="text-lg">→</span>
                             </div>
@@ -110,20 +110,20 @@ export function HeroSection({
 
                     {/* Secondary Widget: Working Hub */}
                     <Link href="/working" className="group">
-                        <div className="cyber-clip glass-panel h-full p-8 border border-secondary/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_var(--color-secondary)] hover:border-secondary/50">
-                            <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-4 right-6 px-3 py-1 bg-secondary/10 border border-secondary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-secondary font-mono font-bold">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-pink-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(255,0,127,0.4)] hover:border-pink-500">
+                            <div className="absolute inset-0 cyber-brackets-pink pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-pink-500/15 border border-pink-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-pink-300 font-mono font-bold">
                                 // SYS_WORKING
                             </div>
-                            <div className="absolute top-0 right-0 w-48 h-48 bg-secondary/10 blur-[60px] rounded-full group-hover:bg-secondary/20 transition-colors pointer-events-none" />
+                            <div className="absolute top-0 right-0 w-48 h-48 bg-pink-500/10 blur-[60px] rounded-full group-hover:bg-pink-500/20 transition-colors pointer-events-none" />
                             <div className="relative z-10">
-                                <div className="w-12 h-12 cyber-clip-button bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform border border-secondary/30">
+                                <div className="w-12 h-12 cyber-clip-button bg-pink-500/15 flex items-center justify-center text-pink-300 mb-6 group-hover:scale-110 transition-transform border border-pink-400/50 shadow-[0_0_15px_rgba(255,0,127,0.2)]">
                                     <Layers className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">Working Hub</h2>
-                                <p className="text-secondary/60 font-mono">Active projects and kanban boards.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:text-pink-300 transition-colors">Working Hub</h2>
+                                <p className="text-slate-300 font-mono text-sm leading-relaxed">Active projects and kanban boards.</p>
                             </div>
-                            <div className="relative z-10 mt-8 flex items-center gap-2 text-secondary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-pink-400 font-mono text-sm uppercase tracking-wider font-bold group-hover:gap-4 group-hover:text-white transition-all">
                                 <span>Access</span>
                                 <span className="text-lg">→</span>
                             </div>
@@ -132,20 +132,20 @@ export function HeroSection({
 
                     {/* Media & News */}
                     <Link href="/media/youtube" className="group">
-                        <div className="cyber-clip glass-panel h-full p-8 border border-[#ff007f]/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(255,0,127,0.3)] hover:border-[#ff007f]/50">
-                            <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-4 right-6 px-3 py-1 bg-[#ff007f]/10 border border-[#ff007f]/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-[#ff007f] font-mono font-bold">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-pink-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(255,0,127,0.4)] hover:border-pink-500">
+                            <div className="absolute inset-0 cyber-brackets-pink pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-pink-500/15 border border-pink-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-pink-300 font-mono font-bold">
                                 // SYS_MEDIA
                             </div>
-                            <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#ff007f]/10 blur-[60px] rounded-full group-hover:bg-[#ff007f]/20 transition-colors pointer-events-none" />
+                            <div className="absolute bottom-0 right-0 w-48 h-48 bg-pink-500/10 blur-[60px] rounded-full group-hover:bg-pink-500/20 transition-colors pointer-events-none" />
                             <div className="relative z-10">
-                                <div className="w-12 h-12 cyber-clip-button bg-[#ff007f]/10 flex items-center justify-center text-[#ff007f] mb-6 group-hover:scale-110 transition-transform border border-[#ff007f]/30">
+                                <div className="w-12 h-12 cyber-clip-button bg-pink-500/15 flex items-center justify-center text-pink-300 mb-6 group-hover:scale-110 transition-transform border border-pink-400/50 shadow-[0_0_15px_rgba(255,0,127,0.2)]">
                                     <Newspaper className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">Media Center</h2>
-                                <p className="text-[#ff007f]/60 font-mono">YouTube bookmarks, Spotify integrations, and RSS News.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:text-pink-300 transition-colors">Media Center</h2>
+                                <p className="text-slate-300 font-mono text-sm leading-relaxed">YouTube bookmarks, Spotify integrations, and RSS News.</p>
                             </div>
-                            <div className="relative z-10 mt-8 flex items-center gap-2 text-[#ff007f] font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-pink-400 font-mono text-sm uppercase tracking-wider font-bold group-hover:gap-4 group-hover:text-white transition-all">
                                 <span>Browse</span>
                                 <span className="text-lg">→</span>
                             </div>
@@ -154,20 +154,20 @@ export function HeroSection({
 
                     {/* MH Wilds Vault */}
                     <Link href="/mh-wilds" className="lg:col-span-2 group">
-                        <div className="cyber-clip glass-panel h-full p-8 border border-destructive/20 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-destructive)] hover:border-destructive/50">
-                            <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute top-4 right-6 px-3 py-1 bg-destructive/10 border border-destructive/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-destructive font-mono font-bold">
+                        <div className="cyber-clip glass-panel h-full p-8 border border-destructive/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(255,0,60,0.4)] hover:border-destructive">
+                            <div className="absolute inset-0 cyber-brackets-red pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute top-4 right-6 px-3 py-1 bg-red-500/15 border border-red-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-red-300 font-mono font-bold">
                                 // SYS_MH_WILDS
                             </div>
                             <div className="absolute bottom-0 right-0 w-64 h-64 bg-destructive/10 blur-[80px] rounded-full group-hover:bg-destructive/20 transition-colors pointer-events-none" />
                             <div className="relative z-10">
-                                <div className="w-12 h-12 cyber-clip-button bg-destructive/10 flex items-center justify-center text-destructive mb-6 group-hover:scale-110 transition-transform border border-destructive/30">
+                                <div className="w-12 h-12 cyber-clip-button bg-red-500/15 flex items-center justify-center text-red-300 mb-6 group-hover:scale-110 transition-transform border border-red-400/50 shadow-[0_0_15px_rgba(255,0,60,0.2)]">
                                     <Flame className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono">MH Wilds Vault</h2>
-                                <p className="text-destructive/60 font-mono">Comprehensive database for weapons, armors, and monster weaknesses.</p>
+                                <h2 className="text-2xl font-bold text-white mb-2 uppercase tracking-widest font-mono group-hover:text-red-300 transition-colors">MH Wilds Vault</h2>
+                                <p className="text-slate-300 font-mono text-sm leading-relaxed">Comprehensive database for weapons, armors, and monster weaknesses.</p>
                             </div>
-                            <div className="relative z-10 mt-8 flex items-center gap-2 text-destructive font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                            <div className="relative z-10 mt-8 flex items-center gap-2 text-red-400 font-mono text-sm uppercase tracking-wider font-bold group-hover:gap-4 group-hover:text-white transition-all">
                                 <span>Open Vault</span>
                                 <span className="text-lg">→</span>
                             </div>
