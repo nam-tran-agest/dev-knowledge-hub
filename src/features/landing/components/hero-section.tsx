@@ -24,8 +24,8 @@ export function HeroSection({
         <section className="relative min-h-screen flex flex-col overflow-hidden pt-24 pb-12 px-4 sm:px-6 lg:px-8">
             {/* Ambient Cyberpunk Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-indigo-950/20 to-transparent blur-[120px]" />
-                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-950/20 blur-[100px] rounded-full" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-secondary/5 to-transparent blur-[120px]" />
+                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[100px] rounded-full" />
                 <ParticlesBackground className="absolute inset-0 z-0 opacity-40" />
             </div>
 
@@ -88,7 +88,7 @@ export function HeroSection({
                 >
                     {/* Primary Widget: Planner (Cyan) */}
                     <Link href="/planner/today" className="lg:col-span-2 group">
-                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-cyan-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] hover:border-cyan-400 bg-[#040817]/90">
+                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-cyan-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] hover:border-cyan-400">
                             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
                             <div className="absolute top-4 right-6 px-3 py-1 bg-cyan-500/15 border border-cyan-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-cyan-300 font-mono font-bold">
                                 // SYS_PLANNER
@@ -115,7 +115,7 @@ export function HeroSection({
 
                     {/* Secondary Widget: Working Hub (Electric Indigo / Violet) */}
                     <Link href="/working" className="group">
-                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-indigo-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(99,102,241,0.4)] hover:border-indigo-400 bg-[#06071a]/90">
+                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-indigo-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(99,102,241,0.4)] hover:border-indigo-400">
                             <div className="absolute inset-0 cyber-brackets-indigo pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
                             <div className="absolute top-4 right-6 px-3 py-1 bg-indigo-500/15 border border-indigo-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-indigo-300 font-mono font-bold">
                                 // SYS_WORKING
@@ -142,7 +142,7 @@ export function HeroSection({
 
                     {/* Media & News (Cyber Emerald / Mint Green) */}
                     <Link href="/media/youtube" className="group">
-                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-emerald-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(16,185,129,0.4)] hover:border-emerald-400 bg-[#041014]/90">
+                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-emerald-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(16,185,129,0.4)] hover:border-emerald-400">
                             <div className="absolute inset-0 cyber-brackets-emerald pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
                             <div className="absolute top-4 right-6 px-3 py-1 bg-emerald-500/15 border border-emerald-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-emerald-300 font-mono font-bold">
                                 // SYS_MEDIA
@@ -169,7 +169,7 @@ export function HeroSection({
 
                     {/* MH Wilds Vault (Solar Amber / Golden Cyber) */}
                     <Link href="/mh-wilds" className="lg:col-span-2 group">
-                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-amber-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(245,158,11,0.4)] hover:border-amber-400 bg-[#120d04]/90">
+                        <div className="cyber-clip glass-panel h-full p-7 sm:p-8 border border-amber-500/30 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(245,158,11,0.4)] hover:border-amber-400">
                             <div className="absolute inset-0 cyber-brackets-amber pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
                             <div className="absolute top-4 right-6 px-3 py-1 bg-amber-500/15 border border-amber-400/50 cyber-clip-tag text-[10px] uppercase tracking-widest text-amber-300 font-mono font-bold">
                                 // SYS_MH_WILDS
