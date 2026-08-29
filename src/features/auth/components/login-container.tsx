@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
-import { Loader2, Lock, Mail, Sparkles } from 'lucide-react'
+import { Loader2, Lock, Mail, Terminal } from 'lucide-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 
@@ -24,61 +24,66 @@ export function LoginContainer() {
                 setError(result.error)
             }
         } catch (e) {
-            // Ignore redirect errors which are actually successful navigations
             if ((e as Error).message === 'NEXT_REDIRECT') {
                 throw e
             }
             console.error(e)
-            setError('Something went wrong. Please try again.')
+            setError('System access rejected. Check credentials.')
         } finally {
             setIsLoading(false)
         }
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-card">
-            {/* Background Ambient Glows */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none" />
-            <div className="absolute bottom-1/4 left-1/3 w-[450px] h-[450px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-background">
+            {/* Background Ambient Cyber Grid & Glows */}
+            <div className="absolute inset-0 bg-grid-cyber opacity-20 pointer-events-none" />
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 blur-[140px] pointer-events-none" />
 
-            <Card className="w-full max-w-md bg-card border border-white/10 shadow-2xl backdrop-blur-2xl rounded-3xl relative z-10 p-2 sm:p-4 glare-top">
+            <Card className="w-full max-w-md bg-[#050714]/95 border border-primary/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] backdrop-blur-2xl cyber-clip-lg relative z-10 p-2 sm:p-4">
+                {/* Top Corner System Tag */}
+                <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-primary/40 text-[9px] font-mono uppercase tracking-widest text-primary font-bold">
+                    // AUTH_TERMINAL_GATEWAY
+                </div>
+                {/* Corner Brackets */}
+                <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
+
                 <CardHeader className="space-y-3 text-center pb-6">
                     <Link href="/" className="inline-flex items-center justify-center mx-auto mb-2">
-                        <div className="relative h-12 w-12 transition-transform hover:scale-105">
+                        <div className="relative h-12 w-12 cyber-clip-button border border-primary/40 p-2 bg-primary/10 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
                             <Image
                                 src="/img/home/nav_ico.svg"
                                 alt="Dev Hub Logo"
                                 fill
-                                className="object-contain"
+                                className="object-contain p-1"
                             />
                         </div>
                     </Link>
-                    <CardTitle className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                        Welcome Back
+                    <CardTitle className="text-xl sm:text-2xl font-mono font-extrabold uppercase tracking-wider text-white">
+                        AUTHENTICATE_IDENTITY
                     </CardTitle>
-                    <CardDescription className="text-slate-400 text-sm">
-                        Enter your credentials to access your workspace
+                    <CardDescription className="text-primary/60 font-mono text-xs uppercase tracking-wide">
+                        // Enter authorized credentials to decrypt workspace
                     </CardDescription>
                 </CardHeader>
                 <form action={handleSubmit}>
                     <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="email" className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                                <Mail className="w-3.5 h-3.5 text-indigo-400" /> Email
+                        <div className="space-y-1.5">
+                            <Label htmlFor="email" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
+                                <Mail className="w-3.5 h-3.5 text-primary" /> Identity / Email *
                             </Label>
                             <Input
                                 id="email"
                                 name="email"
                                 type="email"
-                                placeholder="name@example.com"
+                                placeholder="operator@cyberlink.net"
                                 required
                                 disabled={isLoading}
-                                className="bg-card border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
                             />
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="password" className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                                <Lock className="w-3.5 h-3.5 text-indigo-400" /> Password
+                        <div className="space-y-1.5">
+                            <Label htmlFor="password" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
+                                <Lock className="w-3.5 h-3.5 text-primary" /> Passkey Token *
                             </Label>
                             <Input
                                 id="password"
@@ -86,29 +91,28 @@ export function LoginContainer() {
                                 type="password"
                                 required
                                 disabled={isLoading}
-                                className="bg-card border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
                             />
                         </div>
                         {error && (
-                            <div className="text-xs text-rose-300 font-semibold text-center bg-rose-500/15 border border-rose-500/30 p-3 rounded-xl">
-                                {error}
+                            <div className="text-xs font-mono text-destructive text-center bg-destructive/10 border border-destructive/30 p-3 cyber-clip-button">
+                                // ACCESS_DENIED: {error}
                             </div>
                         )}
                     </CardContent>
                     <CardFooter className="pt-2">
                         <Button
-                            className="w-full font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] rounded-xl py-5 cursor-pointer transition-all duration-300 hover:shadow-[0_0_25px_rgba(99,102,241,0.5)]"
+                            className="w-full font-mono font-bold uppercase tracking-wider bg-primary text-black hover:bg-primary/90 shadow-[0_0_20px_var(--color-primary)] cyber-clip-button py-5 cursor-pointer transition-all duration-300"
                             type="submit"
                             disabled={isLoading}
                         >
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Signing in...
+                                    DECRYPTING_CREDENTIALS...
                                 </>
                             ) : (
                                 <span className="flex items-center justify-center gap-2">
-                                    <Sparkles className="w-4 h-4" /> Sign In
+                                    <Terminal className="w-4 h-4" /> [ AUTHENTICATE ]
                                 </span>
                             )}
                         </Button>

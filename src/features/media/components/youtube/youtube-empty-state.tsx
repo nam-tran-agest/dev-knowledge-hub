@@ -22,18 +22,19 @@ export function YouTubeEmptyState({
 }: YouTubeEmptyStateProps) {
     if (type === 'playlists') {
         return (
-            <div className="col-span-full py-20 text-center bg-card border border-dashed border-white/10 rounded-3xl space-y-4 backdrop-blur-xl">
-                <div className="w-16 h-16 bg-white/[0.04] border border-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <ListVideo className="w-8 h-8 text-slate-500" />
+            <div className="col-span-full py-16 text-center bg-[#050714]/80 border border-dashed border-primary/30 cyber-clip space-y-4 backdrop-blur-xl relative overflow-hidden">
+                <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
+                <div className="w-12 h-12 bg-primary/10 border border-primary/30 cyber-clip-button flex items-center justify-center mx-auto mb-3 text-primary">
+                    <ListVideo className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white tracking-tight">{title}</h3>
-                <p className="text-slate-400 text-sm max-w-sm mx-auto">{description}</p>
+                <h3 className="text-base font-mono font-bold uppercase tracking-wider text-white">[ {title} ]</h3>
+                <p className="text-primary/60 font-mono text-xs max-w-sm mx-auto uppercase">// {description}</p>
                 {actionLabel && onAction && (
                     <Button
                         onClick={onAction}
-                        className="bg-rose-600 hover:bg-rose-500 text-white rounded-2xl px-6 font-mono text-xs cursor-pointer shadow-[0_0_20px_rgba(244,63,94,0.3)]"
+                        className="bg-primary text-black font-mono font-bold uppercase tracking-wider cyber-clip-button px-6 text-xs cursor-pointer shadow-[0_0_20px_var(--color-primary)] hover:bg-primary/90"
                     >
-                        {actionLabel}
+                        [ {actionLabel} ]
                     </Button>
                 )}
             </div>
@@ -41,13 +42,14 @@ export function YouTubeEmptyState({
     }
 
     return (
-        <Card className="text-center py-20 bg-card border-white/10 backdrop-blur-xl rounded-3xl glare-top">
+        <Card className="text-center py-16 bg-[#050714]/80 border border-dashed border-primary/30 cyber-clip relative overflow-hidden">
+            <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
             <CardContent>
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-500/10 border border-rose-500/20 mb-4">
-                    <PlayCircle className="w-8 h-8 text-rose-500" />
+                <div className="inline-flex items-center justify-center w-12 h-12 cyber-clip-button bg-primary/10 border border-primary/30 mb-3 text-primary">
+                    <PlayCircle className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-white tracking-tight">{title}</h3>
-                <p className="text-slate-400 text-sm max-w-sm mx-auto">{description}</p>
+                <h3 className="text-base font-mono font-bold uppercase tracking-wider mb-1 text-white">[ {title} ]</h3>
+                <p className="text-primary/60 font-mono text-xs max-w-sm mx-auto uppercase">// {description}</p>
             </CardContent>
         </Card>
     );

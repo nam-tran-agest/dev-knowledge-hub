@@ -14,8 +14,6 @@ export async function YouTubePlaylistContainer({ playlistId }: YouTubePlaylistCo
     const t = await getTranslations('media.youtube.playlist');
     const data = await getPlaylistDetails(playlistId);
     const playlists = await getPlaylists();
-    
-    // Fallback to empty array if libraryVideos fetch fails
     const libraryVideos = await getVideos() || [];
 
     if (!data) {
@@ -25,42 +23,49 @@ export async function YouTubePlaylistContainer({ playlistId }: YouTubePlaylistCo
     const { playlist, videos } = data;
 
     return (
-        <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-transparent">
+        <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-transparent relative">
             <div className="max-w-7xl mx-auto space-y-8">
-                <div className="flex items-center gap-4">
+                {/* Header Deck */}
+                <div className="flex items-center gap-4 border-b border-primary/20 pb-6">
                     <Link href="/media/youtube">
-                        <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full">
-                            <ChevronLeft className="w-6 h-6" />
+                        <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10 cyber-clip-button border border-primary/30">
+                            <ChevronLeft className="w-5 h-5" />
                         </Button>
                     </Link>
-                    <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-lg bg-red-600 flex items-center justify-center">
-                            <ListVideo className="w-6 h-6 text-white" />
+                    <div className="flex items-center gap-3.5">
+                        <div className="w-11 h-11 cyber-clip-button bg-primary/10 border border-primary/40 flex items-center justify-center text-primary shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+                            <ListVideo className="w-5 h-5" />
                         </div>
                         <div>
-                            <h1 className="text-3xl font-bold text-white leading-tight">
-                                {playlist.title}
-                            </h1>
-                            <p className="text-gray-400 text-sm">
-                                {t('videoCount', { count: videos.length })}
+                            <div className="flex items-center gap-2">
+                                <h1 className="text-xl sm:text-2xl font-mono font-bold text-white uppercase tracking-wider">
+                                    {playlist.title}
+                                </h1>
+                                <span className="text-[9px] font-mono text-primary/60 px-1.5 py-0.5 border border-primary/30 cyber-clip-tag">
+                                    // PLAYLIST_STREAM
+                                </span>
+                            </div>
+                            <p className="text-primary/60 font-mono text-xs mt-0.5 uppercase">
+                                // {t('videoCount', { count: videos.length })}
                             </p>
                         </div>
                     </div>
                 </div>
 
                 {playlist.description && (
-                    <div className="max-w-3xl border-l-4 border-red-600 bg-white/5 p-4 rounded-r-lg">
-                        <p className="text-gray-300 italic">{playlist.description}</p>
+                    <div className="max-w-3xl border-l-2 border-primary bg-primary/[0.04] p-3.5 cyber-clip-button">
+                        <p className="text-primary/80 font-mono text-xs uppercase">// {playlist.description}</p>
                     </div>
                 )}
 
                 {videos.length === 0 && !playlist.description ? (
-                    <div className="bg-slate-900/30 border border-dashed border-white/10 rounded-2xl p-12 text-center">
-                        <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <ListVideo className="w-8 h-8 text-gray-500" />
+                    <div className="bg-[#050714]/60 border border-dashed border-primary/25 cyber-clip p-12 text-center relative overflow-hidden">
+                        <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
+                        <div className="w-12 h-12 bg-primary/10 border border-primary/30 cyber-clip-button flex items-center justify-center mx-auto mb-3 text-primary">
+                            <ListVideo className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-semibold text-white mb-2">{t('empty')}</h3>
-                        <p className="text-gray-400 mb-8 max-w-sm mx-auto">{t('emptyDesc')}</p>
+                        <h3 className="text-base font-mono font-bold uppercase tracking-wider text-white mb-1">[ {t('empty')} ]</h3>
+                        <p className="text-primary/60 font-mono text-xs mb-6 max-w-sm mx-auto uppercase">// {t('emptyDesc')}</p>
                         <div className="flex justify-center flex-col items-center gap-4">
                             <PlaylistContent
                                 playlist={playlist}

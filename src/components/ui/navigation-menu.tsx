@@ -41,7 +41,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 const NavigationMenuItem = NavigationMenuPrimitive.Item
 
 const navigationMenuTriggerStyle = cva(
-    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+    "group inline-flex h-10 w-max items-center justify-center cyber-clip-button bg-transparent px-4 py-2 text-xs font-mono uppercase tracking-widest transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/20 focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-primary/20 data-[state=open]:bg-primary/20 border border-transparent hover:border-primary/30"
 )
 
 const NavigationMenuTrigger = React.forwardRef<
@@ -55,7 +55,7 @@ const NavigationMenuTrigger = React.forwardRef<
     >
         {children}
         <ChevronDown
-            className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
+            className="relative top-[1px] ml-1.5 h-3 w-3 text-primary transition duration-200 group-data-[state=open]:rotate-180"
             aria-hidden="true"
         />
     </NavigationMenuPrimitive.Trigger>
@@ -86,7 +86,7 @@ const NavigationViewport = React.forwardRef<
     <div className={cn("absolute left-0 top-full flex justify-center")}>
         <NavigationMenuPrimitive.Viewport
             className={cn(
-                "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border border-slate-200/50 bg-gray-200/80 backdrop-blur-md text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
+                "origin-top-center relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden cyber-clip border border-primary/40 bg-[#050714]/95 backdrop-blur-2xl text-popover-foreground shadow-[0_0_30px_rgba(0,0,0,0.9)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
                 className
             )}
             ref={ref}

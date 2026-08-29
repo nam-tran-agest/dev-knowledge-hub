@@ -37,50 +37,50 @@ export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlayli
 
     return (
         <Dialog open={!!videoId} onOpenChange={(open) => !open && onClose()}>
-            <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-[400px] p-0 overflow-hidden">
-                <DialogHeader className="p-6 pb-2">
-                    <DialogTitle className="text-xl font-bold flex items-center gap-2">
-                        <ListVideo className="w-5 h-5 text-red-500" />
-                        {t('dialogs.addToPlaylist.title')}
+            <DialogContent tag="PLAYLIST_ALLOCATOR" className="bg-[#050714] border-primary/40 text-white sm:max-w-[420px] p-0 overflow-hidden">
+                <DialogHeader className="p-5 pb-2 border-b border-primary/20">
+                    <DialogTitle className="text-base font-mono font-bold uppercase tracking-wider flex items-center gap-2">
+                        <ListVideo className="w-4 h-4 text-primary" />
+                        // {t('dialogs.addToPlaylist.title')}
                     </DialogTitle>
                 </DialogHeader>
 
                 <div className="px-1">
-                    <ScrollArea className="h-[300px] px-5 py-2">
+                    <ScrollArea className="h-[280px] px-4 py-2">
                         {playlists.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center h-full py-10 text-center gap-3">
-                                <ListVideo className="w-10 h-10 text-gray-600" />
-                                <p className="text-gray-400 text-sm">
-                                    {t('dialogs.addToPlaylist.empty')}
+                            <div className="flex flex-col items-center justify-center h-full py-10 text-center gap-2 font-mono">
+                                <ListVideo className="w-8 h-8 text-primary/40" />
+                                <p className="text-primary/60 text-xs uppercase">
+                                    // {t('dialogs.addToPlaylist.empty')}
                                 </p>
                             </div>
                         ) : (
-                            <div className="space-y-2">
+                            <div className="space-y-1.5">
                                 {playlists.map((playlist) => (
                                     <button
                                         key={playlist.id}
                                         onClick={() => handleAdd(playlist.id)}
                                         disabled={!!isSubmitting}
-                                        className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-red-600/10 border border-white/5 hover:border-red-500/30 transition-all group disabled:opacity-50"
+                                        className="w-full flex items-center justify-between p-2.5 cyber-clip-button bg-primary/[0.04] hover:bg-primary/15 border border-primary/20 hover:border-primary/60 transition-all group disabled:opacity-40 cursor-pointer font-mono"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center group-hover:bg-red-600/20">
-                                                <ListVideo className="w-5 h-5 text-gray-400 group-hover:text-red-500" />
+                                            <div className="w-8 h-8 cyber-clip-button bg-primary/10 border border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black">
+                                                <ListVideo className="w-4 h-4" />
                                             </div>
                                             <div className="text-left">
-                                                <p className="font-medium text-white group-hover:text-red-400 transition-colors">
+                                                <p className="text-xs font-bold text-slate-200 group-hover:text-white uppercase transition-colors">
                                                     {playlist.title}
                                                 </p>
-                                                <p className="text-xs text-gray-500">
-                                                    {t('gallery.videoCount', { count: playlist.video_count || 0 })}
+                                                <p className="text-[10px] text-primary/60 uppercase">
+                                                    // {t('gallery.videoCount', { count: playlist.video_count || 0 })}
                                                 </p>
                                             </div>
                                         </div>
                                         {isSubmitting === playlist.id ? (
-                                            <Loader2 className="w-4 h-4 animate-spin text-red-500" />
+                                            <Loader2 className="w-4 h-4 animate-spin text-primary" />
                                         ) : (
-                                            <div className="w-6 h-6 rounded-full border border-white/10 flex items-center justify-center group-hover:border-red-500/50">
-                                                <Check className="w-3 h-3 text-transparent group-hover:text-red-500/50" />
+                                            <div className="w-5 h-5 cyber-clip-sm border border-primary/30 flex items-center justify-center group-hover:border-primary">
+                                                <Check className="w-3 h-3 text-transparent group-hover:text-primary" />
                                             </div>
                                         )}
                                     </button>
@@ -90,13 +90,13 @@ export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlayli
                     </ScrollArea>
                 </div>
 
-                <DialogFooter className="p-4 bg-black/20 border-t border-white/5">
+                <DialogFooter className="p-3 bg-[#04060f] border-t border-primary/20">
                     <Button
                         variant="ghost"
                         onClick={onClose}
-                        className="text-gray-400 hover:text-white hover:bg-white/5 w-full"
+                        className="text-primary/70 hover:text-white hover:bg-primary/10 cyber-clip-button w-full font-mono text-xs uppercase"
                     >
-                        {t('dialogs.addToPlaylist.close')}
+                        [ {t('dialogs.addToPlaylist.close')} ]
                     </Button>
                 </DialogFooter>
             </DialogContent>

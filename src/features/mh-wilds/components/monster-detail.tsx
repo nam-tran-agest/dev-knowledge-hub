@@ -17,24 +17,24 @@ export function MonsterDetail({ monster, onClose }: MonsterDetailProps) {
         <DrawerLayout
             title={monster.name}
             icon={
-                <div className="w-9 h-9 rounded-xl shrink-0 bg-[#040711]/80 border border-white/10 flex items-center justify-center shadow-inner">
+                <div className="w-8 h-8 cyber-clip-button shrink-0 bg-[#040711] border border-primary/30 flex items-center justify-center">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={getMonsterIconUrl(monster.name)} alt={monster.name} className="w-7 h-7 object-contain drop-shadow" />
+                    <img src={getMonsterIconUrl(monster.name)} alt={monster.name} className="w-6 h-6 object-contain" />
                 </div>
             }
             subtitle={
                 <div>
-                    <p className="text-sm text-slate-400 font-medium">
-                        {SPECIES_LABELS[monster.species] || monster.species}
+                    <p className="text-xs text-primary/70 font-mono uppercase">
+                        // {SPECIES_LABELS[monster.species] || monster.species}
                     </p>
-                    <div className="flex gap-4 mt-2 text-xs font-mono text-slate-400">
+                    <div className="flex gap-4 mt-1 text-xs font-mono text-primary/60">
                         <span className="flex items-center gap-1.5">
-                            <Heart className="w-3.5 h-3.5 text-rose-400" />
+                            <Heart className="w-3.5 h-3.5 text-destructive" />
                             HP: {monster.baseHealth?.toLocaleString()}
                         </span>
                         {monster.locations?.length > 0 && (
                             <span className="flex items-center gap-1.5">
-                                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                                <MapPin className="w-3.5 h-3.5 text-primary" />
                                 {monster.locations.map(l => l.name).join(', ')}
                             </span>
                         )}
@@ -45,14 +45,14 @@ export function MonsterDetail({ monster, onClose }: MonsterDetailProps) {
         >
             {/* Description */}
             <div>
-                <p className="text-sm text-slate-300 leading-relaxed">{monster.description}</p>
+                <p className="text-xs text-primary/80 leading-relaxed font-mono">// {monster.description}</p>
             </div>
 
             {/* Tips */}
             {monster.tips && (
-                <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-4">
-                    <p className="text-[10px] text-emerald-400 uppercase font-mono tracking-widest font-bold mb-2">Hunter Tips</p>
-                    <p className="text-sm text-slate-300 leading-relaxed">{monster.tips}</p>
+                <div className="bg-primary/5 border border-primary/30 cyber-clip p-3.5">
+                    <p className="text-[10px] text-primary uppercase font-mono tracking-widest font-bold mb-1.5">// TACTICAL_INTEL</p>
+                    <p className="text-xs text-slate-200 leading-relaxed font-mono">{monster.tips}</p>
                 </div>
             )}
 
@@ -62,13 +62,13 @@ export function MonsterDetail({ monster, onClose }: MonsterDetailProps) {
 
             {/* Variants */}
             {monster.variants?.length > 0 && (
-                <div className="space-y-3">
-                    <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">Variants</h4>
+                <div className="space-y-2.5 font-mono">
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider">// MONSTER_VARIANTS</h4>
                     <div className="flex gap-2 flex-wrap">
                         {monster.variants.map((v) => (
                             <Badge
                                 key={v.id}
-                                className="bg-amber-500/15 text-amber-400 border border-amber-500/30 text-xs capitalize font-mono"
+                                className="bg-primary/10 text-primary border border-primary/30 text-[10px] uppercase font-mono cyber-clip-tag"
                             >
                                 {v.name}
                             </Badge>

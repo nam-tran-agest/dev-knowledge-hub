@@ -18,10 +18,10 @@ export default function CarouselDot({
             type="button"
             onClick={onClick}
             className={cn(
-                "size-2.5 rounded-full transition-all duration-300",
+                "h-1.5 transition-all duration-300 cyber-clip-sm cursor-pointer",
                 isActive
-                    ? cn("bg-primary scale-125", activeClassName)
-                    : cn("bg-white/30 hover:bg-white/50", inactiveClassName)
+                    ? cn("w-6 bg-primary shadow-[0_0_10px_var(--color-primary)]", activeClassName)
+                    : cn("w-2.5 bg-primary/20 hover:bg-primary/50", inactiveClassName)
             )}
             aria-label={isActive ? "Current slide" : "Go to slide"}
         />

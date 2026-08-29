@@ -35,35 +35,40 @@ export function MusicCard({ item, type }: MusicCardProps) {
             : item.genres?.slice(0, 2).join(', ');
 
     return (
-        <div className="group relative bg-white/5 hover:bg-white/10 border border-white/5 rounded-[32px] p-5 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-500/10 active:scale-[0.98] cursor-pointer">
-            <div className="relative aspect-square overflow-hidden rounded-[24px] mb-4 shadow-lg shadow-black/20">
+        <div className="group relative bg-[#050714]/80 hover:bg-primary/10 border border-primary/25 hover:border-primary cyber-clip p-4 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.2)] hover:-translate-y-1 cursor-pointer">
+            {/* Top Corner Bracket */}
+            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[8px] uppercase tracking-widest text-primary/70 font-mono z-20">
+                // TRACK_{item.id.slice(0, 4)}
+            </div>
+
+            <div className="relative aspect-square overflow-hidden cyber-clip mb-3 shadow-lg bg-black">
                 {imageUrl ? (
                     <Image
                         src={imageUrl}
                         alt={title}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-85"
                     />
                 ) : (
-                    <div className="w-full h-full bg-slate-800 flex items-center justify-center">
-                        <span className="text-4xl">🎵</span>
+                    <div className="w-full h-full bg-[#04060f] flex items-center justify-center font-mono text-xs text-primary/40">
+                        // NO_AUDIO_ART
                     </div>
                 )}
 
                 {/* Play Overlay */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="bg-emerald-500 text-black p-4 rounded-full translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl shadow-emerald-500/30">
-                        <Play className="h-6 w-6 fill-current" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+                    <div className="bg-primary/20 text-primary border border-primary p-3 cyber-clip-button shadow-[0_0_20px_var(--color-primary)]">
+                        <Play className="h-5 w-5 fill-primary" />
                     </div>
                 </div>
             </div>
 
-            <div className="space-y-1 px-1">
-                <h3 className="font-bold text-white text-lg line-clamp-1 group-hover:text-emerald-400 transition-colors">
+            <div className="space-y-0.5 font-mono">
+                <h3 className="font-bold text-white text-xs sm:text-sm line-clamp-1 group-hover:text-primary transition-colors uppercase">
                     {title}
                 </h3>
-                <p className="text-slate-500 text-sm font-medium line-clamp-1">
-                    {subtitle}
+                <p className="text-primary/60 text-[10px] sm:text-xs truncate uppercase">
+                    // {subtitle}
                 </p>
             </div>
 

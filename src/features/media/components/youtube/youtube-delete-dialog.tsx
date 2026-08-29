@@ -33,19 +33,21 @@ export function YouTubeDeleteDialog({
 }: YouTubeDeleteDialogProps) {
     return (
         <AlertDialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-            <AlertDialogContent className="bg-card border-white/10 text-white rounded-3xl backdrop-blur-2xl glare-top">
+            <AlertDialogContent tag="DELETE_VERIFICATION">
                 <AlertDialogHeader>
-                    <AlertDialogTitle className="text-xl font-bold text-white tracking-tight">{title}</AlertDialogTitle>
-                    <AlertDialogDescription className="text-slate-400 text-sm">
-                        {description}
+                    <AlertDialogTitle className="text-base font-mono font-bold uppercase tracking-wider text-destructive">
+                        // {title}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-primary/70 font-mono text-xs">
+                        // {description}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="gap-2">
-                    <AlertDialogCancel className="bg-white/[0.04] border-white/10 text-white hover:bg-white/[0.08] hover:text-white rounded-xl cursor-pointer">
-                        {cancelLabel}
+                    <AlertDialogCancel onClick={onClose} className="font-mono text-xs uppercase">
+                        [ {cancelLabel} ]
                     </AlertDialogCancel>
-                    <AlertDialogAction onClick={onConfirm} className="bg-rose-600 text-white hover:bg-rose-500 rounded-xl cursor-pointer shadow-[0_0_15px_rgba(244,63,94,0.4)]">
-                        {deleteLabel}
+                    <AlertDialogAction onClick={onConfirm} className="bg-destructive hover:bg-destructive/90 text-white font-mono text-xs font-bold uppercase shadow-[0_0_15px_rgba(255,0,60,0.4)]">
+                        [ {deleteLabel} ]
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

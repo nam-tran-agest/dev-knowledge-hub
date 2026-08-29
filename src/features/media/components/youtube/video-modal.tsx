@@ -8,7 +8,7 @@ import {
     DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Save, ExternalLink, PictureInPicture2, X } from 'lucide-react';
+import { Save, ExternalLink, PictureInPicture2, X, Terminal } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePipDraggable } from '@/hooks/use-pip-draggable';
@@ -32,7 +32,6 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
 
     const { style: pipStyle, handleDragStart, position } = usePipDraggable(isPip);
 
-    // Update lastTimeRef when video changes
     useEffect(() => {
         if (video) {
             lastTimeRef.current = video.saved_time || 0;
@@ -57,41 +56,43 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
     if (!video) return null;
 
     const pipClasses = isPip
-        ? `fixed w-[90vw] sm:w-[400px] shadow-2xl z-50 rounded-lg overflow-hidden border-gray-700 bg-black p-0 transition-all duration-300 pointer-events-auto group ${position
+        ? `fixed w-[90vw] sm:w-[420px] shadow-[0_0_30px_rgba(0,240,255,0.3)] z-50 cyber-clip overflow-hidden border border-primary/50 bg-[#04060f] p-0 transition-all duration-300 pointer-events-auto group ${position
             ? '!translate-x-0 !translate-y-0'
             : 'bottom-6 right-6 !translate-x-0 !translate-y-0 !top-auto !left-auto'
         }`
-        : "w-[100vw] sm:max-w-4xl glass-panel p-0 overflow-hidden flex flex-col transition-all duration-300 group";
+        : "w-[100vw] sm:max-w-4xl p-0 overflow-hidden flex flex-col transition-all duration-300 group cyber-clip-lg border border-primary/40 bg-[#050714]";
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()} modal={!isPip}>
             <DialogContent
                 className={pipClasses}
                 style={pipStyle}
-                overlayClassName="bg-black/60 backdrop-blur-sm"
+                overlayClassName="bg-[#04060f]/80 backdrop-blur-md"
                 onInteractOutside={(e) => {
                     if (isPip) e.preventDefault();
                 }}
+                tag="STREAM_RENDERER"
                 hideCloseButton
             >
                 <DialogHeader
                     onMouseDown={handleDragStart}
-                    className={`p-3 sm:p-4 bg-white/5 backdrop-blur-md flex flex-row items-center justify-between transition-opacity duration-300 ${isPip ? 'cursor-move absolute top-0 w-full z-10 opacity-0 group-hover:opacity-100' : 'relative opacity-100 border-b border-white/10'}`}
+                    className={`p-3 sm:p-4 bg-[#050714]/90 backdrop-blur-md flex flex-row items-center justify-between transition-opacity duration-300 ${isPip ? 'cursor-move absolute top-0 w-full z-10 opacity-0 group-hover:opacity-100' : 'relative opacity-100 border-b border-primary/20'}`}
                 >
                     <div className='flex-1 pr-4 min-w-0'>
-                        <DialogTitle className="text-white truncate flex items-center gap-2">
+                        <DialogTitle className="text-white truncate flex items-center gap-2 font-mono text-sm uppercase">
                             <a
                                 href={video.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-red-400 hover:underline flex items-center gap-2 transition-colors truncate"
+                                className="hover:text-primary flex items-center gap-1.5 transition-colors truncate"
                             >
+                                <Terminal className="w-3.5 h-3.5 text-primary shrink-0" />
                                 {video.title || t('defaultTitle')}
-                                <ExternalLink className="w-4 h-4 shrink-0 opacity-50" />
+                                <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-50" />
                             </a>
                         </DialogTitle>
-                        <DialogDescription className="text-gray-400 text-xs mt-1">
-                            {t('startedAt', { time: formatTime(video.saved_time) })}
+                        <DialogDescription className="text-primary/60 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
+                            // {t('startedAt', { time: formatTime(video.saved_time) })}
                         </DialogDescription>
                     </div>
 
@@ -100,10 +101,10 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                             variant="ghost"
                             size="icon"
                             onClick={() => setIsPip(!isPip)}
-                            className="bg-black/50 hover:bg-black/80 text-white shrink-0 cursor-pointer rounded-full w-9 h-9"
+                            className="bg-black/60 hover:bg-primary/20 text-primary shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-primary/30"
                             title={isPip ? t('maximize') : t('miniPlayer')}
                         >
-                            <PictureInPicture2 className="w-4 h-4" />
+                            <PictureInPicture2 className="w-3.5 h-3.5" />
                         </Button>
 
                         {isPip && (
@@ -111,21 +112,21 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                                 variant="ghost"
                                 size="icon"
                                 onClick={onClose}
-                                className="bg-black/50 hover:bg-red-600 hover:text-white text-white shrink-0 cursor-pointer rounded-full w-9 h-9 mr-2"
+                                className="bg-black/60 hover:bg-destructive text-white shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-destructive/40"
                                 title={t('close')}
                             >
-                                <X className="w-4 h-4" />
+                                <X className="w-3.5 h-3.5" />
                             </Button>
                         )}
 
                         <Button
                             onClick={handleSaveProgress}
                             size="sm"
-                            className="bg-red-600 hover:bg-red-700 text-white gap-2 cursor-pointer h-9 px-4"
+                            className="bg-primary text-black font-mono font-bold uppercase tracking-wider gap-1.5 cursor-pointer h-8 px-3 cyber-clip-button shadow-[0_0_15px_var(--color-primary)] hover:bg-primary/90 text-xs"
                             disabled={isSaving}
                         >
-                            <Save className="w-4 h-4" />
-                            {isSaving ? t('saving') : t('saveAndClose')}
+                            <Save className="w-3.5 h-3.5" />
+                            {isSaving ? '[ SAVING... ]' : '[ SAVE & EXIT ]'}
                         </Button>
                     </div>
                 </DialogHeader>

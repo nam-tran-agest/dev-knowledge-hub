@@ -7,29 +7,29 @@ export function SkillDetail({ skill, onClose }: { skill: Skill; onClose: () => v
     return (
         <DrawerLayout
             title={skill.name}
-            icon={<Star className="w-6 h-6 text-yellow-400" />}
+            icon={<Star className="w-5 h-5 text-primary" />}
             subtitle={
-                <span className={`text-[10px] rounded px-1.5 py-0.5 font-bold border capitalize ${SKILL_KIND_COLORS[skill.kind] || 'bg-white/5 text-slate-400 border-white/5'}`}>
+                <span className={`text-[9px] cyber-clip-tag px-1.5 py-0.5 font-bold border uppercase font-mono ${SKILL_KIND_COLORS[skill.kind] || 'bg-primary/10 text-primary border-primary/30'}`}>
                     {skill.kind.replace('-', ' ')}
                 </span>
             }
             onClose={onClose}
         >
-            <p className={`text-slate-300 leading-relaxed text-sm ${DETAIL_PANEL_CLS}`}>{skill.description}</p>
+            <p className={`text-primary/80 leading-relaxed text-xs font-mono ${DETAIL_PANEL_CLS}`}>// {skill.description}</p>
 
-            <Section title={`Skill Levels (Max ${skill.ranks.length})`}>
-                <div className="relative pl-3 space-y-4 before:absolute before:inset-y-2 before:left-[17px] before:w-[2px] before:bg-white/5">
+            <Section title={`SKILL PROGRESSION (MAX LV${skill.ranks.length})`}>
+                <div className="relative pl-3 space-y-3 before:absolute before:inset-y-2 before:left-[17px] before:w-[2px] before:bg-primary/20 font-mono">
                     {skill.ranks.map((r, i) => (
-                        <div key={r.id} className="relative flex items-start gap-4">
-                            <div className="relative z-10 w-[10px] h-[10px] rounded-full bg-emerald-500 border-[3px] border-[#0a0a0c] mt-1.5 shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-                            <div className="flex-1 min-w-0 bg-[#1c1816]/60 border border-[#c8a97e]/15 rounded-lg p-3 hover:bg-[#c8a97e]/10 transition-colors">
+                        <div key={r.id} className="relative flex items-start gap-3.5">
+                            <div className="relative z-10 w-2.5 h-2.5 cyber-clip-sm bg-primary mt-2 shrink-0 shadow-[0_0_8px_var(--color-primary)]" />
+                            <div className="flex-1 min-w-0 bg-[#04060f]/80 border border-primary/20 cyber-clip-button p-2.5 hover:border-primary/50 transition-colors">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Level {r.level}</span>
+                                    <span className="text-[10px] font-bold text-primary bg-primary/10 border border-primary/30 px-1.5 py-0.2 cyber-clip-tag">LEVEL {r.level}</span>
                                     {i === skill.ranks.length - 1 && (
-                                        <span className="text-[9px] uppercase tracking-wider font-bold text-amber-500 border border-amber-500/30 bg-amber-500/10 px-1.5 rounded">Max</span>
+                                        <span className="text-[9px] uppercase tracking-wider font-bold text-black bg-primary px-1.5 py-0.2 cyber-clip-tag">MAX</span>
                                     )}
                                 </div>
-                                <p className="text-sm text-slate-300 leading-relaxed">{r.description}</p>
+                                <p className="text-xs text-slate-200 leading-relaxed">{r.description}</p>
                             </div>
                         </div>
                     ))}

@@ -13,9 +13,8 @@ export function NewsGrid({ items }: { items: NewsItem[] }) {
 
     const sortedItems = useMemo(() => {
         if (activeTab === 'recent') {
-            return items; // Already sorted by date
+            return items;
         }
-        // Popular: Engagement score based on content density
         return [...items].sort((a, b) => {
             const scoreA = (a.title.length * 1.5) + (a.excerpt?.length || 0);
             const scoreB = (b.title.length * 1.5) + (b.excerpt?.length || 0);
@@ -25,37 +24,40 @@ export function NewsGrid({ items }: { items: NewsItem[] }) {
 
     return (
         <section className="space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <h2 className="text-2xl font-bold flex items-center gap-3 text-white">
-                    <Newspaper className="w-6 h-6 text-emerald-400" /> {t('latestNews')}
-                </h2>
-                <div className="flex items-center gap-1 bg-white/5 p-1 rounded-2xl border border-white/5 w-fit">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-primary/20 pb-4">
+                <div className="flex items-center gap-2.5">
+                    <Newspaper className="w-5 h-5 text-primary" />
+                    <h2 className="text-base sm:text-lg font-mono font-bold uppercase tracking-wider text-white">
+                        // {t('latestNews')}
+                    </h2>
+                </div>
+                <div className="flex items-center gap-1.5 bg-[#050714] p-1 cyber-clip-button border border-primary/30 w-fit">
                     <button
                         onClick={() => setActiveTab('recent')}
                         className={cn(
-                            "px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300",
+                            "px-4 py-1.5 cyber-clip-button text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer",
                             activeTab === 'recent'
-                                ? "bg-emerald-500 text-white shadow-xl shadow-emerald-500/20"
-                                : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                                ? "bg-primary text-black shadow-[0_0_10px_var(--color-primary)]"
+                                : "text-primary/60 hover:text-white"
                         )}
                     >
-                        {t('recent')}
+                        [ 01-{t('recent')} ]
                     </button>
                     <button
                         onClick={() => setActiveTab('popular')}
                         className={cn(
-                            "px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300",
+                            "px-4 py-1.5 cyber-clip-button text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer",
                             activeTab === 'popular'
-                                ? "bg-emerald-500 text-white shadow-xl shadow-emerald-500/20"
-                                : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                                ? "bg-primary text-black shadow-[0_0_10px_var(--color-primary)]"
+                                : "text-primary/60 hover:text-white"
                         )}
                     >
-                        {t('popular')}
+                        [ 02-{t('popular')} ]
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sortedItems.map((item, idx) => (
                     <NewsCard key={item.link || idx} item={item} />
                 ))}

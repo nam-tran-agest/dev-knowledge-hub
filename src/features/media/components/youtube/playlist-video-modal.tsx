@@ -8,7 +8,7 @@ import {
     DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Save, ExternalLink, ListVideo, Play } from 'lucide-react';
+import { Save, ExternalLink, ListVideo, Play, Terminal } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateVideoProgress } from '@/features/media/services/youtube';
@@ -30,7 +30,6 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
     const [isSaving, setIsSaving] = useState(false);
     const router = useRouter();
 
-    // Update lastTimeRef when video changes
     useEffect(() => {
         if (video) {
             lastTimeRef.current = video.saved_time || 0;
@@ -54,32 +53,32 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
 
     if (!video) return null;
 
-    const modalClasses = `w-[100vw] sm:max-w-6xl glass-panel p-0 overflow-hidden flex flex-col transition-all duration-300 group`;
-
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
             <DialogContent
-                className={modalClasses}
-                overlayClassName="bg-black/60 backdrop-blur-sm"
+                className="w-[100vw] sm:max-w-6xl p-0 overflow-hidden flex flex-col transition-all duration-300 group cyber-clip-lg border border-primary/40 bg-[#050714]"
+                overlayClassName="bg-[#04060f]/85 backdrop-blur-md"
+                tag="PLAYLIST_STREAM_DECK"
                 hideCloseButton
             >
                 <DialogHeader
-                    className="p-3 sm:p-4 bg-white/5 backdrop-blur-md flex flex-row items-center justify-between relative opacity-100 border-b border-white/10"
+                    className="p-3 sm:p-4 bg-[#050714]/90 backdrop-blur-md flex flex-row items-center justify-between relative opacity-100 border-b border-primary/20"
                 >
                     <div className='flex-1 pr-4 min-w-0'>
-                        <DialogTitle className="text-white truncate flex items-center gap-2">
+                        <DialogTitle className="text-white truncate flex items-center gap-2 font-mono text-sm uppercase">
                             <a
                                 href={video.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-red-400 hover:underline flex items-center gap-2 transition-colors truncate"
+                                className="hover:text-primary flex items-center gap-1.5 transition-colors truncate"
                             >
+                                <Terminal className="w-3.5 h-3.5 text-primary shrink-0" />
                                 {video.title || 'YouTube Video'}
-                                <ExternalLink className="w-4 h-4 shrink-0 opacity-50" />
+                                <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-50" />
                             </a>
                         </DialogTitle>
-                        <DialogDescription className="text-gray-400 text-xs mt-1">
-                            Started at: {formatTime(video.saved_time)}
+                        <DialogDescription className="text-primary/60 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
+                            // Started at: {formatTime(video.saved_time)}
                         </DialogDescription>
                     </div>
 
@@ -87,11 +86,11 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                         <Button
                             onClick={handleSaveProgress}
                             size="sm"
-                            className="bg-red-600 hover:bg-red-700 text-white gap-2 cursor-pointer h-9 px-4"
+                            className="bg-primary text-black font-mono font-bold uppercase tracking-wider gap-1.5 cursor-pointer h-8 px-3.5 cyber-clip-button shadow-[0_0_15px_var(--color-primary)] hover:bg-primary/90 text-xs"
                             disabled={isSaving}
                         >
-                            <Save className="w-4 h-4" />
-                            {isSaving ? 'Saving...' : 'Save & Close'}
+                            <Save className="w-3.5 h-3.5" />
+                            {isSaving ? '[ SAVING... ]' : '[ SAVE & EXIT ]'}
                         </Button>
                     </div>
                 </DialogHeader>
@@ -114,38 +113,40 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                     </div>
 
                     {/* Sidebar Playlist Area */}
-                    <div className="md:col-span-1 border-l border-white/10 bg-slate-900/50 flex flex-col overflow-hidden">
-                        <div className="p-4 border-b border-white/5 flex items-center gap-2 bg-black/20 shrink-0">
-                            <ListVideo className="w-4 h-4 text-red-500" />
-                            <span className="font-semibold text-white">Up Next</span>
-                            <span className="ml-auto text-xs text-gray-500">{playlistVideos.length} videos</span>
+                    <div className="md:col-span-1 border-l border-primary/20 bg-[#04060f]/90 flex flex-col overflow-hidden">
+                        <div className="p-3 border-b border-primary/20 flex items-center gap-2 bg-[#050714] shrink-0 font-mono text-xs">
+                            <ListVideo className="w-3.5 h-3.5 text-primary" />
+                            <span className="font-bold text-white uppercase tracking-wider">// QUEUE</span>
+                            <span className="ml-auto text-[10px] text-primary/60">[ {playlistVideos.length} STREAMS ]</span>
                         </div>
                         <ScrollArea className="flex-1 p-2 h-[300px] md:max-h-[380px]">
-                            <div className="space-y-2">
+                            <div className="space-y-1.5">
                                 {playlistVideos.map((v) => (
                                     <button
                                         key={v.id}
                                         onClick={() => onSelectVideo(v)}
-                                        className={`w-full flex gap-3 p-2 rounded-lg transition-all text-left group ${v.id === video.id ? 'bg-red-600/20 border border-red-500/30' : 'hover:bg-white/5 border border-transparent'}`}
+                                        className={`w-full flex gap-2.5 p-2 cyber-clip-button transition-all text-left group cursor-pointer ${
+                                            v.id === video.id ? 'bg-primary/20 border border-primary/60 shadow-[0_0_15px_rgba(0,240,255,0.2)]' : 'hover:bg-primary/5 border border-transparent hover:border-primary/20'
+                                        }`}
                                     >
-                                        <div className="relative w-24 aspect-video rounded-md overflow-hidden bg-black shrink-0">
+                                        <div className="relative w-20 aspect-video cyber-clip-sm overflow-hidden bg-black shrink-0">
                                             {v.thumbnail_url ? (
-                                                <Image src={v.thumbnail_url} alt={v.title || "video"} fill className="object-cover" />
+                                                <Image src={v.thumbnail_url} alt={v.title || "video"} fill className="object-cover opacity-80" />
                                             ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-500">No Image</div>
+                                                <div className="w-full h-full flex items-center justify-center text-[8px] text-primary/40 font-mono">NO FEED</div>
                                             )}
                                             {v.id === video.id && (
-                                                <div className="absolute inset-0 bg-red-600/40 flex items-center justify-center">
-                                                    <Play className="w-4 h-4 text-white fill-white" />
+                                                <div className="absolute inset-0 bg-primary/40 flex items-center justify-center">
+                                                    <Play className="w-3.5 h-3.5 text-black fill-black" />
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex-1 min-w-0 py-1">
-                                            <p className={`text-sm font-medium line-clamp-2 transition-colors ${v.id === video.id ? 'text-red-400' : 'text-gray-200 group-hover:text-white'}`}>
+                                        <div className="flex-1 min-w-0 py-0.5 font-mono">
+                                            <p className={`text-xs font-bold line-clamp-2 transition-colors uppercase ${v.id === video.id ? 'text-primary' : 'text-slate-300 group-hover:text-white'}`}>
                                                 {v.title}
                                             </p>
                                             {v.saved_time > 0 && (
-                                                <p className="text-[10px] text-gray-500 mt-1">Resume at {formatTime(v.saved_time)}</p>
+                                                <p className="text-[9px] text-primary/50 mt-1 uppercase">// {formatTime(v.saved_time)}</p>
                                             )}
                                         </div>
                                     </button>

@@ -1,48 +1,48 @@
 /**
- * Unified Modern Design System Constants
- * Style: Titanium Neo-Dark / Clean Glassmorphism / Electric Accents
+ * Unified Cyberpunk FUI Design System Constants
+ * Style: Chamfered Polygons / Corner Brackets / Monospace Telemetry / Neon Cyan (#00f0ff) & Neon Magenta (#ff007f)
  */
 
 export const TYPOGRAPHY = {
     // Fonts
-    fontSans: 'font-sans',
+    fontSans: 'font-mono',
     fontMono: 'font-mono',
 
     // Titles
-    heroTitle: 'font-sans text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400',
-    sectionTitle: 'font-sans text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight',
-    cardTitle: 'font-sans text-xl sm:text-2xl font-bold text-white tracking-tight',
+    heroTitle: 'font-mono text-4xl sm:text-5xl md:text-7xl font-extrabold uppercase tracking-wider leading-[1.1] text-white drop-shadow-[0_0_20px_rgba(0,240,255,0.4)]',
+    sectionTitle: 'font-mono text-2xl sm:text-4xl font-bold uppercase tracking-wider text-white leading-tight',
+    cardTitle: 'font-mono text-lg sm:text-xl font-bold uppercase tracking-wider text-white',
 
     // Body & Labels
-    bodyMain: 'font-sans text-base sm:text-lg text-slate-300 leading-relaxed font-normal',
-    bodySub: 'font-sans text-sm sm:text-base text-slate-400 leading-relaxed',
-    label: 'font-sans text-xs font-semibold uppercase tracking-wider text-slate-400',
+    bodyMain: 'font-mono text-xs sm:text-sm text-slate-300 leading-relaxed font-normal uppercase',
+    bodySub: 'font-mono text-[11px] sm:text-xs text-primary/60 leading-relaxed uppercase',
+    label: 'font-mono text-[10px] font-bold uppercase tracking-widest text-primary/70',
 
     // Special Utilities
-    textGradient: 'text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400',
-    textGradientCyan: 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400',
-    textGradientAmber: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-400 to-amber-500',
+    textGradient: 'text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-300 to-secondary-foreground',
+    textGradientCyan: 'text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400',
+    textGradientPink: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-400 to-amber-400',
 } as const;
 
 export const COLORS = {
-    background: 'bg-[#07090e]',
-    surface: 'bg-[#0e131f]/70',
-    surfaceHover: 'bg-[#151c2d]/80',
+    background: 'bg-[#04060f]',
+    surface: 'bg-[#050714]/80',
+    surfaceHover: 'bg-[#060a1e]/90',
     foreground: 'text-white',
-    primary: 'text-indigo-400',
-    primaryBg: 'bg-indigo-600',
-    secondary: 'text-slate-400',
-    muted: 'text-slate-500',
-    accent: 'text-cyan-400',
-    border: 'border-white/10',
-    borderGlow: 'border-indigo-500/30',
+    primary: 'text-primary',
+    primaryBg: 'bg-primary',
+    secondary: 'text-primary/70',
+    muted: 'text-primary/50',
+    accent: 'text-primary',
+    border: 'border-primary/30',
+    borderGlow: 'border-primary shadow-[0_0_15px_rgba(0,240,255,0.3)]',
 } as const;
 
 export const EFFECTS = {
-    glass: 'bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-2xl hover:border-white/20 transition-all duration-300',
-    glassCard: 'bg-gradient-to-b from-white/[0.05] to-white/[0.01] backdrop-blur-2xl border border-white/10 hover:border-indigo-500/30 hover:shadow-[0_0_30px_rgba(99,102,241,0.12)] transition-all duration-300',
-    glow: 'shadow-[0_0_20px_rgba(99,102,241,0.25)]',
-    subtleGlow: 'shadow-[0_0_15px_rgba(255,255,255,0.05)]',
+    glass: 'bg-[#050714]/80 backdrop-blur-xl border border-primary/30 cyber-clip shadow-2xl hover:border-primary transition-all duration-300',
+    glassCard: 'bg-[#050714]/80 backdrop-blur-2xl border border-primary/30 cyber-clip hover:border-primary hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] transition-all duration-300',
+    glow: 'shadow-[0_0_20px_rgba(0,240,255,0.35)]',
+    subtleGlow: 'shadow-[0_0_15px_rgba(0,240,255,0.15)]',
 } as const;
 
 export const LAYOUT = {
@@ -53,15 +53,15 @@ export const LAYOUT = {
 } as const;
 
 export const RADIUS = {
-    sm: 'rounded-lg',
-    md: 'rounded-xl',
-    lg: 'rounded-2xl',
-    xl: 'rounded-3xl',
-    full: 'rounded-full',
+    sm: 'cyber-clip-sm',
+    md: 'cyber-clip-button',
+    lg: 'cyber-clip',
+    xl: 'cyber-clip-lg',
+    full: 'cyber-clip-button',
 } as const;
 
 export const ANIMATIONS = {
     transition: 'transition-all duration-300 ease-out',
-    fadeIn: 'animate-in fade-in duration-500',
-    slideUp: 'animate-in fade-in slide-in-from-bottom-4 duration-500',
+    fadeIn: 'animate-in fade-in duration-300',
+    slideUp: 'animate-in fade-in slide-in-from-bottom-4 duration-300',
 } as const;

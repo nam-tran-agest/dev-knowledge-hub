@@ -1,7 +1,7 @@
 import { getPlaylist, getPlaylistTracks } from '@/features/media/services/spotify';
 import { MusicSidebar } from '@/features/media/components/music/music-sidebar';
 import { Link } from '@/i18n/routing';
-import { ChevronLeft, Music2, Clock } from 'lucide-react';
+import { ChevronLeft, Music2, Clock, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { getTranslations } from 'next-intl/server';
@@ -19,9 +19,9 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
 
     if (!playlist) {
         return (
-            <div className="min-h-screen pt-32 bg-background text-center">
-                <h1 className="text-2xl text-white">Playlist not found</h1>
-                <Link href="/media/music" className="text-emerald-500 hover:underline">Back to Music</Link>
+            <div className="min-h-screen pt-32 bg-background text-center font-mono space-y-4">
+                <h1 className="text-xl text-white uppercase">// PLAYLIST_FEED_NOT_FOUND</h1>
+                <Link href="/media/music" className="text-primary hover:underline text-xs">[ ← BACK_TO_AUDIO_HUB ]</Link>
             </div>
         );
     }
@@ -33,93 +33,92 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
                 <main className="flex-1 overflow-hidden flex flex-col">
                     <div className="flex-1 overflow-y-auto custom-scrollbar">
                         {/* Header Hero */}
-                        <div className="relative h-[300px] md:h-[400px] bg-gradient-to-b from-emerald-500/15 via-emerald-500/5 to-transparent p-8 md:p-12 flex flex-col md:flex-row items-end gap-8">
-                            <Link href="/media/music?category=playlists" className="absolute top-8 left-8 flex items-center gap-2 text-slate-400 hover:text-white transition-colors group/back z-20">
-                                <ChevronLeft className="w-5 h-5 group-hover/back:-translate-x-1 transition-transform" />
-                                <span className="font-medium">{t('playlist.back')}</span>
+                        <div className="relative bg-[#050714] border-b border-primary/20 p-6 md:p-10 flex flex-col md:flex-row items-end gap-6 overflow-hidden">
+                            <div className="absolute inset-0 bg-grid-cyber opacity-15 pointer-events-none" />
+
+                            <Link href="/media/music?category=playlists" className="absolute top-6 left-6 flex items-center gap-1.5 text-primary/70 hover:text-primary transition-colors font-mono text-xs uppercase z-20">
+                                <ChevronLeft className="w-4 h-4" />
+                                <span>[ {t('playlist.back')} ]</span>
                             </Link>
 
-                            <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl flex-shrink-0 border border-white/10">
+                            <div className="relative w-40 h-40 md:w-48 md:h-48 cyber-clip overflow-hidden shadow-2xl shrink-0 border border-primary/40 bg-black mt-8 md:mt-0">
                                 {playlist.images?.[0]?.url ? (
-                                    <Image src={playlist.images[0].url} alt={playlist.name} fill className="object-cover" />
+                                    <Image src={playlist.images[0].url} alt={playlist.name} fill className="object-cover opacity-85" />
                                 ) : (
-                                    <div className="w-full h-full bg-slate-800 flex items-center justify-center">
-                                        <Music2 className="w-20 h-20 text-emerald-500" />
+                                    <div className="w-full h-full bg-[#050714] flex items-center justify-center">
+                                        <Music2 className="w-16 h-16 text-primary" />
                                     </div>
                                 )}
                             </div>
-                            <div className="space-y-4 pb-2">
-                                <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 uppercase tracking-wider text-xs font-semibold">Playlist</Badge>
-                                <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-none">
+                            <div className="space-y-3 pb-1 font-mono">
+                                <Badge className="bg-primary/20 text-primary border border-primary/40 px-2.5 py-0.5 uppercase tracking-widest text-[10px] font-bold">
+                                    // SPOTIFY_PLAYLIST
+                                </Badge>
+                                <h1 className="text-2xl md:text-4xl font-extrabold text-white uppercase tracking-wider">
                                     {playlist.name}
                                 </h1>
-                                <div className="flex flex-wrap items-center gap-4 text-slate-300 text-sm">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-black font-bold">
-                                            {playlist.owner?.display_name?.[0]}
-                                        </div>
-                                        <span className="font-semibold">{playlist.owner?.display_name}</span>
-                                    </div>
-                                    <span className="text-slate-600">•</span>
+                                <div className="flex flex-wrap items-center gap-3 text-primary/70 text-xs">
+                                    <span className="font-semibold text-white">// {playlist.owner?.display_name}</span>
+                                    <span>•</span>
                                     <span>{playlist.tracks?.total} {t('playlist.songs')}</span>
-                                    <span className="text-slate-600">•</span>
+                                    <span>•</span>
                                     <a
                                         href={playlist.external_urls?.spotify}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
+                                        className="text-primary hover:text-white font-bold transition-colors flex items-center gap-1"
                                     >
-                                        {t('playlist.openSpotify')}
+                                        [ {t('playlist.openSpotify')} <ExternalLink className="w-3 h-3" /> ]
                                     </a>
                                 </div>
                                 {playlist.description && (
-                                    <p className="text-slate-400 max-w-2xl line-clamp-2 text-sm" dangerouslySetInnerHTML={{ __html: playlist.description }} />
+                                    <p className="text-primary/60 max-w-2xl line-clamp-2 text-xs" dangerouslySetInnerHTML={{ __html: playlist.description }} />
                                 )}
                             </div>
                         </div>
 
                         {/* Tracks List */}
-                        <div className="p-8 md:p-12 max-w-7xl mx-auto -mt-4 transition-all">
-                            <div className="bg-card border border-white/10 rounded-3xl overflow-hidden backdrop-blur-2xl shadow-2xl glare-top">
-                                <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-4 border-b border-white/10 text-slate-400 text-xs font-mono font-semibold uppercase tracking-wider px-8">
+                        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-4">
+                            <div className="bg-[#050714]/80 border border-primary/30 cyber-clip overflow-hidden shadow-2xl backdrop-blur-2xl">
+                                <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-3.5 border-b border-primary/20 text-primary/60 text-xs font-mono font-bold uppercase tracking-wider px-6">
                                     <div className="w-8 text-center">#</div>
-                                    <div>Title</div>
-                                    <div className="hidden md:block">Album</div>
-                                    <div className="w-12 text-right"><Clock className="w-4 h-4 ml-auto" /></div>
+                                    <div>TITLE</div>
+                                    <div className="hidden md:block">ALBUM</div>
+                                    <div className="w-12 text-right"><Clock className="w-3.5 h-3.5 ml-auto text-primary" /></div>
                                 </div>
 
-                                <div className="divide-y divide-white/5">
+                                <div className="divide-y divide-primary/10">
                                     {tracks.map((item: { track?: { id: string; name: string; duration_ms: number; album?: { name?: string; images?: { url: string }[] }; artists?: { name: string }[] } }, index: number) => {
                                         const track = item.track;
                                         if (!track) return null;
                                         const duration = formatDuration(track.duration_ms);
 
                                         return (
-                                            <div key={track.id + index} className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-4 hover:bg-white/[0.04] transition-colors group px-8 items-center cursor-default">
-                                                <div className="w-8 text-center text-slate-500 font-mono text-xs group-hover:text-emerald-400 transition-colors">
-                                                    {index + 1}
+                                            <div key={track.id + index} className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-3 hover:bg-primary/10 transition-colors group px-6 items-center cursor-default font-mono">
+                                                <div className="w-8 text-center text-primary/50 text-xs group-hover:text-primary transition-colors">
+                                                    {(index + 1).toString().padStart(2, '0')}
                                                 </div>
-                                                <div className="flex items-center gap-4 min-w-0">
-                                                    <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 bg-slate-800 flex items-center justify-center border border-white/10">
+                                                <div className="flex items-center gap-3 min-w-0">
+                                                    <div className="relative w-9 h-9 cyber-clip-sm overflow-hidden shrink-0 bg-black flex items-center justify-center border border-primary/30">
                                                         {track.album?.images?.[0]?.url ? (
-                                                            <Image src={track.album.images[0].url} alt="" fill className="object-cover" />
+                                                            <Image src={track.album.images[0].url} alt="" fill className="object-cover opacity-80" />
                                                         ) : (
-                                                            <Music2 className="w-4 h-4 text-emerald-500/70" />
+                                                            <Music2 className="w-3.5 h-3.5 text-primary/70" />
                                                         )}
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <p className="font-semibold text-white truncate group-hover:text-emerald-300 transition-colors text-sm">
+                                                        <p className="font-bold text-white truncate group-hover:text-primary transition-colors text-xs uppercase">
                                                             {track.name}
                                                         </p>
-                                                        <p className="text-xs text-slate-400 truncate font-mono">
-                                                            {track.artists?.map((a: { name: string }) => a.name).join(', ')}
+                                                        <p className="text-[10px] text-primary/60 truncate">
+                                                            // {track.artists?.map((a: { name: string }) => a.name).join(', ')}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="hidden md:block text-slate-400 text-sm truncate font-mono text-xs">
+                                                <div className="hidden md:block text-primary/60 text-xs truncate">
                                                     {track.album?.name}
                                                 </div>
-                                                <div className="w-12 text-right text-slate-400 text-xs font-mono">
+                                                <div className="w-12 text-right text-primary/70 text-xs">
                                                     {duration}
                                                 </div>
                                             </div>

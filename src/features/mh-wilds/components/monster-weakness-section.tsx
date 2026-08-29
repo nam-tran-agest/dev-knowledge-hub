@@ -8,22 +8,22 @@ export function MonsterWeaknessSection({ monster }: { monster: Monster }) {
     const statusWeaknesses = monster.weaknesses.filter(w => w.kind === 'status');
 
     return (
-        <div className="space-y-4">
-            <div className="space-y-3">
-                <h4 className="text-xs font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wider">
-                    <Target className="w-3.5 h-3.5 text-rose-400" />
-                    Weaknesses
+        <div className="space-y-4 font-mono">
+            <div className="space-y-2.5">
+                <h4 className="text-xs font-bold text-white flex items-center gap-2 uppercase tracking-wider">
+                    <Target className="w-3.5 h-3.5 text-destructive" />
+                    // WEAKNESS_PROFILES
                 </h4>
                 {elementWeaknesses.length > 0 && (
                     <div>
-                        <p className="text-[10px] text-slate-500 font-mono uppercase tracking-widest font-bold mb-2">Elemental</p>
+                        <p className="text-[10px] text-primary/70 uppercase tracking-widest font-bold mb-1.5">// ELEMENTAL_VULNERABILITY</p>
                         <div className="flex gap-1.5 flex-wrap">
                             {elementWeaknesses.map((w) => {
                                 const elName = w.element || '';
                                 return (
                                     <Badge
                                         key={w.id}
-                                        className={`text-xs border ${ELEMENT_COLORS[elName] || 'bg-slate-500/15 text-slate-400'}`}
+                                        className={`text-xs border cyber-clip-tag ${ELEMENT_COLORS[elName] || 'bg-primary/10 text-primary border-primary/30'}`}
                                     >
                                         {ELEMENT_ICONS[elName] || '○'} {elName}
                                         {w.level > 1 && <span className="ml-1 font-bold">★{w.level}</span>}
@@ -36,14 +36,14 @@ export function MonsterWeaknessSection({ monster }: { monster: Monster }) {
                 )}
                 {statusWeaknesses.length > 0 && (
                     <div>
-                        <p className="text-[10px] text-slate-500 font-mono uppercase tracking-widest font-bold mb-2">Status</p>
+                        <p className="text-[10px] text-primary/70 uppercase tracking-widest font-bold mb-1.5">// STATUS_AFFLICTION</p>
                         <div className="flex gap-1.5 flex-wrap">
                             {statusWeaknesses.map((w) => {
                                 const statusName = w.status || '';
                                 return (
                                     <Badge
                                         key={w.id}
-                                        className={`text-xs border ${ELEMENT_COLORS[statusName] || 'bg-slate-500/15 text-slate-400'}`}
+                                        className={`text-xs border cyber-clip-tag ${ELEMENT_COLORS[statusName] || 'bg-primary/10 text-primary border-primary/30'}`}
                                     >
                                         {ELEMENT_ICONS[statusName] || '◆'} {statusName}
                                         {w.level > 1 && <span className="ml-1 font-bold">★{w.level}</span>}
@@ -56,10 +56,10 @@ export function MonsterWeaknessSection({ monster }: { monster: Monster }) {
             </div>
 
             {monster.resistances.length > 0 && (
-                <div className="space-y-3 pt-2">
-                    <h4 className="text-xs font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wider">
-                        <Shield className="w-3.5 h-3.5 text-indigo-400" />
-                        Resistances
+                <div className="space-y-2.5 pt-2">
+                    <h4 className="text-xs font-bold text-white flex items-center gap-2 uppercase tracking-wider">
+                        <Shield className="w-3.5 h-3.5 text-primary" />
+                        // DAMAGE_RESISTANCES
                     </h4>
                     <div className="flex gap-1.5 flex-wrap">
                         {monster.resistances.map((r) => {
@@ -67,7 +67,7 @@ export function MonsterWeaknessSection({ monster }: { monster: Monster }) {
                             return (
                                 <Badge
                                     key={r.id}
-                                    className={`text-xs border ${ELEMENT_COLORS[name] || 'bg-slate-500/15 text-slate-400'}`}
+                                    className={`text-xs border cyber-clip-tag ${ELEMENT_COLORS[name] || 'bg-primary/10 text-primary border-primary/30'}`}
                                 >
                                     {ELEMENT_ICONS[name] || '●'} {name}
                                     {r.condition && <span className="ml-1 opacity-60">({r.condition})</span>}

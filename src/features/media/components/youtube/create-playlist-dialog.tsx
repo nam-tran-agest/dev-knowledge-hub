@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createPlaylist } from "@/features/media/services/youtube";
-import { Loader2 } from "lucide-react";
+import { Loader2, PlusSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface CreatePlaylistDialogProps {
@@ -38,46 +38,48 @@ export function CreatePlaylistDialog({ open, onOpenChange }: CreatePlaylistDialo
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-[425px]">
+            <DialogContent tag="PLAYLIST_FACTORY" className="bg-[#050714] border-primary/40 text-white sm:max-w-[440px]">
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-bold">{t('title')}</DialogTitle>
+                    <DialogTitle className="text-base font-mono font-bold uppercase tracking-wider flex items-center gap-2">
+                        <PlusSquare className="w-4 h-4 text-primary" />
+                        // {t('title')}
+                    </DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-4 py-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="title" className="text-gray-300">{t('titleLabel')}</Label>
+                <form onSubmit={handleSubmit} className="space-y-4 py-2">
+                    <div className="space-y-1.5">
+                        <Label htmlFor="title" className="text-primary/80 font-mono text-xs uppercase tracking-wider">{t('titleLabel')} *</Label>
                         <Input
                             id="title"
                             name="title"
                             placeholder={t('titlePlaceholder')}
-                            className="bg-slate-800 border-white/10 text-white placeholder:text-gray-500"
                             required
                         />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="description" className="text-gray-300">{t('descriptionLabel')}</Label>
+                    <div className="space-y-1.5">
+                        <Label htmlFor="description" className="text-primary/80 font-mono text-xs uppercase tracking-wider">{t('descriptionLabel')}</Label>
                         <Textarea
                             id="description"
                             name="description"
                             placeholder={t('descriptionPlaceholder')}
-                            className="bg-slate-800 border-white/10 text-white placeholder:text-gray-500 min-h-[100px]"
+                            className="min-h-[90px]"
                         />
                     </div>
-                    <DialogFooter className="pt-4">
+                    <DialogFooter className="pt-3 border-t border-primary/20 gap-2">
                         <Button
                             type="button"
                             variant="ghost"
                             onClick={() => onOpenChange(false)}
-                            className="text-gray-400 hover:text-white hover:bg-white/5"
+                            className="text-primary/70 hover:text-white hover:bg-primary/10 cyber-clip-button font-mono text-xs uppercase"
                         >
-                            {t('cancel')}
+                            [ {t('cancel')} ]
                         </Button>
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="bg-red-600 hover:bg-red-700 text-white"
+                            className="bg-primary text-black font-mono font-bold uppercase tracking-wider cyber-clip-button shadow-[0_0_15px_var(--color-primary)] hover:bg-primary/90 text-xs"
                         >
-                            {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                            {t('submit')}
+                            {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-1.5" /> : null}
+                            [ {t('submit')} ]
                         </Button>
                     </DialogFooter>
                 </form>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, Bug, Swords, Shield, Gem, ScrollText, MapPin, Skull, Star, Package } from 'lucide-react';
+import { Search, Bug, Swords, Shield, Gem, ScrollText, MapPin, Skull, Star, Package, Database } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import type { Monster, Weapon, Armor, Item, ArmorSet, Skill, Decoration, Charm, Location as MHLocation, Ailment } from '../types';
 
@@ -37,11 +37,10 @@ import { ItemDetail } from './item-detail';
 import { ArmorDetail } from './armor-detail';
 import { SkillDetail } from './skill-detail';
 
-// === Category definitions ===
 const CATEGORIES: { key: Category; label: string; icon: React.ReactNode; color: string }[] = [
-    { key: 'monsters', label: 'Monsters', icon: <Bug className="w-4 h-4" />, color: 'text-red-400' },
-    { key: 'weapons', label: 'Weapons', icon: <Swords className="w-4 h-4" />, color: 'text-orange-400' },
-    { key: 'armor-sets', label: 'Armor Sets', icon: <Shield className="w-4 h-4" />, color: 'text-blue-400' },
+    { key: 'monsters', label: 'Monsters', icon: <Bug className="w-4 h-4" />, color: 'text-primary' },
+    { key: 'weapons', label: 'Weapons', icon: <Swords className="w-4 h-4" />, color: 'text-secondary' },
+    { key: 'armor-sets', label: 'Armor Sets', icon: <Shield className="w-4 h-4" />, color: 'text-primary' },
     { key: 'skills', label: 'Skills', icon: <Star className="w-4 h-4" />, color: 'text-yellow-400' },
     { key: 'items', label: 'Items', icon: <Package className="w-4 h-4" />, color: 'text-emerald-400' },
     { key: 'decorations', label: 'Decorations', icon: <Gem className="w-4 h-4" />, color: 'text-purple-400' },
@@ -50,7 +49,6 @@ const CATEGORIES: { key: Category; label: string; icon: React.ReactNode; color: 
     { key: 'ailments', label: 'Ailments', icon: <Skull className="w-4 h-4" />, color: 'text-pink-400' },
 ];
 
-// === Detail drawer union ===
 type DetailTarget =
     | { type: 'monster'; data: Monster }
     | { type: 'weapon'; data: Weapon }
@@ -59,7 +57,6 @@ type DetailTarget =
     | { type: 'skill'; data: Skill }
     | null;
 
-// === Main Container ===
 export function MHWildsContainer() {
     const [activeCategory, setActiveCategory] = useState<Category>('monsters');
     const [detail, setDetail] = useState<DetailTarget>(null);
@@ -70,7 +67,6 @@ export function MHWildsContainer() {
     const catMeta = CATEGORIES.find(c => c.key === activeCategory)!;
     const closeDetail = () => setDetail(null);
 
-    // === Content Renderer ===
     const renderContent = () => {
         if (loading) return <LoadingState label={activeCategory} />;
         if (error) return <ErrorState error={error} onRetry={refetch} />;
@@ -99,7 +95,6 @@ export function MHWildsContainer() {
         }
     };
 
-    // === Detail Drawer Renderer ===
     const renderDetail = () => {
         if (!detail) return null;
         switch (detail.type) {
@@ -112,42 +107,48 @@ export function MHWildsContainer() {
     };
 
     return (
-        <div
-            className="min-h-screen pt-18 text-white relative"
-            style={{ background: 'linear-gradient(135deg, #1c1816 0%, #12100e 25%, #181512 50%, #1a1510 75%, #12100e 100%)' }}
-        >
-            {/* Header */}
-            <div className="border-b border-white/5 bg-gradient-to-r from-amber-600/5 via-transparent to-emerald-600/5">
-                <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-5">
+        <div className="min-h-screen pt-18 text-white relative bg-background">
+            <div className="absolute inset-0 bg-grid-cyber opacity-15 pointer-events-none" />
+
+            {/* Header Deck */}
+            <div className="border-b border-primary/20 bg-[#04060f]/90 backdrop-blur-2xl">
+                <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/img/MHW/MHWilds_logo.webp" alt="MHWilds Logo" className="w-14 h-14 object-contain brightness-150 drop-shadow-[0_0_15px_rgba(217,119,6,0.3)]" />
+                        <img src="/img/MHW/MHWilds_logo.webp" alt="MHWilds Logo" className="w-12 h-12 object-contain brightness-125 drop-shadow-[0_0_15px_rgba(0,240,255,0.3)]" />
                         <div>
-                            <h1 className="text-2xl font-black text-white tracking-tight">Monster Hunter: Wilds</h1>
-                            <p className="text-xs text-slate-500">Complete database — Monsters, Weapons, Armor, Skills & more</p>
+                            <h1 className="text-xl sm:text-2xl font-mono font-bold text-white uppercase tracking-wider">
+                                MH_WILDS // ARCHIVE_VAULT
+                            </h1>
+                            <p className="text-[11px] font-mono text-primary/60 uppercase">
+                                // Neural database index — Monsters, Weapons, Armor, Skills & Locations
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-[1400px] mx-auto flex">
+            <div className="max-w-[1400px] mx-auto flex min-h-[calc(100vh-140px)]">
                 {/* Sidebar */}
-                <aside className="hidden md:block w-56 shrink-0 border-r border-white/[0.12] sticky top-0 h-screen overflow-y-auto py-4 px-2 bg-white/[0.04] backdrop-blur-md">
-                    <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold px-3 mb-2">Database</p>
-                    <nav className="space-y-0.5">
+                <aside className="hidden md:block w-56 shrink-0 border-r border-primary/20 sticky top-16 h-[calc(100vh-64px)] overflow-y-auto py-4 px-2 bg-[#04060f]/80 backdrop-blur-md custom-scrollbar">
+                    <div className="flex items-center gap-2 px-3 mb-3">
+                        <Database className="w-3.5 h-3.5 text-primary" />
+                        <p className="text-[10px] font-mono text-primary/70 uppercase tracking-widest font-bold">// ARCHIVE_INDEX</p>
+                    </div>
+                    <nav className="space-y-1">
                         {CATEGORIES.map(cat => (
                             <button
                                 key={cat.key}
                                 onClick={() => setActiveCategory(cat.key)}
-                                className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${activeCategory === cat.key
-                                    ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)]'
-                                    : 'text-slate-400 hover:text-white hover:bg-white/[0.03] border border-transparent'
+                                className={`w-full flex items-center gap-2.5 px-3 py-2 cyber-clip-button text-xs font-mono uppercase tracking-wider transition-all cursor-pointer border ${activeCategory === cat.key
+                                    ? 'bg-primary/20 text-primary border-primary shadow-[0_0_15px_rgba(0,240,255,0.25)] font-bold'
+                                    : 'text-primary/70 hover:text-white hover:bg-primary/5 border-transparent hover:border-primary/20'
                                     }`}
                             >
-                                <span className={activeCategory === cat.key ? 'text-amber-500' : cat.color}>{cat.icon}</span>
+                                <span className={activeCategory === cat.key ? 'text-primary' : cat.color}>{cat.icon}</span>
                                 {cat.label}
                                 {data[cat.key] && (
-                                    <span className="ml-auto text-[10px] font-bold text-slate-600 bg-white/[0.10] rounded-full px-1.5 py-0.5">
+                                    <span className="ml-auto text-[9px] font-mono font-bold text-primary bg-primary/10 border border-primary/30 px-1.5 py-0.5 cyber-clip-tag">
                                         {activeCategory === cat.key ? filters.filteredData.length : (data[cat.key] as unknown[]).length}
                                     </span>
                                 )}
@@ -157,11 +158,11 @@ export function MHWildsContainer() {
                 </aside>
 
                 {/* Mobile bottom bar */}
-                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0c0e14]/90 backdrop-blur-xl border-t border-white/[0.12] overflow-x-auto scrollbar-none" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#050714]/95 backdrop-blur-xl border-t border-primary/30 overflow-x-auto scrollbar-none" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className="flex gap-1 px-2 py-2">
                         {CATEGORIES.map(cat => (
                             <button key={cat.key} onClick={() => setActiveCategory(cat.key)}
-                                className={`shrink-0 flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${activeCategory === cat.key ? 'text-amber-500 bg-amber-500/10' : 'text-slate-500'}`}
+                                className={`shrink-0 flex flex-col items-center gap-0.5 px-3 py-1.5 cyber-clip-button text-[10px] font-mono uppercase transition-all ${activeCategory === cat.key ? 'text-primary bg-primary/20 border border-primary' : 'text-primary/60'}`}
                             >
                                 {cat.icon}
                                 {cat.label}
@@ -173,22 +174,24 @@ export function MHWildsContainer() {
                 {/* Content */}
                 <main className="flex-1 min-w-0 px-4 sm:px-6 py-6 pb-28 md:pb-6">
                     {/* Section header */}
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className={`p-2 rounded-lg bg-white/[0.03] border border-white/5 ${catMeta.color}`}>{catMeta.icon}</div>
-                        <div>
-                            <h2 className="text-lg font-bold text-white">{catMeta.label}</h2>
-                            <p className="text-xs text-slate-500">{filters.filteredData.length} results</p>
+                    <div className="flex items-center justify-between border-b border-primary/20 pb-3 mb-4">
+                        <div className="flex items-center gap-2.5">
+                            <div className="p-2 cyber-clip-button bg-primary/10 border border-primary/30 text-primary">{catMeta.icon}</div>
+                            <div>
+                                <h2 className="text-base font-mono font-bold text-white uppercase tracking-wider">{catMeta.label}</h2>
+                                <p className="text-[10px] font-mono text-primary/60 uppercase">// {filters.filteredData.length} records retrieved</p>
+                            </div>
                         </div>
                     </div>
 
                     {/* Search bar */}
-                    <div className="relative mb-3">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                    <div className="relative mb-4">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary/50" />
                         <Input
-                            placeholder={`Search ${catMeta.label.toLowerCase()}...`}
+                            placeholder={`SEARCH_${catMeta.label.toUpperCase()}_DATABASE...`}
                             value={filters.searchQuery}
                             onChange={e => filters.setSearchQuery(e.target.value)}
-                            className="pl-10 bg-[#1c1816]/60 border-[#c8a97e]/15 text-white placeholder:text-slate-500 focus-visible:ring-amber-500/30"
+                            className="pl-9 bg-[#040612]/90 border-primary/30 text-white font-mono text-xs"
                         />
                     </div>
 
@@ -200,14 +203,14 @@ export function MHWildsContainer() {
                     {renderContent()}
 
                     {!loading && !error && filters.filteredData.length > 0 && filters.totalPages > 1 && (
-                        <div className="pt-8 pb-4">
+                        <div className="pt-8 pb-4 font-mono">
                             <Pagination>
                                 <PaginationContent>
                                     <PaginationItem>
                                         <PaginationPrevious
                                             onClick={() => filters.setPage(Math.max(1, filters.page - 1))}
                                             disabled={filters.page === 1}
-                                            className={filters.page === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                                            className={filters.page === 1 ? 'pointer-events-none opacity-40' : 'cursor-pointer cyber-clip-button'}
                                         />
                                     </PaginationItem>
 
@@ -217,14 +220,14 @@ export function MHWildsContainer() {
                                             <React.Fragment key={p}>
                                                 {i > 0 && arr[i - 1] !== p - 1 && (
                                                     <PaginationItem>
-                                                        <span className="px-3 text-slate-500">...</span>
+                                                        <span className="px-3 text-primary/40">...</span>
                                                     </PaginationItem>
                                                 )}
                                                 <PaginationItem>
                                                     <PaginationLink
                                                         isActive={filters.page === p}
                                                         onClick={() => filters.setPage(p)}
-                                                        className="cursor-pointer"
+                                                        className="cursor-pointer cyber-clip-button"
                                                     >
                                                         {p}
                                                     </PaginationLink>
@@ -236,7 +239,7 @@ export function MHWildsContainer() {
                                         <PaginationNext
                                             onClick={() => filters.setPage(Math.min(filters.totalPages, filters.page + 1))}
                                             disabled={filters.page === filters.totalPages}
-                                            className={filters.page === filters.totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                                            className={filters.page === filters.totalPages ? 'pointer-events-none opacity-40' : 'cursor-pointer cyber-clip-button'}
                                         />
                                     </PaginationItem>
                                 </PaginationContent>
@@ -244,7 +247,9 @@ export function MHWildsContainer() {
                         </div>
                     )}
                     {!loading && !error && filters.filteredData.length === 0 && (
-                        <div className="text-center py-16"><p className="text-slate-500">No results found.</p></div>
+                        <div className="text-center py-16 font-mono text-xs uppercase text-primary/50">
+                            // NO_MATCHING_RECORDS_FOUND
+                        </div>
                     )}
                 </main>
             </div>

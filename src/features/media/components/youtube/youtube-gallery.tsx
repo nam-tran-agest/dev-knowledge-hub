@@ -121,7 +121,11 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
             <div className="space-y-10">
                 {Object.keys(groups).map((dateKey) => (
                     <div key={dateKey} className="space-y-4">
-                        <h2 className="text-xl font-bold text-white border-l-4 border-rose-500 pl-3 font-mono">{dateKey}</h2>
+                        <div className="flex items-center gap-2 border-b border-primary/20 pb-2">
+                            <span className="w-1.5 h-4 bg-primary" />
+                            <h2 className="text-sm font-mono font-bold text-white uppercase tracking-wider">// {dateKey}</h2>
+                            <span className="text-[10px] font-mono text-primary/60 ml-auto">[ {groups[dateKey].length} STREAMS ]</span>
+                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {groups[dateKey].map((video) => (
                                 <VideoCard
@@ -155,28 +159,28 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
 
             <Tabs defaultValue="recent" className="w-full">
                 <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-8">
-                    <TabsList className="bg-card border border-white/10 p-1.5 h-auto grid grid-cols-3 sm:flex w-full sm:w-auto rounded-2xl backdrop-blur-xl">
-                        <TabsTrigger value="recent" className="data-[state=active]:bg-rose-600 data-[state=active]:text-white px-2 sm:px-6 py-2.5 rounded-xl transition-all text-xs sm:text-sm font-mono gap-2 cursor-pointer">
+                    <TabsList className="bg-[#050714] border border-primary/30 p-1 h-auto grid grid-cols-3 sm:flex w-full sm:w-auto cyber-clip backdrop-blur-xl">
+                        <TabsTrigger value="recent" className="px-3 sm:px-5 py-2 cyber-clip-button text-xs font-mono uppercase tracking-wider gap-2">
                             <Clock className="w-3.5 h-3.5 hidden xs:block" />
-                            {t('tabs.recent')}
+                            [ 01-{t('tabs.recent')} ]
                         </TabsTrigger>
-                        <TabsTrigger value="playlists" className="data-[state=active]:bg-rose-600 data-[state=active]:text-white px-2 sm:px-6 py-2.5 rounded-xl transition-all text-xs sm:text-sm font-mono gap-2 cursor-pointer">
+                        <TabsTrigger value="playlists" className="px-3 sm:px-5 py-2 cyber-clip-button text-xs font-mono uppercase tracking-wider gap-2">
                             <ListVideo className="w-3.5 h-3.5 hidden xs:block" />
-                            {t('tabs.playlists')}
+                            [ 02-{t('tabs.playlists')} ]
                         </TabsTrigger>
-                        <TabsTrigger value="favorites" className="data-[state=active]:bg-rose-600 data-[state=active]:text-white px-2 sm:px-6 py-2.5 rounded-xl transition-all text-xs sm:text-sm font-mono gap-2 cursor-pointer">
+                        <TabsTrigger value="favorites" className="px-3 sm:px-5 py-2 cyber-clip-button text-xs font-mono uppercase tracking-wider gap-2">
                             <Heart className="w-3.5 h-3.5 hidden xs:block" />
-                            {t('tabs.favorites')}
+                            [ 03-{t('tabs.favorites')} ]
                         </TabsTrigger>
                     </TabsList>
 
                     <Button
                         onClick={() => setIsCreatePlaylistOpen(true)}
                         variant="outline"
-                        className="bg-white/[0.04] border-white/10 hover:bg-white/[0.08] text-white gap-2 h-11 px-6 rounded-2xl transition-all w-full sm:w-auto cursor-pointer font-mono text-xs"
+                        className="bg-primary/10 border-primary/40 hover:bg-primary/20 text-primary gap-2 h-10 px-5 cyber-clip-button transition-all w-full sm:w-auto cursor-pointer font-mono text-xs uppercase tracking-wider"
                     >
                         <Plus className="w-4 h-4" />
-                        {t('actions.createPlaylist')}
+                        [ + {t('actions.createPlaylist')} ]
                     </Button>
                 </div>
 
@@ -187,10 +191,12 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                 <TabsContent value="playlists" className="mt-0 space-y-12">
                     {favoritePlaylists.length > 0 && (
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                                <Heart className="w-6 h-6 text-rose-500 fill-rose-500" />
-                                {t('gallery.favoritePlaylists')}
-                            </h2>
+                            <div className="flex items-center gap-2 border-b border-primary/20 pb-2">
+                                <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
+                                <h2 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
+                                    // {t('gallery.favoritePlaylists')}
+                                </h2>
+                            </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {favoritePlaylists.map((playlist) => (
                                     <PlaylistCard
@@ -232,7 +238,10 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
 
                     {favoritePlaylists.length > 0 && (
                         <div className="space-y-4">
-                            <h2 className="text-xl font-bold text-white border-l-4 border-rose-500 pl-3">{t('gallery.favoritePlaylists')}</h2>
+                            <div className="flex items-center gap-2 border-b border-primary/20 pb-2">
+                                <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
+                                <h2 className="text-sm font-mono font-bold text-white uppercase tracking-wider">// {t('gallery.favoritePlaylists')}</h2>
+                            </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {favoritePlaylists.map((playlist) => (
                                     <PlaylistCard

@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { updatePlaylist } from "@/features/media/services/youtube";
-import { Loader2 } from "lucide-react";
+import { Loader2, Settings } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { SavedPlaylist } from "@/features/media/types";
 
@@ -42,48 +42,50 @@ export function EditPlaylistDialog({ open, onOpenChange, playlist }: EditPlaylis
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-[425px]">
+            <DialogContent tag="PLAYLIST_CONFIG" className="bg-[#050714] border-primary/40 text-white sm:max-w-[440px]">
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-bold">{t('editPlaylist.title')}</DialogTitle>
+                    <DialogTitle className="text-base font-mono font-bold uppercase tracking-wider flex items-center gap-2">
+                        <Settings className="w-4 h-4 text-primary" />
+                        // {t('editPlaylist.title')}
+                    </DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-4 py-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="edit-title" className="text-gray-300">{t('createPlaylist.titleLabel')}</Label>
+                <form onSubmit={handleSubmit} className="space-y-4 py-2">
+                    <div className="space-y-1.5">
+                        <Label htmlFor="edit-title" className="text-primary/80 font-mono text-xs uppercase tracking-wider">{t('createPlaylist.titleLabel')} *</Label>
                         <Input
                             id="edit-title"
                             name="title"
                             defaultValue={playlist?.title || ""}
                             placeholder={t('createPlaylist.titlePlaceholder')}
-                            className="bg-slate-800 border-white/10 text-white placeholder:text-gray-500"
                             required
                         />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="edit-description" className="text-gray-300">{t('createPlaylist.descriptionLabel')}</Label>
+                    <div className="space-y-1.5">
+                        <Label htmlFor="edit-description" className="text-primary/80 font-mono text-xs uppercase tracking-wider">{t('createPlaylist.descriptionLabel')}</Label>
                         <Textarea
                             id="edit-description"
                             name="description"
                             defaultValue={playlist?.description || ""}
                             placeholder={t('createPlaylist.descriptionPlaceholder')}
-                            className="bg-slate-800 border-white/10 text-white placeholder:text-gray-500 min-h-[100px]"
+                            className="min-h-[90px]"
                         />
                     </div>
-                    <DialogFooter className="pt-4">
+                    <DialogFooter className="pt-3 border-t border-primary/20 gap-2">
                         <Button
                             type="button"
                             variant="ghost"
                             onClick={() => onOpenChange(false)}
-                            className="text-gray-400 hover:text-white hover:bg-white/5"
+                            className="text-primary/70 hover:text-white hover:bg-primary/10 cyber-clip-button font-mono text-xs uppercase"
                         >
-                            {t('createPlaylist.cancel')}
+                            [ {t('createPlaylist.cancel')} ]
                         </Button>
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="bg-red-600 hover:bg-red-700 text-white"
+                            className="bg-primary text-black font-mono font-bold uppercase tracking-wider cyber-clip-button shadow-[0_0_15px_var(--color-primary)] hover:bg-primary/90 text-xs"
                         >
-                            {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                            {t('editPlaylist.submit')}
+                            {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-1.5" /> : null}
+                            [ {t('editPlaylist.submit')} ]
                         </Button>
                     </DialogFooter>
                 </form>

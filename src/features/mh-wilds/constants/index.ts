@@ -65,9 +65,9 @@ export const SKILL_KIND_COLORS: Record<string, string> = {
     'group-bonus': 'bg-cyan-500/15 text-cyan-400 border-cyan-500/20',
 };
 
-// ─── Glassmorphism Tokens (Wilds Theme) ─────────────────────
-export const CARD_CLS = 'bg-[#070d1e]/50 backdrop-blur-2xl border border-white/10 hover:border-amber-500/50 hover:bg-[#0c142c]/70 transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] rounded-3xl overflow-hidden glare-top';
-export const STAT_BOX_CLS = 'bg-[#040711]/60 border border-white/10 backdrop-blur-xl rounded-2xl';
+// ─── Cyberpunk FUI Tokens (Wilds Vault Theme) ───────────────
+export const CARD_CLS = 'bg-[#050714]/80 backdrop-blur-2xl border border-primary/30 hover:border-primary hover:bg-[#060a1e]/90 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] hover:-translate-y-1 cyber-clip overflow-hidden relative cursor-pointer';
+export const STAT_BOX_CLS = 'bg-[#04060f]/80 border border-primary/20 backdrop-blur-xl cyber-clip-button';
 
 // ─── Sorting & Pagination ───────────────────────────────────
 export type SortOption = 'name-asc' | 'name-desc' | 'rarity-asc' | 'rarity-desc';

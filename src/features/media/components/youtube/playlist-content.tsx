@@ -61,59 +61,59 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
         <div className="space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div className="flex items-center gap-2">
-                    <LayoutGrid className="w-5 h-5 text-red-500" />
-                    <h2 className="text-xl font-bold text-white">{t('title')}</h2>
-                    <Badge variant="secondary" className="bg-red-600/20 text-red-400 border-red-500/20">
-                        {t('itemsCount', { count: videos.length })}
+                    <LayoutGrid className="w-4 h-4 text-primary" />
+                    <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-white">// {t('title')}</h2>
+                    <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/30 font-mono text-[10px]">
+                        [ {t('itemsCount', { count: videos.length })} ]
                     </Badge>
                 </div>
                 <Button
                     onClick={() => setIsAddingMode(!isAddingMode)}
                     variant={isAddingMode ? "destructive" : "outline"}
-                    className="gap-2"
+                    className="gap-2 cyber-clip-button font-mono text-xs uppercase cursor-pointer"
                 >
                     {isAddingMode ? (
-                        <>{t('cancel')}</>
+                        <>[ {t('cancel')} ]</>
                     ) : (
                         <>
-                            <Plus className="w-4 h-4" />
-                            {t('addFromLibrary')}
+                            <Plus className="w-3.5 h-3.5" />
+                            [ + {t('addFromLibrary')} ]
                         </>
                     )}
                 </Button>
             </div>
 
             {isAddingMode && (
-                <div className="bg-slate-900/50 border border-white/10 rounded-2xl p-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
-                    <div className="flex items-center justify-between gap-4">
-                        <div className="flex items-center gap-2 text-white font-medium">
-                            <ListPlus className="w-5 h-5 text-red-500" />
-                            {t('quickAdd')}
+                <div className="bg-[#050714] border border-primary/30 cyber-clip p-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
+                    <div className="flex items-center justify-between gap-4 border-b border-primary/20 pb-3">
+                        <div className="flex items-center gap-2 text-white font-mono text-xs uppercase font-bold">
+                            <ListPlus className="w-4 h-4 text-primary" />
+                            // {t('quickAdd')}
                         </div>
                         <div className="relative w-full sm:max-w-xs">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-primary/50" />
                             <Input
                                 placeholder={t('searchLibrary')}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-9 bg-white/5 border-white/10 w-full"
+                                className="pl-9 bg-[#04060f]/90 border-primary/30 w-full font-mono text-xs"
                             />
                         </div>
                     </div>
 
-                    <ScrollArea className="h-[300px] w-full pr-4">
+                    <ScrollArea className="h-[280px] w-full pr-4">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {filteredLibrary.map(v => (
-                                <div key={v.id} className="group flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/10 hover:border-red-500/30 transition-all">
-                                    <div className="relative w-20 aspect-video rounded-lg overflow-hidden shrink-0">
+                                <div key={v.id} className="group flex items-center gap-3 p-2 cyber-clip-button bg-primary/[0.03] border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all font-mono">
+                                    <div className="relative w-20 aspect-video cyber-clip-sm overflow-hidden bg-black shrink-0">
                                         {v.thumbnail_url ? (
-                                            <Image src={v.thumbnail_url} alt={v.title || "video"} fill className="object-cover" />
+                                            <Image src={v.thumbnail_url} alt={v.title || "video"} fill className="object-cover opacity-80" />
                                         ) : (
-                                            <div className="w-full h-full bg-slate-800" />
+                                            <div className="w-full h-full bg-[#050714]" />
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0 pr-2">
-                                        <p className="text-sm font-medium text-white truncate group-hover:text-red-400 transition-colors">
+                                        <p className="text-xs font-bold text-slate-200 truncate group-hover:text-primary uppercase transition-colors">
                                             {v.title}
                                         </p>
                                     </div>
@@ -121,15 +121,15 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                                         size="icon"
                                         variant="ghost"
                                         onClick={() => handleQuickAdd(v.id)}
-                                        className="rounded-full hover:bg-red-600 hover:text-white"
+                                        className="cyber-clip-button hover:bg-primary hover:text-black text-primary border border-primary/30 w-7 h-7 shrink-0 cursor-pointer"
                                     >
-                                        <Plus className="w-4 h-4" />
+                                        <Plus className="w-3.5 h-3.5" />
                                     </Button>
                                 </div>
                             ))}
                             {filteredLibrary.length === 0 && (
-                                <div className="col-span-full py-10 text-center text-gray-500 italic">
-                                    {t('noMoreVideos')}
+                                <div className="col-span-full py-10 text-center text-primary/40 font-mono text-xs uppercase">
+                                    // {t('noMoreVideos')}
                                 </div>
                             )}
                         </div>
@@ -144,9 +144,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                         video={video}
                         onSelect={setSelectedVideo}
                         onDelete={(id) => setVideoIdToRemove(id)}
-                        onToggleFavorite={async () => {
-                            // This is just a UI prop in VideoCard, toggle logic usually lives in gallery.
-                        }}
+                        onToggleFavorite={async () => {}}
                         playlists={allPlaylists}
                     />
                 ))}
@@ -161,19 +159,21 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
             />
 
             <AlertDialog open={!!videoIdToRemove} onOpenChange={(open) => !open && setVideoIdToRemove(null)}>
-                <AlertDialogContent className="bg-slate-900 border-white/10 text-white">
+                <AlertDialogContent tag="REMOVE_FROM_PLAYLIST">
                     <AlertDialogHeader>
-                        <AlertDialogTitle>{t('removeTitle')}</AlertDialogTitle>
-                        <AlertDialogDescription className="text-gray-400">
-                            {t('removeDesc', { title: playlist.title })}
+                        <AlertDialogTitle className="text-base font-mono font-bold uppercase tracking-wider text-destructive">
+                            // {t('removeTitle')}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-primary/70 font-mono text-xs">
+                            // {t('removeDesc', { title: playlist.title })}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/10 hover:text-white">
-                            {t('cancel')}
+                    <AlertDialogFooter className="gap-2">
+                        <AlertDialogCancel className="font-mono text-xs uppercase">
+                            [ {t('cancel')} ]
                         </AlertDialogCancel>
-                        <AlertDialogAction onClick={handleRemove} className="bg-red-600 text-white hover:bg-red-700">
-                            {t('remove')}
+                        <AlertDialogAction onClick={handleRemove} className="bg-destructive hover:bg-destructive/90 text-white font-mono text-xs font-bold uppercase shadow-[0_0_15px_rgba(255,0,60,0.4)]">
+                            [ {t('remove')} ]
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

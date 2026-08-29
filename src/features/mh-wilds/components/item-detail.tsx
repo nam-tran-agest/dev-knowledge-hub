@@ -7,48 +7,47 @@ export function ItemDetail({ item, onClose }: { item: Item, onClose: () => void 
     return (
         <DrawerLayout
             title={item.name}
-            icon={<Package className="w-6 h-6 text-emerald-400" />}
-            subtitle={<span className="text-amber-400 text-xs">Rarity {item.rarity}</span>}
+            icon={<Package className="w-5 h-5 text-primary" />}
+            subtitle={<span className="text-primary font-mono text-xs uppercase font-bold">// Rarity {item.rarity}</span>}
             onClose={onClose}
         >
-            <p className={`text-slate-300 leading-relaxed text-sm ${DETAIL_PANEL_CLS}`}>{item.description}</p>
+            <p className={`text-primary/80 font-mono leading-relaxed text-xs ${DETAIL_PANEL_CLS}`}>// {item.description}</p>
 
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-2 gap-3 mt-3 font-mono">
                 <div className={DETAIL_PANEL_CLS}>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">Value</p>
-                    <p className="text-amber-400 font-bold text-lg">{item.value} <span className="text-xs text-amber-400/50">zenny</span></p>
+                    <p className="text-[10px] text-primary/70 uppercase tracking-widest font-bold mb-1.5">// ITEM_VALUE</p>
+                    <p className="text-amber-400 font-bold text-base">{item.value} <span className="text-[10px] text-primary/60">zenny</span></p>
                 </div>
                 <div className={DETAIL_PANEL_CLS}>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">Carry Limit</p>
-                    <p className="text-white font-bold text-lg">{item.carryLimit}</p>
+                    <p className="text-[10px] text-primary/70 uppercase tracking-widest font-bold mb-1.5">// CARRY_LIMIT</p>
+                    <p className="text-white font-bold text-base">{item.carryLimit}</p>
                 </div>
             </div>
 
             {item.recipes?.length > 0 ? (
-                <Section title="Crafting Recipes">
-                    <div className="space-y-3">
+                <Section title="CRAFTING RECIPES">
+                    <div className="space-y-2 font-mono">
                         {item.recipes.map(recipe => (
-                            <div key={recipe.id} className={`${DETAIL_PANEL_CLS} flex flex-col gap-3 relative overflow-hidden`}>
-                                <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
-                                <div className="flex items-center gap-1.5 text-[10px] text-emerald-400 uppercase tracking-widest font-bold mb-1">
+                            <div key={recipe.id} className={`${DETAIL_PANEL_CLS} flex flex-col gap-2`}>
+                                <div className="flex items-center gap-1.5 text-[10px] text-primary uppercase tracking-widest font-bold">
                                     <Hammer className="w-3 h-3" /> Yields {recipe.amount}x
                                 </div>
                                 <div className="flex flex-wrap items-center gap-2">
                                     {recipe.inputs.map((input, idx) => (
                                         <React.Fragment key={input.id}>
-                                            <div className="flex items-center gap-2 bg-[#1c1816]/60 border border-[#c8a97e]/15 px-3 py-2 rounded-lg relative z-10 shadow-sm">
-                                                <Package className="w-4 h-4 text-slate-400" />
-                                                <span className="text-sm font-medium text-slate-200">{input.name}</span>
+                                            <div className="flex items-center gap-1.5 bg-[#050714] border border-primary/20 px-2.5 py-1.5 cyber-clip-button text-xs">
+                                                <Package className="w-3.5 h-3.5 text-primary/60" />
+                                                <span className="font-medium text-slate-200 uppercase">{input.name}</span>
                                             </div>
                                             {idx < recipe.inputs.length - 1 && (
-                                                <span className="text-slate-500 font-bold text-lg px-1">+</span>
+                                                <span className="text-primary font-bold text-sm px-0.5">+</span>
                                             )}
                                         </React.Fragment>
                                     ))}
-                                    <span className="text-emerald-500/50 font-bold text-lg px-2">=</span>
-                                    <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 rounded-lg relative z-10 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                                        <Package className="w-4 h-4 text-emerald-400" />
-                                        <span className="text-sm font-bold text-emerald-400">{item.name}</span>
+                                    <span className="text-primary/70 font-bold text-sm px-1">=</span>
+                                    <div className="flex items-center gap-1.5 bg-primary/10 border border-primary/40 px-2.5 py-1.5 cyber-clip-button text-xs">
+                                        <Package className="w-3.5 h-3.5 text-primary" />
+                                        <span className="font-bold text-primary uppercase">{item.name}</span>
                                     </div>
                                 </div>
                             </div>
@@ -56,8 +55,8 @@ export function ItemDetail({ item, onClose }: { item: Item, onClose: () => void 
                     </div>
                 </Section>
             ) : (
-                <Section title="Acquisition">
-                    <p className="text-xs text-slate-500">No crafting recipes available. Found in the environment or rewarded from quests.</p>
+                <Section title="ACQUISITION">
+                    <p className="text-xs text-primary/60 font-mono uppercase">// No crafting recipes indexed. Sourced directly in biome exploration or quest telemetry.</p>
                 </Section>
             )}
         </DrawerLayout>

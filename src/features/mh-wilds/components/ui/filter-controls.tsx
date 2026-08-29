@@ -34,9 +34,9 @@ interface FilterControlsProps {
     };
 }
 
-const triggerCls = 'h-9 bg-[#1c1816]/60 border border-[#c8a97e]/15 text-slate-300 text-sm focus:ring-amber-500/30 [&>svg]:text-amber-700/50';
-const contentCls = 'bg-[#151210]/95 border-[#c8a97e]/15 backdrop-blur-xl max-h-72';
-const toggleCls = (active: boolean) => `text-xs px-3 py-2 rounded-lg border transition-all font-medium cursor-pointer ${active ? 'bg-amber-500/15 text-amber-500 border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.05)]' : 'bg-[#1c1816]/60 text-slate-400 border-[#c8a97e]/15 hover:text-white'}`;
+const triggerCls = 'h-9 bg-[#050714] border border-primary/30 text-slate-200 text-xs font-mono uppercase tracking-wider cyber-clip-button focus:border-primary [&>svg]:text-primary/70 cursor-pointer';
+const contentCls = 'bg-[#050714]/95 border-primary/30 backdrop-blur-2xl max-h-72 cyber-clip shadow-[0_0_25px_rgba(0,0,0,0.9)]';
+const toggleCls = (active: boolean) => `text-xs font-mono uppercase tracking-wider px-3 py-2 cyber-clip-button border transition-all cursor-pointer ${active ? 'bg-primary/20 text-primary border-primary shadow-[0_0_12px_rgba(0,240,255,0.25)] font-bold' : 'bg-[#050714] text-primary/60 border-primary/20 hover:text-white hover:border-primary/40'}`;
 
 interface FilterOption<T = string> {
     value: T;
@@ -73,22 +73,22 @@ function FilterDropdown<T extends string = string>({ value, onValueChange, optio
             <button
                 type="button"
                 onClick={() => setOpen(!open)}
-                className={`flex items-center justify-between rounded-lg px-3 py-2 ${triggerClassName}`}
+                className={`flex items-center justify-between px-3 py-2 ${triggerClassName}`}
             >
                 <div className="flex items-center truncate">
-                    {Icon && <Icon className="w-3.5 h-3.5 mr-1.5 shrink-0 text-amber-700/50" />}
+                    {Icon && <Icon className="w-3.5 h-3.5 mr-1.5 shrink-0 text-primary" />}
                     <span className="truncate">{selectedLabel}</span>
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 ml-2 opacity-50 shrink-0 text-amber-500/80" />
+                <ChevronDown className="w-3.5 h-3.5 ml-2 opacity-70 shrink-0 text-primary" />
             </button>
             {open && (
-                <div className={`absolute left-0 top-full mt-1 z-50 w-full min-w-max rounded-lg border shadow-lg overflow-y-auto ${contentClassName}`}>
+                <div className={`absolute left-0 top-full mt-1 z-50 w-full min-w-max border shadow-2xl overflow-y-auto ${contentClassName}`}>
                     <div className="p-1 flex flex-col gap-0.5">
                         {options.map(o => (
                             <button
                                 key={o.value}
                                 onClick={() => { onValueChange(o.value); setOpen(false); }}
-                                className={`text-left px-2 py-1.5 rounded-md text-sm transition-colors ${value === o.value ? 'bg-amber-500/15 text-amber-500 font-medium' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}
+                                className={`text-left px-3 py-1.5 cyber-clip-button text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer ${value === o.value ? 'bg-primary/20 text-primary font-bold' : 'text-slate-300 hover:bg-primary/10 hover:text-white'}`}
                             >
                                 {o.label}
                             </button>
@@ -139,12 +139,12 @@ export function FilterControls({ activeCategory, currentData, filters: f }: Filt
                             { value: 'all', label: 'Any Weakness' },
                             ...f.monsterWeaknesses.map(w => ({ value: w, label: w.charAt(0).toUpperCase() + w.slice(1) }))
                         ]}
-                        triggerClassName={`w-[160px] capitalize ${triggerCls}`}
+                        triggerClassName={`w-[160px] ${triggerCls}`}
                         contentClassName={contentCls}
                     />
 
                     <button onClick={() => f.setGroupBySpecies(!f.groupBySpecies)} className={toggleCls(f.groupBySpecies)}>
-                        Group by Species
+                        [ GROUP_SPECIES ]
                     </button>
                 </>
             )}
@@ -172,12 +172,12 @@ export function FilterControls({ activeCategory, currentData, filters: f }: Filt
                             { value: 'all', label: 'Any Element/Status' },
                             ...f.weaponElements.map(e => ({ value: e, label: e.charAt(0).toUpperCase() + e.slice(1) }))
                         ]}
-                        triggerClassName={`w-[180px] capitalize ${triggerCls}`}
+                        triggerClassName={`w-[180px] ${triggerCls}`}
                         contentClassName={contentCls}
                     />
 
                     <button onClick={() => f.setGroupByWeaponType(!f.groupByWeaponType)} className={toggleCls(f.groupByWeaponType)}>
-                        Group by Type
+                        [ GROUP_TYPE ]
                     </button>
                 </>
             )}

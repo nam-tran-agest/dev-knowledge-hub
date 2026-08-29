@@ -92,7 +92,7 @@ export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, cla
     }, [videoId, onEnd, onTimeUpdate, startTime]); // Re-init correctly
 
     return (
-        <div className={`aspect-video w-full bg-black rounded-lg overflow-hidden ${className}`}>
+        <div className={`aspect-video w-full bg-black cyber-clip border border-primary/30 overflow-hidden ${className}`}>
             <div id={containerId.current} className="w-full h-full" />
         </div>
     );

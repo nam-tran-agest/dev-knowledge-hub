@@ -31,33 +31,33 @@ export function CharmsList({ charms }: { charms: Charm[] }) {
             {groupedCharms.map((group) => {
                 const maxRank = group.allRanks[group.allRanks.length - 1];
                 return (
-                    <div key={group.baseName} className={`${CARD_CLS} p-4 flex flex-col h-full group`}>
+                    <div key={group.baseName} className={`${CARD_CLS} p-4 flex flex-col h-full group font-mono`}>
                         <div className="flex items-start gap-3 mb-3 shrink-0">
-                            <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                            <div className="w-10 h-10 cyber-clip-button bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={getCharmIconUrl(maxRank?.rarity || 1)} alt={group.baseName} className="w-6 h-6 object-contain" />
+                                <img src={getCharmIconUrl(maxRank?.rarity || 1)} alt={group.baseName} className="w-5 h-5 object-contain" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-base font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{group.baseName}</h3>
-                                <p className="text-xs text-slate-500">{group.allRanks.length} {group.allRanks.length === 1 ? 'rank' : 'ranks'}</p>
+                                <h3 className="text-sm font-bold text-white truncate group-hover:text-primary transition-colors uppercase">{group.baseName}</h3>
+                                <p className="text-[10px] text-primary/60 uppercase">// {group.allRanks.length} {group.allRanks.length === 1 ? 'rank' : 'ranks'}</p>
                             </div>
                         </div>
                         {/* Rank progression visual */}
                         <div className="space-y-1 mb-3 flex-1 flex flex-col justify-end">
                             {group.allRanks.map(r => (
                                 <div key={r.id} className="flex items-center gap-2">
-                                    <span className="text-xs text-emerald-400 font-bold w-5 text-center">{r.level}</span>
-                                    <div className="flex-1 h-1 bg-white/[0.03] rounded-full overflow-hidden">
-                                        <div className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full" style={{ width: `${(r.level / 5) * 100}%` }} />
+                                    <span className="text-[10px] text-primary font-bold w-4 text-center">{r.level}</span>
+                                    <div className="flex-1 h-1 bg-[#04060f] cyber-clip-sm overflow-hidden border border-primary/20">
+                                        <div className="h-full bg-primary" style={{ width: `${(r.level / 5) * 100}%` }} />
                                     </div>
-                                    <span className="text-xs text-slate-500 truncate max-w-[120px]">{r.name}</span>
+                                    <span className="text-[10px] text-primary/60 truncate max-w-[120px] uppercase">{r.name}</span>
                                 </div>
                             ))}
                         </div>
                         {maxRank?.skills?.length > 0 && (
-                            <div className="flex gap-1.5 flex-wrap mt-auto pt-3 border-t border-white/5">
+                            <div className="flex gap-1.5 flex-wrap mt-auto pt-2.5 border-t border-primary/20">
                                 {maxRank.skills.map(sk => (
-                                    <span key={sk.id} className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full px-2 py-0.5 font-bold">
+                                    <span key={sk.id} className="text-[10px] bg-primary/10 text-primary border border-primary/30 cyber-clip-tag px-2 py-0.5 font-bold uppercase">
                                         {sk.skill.name} Lv{sk.level}
                                     </span>
                                 ))}
