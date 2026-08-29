@@ -79,7 +79,7 @@ export async function NewsContainer({ locale, categoryId }: NewsContainerProps) 
         trendingItems = (await getNews()).slice(0, 10);
     }
 
-    const feedItems = categoryId === 'all' ? remainingItems.slice(10, 40) : remainingItems.slice(0, 30);
+    const feedItems = categoryId === 'all' ? remainingItems.slice(10) : remainingItems;
 
     const CATEGORIES_WITH_ICONS = CATEGORIES.map(cat => {
         const IconComponent = CATEGORY_ICON_MAP[cat.icon as string] || Globe;

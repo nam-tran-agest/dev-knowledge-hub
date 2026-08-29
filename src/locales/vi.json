@@ -517,6 +517,12 @@
             },
             "header": {
                 "searchPlaceholder": "Tìm kiếm bài viết, tin tức và nhận định..."
+            },
+            "pagination": {
+                "prev": "Trang trước",
+                "next": "Trang sau",
+                "page": "Trang",
+                "of": "trên"
             }
         }
     },

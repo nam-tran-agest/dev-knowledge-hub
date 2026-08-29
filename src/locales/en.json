@@ -516,6 +516,12 @@
             },
             "header": {
                 "searchPlaceholder": "Search articles, news and insights..."
+            },
+            "pagination": {
+                "prev": "Prev",
+                "next": "Next",
+                "page": "Page",
+                "of": "of"
             }
         }
     },
