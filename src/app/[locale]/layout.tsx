@@ -60,14 +60,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${plusJakartaSans.variable} font-sans antialiased bg-[#030712] text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200`}>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground`}>
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col">
             {/* Desktop Header */}
-            <header className="fixed top-0 z-40 hidden md:flex h-16 w-full items-center justify-between px-8 bg-[#030712]/80 backdrop-blur-2xl border-b border-white/[0.08] glare-top">
+            <header className="fixed top-0 z-40 hidden md:flex h-16 w-full items-center justify-between px-8 bg-background/80 backdrop-blur-2xl border-b border-border glare-top">
               <Link href="/" className="flex items-center gap-3 group">
                 <div className="relative">
-                  <div className="absolute -inset-1 rounded-xl bg-indigo-500/20 blur-sm group-hover:bg-indigo-500/40 transition-all" />
+                  <div className="absolute -inset-1 rounded-xl bg-primary/20 blur-sm group-hover:bg-primary/40 transition-all" />
                   <Image
                     src="/img/home/nav_ico.svg"
                     alt="Dev Hub Logo"

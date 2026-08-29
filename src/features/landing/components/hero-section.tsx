@@ -4,9 +4,7 @@ import dynamic from 'next/dynamic';
 const ParticlesBackground = dynamic(() => import('@/components/ui/particles-background').then(mod => mod.ParticlesBackground), { ssr: false });
 
 import { motion } from "motion/react";
-import { CTAButton } from '@/components/ui/cta-btn';
-import { TYPOGRAPHY } from '@/lib/constants';
-import { Layers, Newspaper, Flame, CheckCircle2, Calendar } from 'lucide-react';
+import { Layers, Newspaper, Flame, Calendar, Terminal, Cpu } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 interface HeroSectionProps {
@@ -19,128 +17,136 @@ interface HeroSectionProps {
 export function HeroSection({
     title,
     subtitle,
-    ctaLabel,
-    ctaUrl,
 }: HeroSectionProps) {
     return (
-        <section className="relative min-h-[95vh] flex flex-col items-center justify-center overflow-hidden pt-28 pb-20">
-            {/* Ambient Background & Particles */}
+        <section className="relative min-h-screen flex flex-col overflow-hidden pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+            {/* Ambient Cyberpunk Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] sm:w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-600/20 via-purple-600/10 to-transparent blur-[120px]" />
-                <div className="absolute bottom-10 left-1/4 w-[400px] h-[300px] bg-cyan-500/10 blur-[100px] rounded-full" />
-                <ParticlesBackground className="absolute inset-0 z-0 opacity-30" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-secondary/5 to-transparent blur-[120px]" />
+                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[100px] rounded-full" />
+                <ParticlesBackground className="absolute inset-0 z-0 opacity-40" />
             </div>
 
-            {/* Content Container */}
-            <div className="relative z-10 flex flex-col items-center text-center space-y-8 px-4 max-w-5xl mx-auto">
-                {/* Modern Pill Badge */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-xl text-xs sm:text-sm font-medium text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.2)] glare-top cursor-default"
-                >
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                    </span>
-                    <span className="font-semibold tracking-wide">Developer Command Center & Gaming Vault</span>
-                </motion.div>
+            <div className="relative z-10 w-full max-w-7xl mx-auto space-y-10">
+                {/* Dashboard Header */}
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="space-y-2"
+                    >
+                        <div className="inline-flex items-center gap-2 px-3 py-1 mb-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            <span className="text-[10px] font-mono text-primary uppercase tracking-wider">System Online</span>
+                        </div>
+                        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60">
+                            {title}
+                        </h1>
+                        <p className="text-muted-foreground max-w-xl">
+                            {subtitle}
+                        </p>
+                    </motion.div>
 
-                {/* Hero Title */}
-                <motion.h1
-                    className={TYPOGRAPHY.heroTitle}
+                    {/* Quick System Stats */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="flex items-center gap-4 text-sm font-mono text-muted-foreground"
+                    >
+                        <div className="glass-panel px-4 py-2 flex items-center gap-2">
+                            <Cpu className="w-4 h-4 text-primary" />
+                            <span>v2.4.0-neo</span>
+                        </div>
+                        <div className="glass-panel px-4 py-2 flex items-center gap-2">
+                            <Terminal className="w-4 h-4 text-destructive" />
+                            <span>Root</span>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Bento Grid Command Center */}
+                <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
-                    {title}
-                </motion.h1>
-
-                {/* Subtitle */}
-                <motion.p
-                    className={`${TYPOGRAPHY.bodyMain} max-w-2xl text-slate-400 font-normal leading-relaxed`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
-                >
-                    {subtitle}
-                </motion.p>
-
-                {/* Action CTA */}
-                {ctaLabel && ctaUrl && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                        className="flex flex-wrap items-center justify-center gap-4 pt-2"
-                    >
-                        <CTAButton
-                            href={ctaUrl}
-                            label={ctaLabel}
-                            variant="premium"
-                            className="text-base px-9 py-5 rounded-full font-bold shadow-[0_0_35px_rgba(99,102,241,0.4)] hover:shadow-[0_0_50px_rgba(99,102,241,0.6)] transition-all flex items-center gap-2"
-                        />
-                    </motion.div>
-                )}
-
-                {/* Futuristic Interactive Command Deck Mockup */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                    className="w-full max-w-4xl mt-12 pt-6"
-                >
-                    <div className="rounded-3xl border border-white/10 bg-[#060a14]/80 backdrop-blur-2xl p-4 sm:p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_40px_rgba(99,102,241,0.15)] glare-top">
-                        {/* Mockup Header Bar */}
-                        <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.08] text-xs">
-                            <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full bg-rose-500/70" />
-                                <div className="w-3 h-3 rounded-full bg-amber-500/70" />
-                                <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
-                                <span className="text-slate-500 font-mono text-[11px] ml-2">hub.namdev.internal</span>
+                    {/* Primary Widget: Planner */}
+                    <Link href="/planner/today" className="lg:col-span-2 group">
+                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-primary)]">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-colors" />
+                            <div>
+                                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                                    <Calendar className="w-6 h-6" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-foreground mb-2">Daily Planner</h2>
+                                <p className="text-muted-foreground">Manage your tasks, track your schedule, and optimize your productivity.</p>
                             </div>
-                            <div className="hidden sm:flex items-center gap-3 text-slate-400 font-mono text-[11px]">
-                                <span className="inline-flex items-center gap-1 text-emerald-400"><CheckCircle2 className="w-3 h-3" /> Core Online</span>
-                                <span>v2.4.0-neo</span>
+                            <div className="mt-8 flex items-center gap-2 text-primary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                                <span>Launch Module</span>
+                                <span className="text-lg">→</span>
                             </div>
                         </div>
+                    </Link>
 
-                        {/* Quick Hub Grid Cards */}
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
-                            <Link href="/working" className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-indigo-500/40 hover:bg-white/[0.06] transition-all group">
-                                <div className="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                                    <Layers className="w-4 h-4" />
+                    {/* Secondary Widget: Working Hub */}
+                    <Link href="/working" className="group">
+                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_var(--color-secondary)] hover:border-secondary/50">
+                            <div className="absolute top-0 right-0 w-48 h-48 bg-secondary/10 blur-[60px] rounded-full group-hover:bg-secondary/20 transition-colors" />
+                            <div>
+                                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+                                    <Layers className="w-6 h-6" />
                                 </div>
-                                <h4 className="text-xs font-bold text-white group-hover:text-indigo-300 transition-colors">Working Hub</h4>
-                                <p className="text-[11px] text-slate-500 font-mono mt-0.5">Kanban & Projects</p>
-                            </Link>
-
-                            <Link href="/planner/today" className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-cyan-500/40 hover:bg-white/[0.06] transition-all group">
-                                <div className="w-7 h-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                                    <Calendar className="w-4 h-4" />
-                                </div>
-                                <h4 className="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors">Daily Planner</h4>
-                                <p className="text-[11px] text-slate-500 font-mono mt-0.5">Tasks & Schedule</p>
-                            </Link>
-
-                            <Link href="/media/news" className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-rose-500/40 hover:bg-white/[0.06] transition-all group">
-                                <div className="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                                    <Newspaper className="w-4 h-4" />
-                                </div>
-                                <h4 className="text-xs font-bold text-white group-hover:text-rose-300 transition-colors">Media & News</h4>
-                                <p className="text-[11px] text-slate-500 font-mono mt-0.5">RSS & Trends</p>
-                            </Link>
-
-                            <Link href="/mh-wilds" className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-amber-500/40 hover:bg-white/[0.06] transition-all group">
-                                <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                                    <Flame className="w-4 h-4" />
-                                </div>
-                                <h4 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">MH Wilds</h4>
-                                <p className="text-[11px] text-slate-500 font-mono mt-0.5">Database Vault</p>
-                            </Link>
+                                <h2 className="text-2xl font-bold text-foreground mb-2">Working Hub</h2>
+                                <p className="text-muted-foreground">Active projects and kanban boards.</p>
+                            </div>
+                            <div className="mt-8 flex items-center gap-2 text-secondary font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                                <span>Access</span>
+                                <span className="text-lg">→</span>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
+
+                    {/* Media & News */}
+                    <Link href="/media/youtube" className="group">
+                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(255,0,127,0.3)] hover:border-[#ff007f]/50">
+                            <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#ff007f]/10 blur-[60px] rounded-full group-hover:bg-[#ff007f]/20 transition-colors" />
+                            <div>
+                                <div className="w-12 h-12 rounded-2xl bg-[#ff007f]/10 flex items-center justify-center text-[#ff007f] mb-6 group-hover:scale-110 transition-transform">
+                                    <Newspaper className="w-6 h-6" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-foreground mb-2">Media Center</h2>
+                                <p className="text-muted-foreground">YouTube bookmarks, Spotify integrations, and RSS News.</p>
+                            </div>
+                            <div className="mt-8 flex items-center gap-2 text-[#ff007f] font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                                <span>Browse</span>
+                                <span className="text-lg">→</span>
+                            </div>
+                        </div>
+                    </Link>
+
+                    {/* MH Wilds Vault */}
+                    <Link href="/mh-wilds" className="lg:col-span-2 group">
+                        <div className="bento-card h-full p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_var(--color-destructive)] hover:border-destructive/50">
+                            <div className="absolute bottom-0 right-0 w-64 h-64 bg-destructive/10 blur-[80px] rounded-full group-hover:bg-destructive/20 transition-colors" />
+                            <div>
+                                <div className="w-12 h-12 rounded-2xl bg-destructive/10 flex items-center justify-center text-destructive mb-6 group-hover:scale-110 transition-transform">
+                                    <Flame className="w-6 h-6" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-foreground mb-2">Monster Hunter Wilds</h2>
+                                <p className="text-muted-foreground">Comprehensive database for weapons, armors, and monster weaknesses.</p>
+                            </div>
+                            <div className="mt-8 flex items-center gap-2 text-destructive font-mono text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
+                                <span>Open Vault</span>
+                                <span className="text-lg">→</span>
+                            </div>
+                        </div>
+                    </Link>
                 </motion.div>
             </div>
         </section>

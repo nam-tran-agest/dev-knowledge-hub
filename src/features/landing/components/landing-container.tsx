@@ -9,13 +9,9 @@ export async function LandingContainer({ locale }: LandingContainerProps) {
     const t = await getTranslations({ locale, namespace: 'home' });
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <HeroSection
-                title={t('hero.title')}
-                subtitle={t('hero.subtitle')}
-                ctaLabel={t('hero.ctaLabel')}
-                ctaUrl={t('hero.ctaUrl')}
-            />
-        </div>
+        <HeroSection
+            title={t('hero.title')}
+            subtitle={t('hero.subtitle')}
+        />
     )
 }
