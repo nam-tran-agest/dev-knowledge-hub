@@ -9,19 +9,19 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default:
-                    "bg-indigo-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:bg-indigo-500 hover:shadow-[0_0_25px_rgba(99,102,241,0.5)]",
+                    "bg-primary text-primary-foreground shadow-[0_0_15px_var(--color-primary)] hover:bg-primary/90 hover:shadow-[0_0_25px_var(--color-primary)]",
                 destructive:
-                    "bg-rose-600 text-white shadow-sm hover:bg-rose-500 hover:shadow-[0_0_20px_rgba(244,63,94,0.4)]",
+                    "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:shadow-[0_0_20px_var(--color-destructive)]",
                 outline:
-                    "border border-white/10 bg-white/[0.02] text-slate-200 hover:bg-white/[0.06] hover:text-white hover:border-white/20 backdrop-blur-sm",
+                    "border border-primary/30 bg-transparent text-primary hover:bg-primary/10 hover:border-primary/60 backdrop-blur-sm",
                 secondary:
-                    "bg-white/[0.06] text-slate-200 hover:bg-white/[0.12] hover:text-white border border-white/[0.08]",
-                ghost: "text-slate-400 hover:bg-white/[0.06] hover:text-white",
-                link: "text-indigo-400 underline-offset-4 hover:underline",
-                cta: "bg-white text-slate-950 font-bold rounded-full hover:bg-slate-200 shadow-xl hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]",
-                ctaOutline: "border border-white/20 bg-white/[0.04] text-white rounded-full hover:bg-white/[0.08] hover:border-white/40 font-semibold backdrop-blur-md",
-                premium: "bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 text-white !rounded-full font-bold shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_45px_rgba(99,102,241,0.6)]",
-                glass: "bg-white/[0.04] border border-white/10 text-white rounded-full hover:bg-white/[0.08] hover:border-indigo-500/40 backdrop-blur-xl shadow-lg hover:shadow-[0_0_20px_rgba(99,102,241,0.2)]",
+                    "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-secondary",
+                ghost: "text-muted-foreground hover:bg-accent/30 hover:text-accent-foreground",
+                link: "text-primary underline-offset-4 hover:underline",
+                cta: "bg-primary text-black font-bold rounded-full hover:bg-primary/90 shadow-xl hover:shadow-[0_0_25px_var(--color-primary)]",
+                ctaOutline: "border border-primary/50 bg-primary/5 text-primary rounded-full hover:bg-primary/10 hover:border-primary font-semibold backdrop-blur-md",
+                premium: "bg-gradient-to-r from-primary via-secondary-foreground to-accent-foreground text-black !rounded-full font-bold shadow-[0_0_30px_var(--color-primary)] hover:shadow-[0_0_45px_var(--color-primary)]",
+                glass: "bg-background/20 border border-primary/20 text-primary rounded-full hover:bg-background/40 hover:border-primary/50 backdrop-blur-xl shadow-lg hover:shadow-[0_0_20px_var(--color-primary)]",
             },
             size: {
                 default: "h-10 px-4 py-2 text-sm",

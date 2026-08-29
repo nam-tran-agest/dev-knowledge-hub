@@ -25,7 +25,7 @@ export async function YouTubePlaylistContainer({ playlistId }: YouTubePlaylistCo
     const { playlist, videos } = data;
 
     return (
-        <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0c1a36] via-[#204b8f] to-[#060f24]">
+        <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-transparent">
             <div className="max-w-7xl mx-auto space-y-8">
                 <div className="flex items-center gap-4">
                     <Link href="/media/youtube">

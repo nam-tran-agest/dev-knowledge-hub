@@ -5,43 +5,48 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #030712;
-  --foreground: #f8fafc;
+  /* Cyberpunk Glassmorphism Theme */
+  --background: #050510;
+  --foreground: #e0fbfc;
 
-  --card: rgba(10, 15, 29, 0.7);
-  --card-foreground: #f8fafc;
+  --card: rgba(8, 10, 20, 0.5);
+  --card-foreground: #e0fbfc;
 
-  --popover: rgba(8, 12, 22, 0.95);
-  --popover-foreground: #f8fafc;
+  --popover: rgba(5, 5, 12, 0.8);
+  --popover-foreground: #e0fbfc;
 
-  --primary: #6366f1;
-  --primary-foreground: #ffffff;
+  /* Neon Cyan */
+  --primary: #00f0ff;
+  --primary-foreground: #000000;
 
-  --secondary: rgba(255, 255, 255, 0.05);
-  --secondary-foreground: #e2e8f0;
+  /* Neon Magenta */
+  --secondary: rgba(255, 0, 127, 0.15);
+  --secondary-foreground: #ff007f;
 
-  --muted: rgba(255, 255, 255, 0.04);
-  --muted-foreground: #94a3b8;
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: #8b9bb4;
 
-  --accent: rgba(99, 102, 241, 0.15);
-  --accent-foreground: #818cf8;
+  --accent: rgba(0, 240, 255, 0.15);
+  --accent-foreground: #00f0ff;
 
-  --destructive: #ef4444;
+  --destructive: #ff003c;
   --destructive-foreground: #ffffff;
 
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: #6366f1;
-  --radius: 1rem;
+  --border: rgba(0, 240, 255, 0.3);
+  --input: rgba(0, 240, 255, 0.15);
+  --ring: rgba(0, 240, 255, 0.7);
+  
+  /* Sharper edges for cyberpunk */
+  --radius: 0.5rem;
 
-  --sidebar: rgba(8, 12, 22, 0.85);
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(255, 255, 255, 0.05);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #6366f1;
+  --sidebar: rgba(4, 6, 15, 0.8);
+  --sidebar-foreground: #e0fbfc;
+  --sidebar-primary: #00f0ff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: rgba(0, 240, 255, 0.15);
+  --sidebar-accent-foreground: #00f0ff;
+  --sidebar-border: rgba(0, 240, 255, 0.3);
+  --sidebar-ring: rgba(0, 240, 255, 0.7);
 }
 
 @theme inline {
@@ -65,6 +70,35 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  /* Centralized override for hardcoded 'indigo' classes scattered in UI to map to Cyberpunk Cyan */
+  --color-indigo-50: #e0fbfc;
+  --color-indigo-100: #ccfbfd;
+  --color-indigo-200: #99f7fb;
+  --color-indigo-300: #66f3f9;
+  --color-indigo-400: #33eff7;
+  --color-indigo-500: var(--primary);
+  --color-indigo-600: #00c0cc;
+  --color-indigo-700: #009099;
+  --color-indigo-800: #006066;
+  --color-indigo-900: #003033;
+
+  /* Centralized override for 'rose' to Cyberpunk Destructive (Red/Pink) */
+  --color-rose-500: var(--destructive);
+  --color-rose-600: #cc0030;
+
+  /* Centralized override for 'slate' to Cyberpunk Dark Theme (Deep Blue/Black) */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #0a0d1a;
+  --color-slate-900: var(--background);
+  --color-slate-950: #020205;
+
   --radius-sm: calc(var(--radius) - 6px);
   --radius-md: calc(var(--radius) - 3px);
   --radius-lg: var(--radius);
@@ -87,11 +121,12 @@
     color: var(--foreground);
     min-height: 100vh;
     overflow-x: hidden;
+    /* Cyberpunk Hex Grid or Neon Radial Gradients */
     background-image: 
-      radial-gradient(circle 800px at 50% -100px, rgba(99, 102, 241, 0.15), transparent),
-      radial-gradient(circle 600px at 90% 20%, rgba(168, 85, 247, 0.08), transparent),
-      radial-gradient(circle 600px at 10% 60%, rgba(6, 182, 212, 0.08), transparent),
-      radial-gradient(circle 500px at 50% 100%, rgba(99, 102, 241, 0.06), transparent);
+      radial-gradient(circle 800px at 50% -100px, rgba(0, 240, 255, 0.15), transparent),
+      radial-gradient(circle 600px at 90% 20%, rgba(255, 0, 127, 0.1), transparent),
+      radial-gradient(circle 600px at 10% 60%, rgba(0, 240, 255, 0.08), transparent),
+      radial-gradient(circle 500px at 50% 100%, rgba(255, 0, 127, 0.08), transparent);
     background-attachment: fixed;
   }
 }
@@ -107,7 +142,7 @@
   inset-inline: 0;
   top: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 240, 255, 0.5) 50%, transparent 100%);
   pointer-events: none;
   z-index: 10;
 }
@@ -118,73 +153,77 @@
   inset-inline: 0;
   top: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(129, 140, 248, 0.6) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 0, 127, 0.6) 50%, transparent 100%);
   pointer-events: none;
   z-index: 10;
 }
 
-/* Glass Surfaces */
+/* Cyberpunk Glass Surfaces */
 .glass-panel {
-  background: rgba(10, 15, 29, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 5, 12, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
 }
 
 .glass-card {
   position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.05) 0%, rgba(0, 240, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.1);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(0, 240, 255, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.18);
+  box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.1);
 }
 
 .bento-card {
   position: relative;
-  background: rgba(13, 18, 33, 0.6);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1.5rem;
+  background: rgba(8, 10, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: var(--radius); /* use unified radius */
   overflow: hidden;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bento-card:hover {
-  border-color: rgba(99, 102, 241, 0.35);
-  background: rgba(18, 25, 46, 0.75);
+  border-color: rgba(0, 240, 255, 0.4);
+  background: rgba(12, 15, 30, 0.7);
   transform: translateY(-3px);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 30px -5px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -5px rgba(0, 240, 255, 0.3);
 }
 
-/* Kinetic Gradient Typography */
+/* Cyberpunk Neon Typography */
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 45%, #818cf8 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #00f0ff 45%, #ff007f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
 }
 
 .text-gradient-cyan {
-  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 45%, #06b6d4 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 45%, #00f0ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
 }
 
 .text-gradient-purple {
-  background: linear-gradient(135deg, #f5d0fe 0%, #c084fc 45%, #818cf8 100%);
+  background: linear-gradient(135deg, #f5d0fe 0%, #ff007f 45%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
 }
 
 /* Clean Scrollbar */

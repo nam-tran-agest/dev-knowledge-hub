@@ -9,7 +9,7 @@ export default async function YouTubePage({
     const { locale } = await params;
 
     return (
-        <PageShell className="bg-gradient-to-br from-[#0c1a36] via-[#204b8f] to-[#060f24]">
+        <PageShell className="bg-transparent">
             <YouTubeContainer locale={locale} />
         </PageShell>
     );

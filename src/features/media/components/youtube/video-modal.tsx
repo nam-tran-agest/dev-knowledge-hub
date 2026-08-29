@@ -61,7 +61,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
             ? '!translate-x-0 !translate-y-0'
             : 'bottom-6 right-6 !translate-x-0 !translate-y-0 !top-auto !left-auto'
         }`
-        : "w-[100vw] sm:max-w-4xl bg-[#0a1224] bg-gradient-to-br from-[#0c1a36] via-[#0a1224] to-[#040816] border-gray-800 p-0 overflow-hidden flex flex-col transition-all duration-300 group";
+        : "w-[100vw] sm:max-w-4xl glass-panel p-0 overflow-hidden flex flex-col transition-all duration-300 group";
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()} modal={!isPip}>

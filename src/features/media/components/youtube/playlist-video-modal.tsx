@@ -54,7 +54,7 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
 
     if (!video) return null;
 
-    const modalClasses = `w-[100vw] sm:max-w-6xl bg-[#0a1224] bg-gradient-to-br from-[#0c1a36] via-[#0a1224] to-[#040816] border-gray-800 p-0 overflow-hidden flex flex-col transition-all duration-300 group`;
+    const modalClasses = `w-[100vw] sm:max-w-6xl glass-panel p-0 overflow-hidden flex flex-col transition-all duration-300 group`;
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
