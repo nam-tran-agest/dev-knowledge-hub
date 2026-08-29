@@ -25,7 +25,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 <Card className="h-full p-6 bg-card/60 border-primary/30 hover:border-primary hover:bg-card/80 transition-all duration-300 cursor-pointer group relative overflow-hidden backdrop-blur-xl hover:shadow-[0_0_25px_var(--color-primary)]">
                     {/* FUI Accent Corner */}
                     <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 opacity-50 group-hover:opacity-100 transition-opacity" style={{ borderColor: project.color }} />
-                    <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
+                    <div className="absolute top-3 right-6 px-2.5 py-0.5 bg-primary/10 border border-primary/30 cyber-clip-tag text-[9px] uppercase tracking-widest text-primary font-mono font-bold">
                         // PROJ_{project.id.slice(0,4)}
                     </div>
                     
@@ -51,8 +51,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-1 uppercase font-mono tracking-wider">
                             {project.name}
                         </h3>
-                        <p className="text-sm text-primary/60 font-mono line-clamp-2 min-h-[40px] leading-relaxed">
-                            {project.description || 'AWAITING DATA...'}
+                        <p className="text-xs sm:text-sm text-slate-300 font-mono line-clamp-2 min-h-[40px] leading-relaxed">
+                            {project.description || '// AWAITING_SYSTEM_DATA...'}
                         </p>
                     </div>
 

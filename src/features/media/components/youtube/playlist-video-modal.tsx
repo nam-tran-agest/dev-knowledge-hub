@@ -8,7 +8,7 @@ import {
     DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Save, ExternalLink, ListVideo, Play, Terminal } from 'lucide-react';
+import { Save, ExternalLink, ListVideo, Play, Terminal, X } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateVideoProgress } from '@/features/media/services/youtube';
@@ -59,13 +59,14 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                 className="w-[100vw] sm:max-w-6xl p-0 overflow-hidden flex flex-col transition-all duration-300 group cyber-clip-lg border border-primary/40 bg-[#050714]"
                 overlayClassName="bg-[#04060f]/85 backdrop-blur-md"
                 tag="PLAYLIST_STREAM_DECK"
+                hideHeaderBar
                 hideCloseButton
             >
                 <DialogHeader
-                    className="p-3 sm:p-4 bg-[#050714]/90 backdrop-blur-md flex flex-row items-center justify-between relative opacity-100 border-b border-primary/20"
+                    className="p-3 sm:p-4 bg-[#050714]/95 backdrop-blur-md flex flex-row items-center justify-between relative opacity-100 border-b border-primary/20"
                 >
                     <div className='flex-1 pr-4 min-w-0'>
-                        <DialogTitle className="text-white truncate flex items-center gap-2 font-mono text-sm uppercase">
+                        <DialogTitle className="text-white truncate flex items-center gap-2 font-mono text-xs sm:text-sm uppercase font-bold">
                             <a
                                 href={video.url}
                                 target="_blank"
@@ -73,16 +74,16 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                                 className="hover:text-primary flex items-center gap-1.5 transition-colors truncate"
                             >
                                 <Terminal className="w-3.5 h-3.5 text-primary shrink-0" />
-                                {video.title || 'YouTube Video'}
-                                <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-50" />
+                                <span className="truncate">{video.title || 'YouTube Video'}</span>
+                                <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-60 hover:opacity-100" />
                             </a>
                         </DialogTitle>
-                        <DialogDescription className="text-primary/60 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
-                            // Started at: {formatTime(video.saved_time)}
+                        <DialogDescription className="text-slate-400 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
+                            // STARTED AT: {formatTime(video.saved_time)}
                         </DialogDescription>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 shrink-0">
                         <Button
                             onClick={handleSaveProgress}
                             size="sm"
@@ -90,7 +91,17 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                             disabled={isSaving}
                         >
                             <Save className="w-3.5 h-3.5" />
-                            {isSaving ? '[ SAVING... ]' : '[ SAVE & EXIT ]'}
+                            <span className="hidden xs:inline">{isSaving ? '[ SAVING... ]' : '[ SAVE & EXIT ]'}</span>
+                        </Button>
+
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={onClose}
+                            className="bg-black/80 hover:bg-destructive text-white hover:text-white shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-destructive/40"
+                            title="Close"
+                        >
+                            <X className="w-3.5 h-3.5" />
                         </Button>
                     </div>
                 </DialogHeader>
@@ -142,7 +153,7 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                                             )}
                                         </div>
                                         <div className="flex-1 min-w-0 py-0.5 font-mono">
-                                            <p className={`text-xs font-bold line-clamp-2 transition-colors uppercase ${v.id === video.id ? 'text-primary' : 'text-slate-300 group-hover:text-white'}`}>
+                                            <p className={`text-xs font-bold line-clamp-2 transition-colors uppercase ${v.id === video.id ? 'text-primary' : 'text-slate-200 group-hover:text-white'}`}>
                                                 {v.title}
                                             </p>
                                             {v.saved_time > 0 && (
@@ -161,7 +172,7 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
 }
 
 function getYouTubeId(url: string) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : null;
 }

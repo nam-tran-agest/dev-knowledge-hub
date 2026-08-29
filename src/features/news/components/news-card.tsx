@@ -29,7 +29,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
                         </Badge>
                     </div>
 
-                    <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[8px] uppercase tracking-widest text-primary/70 font-mono">
+                    <div className="absolute top-2.5 right-2.5 z-10 px-2 py-0.5 bg-black/80 backdrop-blur-md border border-primary/30 text-[8px] uppercase tracking-widest text-primary/80 font-mono cyber-clip-tag">
                         // DISPATCH
                     </div>
                 </div>
@@ -40,15 +40,15 @@ export function NewsCard({ item }: { item: NewsItem }) {
                         <h3 className="text-sm font-mono font-bold leading-snug text-white group-hover:text-primary transition-colors line-clamp-2 uppercase">
                             {item.title}
                         </h3>
-                        <p className="text-xs font-mono text-primary/60 line-clamp-2 leading-relaxed">
+                        <p className="text-xs font-mono text-slate-300 line-clamp-2 leading-relaxed">
                             {item.excerpt}
                         </p>
                     </div>
                     <div className="pt-3 border-t border-primary/20 flex items-center justify-between">
-                        <span className="text-[10px] font-mono font-semibold text-primary/60 uppercase tracking-widest">// {item.author}</span>
-                        <div className="text-xs font-mono font-bold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                        <span className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-widest">// {item.author}</span>
+                        <div className="px-2.5 py-1 bg-primary/10 group-hover:bg-primary border border-primary/40 cyber-clip-button text-[11px] font-mono font-bold text-primary group-hover:text-black transition-all flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,240,255,0.15)] group-hover:shadow-[0_0_15px_rgba(0,240,255,0.5)]">
                             <span>{t('readMore')}</span>
-                            <ArrowUpRight className="w-3.5 h-3.5" />
+                            <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
                         </div>
                     </div>
                 </CardContent>

@@ -30,17 +30,19 @@ const DialogContent = React.forwardRef<
     React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
         overlayClassName?: string,
         hideCloseButton?: boolean,
+        hideHeaderBar?: boolean,
         tag?: string
     }
->(({ className, overlayClassName, hideCloseButton, tag = "SYS_POPUP_WINDOW", children, ...props }, ref) => (
+>(({ className, overlayClassName, hideCloseButton, hideHeaderBar = false, tag = "SYS_POPUP_WINDOW", children, ...props }, ref) => (
     <DialogPortal>
         <DialogOverlay className={overlayClassName} />
         <DialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.9)] duration-200",
+                "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 shadow-[0_0_50px_rgba(0,0,0,0.9)] duration-200",
                 "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
                 "cyber-clip-lg border border-primary/40 bg-[#050714]/95 backdrop-blur-3xl text-slate-200 relative overflow-hidden",
+                hideHeaderBar ? "p-0" : "p-6 sm:p-8",
                 className
             )}
             {...props}
@@ -51,24 +53,34 @@ const DialogContent = React.forwardRef<
             {/* Corner Brackets */}
             <div className="absolute inset-0 cyber-brackets pointer-events-none" />
 
-            {/* Top FUI Window Header Bar */}
-            <div className="absolute top-0 left-0 right-0 h-7 border-b border-primary/30 bg-primary/10 flex items-center justify-between px-4 pointer-events-none">
-                <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-primary animate-pulse" />
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-primary font-bold">
-                        // {tag}
-                    </span>
+            {!hideHeaderBar && (
+                <>
+                    {/* Top FUI Window Header Bar */}
+                    <div className="absolute top-0 left-0 right-0 h-7 border-b border-primary/30 bg-primary/10 flex items-center justify-between px-4 pointer-events-none">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 bg-primary animate-pulse" />
+                            <span className="text-[10px] font-mono uppercase tracking-widest text-primary font-bold">
+                                // {tag}
+                            </span>
+                        </div>
+                        {/* Diagonal Hazard Hatching on Header */}
+                        <div className="w-16 h-3 opacity-40 hazard-stripes-cyan" />
+                    </div>
+
+                    {/* Content Container (padded for header bar) */}
+                    <div className="relative z-10 pt-4 flex flex-col gap-4">
+                        {children}
+                    </div>
+                </>
+            )}
+
+            {hideHeaderBar && (
+                <div className="relative z-10 w-full h-full flex flex-col">
+                    {children}
                 </div>
-                {/* Diagonal Hazard Hatching on Header */}
-                <div className="w-16 h-3 opacity-40 hazard-stripes-cyan" />
-            </div>
+            )}
 
-            {/* Content Container (padded for header bar) */}
-            <div className="relative z-10 pt-4 flex flex-col gap-4">
-                {children}
-            </div>
-
-            {!hideCloseButton && (
+            {!hideCloseButton && !hideHeaderBar && (
                 <DialogPrimitive.Close className="absolute right-3 top-1 z-20 cyber-clip-button opacity-70 transition-all hover:opacity-100 hover:bg-destructive/20 hover:text-destructive p-1 focus:outline-none text-primary/70 cursor-pointer">
                     <X className="h-4 w-4" />
                     <span className="sr-only">Close</span>

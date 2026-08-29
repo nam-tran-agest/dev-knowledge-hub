@@ -79,7 +79,7 @@ export const TodayView = () => {
                                     [ {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} ]
                                 </span>
                             </h2>
-                            <p className="text-primary/60 font-mono text-xs mt-1 uppercase tracking-wide">
+                            <p className="text-slate-300 font-mono text-xs mt-1 uppercase tracking-wide">
                                 // Schedule high-impact execution blocks
                             </p>
                         </div>
@@ -111,7 +111,7 @@ export const TodayView = () => {
                             <Terminal className="w-4 h-4 text-primary" />
                             Task Buffer
                         </h3>
-                        <p className="text-[10px] font-mono text-primary/60 mt-1 uppercase tracking-wide">
+                        <p className="text-[10px] font-mono text-slate-300 mt-1 uppercase tracking-wide">
                             // Unassigned tasks waiting for allocation
                         </p>
                     </div>

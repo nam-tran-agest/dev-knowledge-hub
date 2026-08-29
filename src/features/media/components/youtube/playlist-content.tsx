@@ -144,7 +144,16 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                         video={video}
                         onSelect={setSelectedVideo}
                         onDelete={(id) => setVideoIdToRemove(id)}
-                        onToggleFavorite={async () => {}}
+                        onToggleFavorite={async (e, v) => {
+                            e.stopPropagation();
+                            try {
+                                const { toggleFavorite } = await import('@/features/media/services/youtube');
+                                await toggleFavorite(v.id, !v.is_favorite);
+                                router.refresh();
+                            } catch (err) {
+                                console.error('Failed to toggle favorite', err);
+                            }
+                        }}
                         playlists={allPlaylists}
                     />
                 ))}

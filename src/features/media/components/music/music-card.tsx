@@ -36,8 +36,8 @@ export function MusicCard({ item, type }: MusicCardProps) {
 
     return (
         <div className="group relative bg-[#050714]/80 hover:bg-primary/10 border border-primary/25 hover:border-primary cyber-clip p-4 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.2)] hover:-translate-y-1 cursor-pointer">
-            {/* Top Corner Bracket */}
-            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[8px] uppercase tracking-widest text-primary/70 font-mono z-20">
+            {/* Top Corner Tag */}
+            <div className="absolute top-2.5 right-4 px-2 py-0.5 bg-black/80 border border-primary/30 text-[8px] uppercase tracking-widest text-primary/80 font-mono z-20 cyber-clip-tag">
                 // TRACK_{item.id.slice(0, 4)}
             </div>
 
@@ -67,7 +67,7 @@ export function MusicCard({ item, type }: MusicCardProps) {
                 <h3 className="font-bold text-white text-xs sm:text-sm line-clamp-1 group-hover:text-primary transition-colors uppercase">
                     {title}
                 </h3>
-                <p className="text-primary/60 text-[10px] sm:text-xs truncate uppercase">
+                <p className="text-slate-300 text-[10px] sm:text-xs truncate uppercase">
                     // {subtitle}
                 </p>
             </div>

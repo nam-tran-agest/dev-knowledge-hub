@@ -22,17 +22,12 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
 
     return (
         <Card
-            className="group relative overflow-hidden bg-card/70 border-primary/30 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] hover:-translate-y-1 p-0 cursor-pointer cyber-clip"
+            className="group relative overflow-hidden bg-[#050714]/90 border border-primary/30 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:-translate-y-1 p-0 cursor-pointer cyber-clip backdrop-blur-2xl"
             onClick={() => router.push(`/media/youtube/playlist/${playlist.id}`)}
         >
-            {/* Top Corner Bracket */}
-            <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono z-20">
-                // PL_{playlist.id.slice(0, 4)}
-            </div>
-
             <div className="flex flex-col h-full">
-                {/* Playlist Icon / Thumbnail placeholder */}
-                <div className="relative aspect-video w-full overflow-hidden bg-[#050714] group">
+                {/* Playlist Thumbnail Deck */}
+                <div className="relative aspect-video w-full overflow-hidden bg-[#04060f]">
                     {/* Background Grid Pattern */}
                     <div className="absolute inset-0 opacity-20 pointer-events-none z-0 bg-grid-cyber" />
 
@@ -73,25 +68,25 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
                     </div>
 
                     {/* Interactive Controls Layer */}
-                    <div className="absolute inset-0 p-3 pointer-events-none z-20">
-                        {/* Top Actions */}
-                        <div className="flex justify-between items-start w-full">
+                    <div className="absolute inset-0 p-2.5 flex flex-col justify-between pointer-events-none z-20">
+                        {/* Top Actions Row */}
+                        <div className="flex justify-between items-center w-full">
                             <div className="pointer-events-auto">
                                 <Button
                                     variant="ghost" size="icon"
                                     onClick={(e) => { e.stopPropagation(); onToggleFavorite(e, playlist); }}
-                                    className="cyber-clip-button w-7 h-7 bg-black/70 hover:bg-primary/20 text-white border border-primary/30 backdrop-blur-sm"
+                                    className="cyber-clip-button w-7 h-7 bg-black/80 hover:bg-primary/20 text-white border border-primary/30 backdrop-blur-sm cursor-pointer"
                                 >
                                     <Heart className={`w-3.5 h-3.5 ${playlist.is_favorite ? "fill-rose-500 text-rose-500" : "text-primary/70"}`} />
                                 </Button>
                             </div>
 
-                            <div className="flex gap-1.5 pointer-events-auto opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
+                            <div className="flex gap-1.5 pointer-events-auto opacity-0 group-hover:opacity-100 transition-opacity">
                                 {onEdit && (
                                     <Button
                                         variant="secondary" size="icon"
                                         onClick={(e) => { e.stopPropagation(); onEdit(playlist); }}
-                                        className="cyber-clip-button w-7 h-7 bg-primary/10 hover:bg-primary/25 text-primary border border-primary/30 backdrop-blur-sm"
+                                        className="cyber-clip-button w-7 h-7 bg-black/80 hover:bg-primary/25 text-primary border border-primary/30 backdrop-blur-sm cursor-pointer"
                                     >
                                         <Edit2 className="w-3.5 h-3.5" />
                                     </Button>
@@ -99,34 +94,37 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
                                 <Button
                                     variant="destructive" size="icon"
                                     onClick={(e) => { e.stopPropagation(); onDelete(playlist.id); }}
-                                    className="cyber-clip-button w-7 h-7 bg-destructive/80 hover:bg-destructive text-white border border-destructive/50"
+                                    className="cyber-clip-button w-7 h-7 bg-destructive/80 hover:bg-destructive text-white border border-destructive/50 cursor-pointer"
                                 >
                                     <Trash2 className="w-3.5 h-3.5" />
                                 </Button>
                             </div>
                         </div>
 
-                        {/* Bottom Badge */}
-                        <div className="absolute bottom-3 right-3 pointer-events-auto">
-                            <Badge variant="secondary" className="bg-primary/20 text-primary font-mono border border-primary/40 px-2 py-0.5 text-[10px]">
-                                {t('videoCount', { count: playlist.video_count || 0 })}
-                            </Badge>
+                        {/* Bottom Metadata Row */}
+                        <div className="flex justify-between items-center w-full">
+                            <div className="px-1.5 py-0.5 bg-black/80 backdrop-blur-md border border-primary/30 cyber-clip-tag text-[9px] uppercase tracking-widest text-primary/80 font-mono pointer-events-auto">
+                                // PL_{playlist.id.slice(0, 4)}
+                            </div>
+                            <div className="pointer-events-auto">
+                                <Badge variant="secondary" className="bg-black/80 backdrop-blur-md text-primary font-mono border border-primary/30 px-2 py-0.5 text-[10px]">
+                                    {t('videoCount', { count: playlist.video_count || 0 })}
+                                </Badge>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Content */}
-                <CardContent className="flex-1 p-4 space-y-2">
-                    <div className="space-y-1">
-                        <h3 className="font-mono font-bold text-xs sm:text-sm text-white line-clamp-1 group-hover:text-primary transition-colors uppercase tracking-wider">
-                            {playlist.title}
-                        </h3>
-                        {playlist.description && (
-                            <p className="text-primary/60 text-[11px] font-mono line-clamp-2 leading-relaxed">
-                                {playlist.description}
-                            </p>
-                        )}
-                    </div>
+                <CardContent className="flex-1 p-3.5 space-y-1.5">
+                    <h3 className="font-mono font-bold text-xs sm:text-sm text-slate-100 line-clamp-1 group-hover:text-primary transition-colors uppercase tracking-wider">
+                        {playlist.title}
+                    </h3>
+                    {playlist.description && (
+                        <p className="text-slate-400 text-[11px] font-mono line-clamp-2 leading-relaxed uppercase">
+                            // {playlist.description}
+                        </p>
+                    )}
                 </CardContent>
             </div>
         </Card>

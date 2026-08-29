@@ -56,7 +56,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
     if (!video) return null;
 
     const pipClasses = isPip
-        ? `fixed w-[90vw] sm:w-[420px] shadow-[0_0_30px_rgba(0,240,255,0.3)] z-50 cyber-clip overflow-hidden border border-primary/50 bg-[#04060f] p-0 transition-all duration-300 pointer-events-auto group ${position
+        ? `fixed w-[90vw] sm:w-[420px] shadow-[0_0_35px_rgba(0,240,255,0.5)] z-50 cyber-clip overflow-hidden border border-primary/60 bg-[#04060f] p-0 transition-all duration-300 pointer-events-auto group ${position
             ? '!translate-x-0 !translate-y-0'
             : 'bottom-6 right-6 !translate-x-0 !translate-y-0 !top-auto !left-auto'
         }`
@@ -67,19 +67,20 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
             <DialogContent
                 className={pipClasses}
                 style={pipStyle}
-                overlayClassName="bg-[#04060f]/80 backdrop-blur-md"
+                overlayClassName="bg-[#04060f]/85 backdrop-blur-md"
                 onInteractOutside={(e) => {
                     if (isPip) e.preventDefault();
                 }}
                 tag="STREAM_RENDERER"
+                hideHeaderBar
                 hideCloseButton
             >
                 <DialogHeader
                     onMouseDown={handleDragStart}
-                    className={`p-3 sm:p-4 bg-[#050714]/90 backdrop-blur-md flex flex-row items-center justify-between transition-opacity duration-300 ${isPip ? 'cursor-move absolute top-0 w-full z-10 opacity-0 group-hover:opacity-100' : 'relative opacity-100 border-b border-primary/20'}`}
+                    className={`p-3 sm:p-4 bg-[#050714]/95 backdrop-blur-md flex flex-row items-center justify-between transition-opacity duration-300 ${isPip ? 'cursor-move absolute top-0 w-full z-20 opacity-0 group-hover:opacity-100 bg-black/90 p-2 border-b border-primary/20' : 'relative opacity-100 border-b border-primary/20'}`}
                 >
                     <div className='flex-1 pr-4 min-w-0'>
-                        <DialogTitle className="text-white truncate flex items-center gap-2 font-mono text-sm uppercase">
+                        <DialogTitle className="text-white truncate flex items-center gap-2 font-mono text-xs sm:text-sm uppercase font-bold">
                             <a
                                 href={video.url}
                                 target="_blank"
@@ -87,37 +88,25 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                                 className="hover:text-primary flex items-center gap-1.5 transition-colors truncate"
                             >
                                 <Terminal className="w-3.5 h-3.5 text-primary shrink-0" />
-                                {video.title || t('defaultTitle')}
-                                <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-50" />
+                                <span className="truncate">{video.title || t('defaultTitle')}</span>
+                                <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-60 hover:opacity-100" />
                             </a>
                         </DialogTitle>
-                        <DialogDescription className="text-primary/60 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
+                        <DialogDescription className="text-slate-400 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
                             // {t('startedAt', { time: formatTime(video.saved_time) })}
                         </DialogDescription>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 shrink-0">
                         <Button
                             variant="ghost"
                             size="icon"
                             onClick={() => setIsPip(!isPip)}
-                            className="bg-black/60 hover:bg-primary/20 text-primary shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-primary/30"
+                            className="bg-black/80 hover:bg-primary/20 text-primary shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-primary/30"
                             title={isPip ? t('maximize') : t('miniPlayer')}
                         >
                             <PictureInPicture2 className="w-3.5 h-3.5" />
                         </Button>
-
-                        {isPip && (
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={onClose}
-                                className="bg-black/60 hover:bg-destructive text-white shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-destructive/40"
-                                title={t('close')}
-                            >
-                                <X className="w-3.5 h-3.5" />
-                            </Button>
-                        )}
 
                         <Button
                             onClick={handleSaveProgress}
@@ -126,7 +115,17 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                             disabled={isSaving}
                         >
                             <Save className="w-3.5 h-3.5" />
-                            {isSaving ? '[ SAVING... ]' : '[ SAVE & EXIT ]'}
+                            <span className="hidden xs:inline">{isSaving ? '[ SAVING... ]' : '[ SAVE & EXIT ]'}</span>
+                        </Button>
+
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={onClose}
+                            className="bg-black/80 hover:bg-destructive text-white hover:text-white shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-destructive/40"
+                            title={t('close')}
+                        >
+                            <X className="w-3.5 h-3.5" />
                         </Button>
                     </div>
                 </DialogHeader>
@@ -145,7 +144,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
 }
 
 function getYouTubeId(url: string) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : null;
 }

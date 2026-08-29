@@ -36,7 +36,7 @@ export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanVi
                         <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity" />
                         
                         {/* Status Label FUI */}
-                        <div className="absolute top-0 right-4 bg-background border-x border-primary/30 text-[10px] uppercase tracking-widest text-primary/70 font-mono px-2 py-0.5">
+                        <div className="absolute top-3 right-6 bg-primary/10 border border-primary/30 text-[10px] uppercase tracking-widest text-primary font-mono font-bold px-2.5 py-0.5 cyber-clip-tag">
                             // COL_{column.id.toUpperCase()}
                         </div>
 
