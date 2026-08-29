@@ -12,7 +12,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import MobileMenu from "@/components/layout/mobile-menu";
-import LanguageSwitcher from "@/components/layout/language-switcher";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin", "vietnamese"],
