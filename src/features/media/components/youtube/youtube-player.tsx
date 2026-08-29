@@ -1,21 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-
-// Define YouTube types locally
-declare global {
-    interface Window {
-        YT: {
-            Player: {
-                new(id: string, config: Record<string, unknown>): {
-                    destroy: () => void;
-                    getCurrentTime: () => number;
-                };
-            };
-        };
-        onYouTubeIframeAPIReady: () => void;
-    }
-}
+import { useEffect, useRef } from 'react';
 
 interface YouTubePlayerProps {
     videoId: string;
@@ -26,103 +11,80 @@ interface YouTubePlayerProps {
 }
 
 export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, className = "" }: YouTubePlayerProps) {
-    const playerRef = useRef<{
-        destroy: () => void;
-        getCurrentTime: () => number;
-    } | null>(null);
-    const containerId = useRef(`yt-player-${Math.random().toString(36).substring(2, 9)}`);
-    const [useFallbackIframe, setUseFallbackIframe] = useState(false);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
+
+    // Clean videoId
+    const cleanId = extractCleanVideoId(videoId);
 
     useEffect(() => {
-        let interval: NodeJS.Timeout;
-        let timeout: NodeJS.Timeout;
-
-        const initPlayer = () => {
-            if (!window.YT || !window.YT.Player) {
-                // Fallback to direct iframe if API fails to load after 2.5s
-                timeout = setTimeout(() => {
-                    if (!playerRef.current) {
-                        setUseFallbackIframe(true);
-                    }
-                }, 2500);
-                return;
-            }
-
-            if (playerRef.current) {
-                playerRef.current.destroy();
-            }
+        const handleMessage = (event: MessageEvent) => {
+            if (event.origin !== 'https://www.youtube.com') return;
 
             try {
-                playerRef.current = new window.YT.Player(containerId.current, {
-                    height: '100%',
-                    width: '100%',
-                    videoId: videoId,
-                    playerVars: {
-                        autoplay: 1,
-                        start: Math.floor(startTime),
-                        modestbranding: 1,
-                        rel: 0,
-                        enablejsapi: 1,
-                        origin: typeof window !== 'undefined' ? window.location.origin : '',
-                    },
-                    events: {
-                        onReady: () => {
-                            if (onTimeUpdate) {
-                                interval = setInterval(() => {
-                                    if (playerRef.current && typeof playerRef.current.getCurrentTime === 'function') {
-                                        onTimeUpdate(playerRef.current.getCurrentTime());
-                                    }
-                                }, 1000);
-                            }
-                        },
-                        onStateChange: (event: { data: number }) => {
-                            if (event.data === 0 && onEnd) {
-                                onEnd();
-                            }
-                        }
+                const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+                if (data.event === 'onStateChange' && data.info === 0 && onEnd) {
+                    onEnd();
+                }
+                if (data.event === 'infoDelivery' && data.info && typeof data.info.currentTime === 'number') {
+                    if (onTimeUpdate) {
+                        onTimeUpdate(data.info.currentTime);
                     }
-                });
-            } catch (err) {
-                console.warn('Failed to initialize YT Player, falling back to iframe', err);
-                setUseFallbackIframe(true);
+                }
+            } catch {
+                // Ignore parse errors from non-json messages
             }
         };
 
-        if (!window.YT) {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-            window.onYouTubeIframeAPIReady = initPlayer;
-            timeout = setTimeout(() => {
-                if (!window.YT) setUseFallbackIframe(true);
-            }, 3000);
-        } else {
-            initPlayer();
-        }
+        window.addEventListener('message', handleMessage);
+
+        // Periodically request time from player via postMessage
+        const interval = setInterval(() => {
+            if (iframeRef.current && iframeRef.current.contentWindow) {
+                iframeRef.current.contentWindow.postMessage(
+                    JSON.stringify({ event: 'listening', id: cleanId }),
+                    '*'
+                );
+            }
+        }, 1000);
 
         return () => {
-            if (interval) clearInterval(interval);
-            if (timeout) clearTimeout(timeout);
-            if (playerRef.current && playerRef.current.destroy) {
-                playerRef.current.destroy();
-            }
+            window.removeEventListener('message', handleMessage);
+            clearInterval(interval);
         };
-    }, [videoId, onEnd, onTimeUpdate, startTime]);
+    }, [cleanId, onEnd, onTimeUpdate]);
+
+    if (!cleanId) {
+        return (
+            <div className="aspect-video w-full bg-[#04060f] flex items-center justify-center font-mono text-xs text-primary/60 uppercase">
+                // INVALID_VIDEO_ID_STREAM
+            </div>
+        );
+    }
 
     return (
-        <div className={`aspect-video w-full bg-black relative overflow-hidden ${className}`}>
-            {useFallbackIframe ? (
-                <iframe
-                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&start=${Math.floor(startTime)}&rel=0&modestbranding=1`}
-                    title="YouTube video player"
-                    className="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                />
-            ) : (
-                <div id={containerId.current} className="w-full h-full" />
-            )}
+        <div className={`relative aspect-video w-full bg-black overflow-hidden ${className}`}>
+            <iframe
+                ref={iframeRef}
+                src={`https://www.youtube-nocookie.com/embed/${cleanId}?autoplay=1&enablejsapi=1&start=${Math.floor(startTime)}&rel=0&modestbranding=1`}
+                title="YouTube Video Player"
+                className="absolute inset-0 w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+            />
         </div>
     );
+}
+
+function extractCleanVideoId(urlOrId: string): string {
+    if (!urlOrId) return '';
+    const clean = urlOrId.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(clean)) {
+        return clean;
+    }
+    const match = clean.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/);
+    if (match && match[1]) {
+        return match[1];
+    }
+    const fallback = clean.match(/[\w-]{11}/);
+    return fallback ? fallback[0] : clean;
 }

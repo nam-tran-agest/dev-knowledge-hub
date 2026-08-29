@@ -17,7 +17,7 @@ const DialogOverlay = React.forwardRef<
     <DialogPrimitive.Overlay
         ref={ref}
         className={cn(
-            "fixed inset-0 z-50 bg-black/85 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            "fixed inset-0 z-[99] bg-black/85 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             className
         )}
         {...props}
@@ -39,9 +39,9 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 shadow-[0_0_50px_rgba(0,0,0,0.9)] duration-200",
-                "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
-                "cyber-clip-lg border border-primary/40 bg-[#050714]/95 backdrop-blur-3xl text-slate-200 relative overflow-hidden",
+                "fixed left-[50%] top-[50%] z-[100] grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 shadow-[0_0_50px_rgba(0,0,0,0.95)] duration-200",
+                "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+                "cyber-clip-lg border border-primary/40 bg-[#050714] backdrop-blur-3xl text-slate-200 relative overflow-hidden",
                 hideHeaderBar ? "p-0" : "p-6 sm:p-8",
                 className
             )}

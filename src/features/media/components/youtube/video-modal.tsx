@@ -56,11 +56,11 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
     if (!video) return null;
 
     const pipClasses = isPip
-        ? `fixed w-[90vw] sm:w-[420px] shadow-[0_0_35px_rgba(0,240,255,0.5)] z-50 cyber-clip overflow-hidden border border-primary/60 bg-[#04060f] p-0 transition-all duration-300 pointer-events-auto group ${position
+        ? `fixed w-[90vw] sm:w-[420px] shadow-[0_0_35px_rgba(0,240,255,0.5)] z-[100] cyber-clip overflow-hidden border border-primary/60 bg-[#04060f] p-0 transition-all duration-300 pointer-events-auto group ${position
             ? '!translate-x-0 !translate-y-0'
             : 'bottom-6 right-6 !translate-x-0 !translate-y-0 !top-auto !left-auto'
         }`
-        : "w-[100vw] sm:max-w-4xl p-0 overflow-hidden flex flex-col transition-all duration-300 group cyber-clip-lg border border-primary/40 bg-[#050714]";
+        : "w-[95vw] sm:max-w-4xl p-0 overflow-hidden flex flex-col transition-all duration-300 group cyber-clip-lg border border-primary/40 bg-[#050714]";
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()} modal={!isPip}>
