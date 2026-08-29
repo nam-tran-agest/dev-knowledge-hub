@@ -1,58 +1,22 @@
-import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 import { PlaylistContent } from '@/features/media/components/youtube/playlist-content';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ListVideo } from 'lucide-react';
 import Link from 'next/link';
-import { getPlaylists } from '@/features/media/services/youtube';
+import { getPlaylists, getPlaylistDetails, getVideos } from '@/features/media/services/youtube';
 import { getTranslations } from 'next-intl/server';
 
 interface YouTubePlaylistContainerProps {
     playlistId: string;
 }
 
-async function getPlaylistVideos(playlistId: string) {
-    const supabase = await createClient();
-
-    // Fetch playlist details
-    const { data: playlist, error: pError } = await supabase
-        .from('youtube_playlists')
-        .select('*')
-        .eq('id', playlistId)
-        .single();
-
-    if (pError || !playlist) return null;
-
-    // Fetch videos in this playlist
-    const { data: items, error: iError } = await supabase
-        .from('youtube_playlist_items')
-        .select(`
-            *,
-            video:youtube_videos(*)
-        `)
-        .eq('playlist_id', playlistId)
-        .order('position', { ascending: true });
-
-    if (iError) {
-        console.error('Error fetching playlist items:', iError);
-        return { playlist, videos: [] };
-    }
-
-    return {
-        playlist,
-        videos: (items || []).map(item => item.video).filter(Boolean)
-    };
-}
-
 export async function YouTubePlaylistContainer({ playlistId }: YouTubePlaylistContainerProps) {
     const t = await getTranslations('media.youtube.playlist');
-    const data = await getPlaylistVideos(playlistId);
+    const data = await getPlaylistDetails(playlistId);
     const playlists = await getPlaylists();
-    const supabase = await createClient();
-    const { data: libraryVideos } = await supabase
-        .from('youtube_videos')
-        .select('*')
-        .order('created_at', { ascending: false });
+    
+    // Fallback to empty array if libraryVideos fetch fails
+    const libraryVideos = await getVideos() || [];
 
     if (!data) {
         notFound();

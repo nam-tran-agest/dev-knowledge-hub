@@ -276,23 +276,37 @@ export async function removeVideoFromPlaylist(videoId: string, playlistId: strin
     revalidatePath('/media/youtube');
 }
 
-export async function getPlaylistVideos(playlistId: string) {
+export async function getPlaylistDetails(playlistId: string) {
     const supabase = await createClient();
-    const { data, error } = await supabase
+
+    // Fetch playlist details
+    const { data: playlist, error: pError } = await supabase
+        .from('youtube_playlists')
+        .select('*')
+        .eq('id', playlistId)
+        .single();
+
+    if (pError || !playlist) return null;
+
+    // Fetch videos in this playlist
+    const { data: items, error: iError } = await supabase
         .from('youtube_playlist_items')
         .select(`
-            video_id,
-            youtube_videos (*)
+            *,
+            video:youtube_videos(*)
         `)
         .eq('playlist_id', playlistId)
-        .order('created_at', { ascending: true });
+        .order('position', { ascending: true });
 
-    if (error) {
-        console.error('Error fetching playlist videos:', error);
-        return [];
+    if (iError) {
+        console.error('Error fetching playlist items:', iError);
+        return { playlist, videos: [] };
     }
 
-    return (data || []).map(item => item.youtube_videos);
+    return {
+        playlist,
+        videos: (items || []).map(item => item.video).filter(Boolean)
+    };
 }
 
 export async function togglePlaylistFavorite(id: string, isFavorite: boolean) {
