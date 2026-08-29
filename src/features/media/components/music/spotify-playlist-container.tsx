@@ -80,8 +80,8 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
 
                         {/* Tracks List */}
                         <div className="p-8 md:p-12 max-w-7xl mx-auto -mt-4 transition-all">
-                            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-2xl shadow-xl">
-                                <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-4 border-b border-white/10 text-slate-400 text-xs font-semibold uppercase tracking-wider px-8">
+                            <div className="bg-[#070d1e]/50 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-2xl shadow-2xl glare-top">
+                                <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-4 border-b border-white/10 text-slate-400 text-xs font-mono font-semibold uppercase tracking-wider px-8">
                                     <div className="w-8 text-center">#</div>
                                     <div>Title</div>
                                     <div className="hidden md:block">Album</div>
@@ -111,12 +111,12 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
                                                         <p className="font-semibold text-white truncate group-hover:text-emerald-300 transition-colors text-sm">
                                                             {track.name}
                                                         </p>
-                                                        <p className="text-xs text-slate-400 truncate">
+                                                        <p className="text-xs text-slate-400 truncate font-mono">
                                                             {track.artists?.map((a: { name: string }) => a.name).join(', ')}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="hidden md:block text-slate-400 text-sm truncate">
+                                                <div className="hidden md:block text-slate-400 text-sm truncate font-mono text-xs">
                                                     {track.album?.name}
                                                 </div>
                                                 <div className="w-12 text-right text-slate-400 text-xs font-mono">

@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ArrowLeft, ArrowRight, Clock, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, ArrowUpRight } from "lucide-react";
 import type { NavigationOptions, Swiper as SwiperType } from "swiper/types";
 
 import { Badge } from '@/components/ui/badge';
@@ -46,13 +46,13 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                 onBeforeInit={handleBeforeInit}
                 onSwiper={(swiper) => { swiperRef.current = swiper; }}
                 onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-                className="rounded-3xl !overflow-y-visible scrollbar-none h-fit border border-white/10 shadow-2xl"
+                className="rounded-3xl !overflow-y-visible scrollbar-none h-fit border border-white/10 shadow-2xl glare-top"
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.link}>
-                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="relative block h-[340px] md:h-[520px] overflow-hidden group">
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#07090e] via-[#07090e]/50 to-transparent z-10" />
-                            <div className="absolute inset-0 bg-[#07090e]/20">
+                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="relative block h-[340px] md:h-[520px] overflow-hidden group cursor-pointer">
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/60 to-transparent z-10" />
+                            <div className="absolute inset-0 bg-[#030712]/20">
                                 <Image
                                     src={item.image}
                                     alt={item.title || "Featured"}
@@ -63,7 +63,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                             </div>
                             <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 z-20 space-y-4 md:space-y-6">
                                 <div className="space-y-3">
-                                    <Badge className="bg-cyan-500/90 text-white backdrop-blur-md uppercase text-xs px-3 py-1 font-semibold border-0 shadow-[0_0_15px_rgba(6,182,212,0.3)]">{t('badge')}</Badge>
+                                    <Badge className="bg-cyan-500 text-white backdrop-blur-md uppercase text-xs px-3 py-1 font-mono font-bold border-0 shadow-[0_0_20px_rgba(6,182,212,0.4)]">{t('badge')}</Badge>
                                     <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight max-w-3xl leading-[1.2] md:leading-[1.1] text-white group-hover:text-cyan-200 transition-colors">{item.title}</h1>
                                     <p className="text-slate-300 max-w-2xl text-sm md:text-base leading-relaxed line-clamp-2 hidden sm:line-clamp-2 font-normal">{item.excerpt}</p>
                                 </div>
@@ -77,7 +77,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                                             <AvatarFallback>VN</AvatarFallback>
                                         </Avatar>
                                         <div className="flex flex-col text-[9px] md:text-sm gap-0.5">
-                                            <div className="font-semibold text-slate-400 text-[9px] md:text-[11px] uppercase tracking-wider">{t('editor')}</div>
+                                            <div className="font-semibold text-slate-400 text-[9px] md:text-[11px] uppercase tracking-wider font-mono">{t('editor')}</div>
                                             <div className="font-bold leading-tight text-white">{item.author}</div>
                                         </div>
                                     </div>
@@ -85,8 +85,8 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                                     <div className="flex items-center gap-2 text-slate-400 text-xs md:text-sm font-mono">
                                         <Clock className="w-3.5 h-3.5" /> <TimeDisplay isoDate={item.isoDate} />
                                     </div>
-                                    <div className="ml-auto p-2.5 md:p-3 bg-white/[0.08] group-hover:bg-cyan-500 group-hover:text-white rounded-full transition-all border border-white/10">
-                                        <ExternalLink className="size-4 md:size-5" />
+                                    <div className="ml-auto p-2.5 md:p-3 bg-white/[0.08] group-hover:bg-cyan-500 group-hover:text-white rounded-full transition-all border border-white/10 shadow-md">
+                                        <ArrowUpRight className="size-4 md:size-5" />
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                         type="button"
                         ref={prevRef}
                         aria-label="Previous article"
-                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-[#07090e]/80 text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
+                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-[#030712]/80 text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
                     >
                         <ArrowLeft className="size-4" />
                     </button>
@@ -108,7 +108,7 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
                         type="button"
                         ref={nextRef}
                         aria-label="Next article"
-                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-[#07090e]/80 text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
+                        className="size-10 flex items-center justify-center rounded-full border border-white/10 bg-[#030712]/80 text-white hover:bg-cyan-500 transition-all backdrop-blur-md cursor-pointer group/btn shadow-lg"
                     >
                         <ArrowRight className="size-4" />
                     </button>

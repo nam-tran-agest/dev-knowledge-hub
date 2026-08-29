@@ -36,12 +36,12 @@ export function LoginContainer() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#07090e]">
+        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#030712]">
             {/* Background Ambient Glows */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute bottom-1/4 left-1/3 w-[450px] h-[450px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <Card className="w-full max-w-md bg-white/[0.03] border border-white/10 shadow-2xl backdrop-blur-2xl rounded-3xl relative z-10 p-2 sm:p-4">
+            <Card className="w-full max-w-md bg-[#070d1e]/60 border border-white/10 shadow-2xl backdrop-blur-2xl rounded-3xl relative z-10 p-2 sm:p-4 glare-top">
                 <CardHeader className="space-y-3 text-center pb-6">
                     <Link href="/" className="inline-flex items-center justify-center mx-auto mb-2">
                         <div className="relative h-12 w-12 transition-transform hover:scale-105">
@@ -63,7 +63,7 @@ export function LoginContainer() {
                 <form action={handleSubmit}>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                            <Label htmlFor="email" className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
                                 <Mail className="w-3.5 h-3.5 text-indigo-400" /> Email
                             </Label>
                             <Input
@@ -73,11 +73,11 @@ export function LoginContainer() {
                                 placeholder="name@example.com"
                                 required
                                 disabled={isLoading}
-                                className="bg-[#07090e]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5"
+                                className="bg-[#040711]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                            <Label htmlFor="password" className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
                                 <Lock className="w-3.5 h-3.5 text-indigo-400" /> Password
                             </Label>
                             <Input
@@ -86,7 +86,7 @@ export function LoginContainer() {
                                 type="password"
                                 required
                                 disabled={isLoading}
-                                className="bg-[#07090e]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5"
+                                className="bg-[#040711]/80 border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:border-indigo-500/50 py-5 text-sm"
                             />
                         </div>
                         {error && (
