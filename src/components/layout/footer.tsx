@@ -159,8 +159,8 @@ export default function Footer({ footer }: { footer: FooterData }) {
                                 <span className="text-primary text-[10px] opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all">▶</span>
                                 <span>Daily Planner</span>
                             </Link>
-                            <Link href="/working" className="text-slate-300 hover:text-pink-300 transition-colors flex items-center gap-2 group py-0.5">
-                                <span className="text-pink-400 text-[10px] opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all">▶</span>
+                            <Link href="/working" className="text-slate-300 hover:text-indigo-300 transition-colors flex items-center gap-2 group py-0.5">
+                                <span className="text-indigo-400 text-[10px] opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all">▶</span>
                                 <span>Working Hub</span>
                             </Link>
                             <Link href="/media/youtube" className="text-slate-300 hover:text-cyan-300 transition-colors flex items-center gap-2 group py-0.5">
