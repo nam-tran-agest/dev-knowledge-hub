@@ -1,15 +1,8 @@
 'use client';
 
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogDescription,
-} from '@/components/ui/dialog';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Save, ExternalLink, ListVideo, Play, Terminal, X } from 'lucide-react';
-import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateVideoProgress } from '@/features/media/services/youtube';
 import type { SavedVideo } from '@/features/media/types';
@@ -36,7 +29,19 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
         }
     }, [video]);
 
-    const handleSaveProgress = async () => {
+    // ESC to close
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
+
+    const handleSaveProgress = useCallback(async () => {
         if (!video) return;
 
         setIsSaving(true);
@@ -49,38 +54,44 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
         } finally {
             setIsSaving(false);
         }
-    };
+    }, [video, router, onClose]);
 
-    if (!video) return null;
+    if (!isOpen || !video) return null;
+
+    const cleanVideoId = extractCleanVideoId(video.url);
 
     return (
-        <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-            <DialogContent
-                className="w-[100vw] sm:max-w-6xl p-0 overflow-hidden flex flex-col transition-all duration-300 group cyber-clip-lg border border-primary/40 bg-[#050714]"
-                overlayClassName="bg-[#04060f]/85 backdrop-blur-md"
-                tag="PLAYLIST_STREAM_DECK"
-                hideHeaderBar
-                hideCloseButton
-            >
-                <DialogHeader
-                    className="p-3 sm:p-4 bg-[#050714]/95 backdrop-blur-md flex flex-row items-center justify-between relative opacity-100 border-b border-primary/20"
-                >
-                    <div className='flex-1 pr-4 min-w-0'>
-                        <DialogTitle className="text-white truncate flex items-center gap-2 font-mono text-xs sm:text-sm uppercase font-bold">
+        <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md transition-all duration-200"
+            onClick={(e) => {
+                if (e.target === e.currentTarget) onClose();
+            }}
+        >
+            <div className="relative w-full max-w-6xl bg-[#050714] border border-primary/50 cyber-clip-lg shadow-[0_0_50px_rgba(0,240,255,0.35)] overflow-hidden flex flex-col">
+                {/* Background Grid Accent */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f0ff08_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff08_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+
+                {/* Corner Brackets */}
+                <div className="absolute inset-0 cyber-brackets pointer-events-none" />
+
+                {/* Header Deck */}
+                <div className="relative z-10 p-3 sm:p-4 bg-[#050714]/95 backdrop-blur-md flex flex-row items-center justify-between border-b border-primary/25">
+                    <div className="flex-1 pr-4 min-w-0">
+                        <div className="text-white truncate flex items-center gap-2 font-mono text-xs sm:text-sm uppercase font-bold">
                             <a
                                 href={video.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:text-primary flex items-center gap-1.5 transition-colors truncate"
                             >
-                                <Terminal className="w-3.5 h-3.5 text-primary shrink-0" />
+                                <Terminal className="w-4 h-4 text-primary shrink-0" />
                                 <span className="truncate">{video.title || 'YouTube Video'}</span>
                                 <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-60 hover:opacity-100" />
                             </a>
-                        </DialogTitle>
-                        <DialogDescription className="text-slate-400 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
+                        </div>
+                        <div className="text-slate-400 font-mono text-[10px] mt-0.5 uppercase tracking-wider">
                             // STARTED AT: {formatTime(video.saved_time)}
-                        </DialogDescription>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
@@ -101,19 +112,20 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                             className="bg-black/80 hover:bg-destructive text-white hover:text-white shrink-0 cursor-pointer cyber-clip-button w-8 h-8 border border-destructive/40"
                             title="Close"
                         >
-                            <X className="w-3.5 h-3.5" />
+                            <X className="w-4 h-4" />
                         </Button>
                     </div>
-                </DialogHeader>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 w-full overflow-hidden">
+                {/* Main Content: Player + Queue */}
+                <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full overflow-hidden">
                     {/* Main Player Area */}
                     <div className="md:col-span-2 relative aspect-video bg-black shrink-0">
                         <YouTubePlayer
                             key={video.id}
-                            videoId={getYouTubeId(video.url) || ''}
+                            videoId={cleanVideoId}
                             startTime={video.saved_time}
-                            onTimeUpdate={(t) => lastTimeRef.current = t}
+                            onTimeUpdate={(t) => { lastTimeRef.current = t; }}
                             onEnd={() => {
                                 const currentIndex = playlistVideos.findIndex(v => v.id === video.id);
                                 if (currentIndex !== -1 && currentIndex < playlistVideos.length - 1) {
@@ -130,7 +142,7 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                             <span className="font-bold text-white uppercase tracking-wider">// QUEUE</span>
                             <span className="ml-auto text-[10px] text-primary/60">[ {playlistVideos.length} STREAMS ]</span>
                         </div>
-                        <ScrollArea className="flex-1 p-2 h-[300px] md:max-h-[380px]">
+                        <ScrollArea className="flex-1 p-2 h-[260px] md:max-h-[360px]">
                             <div className="space-y-1.5">
                                 {playlistVideos.map((v) => (
                                     <button
@@ -166,15 +178,23 @@ export function PlaylistVideoModal({ isOpen, onClose, video, playlistVideos, onS
                         </ScrollArea>
                     </div>
                 </div>
-            </DialogContent>
-        </Dialog>
+            </div>
+        </div>
     );
 }
 
-function getYouTubeId(url: string) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
+function extractCleanVideoId(urlOrId: string): string {
+    if (!urlOrId) return '';
+    const clean = urlOrId.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(clean)) {
+        return clean;
+    }
+    const match = clean.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/);
+    if (match && match[1]) {
+        return match[1];
+    }
+    const fallback = clean.match(/[\w-]{11}/);
+    return fallback ? fallback[0] : clean;
 }
 
 function formatTime(seconds: number) {
