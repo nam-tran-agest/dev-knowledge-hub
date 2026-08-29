@@ -38,24 +38,42 @@ async function main() {
         fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     }
 
+    const force = process.argv.includes('--force');
+
     // Fetch and save all categories
     for (const category of CATEGORIES) {
+        const filename = category.replace(/\//g, '-') + '.json';
+        const filepath = path.join(OUTPUT_DIR, filename);
+
+        // If file exists, is non-empty, and --force is not specified, skip
+        if (!force && fs.existsSync(filepath)) {
+            try {
+                const stat = fs.statSync(filepath);
+                if (stat.size > 100) {
+                    console.log(`⚡ Cached ${filename} (${(stat.size / 1024).toFixed(1)} KB)`);
+                    continue;
+                }
+            } catch {
+                // proceed with fetch
+            }
+        }
+
         try {
             const data = await fetchApi(category);
-            
-            // Handle subfolders like 'armor/sets' -> 'armor-sets.json'
-            const filename = category.replace(/\//g, '-') + '.json';
-            const filepath = path.join(OUTPUT_DIR, filename);
-            
             fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
             console.log(`✓ Saved ${data.length} items to ${filename}`);
         } catch (error) {
             console.error(`✗ Error processing ${category}:`, error.message);
-            process.exit(1);
+            // If file already exists as fallback, don't fail build
+            if (fs.existsSync(filepath)) {
+                console.warn(`⚠ Using existing cached file for ${filename}`);
+            } else {
+                process.exit(1);
+            }
         }
     }
     
-    console.log('✨ All MH Wilds data fetched successfully!');
+    console.log('✨ All MH Wilds data verified & ready!');
 }
 
 main().catch(error => {

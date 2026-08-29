@@ -31,9 +31,18 @@ export async function getVideos(query: string = 'web development trends 2024', m
         const data = await response.json();
 
         if (!data.items) return [];
+        interface YouTubeSearchApiItem {
+            id: { videoId: string };
+            snippet: {
+                title: string;
+                description: string;
+                thumbnails: { medium: { url: string } };
+                channelTitle: string;
+                publishedAt: string;
+            };
+        }
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return data.items.map((item: { id: { videoId: string }, snippet: any }) => ({
+        return (data.items as YouTubeSearchApiItem[]).map((item) => ({
             id: item.id.videoId,
             title: item.snippet.title,
             description: item.snippet.description,

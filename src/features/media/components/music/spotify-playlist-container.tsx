@@ -89,8 +89,7 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
                                 </div>
 
                                 <div className="divide-y divide-white/5">
-                                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                    {tracks.map((item: { track: any }, index: number) => {
+                                    {tracks.map((item: { track?: { id: string; name: string; duration_ms: number; album?: { name?: string; images?: { url: string }[] }; artists?: { name: string }[] } }, index: number) => {
                                         const track = item.track;
                                         if (!track) return null;
                                         const duration = formatDuration(track.duration_ms);
@@ -101,8 +100,12 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
                                                     {index + 1}
                                                 </div>
                                                 <div className="flex items-center gap-4 min-w-0">
-                                                    <div className="relative w-10 h-10 rounded-md overflow-hidden flex-shrink-0">
-                                                        <Image src={track.album?.images?.[0]?.url} alt="" fill className="object-cover" />
+                                                    <div className="relative w-10 h-10 rounded-md overflow-hidden flex-shrink-0 bg-slate-800 flex items-center justify-center">
+                                                        {track.album?.images?.[0]?.url ? (
+                                                            <Image src={track.album.images[0].url} alt="" fill className="object-cover" />
+                                                        ) : (
+                                                            <Music2 className="w-4 h-4 text-emerald-500/70" />
+                                                        )}
                                                     </div>
                                                     <div className="min-w-0">
                                                         <p className="font-bold text-white truncate group-hover:text-emerald-400 transition-colors">

@@ -14,6 +14,7 @@
         },
         "level": 1,
         "description": "Poison buildup +5% Bonus: +10",
+        "setPiecesRequired": null,
         "id": 25
       }
     ],
@@ -39,6 +40,7 @@
         },
         "level": 2,
         "description": "Weapon sharpness +20",
+        "setPiecesRequired": null,
         "id": 306
       }
     ],
@@ -64,6 +66,7 @@
         },
         "level": 1,
         "description": "Makes it ever so slightly easier to inflict wounds. Also deals additional non-elemental damage.",
+        "setPiecesRequired": null,
         "id": 88
       }
     ],
@@ -89,6 +92,7 @@
         },
         "level": 3,
         "description": "Greatly increases abnormal status effects when landing critical hits.",
+        "setPiecesRequired": null,
         "id": 168
       },
       {
@@ -98,6 +102,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -123,6 +128,7 @@
         },
         "level": 1,
         "description": "Sleep buildup +5% Bonus: +10",
+        "setPiecesRequired": null,
         "id": 193
       }
     ],
@@ -148,6 +154,7 @@
         },
         "level": 2,
         "description": "Extends range.",
+        "setPiecesRequired": null,
         "id": 129
       }
     ],
@@ -173,6 +180,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -182,6 +190,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -207,6 +216,7 @@
         },
         "level": 1,
         "description": "Water resistance +6",
+        "setPiecesRequired": null,
         "id": 207
       }
     ],
@@ -232,6 +242,7 @@
         },
         "level": 2,
         "description": "Sleep buildup +10% Bonus: +20",
+        "setPiecesRequired": null,
         "id": 194
       }
     ],
@@ -257,6 +268,7 @@
         },
         "level": 3,
         "description": "Exhaust power +40%",
+        "setPiecesRequired": null,
         "id": 368
       }
     ],
@@ -282,6 +294,7 @@
         },
         "level": 1,
         "description": "Increases part damage and damage dealt when conditions are met by 10%.",
+        "setPiecesRequired": null,
         "id": 338
       }
     ],
@@ -307,6 +320,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -332,6 +346,7 @@
         },
         "level": 1,
         "description": "Allows you to quickly recover from webbed status or frostblight.",
+        "setPiecesRequired": null,
         "id": 388
       }
     ],
@@ -357,6 +372,7 @@
         },
         "level": 1,
         "description": "Slightly increases elemental attack and status buildup for charged attacks.",
+        "setPiecesRequired": null,
         "id": 55
       }
     ],
@@ -382,6 +398,7 @@
         },
         "level": 2,
         "description": "Attack +5",
+        "setPiecesRequired": null,
         "id": 176
       }
     ],
@@ -407,6 +424,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -416,6 +434,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -441,6 +460,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -450,6 +470,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       }
     ],
@@ -475,6 +496,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -500,6 +522,7 @@
         },
         "level": 1,
         "description": "Reduces damage while bleeding.",
+        "setPiecesRequired": null,
         "id": 385
       }
     ],
@@ -525,6 +548,7 @@
         },
         "level": 1,
         "description": "Fire resistance +6",
+        "setPiecesRequired": null,
         "id": 327
       }
     ],
@@ -550,6 +574,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       },
       {
@@ -559,6 +584,7 @@
         },
         "level": 2,
         "description": "Removes two cycles from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 331
       }
     ],
@@ -584,6 +610,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       }
     ],
@@ -609,6 +636,7 @@
         },
         "level": 1,
         "description": "Extends the time until your stamina cap reduces by 50%.",
+        "setPiecesRequired": null,
         "id": 395
       }
     ],
@@ -634,6 +662,7 @@
         },
         "level": 1,
         "description": "Moderately boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 261
       }
     ],
@@ -659,6 +688,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       },
       {
@@ -668,6 +698,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -693,6 +724,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 291
       }
     ],
@@ -718,6 +750,7 @@
         },
         "level": 1,
         "description": "Rapid fire power +5%",
+        "setPiecesRequired": null,
         "id": 54
       }
     ],
@@ -742,7 +775,8 @@
           "name": "Aquatic/Oilsilt Mobility"
         },
         "level": 1,
-        "description": "Negates the effects of muddy streams, nullifies slowing from water and oilsilt, and reduces slowing from heavy oil.",
+        "description": "Negates the effects of muddy streams, nullifies slowing from water and oilsilt, and reduces slowing from drakesbone oil.",
+        "setPiecesRequired": null,
         "id": 154
       }
     ],
@@ -768,6 +802,7 @@
         },
         "level": 2,
         "description": "Increases shell/phial reloading speed. Gunlance loading capacity +1. Charge blade charges 5 phials on yellow gauge.",
+        "setPiecesRequired": null,
         "id": 275
       }
     ],
@@ -793,6 +828,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       }
     ],
@@ -818,6 +854,7 @@
         },
         "level": 3,
         "description": "Sleep buildup +20% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 195
       }
     ],
@@ -843,6 +880,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       }
     ],
@@ -868,6 +906,7 @@
         },
         "level": 2,
         "description": "Greatly increases the effect duration of hunting horn melodies.",
+        "setPiecesRequired": null,
         "id": 65
       },
       {
@@ -877,6 +916,7 @@
         },
         "level": 1,
         "description": "Attack +3",
+        "setPiecesRequired": null,
         "id": 175
       }
     ],
@@ -902,6 +942,7 @@
         },
         "level": 3,
         "description": "Greatly increases abnormal status effects when landing critical hits.",
+        "setPiecesRequired": null,
         "id": 168
       }
     ],
@@ -927,6 +968,7 @@
         },
         "level": 2,
         "description": "Thunder attack +10% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 333
       }
     ],
@@ -952,6 +994,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -961,6 +1004,7 @@
         },
         "level": 1,
         "description": "Attack +5% while active.",
+        "setPiecesRequired": null,
         "id": 160
       }
     ],
@@ -986,6 +1030,7 @@
         },
         "level": 2,
         "description": "Poison buildup +10% Bonus: +20",
+        "setPiecesRequired": null,
         "id": 26
       }
     ],
@@ -1011,6 +1056,7 @@
         },
         "level": 2,
         "description": "Exhaust power +30%",
+        "setPiecesRequired": null,
         "id": 367
       }
     ],
@@ -1036,6 +1082,7 @@
         },
         "level": 1,
         "description": "Attack +6 against large monsters affected by poison or paralysis.",
+        "setPiecesRequired": null,
         "id": 182
       }
     ],
@@ -1061,6 +1108,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -1070,6 +1118,7 @@
         },
         "level": 2,
         "description": "Removes two cycles from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 331
       }
     ],
@@ -1095,6 +1144,7 @@
         },
         "level": 1,
         "description": "Reduces the duration of defense down by 50%.",
+        "setPiecesRequired": null,
         "id": 352
       }
     ],
@@ -1120,6 +1170,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -1129,6 +1180,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       }
     ],
@@ -1154,6 +1206,7 @@
         },
         "level": 1,
         "description": "Affinity +50%",
+        "setPiecesRequired": null,
         "id": 258
       },
       {
@@ -1163,6 +1216,7 @@
         },
         "level": 2,
         "description": "Removes two cycles from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 331
       }
     ],
@@ -1188,6 +1242,7 @@
         },
         "level": 2,
         "description": "Increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 364
       }
     ],
@@ -1213,6 +1268,7 @@
         },
         "level": 1,
         "description": "Attack +3",
+        "setPiecesRequired": null,
         "id": 175
       },
       {
@@ -1222,6 +1278,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 206
       }
     ],
@@ -1247,6 +1304,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       }
     ],
@@ -1272,6 +1330,7 @@
         },
         "level": 1,
         "description": "Affinity +10% while active",
+        "setPiecesRequired": null,
         "id": 246
       }
     ],
@@ -1297,6 +1356,7 @@
         },
         "level": 1,
         "description": "Attack +5% while active.",
+        "setPiecesRequired": null,
         "id": 160
       }
     ],
@@ -1322,6 +1382,7 @@
         },
         "level": 2,
         "description": "Grants no sharpness loss for 60 seconds after activation.",
+        "setPiecesRequired": null,
         "id": 350
       }
     ],
@@ -1347,6 +1408,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -1372,6 +1434,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -1381,6 +1444,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       }
     ],
@@ -1406,6 +1470,7 @@
         },
         "level": 1,
         "description": "Slightly extends evasion distance.",
+        "setPiecesRequired": null,
         "id": 255
       }
     ],
@@ -1431,6 +1496,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -1440,6 +1506,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -1465,6 +1532,7 @@
         },
         "level": 1,
         "description": "50% chance of your attacks not being deflected, +10% attack power against hard targets.",
+        "setPiecesRequired": null,
         "id": 355
       }
     ],
@@ -1490,6 +1558,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -1499,6 +1568,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       }
     ],
@@ -1524,6 +1594,7 @@
         },
         "level": 1,
         "description": "Doubles the speed at which you heal recoverable damage.",
+        "setPiecesRequired": null,
         "id": 69
       }
     ],
@@ -1549,6 +1620,7 @@
         },
         "level": 1,
         "description": "Reduces the duration of sleep by 30%.",
+        "setPiecesRequired": null,
         "id": 156
       }
     ],
@@ -1574,6 +1646,7 @@
         },
         "level": 1,
         "description": "Dragon resistance +6",
+        "setPiecesRequired": null,
         "id": 1
       }
     ],
@@ -1599,6 +1672,7 @@
         },
         "level": 1,
         "description": "Slightly increases recovery rate after contracting the Frenzy. Affinity +3% if cured.",
+        "setPiecesRequired": null,
         "id": 43
       }
     ],
@@ -1624,6 +1698,7 @@
         },
         "level": 2,
         "description": "Increases the power of specified ammo and arrows.",
+        "setPiecesRequired": null,
         "id": 170
       }
     ],
@@ -1649,6 +1724,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       }
     ],
@@ -1674,6 +1750,7 @@
         },
         "level": 1,
         "description": "Reduces the effects of weak monster roars.",
+        "setPiecesRequired": null,
         "id": 197
       }
     ],
@@ -1699,6 +1776,7 @@
         },
         "level": 1,
         "description": "Reduces fixed stamina depletion by 10%.",
+        "setPiecesRequired": null,
         "id": 31
       }
     ],
@@ -1724,6 +1802,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -1749,6 +1828,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -1758,6 +1838,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       }
     ],
@@ -1783,6 +1864,7 @@
         },
         "level": 1,
         "description": "Grants an 80% chance of no sharpness loss while active.",
+        "setPiecesRequired": null,
         "id": 326
       }
     ],
@@ -1808,6 +1890,7 @@
         },
         "level": 3,
         "description": "Draw attacks deal a large amount of stun damage and gain attack +7.",
+        "setPiecesRequired": null,
         "id": 18
       },
       {
@@ -1817,6 +1900,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       }
     ],
@@ -1842,6 +1926,7 @@
         },
         "level": 1,
         "description": "Restores 50 health.",
+        "setPiecesRequired": null,
         "id": 114
       }
     ],
@@ -1867,6 +1952,7 @@
         },
         "level": 1,
         "description": "Thunder resistance +6",
+        "setPiecesRequired": null,
         "id": 409
       }
     ],
@@ -1892,6 +1978,7 @@
         },
         "level": 3,
         "description": "Affinity +100%",
+        "setPiecesRequired": null,
         "id": 260
       }
     ],
@@ -1917,6 +2004,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       }
     ],
@@ -1942,6 +2030,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -1951,6 +2040,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -1976,6 +2066,7 @@
         },
         "level": 2,
         "description": "Water attack +10% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 228
       }
     ],
@@ -2001,6 +2092,7 @@
         },
         "level": 1,
         "description": "Jumping attack power +10%",
+        "setPiecesRequired": null,
         "id": 213
       }
     ],
@@ -2026,6 +2118,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       }
     ],
@@ -2051,6 +2144,7 @@
         },
         "level": 3,
         "description": "+10% damage dealt when your sharpness gauge is green or lower.",
+        "setPiecesRequired": null,
         "id": 212
       }
     ],
@@ -2076,6 +2170,7 @@
         },
         "level": 1,
         "description": "Lets you use poison coatings.",
+        "setPiecesRequired": null,
         "id": 294
       }
     ],
@@ -2101,6 +2196,7 @@
         },
         "level": 1,
         "description": "Lets you use sleep coatings.",
+        "setPiecesRequired": null,
         "id": 196
       }
     ],
@@ -2126,6 +2222,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       },
       {
@@ -2135,6 +2232,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -2160,6 +2258,7 @@
         },
         "level": 1,
         "description": "Negates knockback during jumps.",
+        "setPiecesRequired": null,
         "id": 187
       }
     ],
@@ -2185,6 +2284,7 @@
         },
         "level": 3,
         "description": "Poison buildup +20% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 27
       }
     ],
@@ -2210,6 +2310,7 @@
         },
         "level": 1,
         "description": "Negates the effects of heat and cold.",
+        "setPiecesRequired": null,
         "id": 219
       }
     ],
@@ -2235,6 +2336,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -2244,6 +2346,7 @@
         },
         "level": 3,
         "description": "Greatly increases abnormal status effects when landing critical hits.",
+        "setPiecesRequired": null,
         "id": 168
       }
     ],
@@ -2269,6 +2372,7 @@
         },
         "level": 1,
         "description": "Affinity +4%",
+        "setPiecesRequired": null,
         "id": 5
       },
       {
@@ -2278,6 +2382,7 @@
         },
         "level": 2,
         "description": "Increases shell/phial reloading speed. Gunlance loading capacity +1. Charge blade charges 5 phials on yellow gauge.",
+        "setPiecesRequired": null,
         "id": 275
       }
     ],
@@ -2303,6 +2408,7 @@
         },
         "level": 3,
         "description": "Affinity +12%",
+        "setPiecesRequired": null,
         "id": 7
       }
     ],
@@ -2328,6 +2434,7 @@
         },
         "level": 1,
         "description": "Ice resistance +6",
+        "setPiecesRequired": null,
         "id": 252
       }
     ],
@@ -2353,6 +2460,7 @@
         },
         "level": 3,
         "description": "Draw attacks deal a large amount of stun damage and gain attack +7.",
+        "setPiecesRequired": null,
         "id": 18
       },
       {
@@ -2362,6 +2470,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -2387,6 +2496,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -2396,6 +2506,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       }
     ],
@@ -2421,6 +2532,7 @@
         },
         "level": 1,
         "description": "Draw attacks deal a small amount of stun damage and gain attack +3.",
+        "setPiecesRequired": null,
         "id": 16
       }
     ],
@@ -2446,6 +2558,7 @@
         },
         "level": 1,
         "description": "Reduces the duration of paralysis by 30%.",
+        "setPiecesRequired": null,
         "id": 230
       }
     ],
@@ -2471,6 +2584,7 @@
         },
         "level": 1,
         "description": "Blast buildup +5% Bonus: +10",
+        "setPiecesRequired": null,
         "id": 96
       }
     ],
@@ -2496,6 +2610,7 @@
         },
         "level": 1,
         "description": "Lets you use paralysis coatings.",
+        "setPiecesRequired": null,
         "id": 106
       }
     ],
@@ -2521,6 +2636,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       }
     ],
@@ -2546,6 +2662,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -2555,6 +2672,7 @@
         },
         "level": 1,
         "description": "Moderately boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 261
       }
     ],
@@ -2580,6 +2698,7 @@
         },
         "level": 3,
         "description": "Draw attacks deal a large amount of stun damage and gain attack +7.",
+        "setPiecesRequired": null,
         "id": 18
       },
       {
@@ -2589,6 +2708,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       }
     ],
@@ -2614,6 +2734,7 @@
         },
         "level": 1,
         "description": "Jumping attack power +10%",
+        "setPiecesRequired": null,
         "id": 213
       },
       {
@@ -2623,6 +2744,7 @@
         },
         "level": 1,
         "description": "Affinity +50%",
+        "setPiecesRequired": null,
         "id": 258
       }
     ],
@@ -2648,6 +2770,7 @@
         },
         "level": 2,
         "description": "Blast buildup +10% Bonus: +20",
+        "setPiecesRequired": null,
         "id": 97
       }
     ],
@@ -2673,6 +2796,7 @@
         },
         "level": 2,
         "description": "Increases damage dealt by critical hits to 31%.",
+        "setPiecesRequired": null,
         "id": 50
       }
     ],
@@ -2698,6 +2822,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -2707,6 +2832,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -2732,6 +2858,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -2741,6 +2868,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -2766,6 +2894,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental attack and status buildup for charged attacks.",
+        "setPiecesRequired": null,
         "id": 57
       },
       {
@@ -2775,6 +2904,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       }
     ],
@@ -2800,6 +2930,7 @@
         },
         "level": 2,
         "description": "Attack +10% while active.",
+        "setPiecesRequired": null,
         "id": 161
       }
     ],
@@ -2825,6 +2956,7 @@
         },
         "level": 1,
         "description": "Slightly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 203
       }
     ],
@@ -2850,6 +2982,7 @@
         },
         "level": 1,
         "description": "Negates minor wind pressure and halves the effects of major wind pressure.",
+        "setPiecesRequired": null,
         "id": 79
       }
     ],
@@ -2875,6 +3008,7 @@
         },
         "level": 1,
         "description": "Paralysis buildup +5% Bonus: +10",
+        "setPiecesRequired": null,
         "id": 19
       }
     ],
@@ -2900,6 +3034,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       }
     ],
@@ -2925,6 +3060,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       },
       {
@@ -2934,6 +3070,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       }
     ],
@@ -2959,6 +3096,7 @@
         },
         "level": 1,
         "description": "Attack +3",
+        "setPiecesRequired": null,
         "id": 175
       },
       {
@@ -2968,6 +3106,7 @@
         },
         "level": 1,
         "description": "Jumping attack power +10%",
+        "setPiecesRequired": null,
         "id": 213
       }
     ],
@@ -2993,6 +3132,7 @@
         },
         "level": 1,
         "description": "Lets you use blast coatings.",
+        "setPiecesRequired": null,
         "id": 11
       }
     ],
@@ -3018,6 +3158,7 @@
         },
         "level": 1,
         "description": "Affinity +4%",
+        "setPiecesRequired": null,
         "id": 5
       },
       {
@@ -3027,6 +3168,7 @@
         },
         "level": 2,
         "description": "Removes two cycles from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 331
       }
     ],
@@ -3052,6 +3194,7 @@
         },
         "level": 1,
         "description": "Affinity +50%",
+        "setPiecesRequired": null,
         "id": 258
       },
       {
@@ -3061,6 +3204,7 @@
         },
         "level": 2,
         "description": "Increases shell/phial reloading speed. Gunlance loading capacity +1. Charge blade charges 5 phials on yellow gauge.",
+        "setPiecesRequired": null,
         "id": 275
       }
     ],
@@ -3086,6 +3230,7 @@
         },
         "level": 1,
         "description": "Stamina recovery speed +10%",
+        "setPiecesRequired": null,
         "id": 142
       }
     ],
@@ -3111,6 +3256,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -3120,6 +3266,7 @@
         },
         "level": 1,
         "description": "Slightly increases gauge fill rate and reduces charge times by 5%.",
+        "setPiecesRequired": null,
         "id": 148
       }
     ],
@@ -3145,6 +3292,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -3154,6 +3302,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 206
       }
     ],
@@ -3179,6 +3328,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       },
       {
@@ -3188,6 +3338,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -3213,6 +3364,7 @@
         },
         "level": 2,
         "description": "Greatly increases the effect duration of hunting horn melodies.",
+        "setPiecesRequired": null,
         "id": 65
       },
       {
@@ -3222,6 +3374,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       }
     ],
@@ -3247,6 +3400,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 361
       }
     ],
@@ -3272,6 +3426,7 @@
         },
         "level": 2,
         "description": "Moderately increases attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 359
       }
     ],
@@ -3297,6 +3452,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       },
       {
@@ -3306,6 +3462,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -3331,6 +3488,7 @@
         },
         "level": 1,
         "description": "While active, reduces damage taken by 15%.",
+        "setPiecesRequired": null,
         "id": 318
       }
     ],
@@ -3356,6 +3514,7 @@
         },
         "level": 3,
         "description": "Paralysis buildup +20% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 21
       }
     ],
@@ -3381,6 +3540,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -3390,6 +3550,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -3415,6 +3576,7 @@
         },
         "level": 1,
         "description": "Extends Melody Effect duration and increases the chance of larger heals from healing melodies.",
+        "setPiecesRequired": null,
         "id": 64
       }
     ],
@@ -3440,6 +3602,7 @@
         },
         "level": 1,
         "description": "Grants a 10% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 295
       }
     ],
@@ -3465,6 +3628,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -3474,6 +3638,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       }
     ],
@@ -3499,6 +3664,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -3508,6 +3674,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       }
     ],
@@ -3533,6 +3700,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       },
       {
@@ -3542,6 +3710,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -3567,6 +3736,7 @@
         },
         "level": 1,
         "description": "Affinity +4%",
+        "setPiecesRequired": null,
         "id": 5
       }
     ],
@@ -3592,6 +3762,7 @@
         },
         "level": 1,
         "description": "On first hit, gain a small temporary attack and element boost, replaced by a larger boost after the fifth hit.",
+        "setPiecesRequired": null,
         "id": 236
       }
     ],
@@ -3617,6 +3788,7 @@
         },
         "level": 2,
         "description": "Increases shell/phial reloading speed. Gunlance loading capacity +1. Charge blade charges 5 phials on yellow gauge.",
+        "setPiecesRequired": null,
         "id": 275
       },
       {
@@ -3626,6 +3798,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -3651,6 +3824,7 @@
         },
         "level": 1,
         "description": "Prevents knockbacks.",
+        "setPiecesRequired": null,
         "id": 271
       }
     ],
@@ -3676,6 +3850,7 @@
         },
         "level": 1,
         "description": "Enables skill use.",
+        "setPiecesRequired": null,
         "id": 63
       }
     ],
@@ -3701,6 +3876,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       },
       {
@@ -3710,6 +3886,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       }
     ],
@@ -3735,6 +3912,7 @@
         },
         "level": 1,
         "description": "Reduces the number of times you take poison damage.",
+        "setPiecesRequired": null,
         "id": 335
       }
     ],
@@ -3760,6 +3938,7 @@
         },
         "level": 1,
         "description": "Explosive power +10%",
+        "setPiecesRequired": null,
         "id": 85
       }
     ],
@@ -3785,6 +3964,7 @@
         },
         "level": 1,
         "description": "One extra item when gathering from bonepiles.",
+        "setPiecesRequired": null,
         "id": 243
       }
     ],
@@ -3810,6 +3990,7 @@
         },
         "level": 2,
         "description": "Boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 262
       }
     ],
@@ -3835,6 +4016,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -3844,6 +4026,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       }
     ],
@@ -3869,6 +4052,7 @@
         },
         "level": 1,
         "description": "Affinity +50%",
+        "setPiecesRequired": null,
         "id": 258
       }
     ],
@@ -3894,6 +4078,7 @@
         },
         "level": 2,
         "description": "Increases elemental attack and status buildup for charged attacks.",
+        "setPiecesRequired": null,
         "id": 56
       }
     ],
@@ -3919,6 +4104,7 @@
         },
         "level": 1,
         "description": "Slightly increases sheathing speed.",
+        "setPiecesRequired": null,
         "id": 72
       }
     ],
@@ -3944,6 +4130,7 @@
         },
         "level": 2,
         "description": "Reduces damage taken by 20%, plus an additional 30% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 40
       }
     ],
@@ -3969,6 +4156,7 @@
         },
         "level": 1,
         "description": "Activates 10% of the time.",
+        "setPiecesRequired": null,
         "id": 279
       }
     ],
@@ -3994,6 +4182,7 @@
         },
         "level": 2,
         "description": "Dragon attack +10% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 100
       }
     ],
@@ -4019,6 +4208,7 @@
         },
         "level": 2,
         "description": "Grants a 25% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 296
       }
     ],
@@ -4044,6 +4234,7 @@
         },
         "level": 1,
         "description": "Affinity +4%",
+        "setPiecesRequired": null,
         "id": 5
       },
       {
@@ -4053,6 +4244,7 @@
         },
         "level": 2,
         "description": "Greatly increases the effect duration of hunting horn melodies.",
+        "setPiecesRequired": null,
         "id": 65
       }
     ],
@@ -4078,6 +4270,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       },
       {
@@ -4087,6 +4280,7 @@
         },
         "level": 1,
         "description": "Affinity +50%",
+        "setPiecesRequired": null,
         "id": 258
       }
     ],
@@ -4112,6 +4306,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -4121,6 +4316,7 @@
         },
         "level": 2,
         "description": "Removes two cycles from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 331
       }
     ],
@@ -4146,6 +4342,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       }
     ],
@@ -4171,6 +4368,7 @@
         },
         "level": 1,
         "description": "Reduces damage taken by 10%, plus an additional 20% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 39
       },
       {
@@ -4180,6 +4378,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       }
     ],
@@ -4205,6 +4404,7 @@
         },
         "level": 2,
         "description": "Increases each attack and Wyvern's Fire firing speed. Shelling fire attack +60.",
+        "setPiecesRequired": null,
         "id": 112
       }
     ],
@@ -4230,6 +4430,7 @@
         },
         "level": 1,
         "description": "Lets you digest blue mushrooms and toadstools.",
+        "setPiecesRequired": null,
         "id": 125
       }
     ],
@@ -4255,6 +4456,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -4264,6 +4466,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -4289,6 +4492,7 @@
         },
         "level": 2,
         "description": "Fire attack +10% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 121
       }
     ],
@@ -4314,6 +4518,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       }
     ],
@@ -4339,6 +4544,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       },
       {
@@ -4348,6 +4554,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       }
     ],
@@ -4373,6 +4580,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       },
       {
@@ -4382,6 +4590,7 @@
         },
         "level": 1,
         "description": "Moderately increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 363
       }
     ],
@@ -4407,6 +4616,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -4416,6 +4626,7 @@
         },
         "level": 1,
         "description": "Attack +5% while active.",
+        "setPiecesRequired": null,
         "id": 160
       }
     ],
@@ -4441,6 +4652,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -4450,6 +4662,7 @@
         },
         "level": 1,
         "description": "Slightly increases gauge fill rate and reduces charge times by 5%.",
+        "setPiecesRequired": null,
         "id": 148
       }
     ],
@@ -4475,6 +4688,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       },
       {
@@ -4484,6 +4698,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       }
     ],
@@ -4509,6 +4724,7 @@
         },
         "level": 1,
         "description": "Grants a 10% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 295
       },
       {
@@ -4518,6 +4734,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -4543,6 +4760,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       },
       {
@@ -4552,6 +4770,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -4577,6 +4796,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       },
       {
@@ -4586,6 +4806,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -4611,6 +4832,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -4620,6 +4842,7 @@
         },
         "level": 1,
         "description": "Moderately increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 363
       }
     ],
@@ -4645,6 +4868,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       },
       {
@@ -4654,6 +4878,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       }
     ],
@@ -4679,6 +4904,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -4688,6 +4914,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       }
     ],
@@ -4713,6 +4940,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       },
       {
@@ -4722,6 +4950,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -4747,6 +4976,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       },
       {
@@ -4756,6 +4986,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       }
     ],
@@ -4781,6 +5012,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -4790,6 +5022,7 @@
         },
         "level": 1,
         "description": "Moderately increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 363
       }
     ],
@@ -4815,6 +5048,7 @@
         },
         "level": 1,
         "description": "Slightly increases gauge fill rate and reduces charge times by 5%.",
+        "setPiecesRequired": null,
         "id": 148
       },
       {
@@ -4824,6 +5058,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -4849,6 +5084,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       },
       {
@@ -4858,6 +5094,7 @@
         },
         "level": 3,
         "description": "Greatly boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 263
       }
     ],
@@ -4883,6 +5120,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       },
       {
@@ -4892,6 +5130,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       }
     ],
@@ -4917,6 +5156,7 @@
         },
         "level": 1,
         "description": "Grants a 10% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 295
       },
       {
@@ -4926,6 +5166,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -4951,6 +5192,7 @@
         },
         "level": 3,
         "description": "Greatly boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 263
       },
       {
@@ -4960,6 +5202,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -4985,6 +5228,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       },
       {
@@ -4994,6 +5238,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -5019,6 +5264,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -5028,6 +5274,7 @@
         },
         "level": 1,
         "description": "Slightly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 203
       }
     ],
@@ -5053,6 +5300,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       },
       {
@@ -5062,6 +5310,7 @@
         },
         "level": 1,
         "description": "Slightly increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 358
       }
     ],
@@ -5087,6 +5336,7 @@
         },
         "level": 1,
         "description": "Reduces damage taken by 10%, plus an additional 20% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 39
       },
       {
@@ -5096,6 +5346,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       }
     ],
@@ -5121,6 +5372,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -5130,6 +5382,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       }
     ],
@@ -5155,6 +5408,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       },
       {
@@ -5164,6 +5418,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -5189,6 +5444,7 @@
         },
         "level": 1,
         "description": "Speed +10%",
+        "setPiecesRequired": null,
         "id": 13
       },
       {
@@ -5198,6 +5454,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -5223,6 +5480,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       },
       {
@@ -5232,6 +5490,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -5257,6 +5516,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       },
       {
@@ -5266,6 +5526,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -5291,6 +5552,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       },
       {
@@ -5300,6 +5562,7 @@
         },
         "level": 1,
         "description": "Grants a 10% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 295
       }
     ],
@@ -5325,6 +5588,7 @@
         },
         "level": 1,
         "description": "Reduces damage taken by 10%, plus an additional 20% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 39
       },
       {
@@ -5334,6 +5598,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -5359,6 +5624,7 @@
         },
         "level": 1,
         "description": "Slightly increases gauge fill rate and reduces charge times by 5%.",
+        "setPiecesRequired": null,
         "id": 148
       },
       {
@@ -5368,6 +5634,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -5393,6 +5660,7 @@
         },
         "level": 1,
         "description": "Slightly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 203
       },
       {
@@ -5402,6 +5670,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -5427,6 +5696,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       },
       {
@@ -5436,6 +5706,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -5461,6 +5732,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -5470,6 +5742,7 @@
         },
         "level": 1,
         "description": "Moderately boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 261
       }
     ],
@@ -5495,6 +5768,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       },
       {
@@ -5504,6 +5778,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       }
     ],
@@ -5529,6 +5804,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       },
       {
@@ -5538,6 +5814,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -5563,6 +5840,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       },
       {
@@ -5572,6 +5850,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       }
     ],
@@ -5597,6 +5876,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       },
       {
@@ -5606,6 +5886,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -5631,6 +5912,7 @@
         },
         "level": 1,
         "description": "Moderately boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 261
       },
       {
@@ -5640,6 +5922,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -5665,6 +5948,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       },
       {
@@ -5674,6 +5958,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       }
     ],
@@ -5699,6 +5984,7 @@
         },
         "level": 1,
         "description": "Reduces damage taken by 10%, plus an additional 20% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 39
       },
       {
@@ -5708,6 +5994,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -5733,6 +6020,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       },
       {
@@ -5742,6 +6030,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -5767,6 +6056,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       },
       {
@@ -5776,6 +6066,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -5801,6 +6092,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -5810,6 +6102,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -5835,6 +6128,7 @@
         },
         "level": 1,
         "description": "Slightly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 203
       },
       {
@@ -5844,6 +6138,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -5869,6 +6164,7 @@
         },
         "level": 1,
         "description": "Speed +10%",
+        "setPiecesRequired": null,
         "id": 13
       },
       {
@@ -5878,6 +6174,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       }
     ],
@@ -5903,6 +6200,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       },
       {
@@ -5912,6 +6210,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       }
     ],
@@ -5937,6 +6236,7 @@
         },
         "level": 1,
         "description": "Attack +5% while active.",
+        "setPiecesRequired": null,
         "id": 160
       },
       {
@@ -5946,6 +6246,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -5971,6 +6272,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -5980,6 +6282,7 @@
         },
         "level": 1,
         "description": "Slightly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 203
       }
     ],
@@ -6005,6 +6308,7 @@
         },
         "level": 1,
         "description": "Slightly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 203
       },
       {
@@ -6014,6 +6318,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -6039,6 +6344,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       },
       {
@@ -6048,6 +6354,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       }
     ],
@@ -6073,6 +6380,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -6082,6 +6390,7 @@
         },
         "level": 1,
         "description": "Slightly increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 358
       }
     ],
@@ -6107,6 +6416,7 @@
         },
         "level": 1,
         "description": "Attack +5% while active.",
+        "setPiecesRequired": null,
         "id": 160
       },
       {
@@ -6116,6 +6426,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -6141,6 +6452,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       },
       {
@@ -6150,6 +6462,7 @@
         },
         "level": 1,
         "description": "Moderately boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 261
       }
     ],
@@ -6175,6 +6488,7 @@
         },
         "level": 1,
         "description": "Attack +5% while active.",
+        "setPiecesRequired": null,
         "id": 160
       },
       {
@@ -6184,6 +6498,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -6209,6 +6524,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       },
       {
@@ -6218,6 +6534,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -6243,6 +6560,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       },
       {
@@ -6252,6 +6570,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       }
     ],
@@ -6277,6 +6596,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       },
       {
@@ -6286,6 +6606,7 @@
         },
         "level": 3,
         "description": "Greatly boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 263
       }
     ],
@@ -6311,6 +6632,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       },
       {
@@ -6320,6 +6642,7 @@
         },
         "level": 1,
         "description": "Slightly increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 358
       }
     ],
@@ -6345,6 +6668,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -6354,6 +6678,7 @@
         },
         "level": 1,
         "description": "Grants a 10% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 295
       }
     ],
@@ -6379,6 +6704,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       },
       {
@@ -6388,6 +6714,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       }
     ],
@@ -6413,6 +6740,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       },
       {
@@ -6422,6 +6750,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -6447,6 +6776,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -6456,6 +6786,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -6481,6 +6812,7 @@
         },
         "level": 1,
         "description": "Speed +10%",
+        "setPiecesRequired": null,
         "id": 13
       },
       {
@@ -6490,6 +6822,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -6515,6 +6848,7 @@
         },
         "level": 3,
         "description": "Attack +15% while active.",
+        "setPiecesRequired": null,
         "id": 162
       },
       {
@@ -6524,6 +6858,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -6549,6 +6884,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       },
       {
@@ -6558,6 +6894,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -6583,6 +6920,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       },
       {
@@ -6592,6 +6930,7 @@
         },
         "level": 1,
         "description": "Slightly increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 358
       }
     ],
@@ -6617,6 +6956,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       },
       {
@@ -6626,6 +6966,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       }
     ],
@@ -6651,6 +6992,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       },
       {
@@ -6660,6 +7002,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -6685,6 +7028,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -6694,6 +7038,7 @@
         },
         "level": 1,
         "description": "Slightly increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 358
       }
     ],
@@ -6719,6 +7064,7 @@
         },
         "level": 3,
         "description": "Greatly boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 263
       },
       {
@@ -6728,6 +7074,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -6753,6 +7100,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       },
       {
@@ -6762,6 +7110,7 @@
         },
         "level": 1,
         "description": "Fire attack +40",
+        "setPiecesRequired": null,
         "id": 120
       }
     ],
@@ -6787,6 +7136,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       },
       {
@@ -6796,6 +7146,7 @@
         },
         "level": 3,
         "description": "Greatly boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 263
       }
     ],
@@ -6821,6 +7172,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -6830,6 +7182,7 @@
         },
         "level": 1,
         "description": "Water attack +40",
+        "setPiecesRequired": null,
         "id": 227
       }
     ],
@@ -6855,6 +7208,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       },
       {
@@ -6864,6 +7218,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -6889,6 +7244,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       },
       {
@@ -6898,6 +7254,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -6923,6 +7280,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       },
       {
@@ -6932,6 +7290,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       }
     ],
@@ -6957,6 +7316,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       },
       {
@@ -6966,6 +7326,7 @@
         },
         "level": 1,
         "description": "Moderately increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 363
       }
     ],
@@ -6991,6 +7352,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       },
       {
@@ -7000,6 +7362,7 @@
         },
         "level": 1,
         "description": "Thunder attack +40",
+        "setPiecesRequired": null,
         "id": 332
       }
     ],
@@ -7025,6 +7388,7 @@
         },
         "level": 1,
         "description": "Speed +10%",
+        "setPiecesRequired": null,
         "id": 13
       },
       {
@@ -7034,6 +7398,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -7059,6 +7424,7 @@
         },
         "level": 1,
         "description": "Reduces damage taken by 10%, plus an additional 20% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 39
       },
       {
@@ -7068,6 +7434,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -7093,6 +7460,7 @@
         },
         "level": 1,
         "description": "Moderately boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 261
       },
       {
@@ -7102,6 +7470,7 @@
         },
         "level": 3,
         "description": "Thunder attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 334
       }
     ],
@@ -7127,6 +7496,7 @@
         },
         "level": 1,
         "description": "Slightly increases gauge fill rate and reduces charge times by 5%.",
+        "setPiecesRequired": null,
         "id": 148
       },
       {
@@ -7136,6 +7506,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -7161,6 +7532,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       },
       {
@@ -7170,6 +7542,7 @@
         },
         "level": 1,
         "description": "Moderately increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 363
       }
     ],
@@ -7195,6 +7568,7 @@
         },
         "level": 2,
         "description": "Removes two cycles from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 331
       }
     ],
@@ -7220,6 +7594,7 @@
         },
         "level": 1,
         "description": "Defense +5",
+        "setPiecesRequired": null,
         "id": 298
       }
     ],
@@ -7245,6 +7620,7 @@
         },
         "level": 1,
         "description": "Removes one cycle from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 330
       }
     ],
@@ -7270,6 +7646,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       },
       {
@@ -7279,6 +7656,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       }
     ],
@@ -7304,6 +7682,7 @@
         },
         "level": 3,
         "description": "Draw attacks deal a large amount of stun damage and gain attack +7.",
+        "setPiecesRequired": null,
         "id": 18
       }
     ],
@@ -7329,6 +7708,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -7338,6 +7718,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       }
     ],
@@ -7363,6 +7744,7 @@
         },
         "level": 1,
         "description": "Slightly increases the power of specified ammo and arrows.",
+        "setPiecesRequired": null,
         "id": 4
       }
     ],
@@ -7388,6 +7770,7 @@
         },
         "level": 2,
         "description": "Stun power +30%",
+        "setPiecesRequired": null,
         "id": 83
       }
     ],
@@ -7413,6 +7796,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -7422,6 +7806,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       }
     ],
@@ -7447,6 +7832,7 @@
         },
         "level": 1,
         "description": "Grants no sharpness loss for 30 seconds after activation.",
+        "setPiecesRequired": null,
         "id": 349
       }
     ],
@@ -7472,6 +7858,7 @@
         },
         "level": 1,
         "description": "Improves fishing, grilling, and transporting abilities.",
+        "setPiecesRequired": null,
         "id": 374
       }
     ],
@@ -7497,6 +7884,7 @@
         },
         "level": 1,
         "description": "Moderately increases each attack and Wyvern's Fire firing speed. Shelling fire attack +30.",
+        "setPiecesRequired": null,
         "id": 111
       }
     ],
@@ -7522,6 +7910,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -7531,6 +7920,7 @@
         },
         "level": 3,
         "description": "Increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 360
       }
     ],
@@ -7556,6 +7946,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental attack and status buildup for charged attacks.",
+        "setPiecesRequired": null,
         "id": 57
       },
       {
@@ -7565,6 +7956,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -7590,6 +7982,7 @@
         },
         "level": 1,
         "description": "Slightly increases abnormal status effects when landing critical hits.",
+        "setPiecesRequired": null,
         "id": 166
       }
     ],
@@ -7615,6 +8008,7 @@
         },
         "level": 1,
         "description": "Attack +3",
+        "setPiecesRequired": null,
         "id": 175
       }
     ],
@@ -7640,6 +8034,7 @@
         },
         "level": 3,
         "description": "Weapon sharpness +30",
+        "setPiecesRequired": null,
         "id": 307
       }
     ],
@@ -7665,6 +8060,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -7674,6 +8070,7 @@
         },
         "level": 3,
         "description": "Greatly increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 365
       }
     ],
@@ -7699,6 +8096,7 @@
         },
         "level": 2,
         "description": "Speed +20% Morph attack power +10%",
+        "setPiecesRequired": null,
         "id": 14
       }
     ],
@@ -7724,6 +8122,7 @@
         },
         "level": 1,
         "description": "Ice attack +40",
+        "setPiecesRequired": null,
         "id": 315
       }
     ],
@@ -7749,6 +8148,7 @@
         },
         "level": 1,
         "description": "Attack +3 while active.",
+        "setPiecesRequired": null,
         "id": 403
       }
     ],
@@ -7774,6 +8174,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -7783,6 +8184,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       }
     ],
@@ -7808,6 +8210,7 @@
         },
         "level": 2,
         "description": "Affinity +8%",
+        "setPiecesRequired": null,
         "id": 6
       }
     ],
@@ -7833,6 +8236,7 @@
         },
         "level": 3,
         "description": "Attack +7",
+        "setPiecesRequired": null,
         "id": 177
       }
     ],
@@ -7858,6 +8262,7 @@
         },
         "level": 1,
         "description": "Increases shell and phial reloading speed.",
+        "setPiecesRequired": null,
         "id": 274
       }
     ],
@@ -7883,6 +8288,7 @@
         },
         "level": 1,
         "description": "Affinity +4%",
+        "setPiecesRequired": null,
         "id": 5
       },
       {
@@ -7892,6 +8298,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       }
     ],
@@ -7917,6 +8324,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -7942,6 +8350,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       },
       {
@@ -7951,6 +8360,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -7976,6 +8386,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -8001,6 +8412,7 @@
         },
         "level": 3,
         "description": "Greatly boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 263
       }
     ],
@@ -8026,6 +8438,7 @@
         },
         "level": 1,
         "description": "Slightly increases recovery.",
+        "setPiecesRequired": null,
         "id": 66
       }
     ],
@@ -8051,6 +8464,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental attack and status buildup for charged attacks.",
+        "setPiecesRequired": null,
         "id": 57
       }
     ],
@@ -8076,6 +8490,7 @@
         },
         "level": 1,
         "description": "Affinity +4%",
+        "setPiecesRequired": null,
         "id": 5
       },
       {
@@ -8085,6 +8500,7 @@
         },
         "level": 1,
         "description": "Jumping attack power +10%",
+        "setPiecesRequired": null,
         "id": 213
       }
     ],
@@ -8110,6 +8526,7 @@
         },
         "level": 2,
         "description": "Greatly increases the effect duration of hunting horn melodies.",
+        "setPiecesRequired": null,
         "id": 65
       },
       {
@@ -8119,6 +8536,7 @@
         },
         "level": 1,
         "description": "Affinity +50%",
+        "setPiecesRequired": null,
         "id": 258
       }
     ],
@@ -8144,6 +8562,7 @@
         },
         "level": 1,
         "description": "Attack +5 while active.",
+        "setPiecesRequired": null,
         "id": 321
       }
     ],
@@ -8169,6 +8588,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -8178,6 +8598,7 @@
         },
         "level": 3,
         "description": "Greatly increases abnormal status effects when landing critical hits.",
+        "setPiecesRequired": null,
         "id": 168
       }
     ],
@@ -8203,6 +8624,7 @@
         },
         "level": 3,
         "description": "100% chance of your attacks not being deflected, +30% attack power against hard targets.",
+        "setPiecesRequired": null,
         "id": 357
       }
     ],
@@ -8228,6 +8650,7 @@
         },
         "level": 3,
         "description": "Stun power +40%",
+        "setPiecesRequired": null,
         "id": 84
       }
     ],
@@ -8253,6 +8676,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -8262,6 +8686,7 @@
         },
         "level": 2,
         "description": "Increases shell/phial reloading speed. Gunlance loading capacity +1. Charge blade charges 5 phials on yellow gauge.",
+        "setPiecesRequired": null,
         "id": 275
       }
     ],
@@ -8287,6 +8712,7 @@
         },
         "level": 2,
         "description": "Paralysis buildup +10% Bonus: +20",
+        "setPiecesRequired": null,
         "id": 20
       }
     ],
@@ -8312,6 +8738,7 @@
         },
         "level": 1,
         "description": "Moderately increases eating speed.",
+        "setPiecesRequired": null,
         "id": 249
       }
     ],
@@ -8337,6 +8764,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -8346,6 +8774,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -8371,6 +8800,7 @@
         },
         "level": 1,
         "description": "Attack +5% while active.",
+        "setPiecesRequired": null,
         "id": 163
       }
     ],
@@ -8396,6 +8826,7 @@
         },
         "level": 1,
         "description": "When active, grants a slight increase to elemental attack and status buildup.",
+        "setPiecesRequired": null,
         "id": 28
       }
     ],
@@ -8421,6 +8852,7 @@
         },
         "level": 1,
         "description": "Reduces the duration of stun by 30%.",
+        "setPiecesRequired": null,
         "id": 264
       }
     ],
@@ -8446,6 +8878,7 @@
         },
         "level": 1,
         "description": "Delays blastblight and reduces blast damage.",
+        "setPiecesRequired": null,
         "id": 276
       }
     ],
@@ -8471,6 +8904,7 @@
         },
         "level": 1,
         "description": "Exhaust power +20%",
+        "setPiecesRequired": null,
         "id": 366
       }
     ],
@@ -8496,6 +8930,7 @@
         },
         "level": 2,
         "description": "100% chance of your attacks not being deflected, +15% attack power against hard targets.",
+        "setPiecesRequired": null,
         "id": 356
       }
     ],
@@ -8521,6 +8956,7 @@
         },
         "level": 1,
         "description": "Attacks that hit weak points gain affinity +5%, with an extra 3% on wounds.",
+        "setPiecesRequired": null,
         "id": 137
       }
     ],
@@ -8546,6 +8982,7 @@
         },
         "level": 3,
         "description": "Greatly increases each attack and Wyvern's Fire firing speed. Shelling fire attack +90.",
+        "setPiecesRequired": null,
         "id": 113
       }
     ],
@@ -8571,6 +9008,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 206
       }
     ],
@@ -8596,6 +9034,7 @@
         },
         "level": 2,
         "description": "Moderately increases gauge fill rate and reduces charge times by 10%.",
+        "setPiecesRequired": null,
         "id": 149
       }
     ],
@@ -8621,6 +9060,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 206
       },
       {
@@ -8630,6 +9070,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -8655,6 +9096,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 107
       }
     ],
@@ -8680,6 +9122,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       }
     ],
@@ -8705,6 +9148,7 @@
         },
         "level": 2,
         "description": "Ice attack +10% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 316
       }
     ],
@@ -8730,6 +9174,7 @@
         },
         "level": 3,
         "description": "Dragon attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 101
       },
       {
@@ -8739,6 +9184,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -8764,6 +9210,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -8773,6 +9220,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       }
     ],
@@ -8798,6 +9246,7 @@
         },
         "level": 1,
         "description": "Speed +10%",
+        "setPiecesRequired": null,
         "id": 13
       },
       {
@@ -8807,6 +9256,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       }
     ],
@@ -8832,6 +9282,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       },
       {
@@ -8841,6 +9292,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -8866,6 +9318,7 @@
         },
         "level": 1,
         "description": "Affinity +4%",
+        "setPiecesRequired": null,
         "id": 5
       },
       {
@@ -8875,6 +9328,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 206
       }
     ],
@@ -8900,6 +9354,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -8909,6 +9364,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       }
     ],
@@ -8934,6 +9390,7 @@
         },
         "level": 1,
         "description": "While active, affinity +10% and reduces stamina depletion by 30%.",
+        "setPiecesRequired": null,
         "id": 369
       }
     ],
@@ -8959,6 +9416,7 @@
         },
         "level": 1,
         "description": "Reduces stench duration by 50%.",
+        "setPiecesRequired": null,
         "id": 133
       }
     ],
@@ -8984,6 +9442,7 @@
         },
         "level": 1,
         "description": "Shortens recharge time by 10%.",
+        "setPiecesRequired": null,
         "id": 222
       }
     ],
@@ -9009,6 +9468,7 @@
         },
         "level": 3,
         "description": "Increases damage dealt by critical hits to 34%.",
+        "setPiecesRequired": null,
         "id": 51
       }
     ],
@@ -9034,6 +9494,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -9043,6 +9504,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -9068,6 +9530,7 @@
         },
         "level": 3,
         "description": "Fire attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 122
       },
       {
@@ -9077,6 +9540,7 @@
         },
         "level": 1,
         "description": "Grants a 10% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 295
       }
     ],
@@ -9102,6 +9566,7 @@
         },
         "level": 1,
         "description": "Lets you use exhaust coatings.",
+        "setPiecesRequired": null,
         "id": 159
       }
     ],
@@ -9127,6 +9592,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       }
     ],
@@ -9152,6 +9618,7 @@
         },
         "level": 1,
         "description": "Attack +3",
+        "setPiecesRequired": null,
         "id": 175
       },
       {
@@ -9161,6 +9628,7 @@
         },
         "level": 2,
         "description": "Removes two cycles from the sharpening process.",
+        "setPiecesRequired": null,
         "id": 331
       }
     ],
@@ -9186,6 +9654,7 @@
         },
         "level": 2,
         "description": "+10% damage dealt when your sharpness gauge is yellow or lower.",
+        "setPiecesRequired": null,
         "id": 211
       }
     ],
@@ -9211,6 +9680,7 @@
         },
         "level": 1,
         "description": "Increases damage dealt by critical hits to 28%.",
+        "setPiecesRequired": null,
         "id": 49
       }
     ],
@@ -9236,6 +9706,7 @@
         },
         "level": 3,
         "description": "Grants no sharpness loss for 90 seconds after activation.",
+        "setPiecesRequired": null,
         "id": 351
       }
     ],
@@ -9261,6 +9732,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -9270,6 +9742,7 @@
         },
         "level": 3,
         "description": "Increases gauge fill rate and reduces charge times by 15%.",
+        "setPiecesRequired": null,
         "id": 150
       }
     ],
@@ -9295,6 +9768,7 @@
         },
         "level": 2,
         "description": "Draw attacks deal a medium amount of stun damage and gain attack +5.",
+        "setPiecesRequired": null,
         "id": 17
       }
     ],
@@ -9320,6 +9794,7 @@
         },
         "level": 1,
         "description": "Slightly increases the attack power and affinity of ammo after certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 358
       }
     ],
@@ -9345,6 +9820,7 @@
         },
         "level": 1,
         "description": "+5% damage dealt when your sharpness gauge is yellow or lower.",
+        "setPiecesRequired": null,
         "id": 210
       }
     ],
@@ -9370,6 +9846,7 @@
         },
         "level": 1,
         "description": "Slightly increases the power of specified ammo and arrows.",
+        "setPiecesRequired": null,
         "id": 12
       }
     ],
@@ -9395,6 +9872,7 @@
         },
         "level": 1,
         "description": "Speed +10%",
+        "setPiecesRequired": null,
         "id": 13
       }
     ],
@@ -9420,6 +9898,7 @@
         },
         "level": 2,
         "description": "Increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 204
       }
     ],
@@ -9445,6 +9924,7 @@
         },
         "level": 1,
         "description": "Improves the effectiveness of flash attacks and items.",
+        "setPiecesRequired": null,
         "id": 151
       }
     ],
@@ -9470,6 +9950,7 @@
         },
         "level": 1,
         "description": "Jumping attack power +10%",
+        "setPiecesRequired": null,
         "id": 213
       },
       {
@@ -9479,6 +9960,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -9504,6 +9986,7 @@
         },
         "level": 1,
         "description": "Attack +10 while active.",
+        "setPiecesRequired": null,
         "id": 200
       }
     ],
@@ -9529,6 +10012,7 @@
         },
         "level": 3,
         "description": "Greatly extends critical range, and boosts the power of attacks made within critical range.",
+        "setPiecesRequired": null,
         "id": 130
       }
     ],
@@ -9554,6 +10038,7 @@
         },
         "level": 1,
         "description": "Moderately increases the power of specified ammo and arrows.",
+        "setPiecesRequired": null,
         "id": 169
       }
     ],
@@ -9579,6 +10064,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -9588,6 +10074,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -9613,6 +10100,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       },
       {
@@ -9622,6 +10110,7 @@
         },
         "level": 3,
         "description": "Greatly increases abnormal status effects when landing critical hits.",
+        "setPiecesRequired": null,
         "id": 168
       }
     ],
@@ -9647,6 +10136,7 @@
         },
         "level": 1,
         "description": "Defense +50 while active.",
+        "setPiecesRequired": null,
         "id": 214
       }
     ],
@@ -9672,6 +10162,7 @@
         },
         "level": 2,
         "description": "Increases abnormal status effects when landing critical hits.",
+        "setPiecesRequired": null,
         "id": 167
       }
     ],
@@ -9697,6 +10188,7 @@
         },
         "level": 3,
         "description": "Reduces damage taken by 30%, plus an additional 50% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 41
       },
       {
@@ -9706,6 +10198,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       }
     ],
@@ -9731,6 +10224,7 @@
         },
         "level": 1,
         "description": "Reduces damage taken by 10%, plus an additional 20% when conditions are met.",
+        "setPiecesRequired": null,
         "id": 39
       }
     ],
@@ -9756,6 +10250,7 @@
         },
         "level": 1,
         "description": "Very slightly increases invulnerability window.",
+        "setPiecesRequired": null,
         "id": 188
       }
     ],
@@ -9781,6 +10276,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       },
       {
@@ -9790,6 +10286,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -9815,6 +10312,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -9840,6 +10338,7 @@
         },
         "level": 1,
         "description": "Slightly decreases the impact of attacks and reduces stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 145
       },
       {
@@ -9849,6 +10348,7 @@
         },
         "level": 3,
         "description": "Ice attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 317
       }
     ],
@@ -9874,6 +10374,7 @@
         },
         "level": 2,
         "description": "Affinity +75%",
+        "setPiecesRequired": null,
         "id": 259
       }
     ],
@@ -9899,6 +10400,7 @@
         },
         "level": 1,
         "description": "Attack +10 while active.",
+        "setPiecesRequired": null,
         "id": 310
       }
     ],
@@ -9924,6 +10426,7 @@
         },
         "level": 3,
         "description": "Speed +30% Morph attack power +20%",
+        "setPiecesRequired": null,
         "id": 15
       },
       {
@@ -9933,6 +10436,7 @@
         },
         "level": 1,
         "description": "Stun power +20%",
+        "setPiecesRequired": null,
         "id": 82
       }
     ],
@@ -9958,6 +10462,7 @@
         },
         "level": 3,
         "description": "Grants a 50% chance of no sharpness loss.",
+        "setPiecesRequired": null,
         "id": 297
       },
       {
@@ -9967,6 +10472,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -9992,6 +10498,7 @@
         },
         "level": 1,
         "description": "Slightly increases the power of specified ammo and arrows.",
+        "setPiecesRequired": null,
         "id": 235
       }
     ],
@@ -10017,6 +10524,7 @@
         },
         "level": 1,
         "description": "Items affect nearby allies with 33% of their efficacy.",
+        "setPiecesRequired": null,
         "id": 286
       }
     ],
@@ -10042,6 +10550,7 @@
         },
         "level": 1,
         "description": "Reduces continuous stamina depletion by 15%.",
+        "setPiecesRequired": null,
         "id": 103
       }
     ],
@@ -10067,6 +10576,7 @@
         },
         "level": 3,
         "description": "Greatly increases elemental damage while active.",
+        "setPiecesRequired": null,
         "id": 205
       }
     ],
@@ -10092,6 +10602,7 @@
         },
         "level": 3,
         "description": "Blast buildup +20% Bonus: +50",
+        "setPiecesRequired": null,
         "id": 98
       }
     ],
@@ -10117,6 +10628,7 @@
         },
         "level": 1,
         "description": "Slightly extends range.",
+        "setPiecesRequired": null,
         "id": 128
       },
       {
@@ -10126,6 +10638,7 @@
         },
         "level": 3,
         "description": "Water attack +20% Bonus: +60",
+        "setPiecesRequired": null,
         "id": 229
       }
     ],
@@ -10151,6 +10664,7 @@
         },
         "level": 3,
         "description": "Greatly boosts the duration weapons are powered up.",
+        "setPiecesRequired": null,
         "id": 263
       },
       {
@@ -10160,6 +10674,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -10185,6 +10700,7 @@
         },
         "level": 1,
         "description": "Slightly increases gauge fill rate and reduces charge times by 5%.",
+        "setPiecesRequired": null,
         "id": 148
       }
     ],
@@ -10210,6 +10726,7 @@
         },
         "level": 1,
         "description": "Activates skill effect.",
+        "setPiecesRequired": null,
         "id": 206
       },
       {
@@ -10219,6 +10736,7 @@
         },
         "level": 1,
         "description": "Affinity +50%",
+        "setPiecesRequired": null,
         "id": 258
       }
     ],
@@ -10244,6 +10762,7 @@
         },
         "level": 1,
         "description": "Reduces stamina depletion while climbing by 50%.",
+        "setPiecesRequired": null,
         "id": 102
       }
     ],
@@ -10269,6 +10788,7 @@
         },
         "level": 2,
         "description": "Decreases the impact of attacks and reduces stamina depletion by 30%.",
+        "setPiecesRequired": null,
         "id": 146
       }
     ],
@@ -10294,6 +10814,7 @@
         },
         "level": 1,
         "description": "One extra consumable herb item per gather.",
+        "setPiecesRequired": null,
         "id": 282
       }
     ],
@@ -10319,6 +10840,7 @@
         },
         "level": 1,
         "description": "Attack +4 and affinity +3% while active.",
+        "setPiecesRequired": null,
         "id": 375
       }
     ],
@@ -10344,6 +10866,7 @@
         },
         "level": 1,
         "description": "Attack +3",
+        "setPiecesRequired": null,
         "id": 175
       },
       {
@@ -10353,6 +10876,7 @@
         },
         "level": 2,
         "description": "Increases shell/phial reloading speed. Gunlance loading capacity +1. Charge blade charges 5 phials on yellow gauge.",
+        "setPiecesRequired": null,
         "id": 275
       }
     ],
@@ -10378,6 +10902,7 @@
         },
         "level": 3,
         "description": "Greatly decreases the impact of attacks and reduces stamina depletion by 50%.",
+        "setPiecesRequired": null,
         "id": 147
       }
     ],
@@ -10403,6 +10928,7 @@
         },
         "level": 2,
         "description": "Greatly increases the effect duration of hunting horn melodies.",
+        "setPiecesRequired": null,
         "id": 65
       },
       {
@@ -10412,6 +10938,7 @@
         },
         "level": 1,
         "description": "Weapon sharpness +10",
+        "setPiecesRequired": null,
         "id": 305
       }
     ],
@@ -10437,6 +10964,7 @@
         },
         "level": 1,
         "description": "Item effect duration +10%",
+        "setPiecesRequired": null,
         "id": 36
       }
     ],
@@ -10462,6 +10990,7 @@
         },
         "level": 1,
         "description": "Dragon attack +40",
+        "setPiecesRequired": null,
         "id": 99
       }
     ],
@@ -10487,6 +11016,7 @@
         },
         "level": 1,
         "description": "Moderately increases bowgun reload speed and attack power of ammo when certain conditions are met.",
+        "setPiecesRequired": null,
         "id": 363
       }
     ],
@@ -10512,6 +11042,7 @@
         },
         "level": 1,
         "description": "Nullifies very minor ground tremors and halves effects of minor ground tremors.",
+        "setPiecesRequired": null,
         "id": 108
       }
     ],
@@ -10537,6 +11068,7 @@
         },
         "level": 1,
         "description": "Extends the duration of your poison's effect by 20%.",
+        "setPiecesRequired": null,
         "id": 48
       },
       {
@@ -10546,6 +11078,7 @@
         },
         "level": 1,
         "description": "Attack +3",
+        "setPiecesRequired": null,
         "id": 175
       }
     ],
@@ -10571,6 +11104,7 @@
         },
         "level": 1,
         "description": "Discourages monsters from engaging you even if you've been spotted.",
+        "setPiecesRequired": null,
         "id": 341
       }
     ],

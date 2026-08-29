@@ -28,18 +28,35 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
             if (!response.ok) return [];
 
             const xmlData = await response.text();
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const result = parser.parse(xmlData) as any;
+            interface ParsedRSSResult {
+                rss?: {
+                    channel?: {
+                        item?: RawRSSItem | RawRSSItem[];
+                    };
+                };
+            }
+            interface RawRSSItem {
+                title?: string;
+                link?: string;
+                description?: string;
+                pubDate?: string;
+                image?: string;
+                thumb?: string;
+                "content:encoded"?: string;
+                "media:thumbnail"?: { url?: string };
+                "media:content"?: { url?: string } | { url?: string }[];
+                enclosure?: { url?: string; type?: string };
+            }
+
+            const result = parser.parse(xmlData) as ParsedRSSResult;
             if (!result?.rss?.channel) return [];
 
             const channel = result.rss.channel;
-            const rawItems = Array.isArray(channel.item) ? channel.item : [channel.item];
+            const rawItems = Array.isArray(channel.item) ? channel.item : (channel.item ? [channel.item] : []);
             // Limit to top 15 items per feed to avoid Worker resource limits
-            const items = rawItems.slice(0, 15).filter((item: unknown) => !!item);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const typedItems = items as any[];
+            const items = rawItems.slice(0, 15).filter((item): item is RawRSSItem => !!item);
 
-            return typedItems.map((item) => {
+            return items.map((item) => {
                 let imageUrl = '';
                 const description = item.description || "";
                 const contentEncoded = item["content:encoded"] || "";

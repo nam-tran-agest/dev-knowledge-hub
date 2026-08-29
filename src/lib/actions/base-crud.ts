@@ -122,8 +122,7 @@ export async function getAll<T extends BaseEntity>(
   // Transform data
   const transformedData = data?.map(item => {
     if (typeof item !== 'object' || item === null) return item
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const transformed = Object.assign({}, item) as any
+    const transformed = Object.assign({}, item) as Record<string, unknown>
 
     if (config.tagJunctionTable && 'tags' in transformed && transformed.tags) {
       transformed.tags = transformTags(transformed.tags as unknown[])
@@ -158,13 +157,12 @@ export async function getById<T extends BaseEntity>(
   if (error) return null
 
   if (typeof data !== 'object' || data === null) return null
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const transformed = Object.assign({}, data) as any
+  const transformed = Object.assign({}, data) as Record<string, unknown>
   if (config.tagJunctionTable && 'tags' in transformed && transformed.tags) {
     transformed.tags = transformTags(transformed.tags as unknown[])
   }
 
-  return config.transformData ? config.transformData(transformed) : transformed as T
+  return config.transformData ? config.transformData(transformed) : transformed as unknown as T
 }
 
 /**

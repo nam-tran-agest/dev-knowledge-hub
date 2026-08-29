@@ -1,12 +1,13 @@
 import { type NextRequest } from 'next/server'
-export const config = {
-    runtime: 'experimental-edge', matcher: [
-        '/((?!api|_next|_vercel|callback|.*\\..*).*)',
-    ]
-}
 import createMiddleware from 'next-intl/middleware'
 import { createServerClient } from '@supabase/ssr'
 import { routing } from './i18n/routing'
+
+export const config = {
+    matcher: [
+        '/((?!api|_next|_vercel|callback|.*\\..*).*)',
+    ]
+}
 
 const intlMiddleware = createMiddleware(routing)
 

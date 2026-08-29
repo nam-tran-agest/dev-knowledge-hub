@@ -5,17 +5,15 @@ import { Play, Trash2, Clock, Heart, ListPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { SavedVideo } from "@/features/media/types";
+import type { SavedVideo, SavedPlaylist } from "@/features/media/types";
 import { useTranslations } from "next-intl";
 
 interface VideoCardProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    video: any;
+    video: SavedVideo;
     onSelect: (video: SavedVideo) => void;
     onDelete: (id: string) => void;
     onToggleFavorite: (e: React.MouseEvent, video: SavedVideo) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    playlists?: any[];
+    playlists?: SavedPlaylist[];
     onAddToPlaylist?: (videoId: string) => void;
 }
 

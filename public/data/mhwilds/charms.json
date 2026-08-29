@@ -18,6 +18,7 @@
             "level": 1,
             "name": null,
             "description": "Negates minor wind pressure and halves the effects of major wind pressure.",
+            "setPiecesRequired": null,
             "id": 79
           }
         ],
@@ -130,6 +131,7 @@
             "level": 2,
             "name": null,
             "description": "Negates minor and major wind pressure and halves the effects of dragon wind pressure.",
+            "setPiecesRequired": null,
             "id": 80
           }
         ],
@@ -242,6 +244,7 @@
             "level": 3,
             "name": null,
             "description": "Negates all kinds of wind pressure.",
+            "setPiecesRequired": null,
             "id": 81
           }
         ],
@@ -361,6 +364,7 @@
             "level": 1,
             "name": null,
             "description": "Shortens recharge time by 10%.",
+            "setPiecesRequired": null,
             "id": 222
           }
         ],
@@ -473,6 +477,7 @@
             "level": 2,
             "name": null,
             "description": "Shortens recharge time by 20%.",
+            "setPiecesRequired": null,
             "id": 223
           }
         ],
@@ -585,6 +590,7 @@
             "level": 3,
             "name": null,
             "description": "Shortens recharge time by 30%.",
+            "setPiecesRequired": null,
             "id": 224
           }
         ],
@@ -697,6 +703,7 @@
             "level": 4,
             "name": null,
             "description": "Shortens recharge time by 40%.",
+            "setPiecesRequired": null,
             "id": 225
           }
         ],
@@ -816,6 +823,7 @@
             "level": 1,
             "name": null,
             "description": "Fire resistance +6",
+            "setPiecesRequired": null,
             "id": 327
           }
         ],
@@ -908,6 +916,7 @@
             "level": 2,
             "name": null,
             "description": "Fire resistance +12",
+            "setPiecesRequired": null,
             "id": 328
           }
         ],
@@ -1020,6 +1029,7 @@
             "level": 3,
             "name": null,
             "description": "Fire resistance +20 Defense +10",
+            "setPiecesRequired": null,
             "id": 329
           }
         ],
@@ -1139,6 +1149,7 @@
             "level": 1,
             "name": null,
             "description": "Extends the time until your stamina cap reduces by 50%.",
+            "setPiecesRequired": null,
             "id": 395
           }
         ],
@@ -1231,6 +1242,7 @@
             "level": 2,
             "name": null,
             "description": "Extends the time until your stamina cap reduces by 100%.",
+            "setPiecesRequired": null,
             "id": 396
           }
         ],
@@ -1343,6 +1355,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents your stamina cap from decreasing.",
+            "setPiecesRequired": null,
             "id": 397
           }
         ],
@@ -1462,6 +1475,7 @@
             "level": 1,
             "name": null,
             "description": "Defense +50 while active.",
+            "setPiecesRequired": null,
             "id": 214
           }
         ],
@@ -1574,6 +1588,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +5% and defense +50 while active.",
+            "setPiecesRequired": null,
             "id": 215
           }
         ],
@@ -1686,6 +1701,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +5% and defense +100 while active.",
+            "setPiecesRequired": null,
             "id": 216
           }
         ],
@@ -1798,6 +1814,7 @@
             "level": 4,
             "name": null,
             "description": "Attack +10% and defense +100 while active.",
+            "setPiecesRequired": null,
             "id": 217
           }
         ],
@@ -1917,6 +1934,7 @@
             "level": 1,
             "name": null,
             "description": "Activates 10% of the time.",
+            "setPiecesRequired": null,
             "id": 279
           }
         ],
@@ -2029,6 +2047,7 @@
             "level": 2,
             "name": null,
             "description": "Activates 25% of the time.",
+            "setPiecesRequired": null,
             "id": 280
           }
         ],
@@ -2141,6 +2160,7 @@
             "level": 3,
             "name": null,
             "description": "Activates 45% of the time.",
+            "setPiecesRequired": null,
             "id": 281
           }
         ],
@@ -2260,6 +2280,7 @@
             "level": 1,
             "name": null,
             "description": "Slightly extends evasion distance.",
+            "setPiecesRequired": null,
             "id": 255
           }
         ],
@@ -2372,6 +2393,7 @@
             "level": 2,
             "name": null,
             "description": "Extends evasion distance.",
+            "setPiecesRequired": null,
             "id": 256
           }
         ],
@@ -2484,6 +2506,7 @@
             "level": 3,
             "name": null,
             "description": "Greatly extends evasion distance.",
+            "setPiecesRequired": null,
             "id": 257
           }
         ],
@@ -2603,6 +2626,7 @@
             "level": 1,
             "name": null,
             "description": "Attack +3 while active.",
+            "setPiecesRequired": null,
             "id": 403
           }
         ],
@@ -2715,6 +2739,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +6 while active.",
+            "setPiecesRequired": null,
             "id": 404
           }
         ],
@@ -2827,6 +2852,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +10 while active.",
+            "setPiecesRequired": null,
             "id": 405
           }
         ],
@@ -2946,6 +2972,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces the duration of sleep by 30%.",
+            "setPiecesRequired": null,
             "id": 156
           }
         ],
@@ -3038,6 +3065,7 @@
             "level": 2,
             "name": null,
             "description": "Reduces the duration of sleep by 60%.",
+            "setPiecesRequired": null,
             "id": 157
           }
         ],
@@ -3150,6 +3178,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents sleep.",
+            "setPiecesRequired": null,
             "id": 158
           }
         ],
@@ -3269,6 +3298,7 @@
             "level": 1,
             "name": null,
             "description": "Moderately increases eating speed.",
+            "setPiecesRequired": null,
             "id": 249
           }
         ],
@@ -3381,6 +3411,7 @@
             "level": 2,
             "name": null,
             "description": "Increases eating speed.",
+            "setPiecesRequired": null,
             "id": 250
           }
         ],
@@ -3493,6 +3524,7 @@
             "level": 3,
             "name": null,
             "description": "Greatly increases eating speed.",
+            "setPiecesRequired": null,
             "id": 251
           }
         ],
@@ -3612,6 +3644,7 @@
             "level": 1,
             "name": null,
             "description": "Attack +4 and affinity +3% while active.",
+            "setPiecesRequired": null,
             "id": 375
           }
         ],
@@ -3724,6 +3757,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +8 and affinity +5% while active.",
+            "setPiecesRequired": null,
             "id": 376
           }
         ],
@@ -3836,6 +3870,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +12 and affinity +7% while active.",
+            "setPiecesRequired": null,
             "id": 377
           }
         ],
@@ -3955,6 +3990,7 @@
             "level": 1,
             "name": null,
             "description": "Very slightly increases invulnerability window.",
+            "setPiecesRequired": null,
             "id": 188
           }
         ],
@@ -4067,6 +4103,7 @@
             "level": 2,
             "name": null,
             "description": "Slightly increases invulnerability window.",
+            "setPiecesRequired": null,
             "id": 189
           }
         ],
@@ -4179,6 +4216,7 @@
             "level": 3,
             "name": null,
             "description": "Increases invulnerability window.",
+            "setPiecesRequired": null,
             "id": 190
           }
         ],
@@ -4291,6 +4329,7 @@
             "level": 4,
             "name": null,
             "description": "Greatly increases invulnerability window.",
+            "setPiecesRequired": null,
             "id": 191
           }
         ],
@@ -4366,7 +4405,7 @@
                 "gameId": 728,
                 "rarity": 7,
                 "name": "Mizutsune Water Orb",
-                "description": "A multicolored orb formed from a crystalized Mizutsune scale and bubblefoam.",
+                "description": "A multicolored orb formed from a crystallized Mizutsune scale and bubblefoam.",
                 "value": 10500,
                 "carryLimit": 99,
                 "recipes": [],
@@ -4410,6 +4449,7 @@
             "level": 1,
             "name": null,
             "description": "Delays blastblight and reduces blast damage.",
+            "setPiecesRequired": null,
             "id": 276
           }
         ],
@@ -4502,6 +4542,7 @@
             "level": 2,
             "name": null,
             "description": "Greatly delays blastblight and greatly reduces blast damage.",
+            "setPiecesRequired": null,
             "id": 277
           }
         ],
@@ -4614,6 +4655,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents blastblight.",
+            "setPiecesRequired": null,
             "id": 278
           }
         ],
@@ -4733,6 +4775,7 @@
             "level": 1,
             "name": null,
             "description": "Affinity +10% while active",
+            "setPiecesRequired": null,
             "id": 246
           }
         ],
@@ -4845,6 +4888,7 @@
             "level": 2,
             "name": null,
             "description": "Affinity +20% while active",
+            "setPiecesRequired": null,
             "id": 247
           }
         ],
@@ -4957,6 +5001,7 @@
             "level": 3,
             "name": null,
             "description": "Affinity +30% while active",
+            "setPiecesRequired": null,
             "id": 248
           }
         ],
@@ -5076,6 +5121,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces the duration of stun by 30%.",
+            "setPiecesRequired": null,
             "id": 264
           }
         ],
@@ -5168,6 +5214,7 @@
             "level": 2,
             "name": null,
             "description": "Reduces the duration of stun by 60%.",
+            "setPiecesRequired": null,
             "id": 265
           }
         ],
@@ -5280,6 +5327,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents stun.",
+            "setPiecesRequired": null,
             "id": 266
           }
         ],
@@ -5399,6 +5447,7 @@
             "level": 1,
             "name": null,
             "description": "Slightly increases recovery.",
+            "setPiecesRequired": null,
             "id": 66
           },
           {
@@ -5409,6 +5458,7 @@
             "level": 1,
             "name": null,
             "description": "Activates skill effect.",
+            "setPiecesRequired": null,
             "id": 361
           }
         ],
@@ -5447,6 +5497,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces the duration of paralysis by 30%.",
+            "setPiecesRequired": null,
             "id": 230
           }
         ],
@@ -5539,6 +5590,7 @@
             "level": 2,
             "name": null,
             "description": "Reduces the duration of paralysis by 60%.",
+            "setPiecesRequired": null,
             "id": 231
           }
         ],
@@ -5651,6 +5703,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents paralysis.",
+            "setPiecesRequired": null,
             "id": 232
           }
         ],
@@ -5770,6 +5823,7 @@
             "level": 1,
             "name": null,
             "description": "Restores 50 health.",
+            "setPiecesRequired": null,
             "id": 114
           }
         ],
@@ -5862,6 +5916,7 @@
             "level": 2,
             "name": null,
             "description": "Restores 80 health.",
+            "setPiecesRequired": null,
             "id": 115
           }
         ],
@@ -5974,6 +6029,7 @@
             "level": 3,
             "name": null,
             "description": "Restores 100 health.",
+            "setPiecesRequired": null,
             "id": 116
           }
         ],
@@ -6093,6 +6149,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces the effects of weak monster roars.",
+            "setPiecesRequired": null,
             "id": 197
           }
         ],
@@ -6205,6 +6262,7 @@
             "level": 2,
             "name": null,
             "description": "Nullifies weak monster roars and reduces the effects of strong monster roars.",
+            "setPiecesRequired": null,
             "id": 198
           }
         ],
@@ -6324,6 +6382,7 @@
             "level": 1,
             "name": null,
             "description": "Thunder resistance +6",
+            "setPiecesRequired": null,
             "id": 409
           }
         ],
@@ -6416,6 +6475,7 @@
             "level": 2,
             "name": null,
             "description": "Thunder resistance +12",
+            "setPiecesRequired": null,
             "id": 410
           }
         ],
@@ -6528,6 +6588,7 @@
             "level": 3,
             "name": null,
             "description": "Thunder resistance +20 Defense +10",
+            "setPiecesRequired": null,
             "id": 411
           }
         ],
@@ -6647,6 +6708,7 @@
             "level": 1,
             "name": null,
             "description": "Stamina recovery speed +10%",
+            "setPiecesRequired": null,
             "id": 142
           }
         ],
@@ -6759,6 +6821,7 @@
             "level": 2,
             "name": null,
             "description": "Stamina recovery speed +30%",
+            "setPiecesRequired": null,
             "id": 143
           }
         ],
@@ -6871,6 +6934,7 @@
             "level": 3,
             "name": null,
             "description": "Stamina recovery speed +50%",
+            "setPiecesRequired": null,
             "id": 144
           }
         ],
@@ -6990,6 +7054,7 @@
             "level": 1,
             "name": null,
             "description": "While active, affinity +10% and reduces stamina depletion by 30%.",
+            "setPiecesRequired": null,
             "id": 369
           }
         ],
@@ -7102,6 +7167,7 @@
             "level": 2,
             "name": null,
             "description": "While active, affinity +20% and reduces stamina depletion by 30%.",
+            "setPiecesRequired": null,
             "id": 370
           }
         ],
@@ -7214,6 +7280,7 @@
             "level": 3,
             "name": null,
             "description": "While active, affinity +30% and reduces stamina depletion by 50%.",
+            "setPiecesRequired": null,
             "id": 371
           }
         ],
@@ -7333,6 +7400,7 @@
             "level": 1,
             "name": null,
             "description": "Defense +5",
+            "setPiecesRequired": null,
             "id": 298
           }
         ],
@@ -7445,6 +7513,7 @@
             "level": 2,
             "name": null,
             "description": "Defense +10",
+            "setPiecesRequired": null,
             "id": 299
           }
         ],
@@ -7557,6 +7626,7 @@
             "level": 3,
             "name": null,
             "description": "Defense +5% Bonus: +10",
+            "setPiecesRequired": null,
             "id": 300
           }
         ],
@@ -7669,6 +7739,7 @@
             "level": 4,
             "name": null,
             "description": "Defense +5% Bonus: +20 All elemental resistances +3",
+            "setPiecesRequired": null,
             "id": 301
           }
         ],
@@ -7781,6 +7852,7 @@
             "level": 5,
             "name": null,
             "description": "Defense +8% Bonus: +20 All elemental resistances +3",
+            "setPiecesRequired": null,
             "id": 302
           }
         ],
@@ -7900,6 +7972,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces the number of times you take poison damage.",
+            "setPiecesRequired": null,
             "id": 335
           }
         ],
@@ -7992,6 +8065,7 @@
             "level": 2,
             "name": null,
             "description": "Greatly reduces the number of times you take poison damage.",
+            "setPiecesRequired": null,
             "id": 336
           }
         ],
@@ -8104,6 +8178,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents poison.",
+            "setPiecesRequired": null,
             "id": 337
           }
         ],
@@ -8223,6 +8298,7 @@
             "level": 1,
             "name": null,
             "description": "Attack +10 while active.",
+            "setPiecesRequired": null,
             "id": 200
           }
         ],
@@ -8335,6 +8411,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +15 while active. Moderately extends effect time.",
+            "setPiecesRequired": null,
             "id": 201
           }
         ],
@@ -8447,6 +8524,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +25 while active. Extends effect time.",
+            "setPiecesRequired": null,
             "id": 202
           }
         ],
@@ -8566,6 +8644,7 @@
             "level": 1,
             "name": null,
             "description": "Slightly increases sheathing speed.",
+            "setPiecesRequired": null,
             "id": 72
           }
         ],
@@ -8678,6 +8757,7 @@
             "level": 2,
             "name": null,
             "description": "Increases sheathing speed.",
+            "setPiecesRequired": null,
             "id": 73
           }
         ],
@@ -8790,6 +8870,7 @@
             "level": 3,
             "name": null,
             "description": "Greatly increases sheathing speed.",
+            "setPiecesRequired": null,
             "id": 74
           }
         ],
@@ -8909,6 +8990,7 @@
             "level": 1,
             "name": null,
             "description": "Water resistance +6",
+            "setPiecesRequired": null,
             "id": 207
           }
         ],
@@ -9001,6 +9083,7 @@
             "level": 2,
             "name": null,
             "description": "Water resistance +12",
+            "setPiecesRequired": null,
             "id": 208
           }
         ],
@@ -9113,6 +9196,7 @@
             "level": 3,
             "name": null,
             "description": "Water resistance +20 Defense +10",
+            "setPiecesRequired": null,
             "id": 209
           }
         ],
@@ -9232,6 +9316,7 @@
             "level": 1,
             "name": null,
             "description": "Items affect nearby allies with 33% of their efficacy.",
+            "setPiecesRequired": null,
             "id": 286
           }
         ],
@@ -9344,6 +9429,7 @@
             "level": 2,
             "name": null,
             "description": "Items affect nearby allies in a wider radius with 33% of their efficacy.",
+            "setPiecesRequired": null,
             "id": 287
           }
         ],
@@ -9456,6 +9542,7 @@
             "level": 3,
             "name": null,
             "description": "Items affect nearby allies in a wider radius with 66% of their efficacy.",
+            "setPiecesRequired": null,
             "id": 288
           }
         ],
@@ -9568,6 +9655,7 @@
             "level": 4,
             "name": null,
             "description": "Items affect nearby allies in a much wider radius with 66% of their efficacy.",
+            "setPiecesRequired": null,
             "id": 289
           }
         ],
@@ -9680,6 +9768,7 @@
             "level": 5,
             "name": null,
             "description": "Items affect nearby allies in a much wider radius with full efficacy.",
+            "setPiecesRequired": null,
             "id": 290
           }
         ],
@@ -9799,6 +9888,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces the duration of all elemental blights by 50%.",
+            "setPiecesRequired": null,
             "id": 117
           }
         ],
@@ -9911,6 +10001,7 @@
             "level": 2,
             "name": null,
             "description": "Reduces the duration of all elemental blights by 75%.",
+            "setPiecesRequired": null,
             "id": 118
           }
         ],
@@ -10023,6 +10114,7 @@
             "level": 3,
             "name": null,
             "description": "Nullifies all elemental blights.",
+            "setPiecesRequired": null,
             "id": 119
           }
         ],
@@ -10142,6 +10234,7 @@
             "level": 1,
             "name": null,
             "description": "Item effect duration +10%",
+            "setPiecesRequired": null,
             "id": 36
           }
         ],
@@ -10254,6 +10347,7 @@
             "level": 2,
             "name": null,
             "description": "Item effect duration +25%",
+            "setPiecesRequired": null,
             "id": 37
           }
         ],
@@ -10366,6 +10460,7 @@
             "level": 3,
             "name": null,
             "description": "Item effect duration +50%",
+            "setPiecesRequired": null,
             "id": 38
           }
         ],
@@ -10485,6 +10580,7 @@
             "level": 1,
             "name": null,
             "description": "Ice resistance +6",
+            "setPiecesRequired": null,
             "id": 252
           }
         ],
@@ -10577,6 +10673,7 @@
             "level": 2,
             "name": null,
             "description": "Ice resistance +12",
+            "setPiecesRequired": null,
             "id": 253
           }
         ],
@@ -10689,6 +10786,7 @@
             "level": 3,
             "name": null,
             "description": "Ice resistance +20 Defense +10",
+            "setPiecesRequired": null,
             "id": 254
           }
         ],
@@ -10808,6 +10906,7 @@
             "level": 1,
             "name": null,
             "description": "Increases part damage and damage dealt when conditions are met by 10%.",
+            "setPiecesRequired": null,
             "id": 338
           }
         ],
@@ -10920,6 +11019,7 @@
             "level": 2,
             "name": null,
             "description": "Increases part damage and damage dealt when conditions are met by 20%.",
+            "setPiecesRequired": null,
             "id": 339
           }
         ],
@@ -11032,6 +11132,7 @@
             "level": 3,
             "name": null,
             "description": "Increases part damage and damage dealt when conditions are met by 30%.",
+            "setPiecesRequired": null,
             "id": 340
           }
         ],
@@ -11151,6 +11252,7 @@
             "level": 1,
             "name": null,
             "description": "Slightly increases recovery rate after contracting the Frenzy. Affinity +3% if cured.",
+            "setPiecesRequired": null,
             "id": 43
           }
         ],
@@ -11263,6 +11365,7 @@
             "level": 2,
             "name": null,
             "description": "Increases recovery rate after contracting the Frenzy. Affinity +6% if cured.",
+            "setPiecesRequired": null,
             "id": 44
           }
         ],
@@ -11375,6 +11478,7 @@
             "level": 3,
             "name": null,
             "description": "Greatly increases recovery rate after contracting the Frenzy. Affinity +10% if cured.",
+            "setPiecesRequired": null,
             "id": 45
           }
         ],
@@ -11494,6 +11598,7 @@
             "level": 1,
             "name": null,
             "description": "Discourages monsters from engaging you even if you've been spotted.",
+            "setPiecesRequired": null,
             "id": 341
           }
         ],
@@ -11606,6 +11711,7 @@
             "level": 2,
             "name": null,
             "description": "Highly discourages monsters from engaging you even if you've been spotted.",
+            "setPiecesRequired": null,
             "id": 342
           }
         ],
@@ -11718,6 +11824,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents monsters from engaging you even if you've been spotted.",
+            "setPiecesRequired": null,
             "id": 343
           }
         ],
@@ -11837,6 +11944,7 @@
             "level": 1,
             "name": null,
             "description": "Prevents knockbacks.",
+            "setPiecesRequired": null,
             "id": 271
           }
         ],
@@ -11949,6 +12057,7 @@
             "level": 2,
             "name": null,
             "description": "Prevents knockbacks. Tripping is reduced to a knockback instead.",
+            "setPiecesRequired": null,
             "id": 272
           }
         ],
@@ -12061,6 +12170,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents knockbacks and tripping.",
+            "setPiecesRequired": null,
             "id": 273
           }
         ],
@@ -12180,6 +12290,7 @@
             "level": 1,
             "name": null,
             "description": "Lets you digest blue mushrooms and toadstools.",
+            "setPiecesRequired": null,
             "id": 125
           }
         ],
@@ -12292,6 +12403,7 @@
             "level": 2,
             "name": null,
             "description": "Additionally lets you digest nitroshrooms and parashrooms.",
+            "setPiecesRequired": null,
             "id": 126
           }
         ],
@@ -12404,6 +12516,7 @@
             "level": 3,
             "name": null,
             "description": "Additionally lets you digest mandragoras, devil's blight, and exciteshrooms.",
+            "setPiecesRequired": null,
             "id": 127
           }
         ],
@@ -12523,6 +12636,7 @@
             "level": 1,
             "name": null,
             "description": "Attack +10 while active.",
+            "setPiecesRequired": null,
             "id": 310
           }
         ],
@@ -12635,6 +12749,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +15 while active.",
+            "setPiecesRequired": null,
             "id": 311
           }
         ],
@@ -12747,6 +12862,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +20 while active.",
+            "setPiecesRequired": null,
             "id": 312
           }
         ],
@@ -12866,6 +12982,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces continuous stamina depletion by 15%.",
+            "setPiecesRequired": null,
             "id": 103
           }
         ],
@@ -12978,6 +13095,7 @@
             "level": 2,
             "name": null,
             "description": "Reduces continuous stamina depletion by 30%.",
+            "setPiecesRequired": null,
             "id": 104
           }
         ],
@@ -13090,6 +13208,7 @@
             "level": 3,
             "name": null,
             "description": "Reduces continuous stamina depletion by 50%.",
+            "setPiecesRequired": null,
             "id": 105
           }
         ],
@@ -13209,6 +13328,7 @@
             "level": 1,
             "name": null,
             "description": "Nullifies very minor ground tremors and halves effects of minor ground tremors.",
+            "setPiecesRequired": null,
             "id": 108
           }
         ],
@@ -13321,6 +13441,7 @@
             "level": 2,
             "name": null,
             "description": "Nullifies up to minor ground tremors and greatly reduces the effects of major ground tremors.",
+            "setPiecesRequired": null,
             "id": 109
           }
         ],
@@ -13433,6 +13554,7 @@
             "level": 3,
             "name": null,
             "description": "Nullifies all ground tremors.",
+            "setPiecesRequired": null,
             "id": 110
           }
         ],
@@ -13552,6 +13674,7 @@
             "level": 1,
             "name": null,
             "description": "Makes it ever so slightly easier to inflict wounds. Also deals additional non-elemental damage.",
+            "setPiecesRequired": null,
             "id": 88
           }
         ],
@@ -13664,6 +13787,7 @@
             "level": 2,
             "name": null,
             "description": "Makes it moderately easier to inflict wounds. Also deals slightly more additional non-elemental damage.",
+            "setPiecesRequired": null,
             "id": 89
           }
         ],
@@ -13758,6 +13882,119 @@
           "id": 114
         },
         "id": 114
+      },
+      {
+        "charm": {
+          "id": 40
+        },
+        "name": "Chainblade Charm III",
+        "description": "A charm that grants the Flayer skill.",
+        "level": 3,
+        "rarity": 8,
+        "skills": [
+          {
+            "skill": {
+              "id": 38,
+              "name": "Flayer"
+            },
+            "level": 3,
+            "name": null,
+            "description": "Makes it easier to inflict wounds. Also deals moderately more additional non-elemental damage.",
+            "setPiecesRequired": null,
+            "id": 90
+          }
+        ],
+        "crafting": {
+          "charmRank": {
+            "id": 186
+          },
+          "craftable": false,
+          "materials": [
+            {
+              "item": {
+                "id": 424,
+                "gameId": 462,
+                "rarity": 6,
+                "name": "White Arkveld Pelt",
+                "description": "A white Arkveld pelt. Strong, naturally twining strands create extra protection against attacks.",
+                "value": 5400,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 44,
+                  "kind": "hide",
+                  "colorId": 1,
+                  "color": "white"
+                }
+              },
+              "quantity": 6,
+              "id": 38975
+            },
+            {
+              "item": {
+                "id": 690,
+                "gameId": 552,
+                "rarity": 6,
+                "name": "Seregios Breacher",
+                "description": "A sharp horn like a hefty axe that, not surprisingly, makes for fine equipment.",
+                "value": 4400,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 45,
+                  "kind": "claw",
+                  "colorId": 10,
+                  "color": "yellow"
+                }
+              },
+              "quantity": 3,
+              "id": 38976
+            },
+            {
+              "item": {
+                "id": 692,
+                "gameId": 554,
+                "rarity": 7,
+                "name": "Seregios Dissenter",
+                "description": "A single scale that points defiantly in a different direction from its brethren.",
+                "value": 13200,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 50,
+                  "kind": "plate",
+                  "colorId": 10,
+                  "color": "yellow"
+                }
+              },
+              "quantity": 1,
+              "id": 38977
+            },
+            {
+              "item": {
+                "id": 787,
+                "gameId": 762,
+                "rarity": 7,
+                "name": "Arkveld Certificate γ",
+                "description": "A Guild certificate for hunting an Arch-tempered Arkveld. Used to make equipment.",
+                "value": 3200,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 30,
+                  "kind": "certificate",
+                  "colorId": 1,
+                  "color": "white"
+                }
+              },
+              "quantity": 3,
+              "id": 38978
+            }
+          ],
+          "zennyCost": 16000,
+          "id": 186
+        },
+        "id": 186
       }
     ],
     "random": false,
@@ -13783,6 +14020,7 @@
             "level": 1,
             "name": null,
             "description": "When active, grants a slight increase to elemental attack and status buildup.",
+            "setPiecesRequired": null,
             "id": 28
           }
         ],
@@ -13895,6 +14133,7 @@
             "level": 2,
             "name": null,
             "description": "When active, grants an increase to elemental attack and status buildup.",
+            "setPiecesRequired": null,
             "id": 29
           }
         ],
@@ -14007,6 +14246,7 @@
             "level": 3,
             "name": null,
             "description": "When active, grants a large increase to elemental attack and status buildup.",
+            "setPiecesRequired": null,
             "id": 30
           }
         ],
@@ -14126,6 +14366,7 @@
             "level": 1,
             "name": null,
             "description": "Explosive power +10%",
+            "setPiecesRequired": null,
             "id": 85
           }
         ],
@@ -14238,6 +14479,7 @@
             "level": 2,
             "name": null,
             "description": "Explosive power +20%",
+            "setPiecesRequired": null,
             "id": 86
           }
         ],
@@ -14350,6 +14592,7 @@
             "level": 3,
             "name": null,
             "description": "Explosive power +30%",
+            "setPiecesRequired": null,
             "id": 87
           }
         ],
@@ -14469,6 +14712,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces damage while bleeding.",
+            "setPiecesRequired": null,
             "id": 385
           }
         ],
@@ -14581,6 +14825,7 @@
             "level": 2,
             "name": null,
             "description": "Greatly reduces damage while bleeding.",
+            "setPiecesRequired": null,
             "id": 386
           }
         ],
@@ -14693,6 +14938,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents bleeding.",
+            "setPiecesRequired": null,
             "id": 387
           }
         ],
@@ -14812,6 +15058,7 @@
             "level": 1,
             "name": null,
             "description": "While active, deals extra dragon damage after dealing enough elemental damage. Slightly increases dragon attack.",
+            "setPiecesRequired": null,
             "id": 398
           }
         ],
@@ -14924,6 +15171,7 @@
             "level": 2,
             "name": null,
             "description": "Increases additional dragon damage and increases dragon attack.",
+            "setPiecesRequired": null,
             "id": 399
           }
         ],
@@ -15043,6 +15291,7 @@
             "level": 1,
             "name": null,
             "description": "While active, reduces damage taken by 15%.",
+            "setPiecesRequired": null,
             "id": 318
           }
         ],
@@ -15155,6 +15404,7 @@
             "level": 2,
             "name": null,
             "description": "While active, reduces damage taken by 30%.",
+            "setPiecesRequired": null,
             "id": 319
           }
         ],
@@ -15267,6 +15517,7 @@
             "level": 3,
             "name": null,
             "description": "While active, reduces damage taken by 50%.",
+            "setPiecesRequired": null,
             "id": 320
           }
         ],
@@ -15386,6 +15637,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces the duration of defense down by 50%.",
+            "setPiecesRequired": null,
             "id": 352
           }
         ],
@@ -15498,6 +15750,7 @@
             "level": 2,
             "name": null,
             "description": "Reduces the duration of defense down by 75%.",
+            "setPiecesRequired": null,
             "id": 353
           }
         ],
@@ -15610,6 +15863,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents defense down.",
+            "setPiecesRequired": null,
             "id": 354
           }
         ],
@@ -15729,6 +15983,7 @@
             "level": 1,
             "name": null,
             "description": "Attack +5% while active.",
+            "setPiecesRequired": null,
             "id": 163
           }
         ],
@@ -15841,6 +16096,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +10% while active.",
+            "setPiecesRequired": null,
             "id": 164
           }
         ],
@@ -15953,6 +16209,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +15% while active.",
+            "setPiecesRequired": null,
             "id": 165
           }
         ],
@@ -16072,6 +16329,7 @@
             "level": 1,
             "name": null,
             "description": "While active, slightly increases elemental attack, and resistance to element taken at activation by 4.",
+            "setPiecesRequired": null,
             "id": 346
           }
         ],
@@ -16184,6 +16442,7 @@
             "level": 2,
             "name": null,
             "description": "While active, moderately increases elemental attack, and resistance to element taken at activation by 6.",
+            "setPiecesRequired": null,
             "id": 347
           }
         ],
@@ -16303,6 +16562,7 @@
             "level": 1,
             "name": null,
             "description": "Allows you to quickly recover from webbed status or frostblight.",
+            "setPiecesRequired": null,
             "id": 388
           }
         ],
@@ -16415,6 +16675,7 @@
             "level": 2,
             "name": null,
             "description": "Allows you to very quickly recover from webbed status or frostblight.",
+            "setPiecesRequired": null,
             "id": 389
           }
         ],
@@ -16527,6 +16788,7 @@
             "level": 3,
             "name": null,
             "description": "Prevents webbed status and frostblight.",
+            "setPiecesRequired": null,
             "id": 390
           }
         ],
@@ -16646,6 +16908,7 @@
             "level": 1,
             "name": null,
             "description": "Doubles the speed at which you heal recoverable damage.",
+            "setPiecesRequired": null,
             "id": 69
           }
         ],
@@ -16758,6 +17021,7 @@
             "level": 2,
             "name": null,
             "description": "Triples the speed at which you heal recoverable damage.",
+            "setPiecesRequired": null,
             "id": 70
           }
         ],
@@ -16870,6 +17134,7 @@
             "level": 3,
             "name": null,
             "description": "Quadruples the speed at which you heal recoverable damage.",
+            "setPiecesRequired": null,
             "id": 71
           }
         ],
@@ -16989,6 +17254,7 @@
             "level": 1,
             "name": null,
             "description": "Slightly increases recovery.",
+            "setPiecesRequired": null,
             "id": 66
           }
         ],
@@ -17101,6 +17367,7 @@
             "level": 2,
             "name": null,
             "description": "Moderately increases recovery.",
+            "setPiecesRequired": null,
             "id": 67
           }
         ],
@@ -17213,6 +17480,7 @@
             "level": 3,
             "name": null,
             "description": "Greatly increases recovery.",
+            "setPiecesRequired": null,
             "id": 68
           }
         ],
@@ -17332,6 +17600,7 @@
             "level": 1,
             "name": null,
             "description": "Reduces fixed stamina depletion by 10%.",
+            "setPiecesRequired": null,
             "id": 31
           }
         ],
@@ -17444,6 +17713,7 @@
             "level": 2,
             "name": null,
             "description": "Reduces fixed stamina depletion by 20%.",
+            "setPiecesRequired": null,
             "id": 32
           }
         ],
@@ -17556,6 +17826,7 @@
             "level": 3,
             "name": null,
             "description": "Reduces fixed stamina depletion by 30%.",
+            "setPiecesRequired": null,
             "id": 33
           }
         ],
@@ -17668,6 +17939,7 @@
             "level": 4,
             "name": null,
             "description": "Reduces fixed stamina depletion by 40%.",
+            "setPiecesRequired": null,
             "id": 34
           }
         ],
@@ -17780,6 +18052,7 @@
             "level": 5,
             "name": null,
             "description": "Reduces fixed stamina depletion by 50%.",
+            "setPiecesRequired": null,
             "id": 35
           }
         ],
@@ -17855,7 +18128,7 @@
                 "gameId": 728,
                 "rarity": 7,
                 "name": "Mizutsune Water Orb",
-                "description": "A multicolored orb formed from a crystalized Mizutsune scale and bubblefoam.",
+                "description": "A multicolored orb formed from a crystallized Mizutsune scale and bubblefoam.",
                 "value": 10500,
                 "carryLimit": 99,
                 "recipes": [],
@@ -17899,6 +18172,7 @@
             "level": 1,
             "name": null,
             "description": "Attack +5 while active.",
+            "setPiecesRequired": null,
             "id": 321
           }
         ],
@@ -18011,6 +18285,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +10 while active.",
+            "setPiecesRequired": null,
             "id": 322
           }
         ],
@@ -18123,6 +18398,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +15 while active.",
+            "setPiecesRequired": null,
             "id": 323
           }
         ],
@@ -18242,6 +18518,7 @@
             "level": 1,
             "name": null,
             "description": "One extra item when gathering from bonepiles.",
+            "setPiecesRequired": null,
             "id": 243
           }
         ],
@@ -18334,6 +18611,7 @@
             "level": 2,
             "name": null,
             "description": "Additionally adds one extra item when gathering special items.",
+            "setPiecesRequired": null,
             "id": 244
           }
         ],
@@ -18446,6 +18724,7 @@
             "level": 3,
             "name": null,
             "description": "Additionally adds one extra item when gathering from mining outcrops.",
+            "setPiecesRequired": null,
             "id": 245
           }
         ],
@@ -18565,6 +18844,7 @@
             "level": 1,
             "name": null,
             "description": "One extra consumable herb item per gather.",
+            "setPiecesRequired": null,
             "id": 282
           }
         ],
@@ -18657,6 +18937,7 @@
             "level": 2,
             "name": null,
             "description": "Additionally adds one extra consumable fruit, nut, or seed item per gather.",
+            "setPiecesRequired": null,
             "id": 283
           }
         ],
@@ -18769,6 +19050,7 @@
             "level": 3,
             "name": null,
             "description": "Additionally adds one extra consumable insect item per gather.",
+            "setPiecesRequired": null,
             "id": 284
           }
         ],
@@ -18881,6 +19163,7 @@
             "level": 4,
             "name": null,
             "description": "Additionally adds one extra consumable mushroom item per gather.",
+            "setPiecesRequired": null,
             "id": 285
           }
         ],
@@ -19000,6 +19283,7 @@
             "level": 1,
             "name": null,
             "description": "Dragon resistance +6",
+            "setPiecesRequired": null,
             "id": 1
           }
         ],
@@ -19092,6 +19376,7 @@
             "level": 2,
             "name": null,
             "description": "Dragon resistance +12",
+            "setPiecesRequired": null,
             "id": 2
           }
         ],
@@ -19204,6 +19489,7 @@
             "level": 3,
             "name": null,
             "description": "Dragon resistance +20 Defense +10",
+            "setPiecesRequired": null,
             "id": 3
           }
         ],
@@ -19323,6 +19609,7 @@
             "level": 1,
             "name": null,
             "description": "Attacks that hit weak points gain affinity +5%, with an extra 3% on wounds.",
+            "setPiecesRequired": null,
             "id": 137
           }
         ],
@@ -19435,6 +19722,7 @@
             "level": 2,
             "name": null,
             "description": "Attacks that hit weak points gain affinity +10%, with an extra 5% on wounds.",
+            "setPiecesRequired": null,
             "id": 138
           }
         ],
@@ -19529,6 +19817,119 @@
           "id": 161
         },
         "id": 161
+      },
+      {
+        "charm": {
+          "id": 57
+        },
+        "name": "Exploiter Charm III",
+        "description": "A charm that grants the Weakness Exploit skill.",
+        "level": 3,
+        "rarity": 8,
+        "skills": [
+          {
+            "skill": {
+              "id": 57,
+              "name": "Weakness Exploit"
+            },
+            "level": 3,
+            "name": null,
+            "description": "Attacks that hit weak points gain affinity +15%, with an extra 10% on wounds.",
+            "setPiecesRequired": null,
+            "id": 139
+          }
+        ],
+        "crafting": {
+          "charmRank": {
+            "id": 187
+          },
+          "craftable": false,
+          "materials": [
+            {
+              "item": {
+                "id": 425,
+                "gameId": 463,
+                "rarity": 6,
+                "name": "Arkveld Calloushell",
+                "description": "A linked Arkveld carapace that is connected by flexible sinew, allowing it to move like a chain.",
+                "value": 6000,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 48,
+                  "kind": "wing",
+                  "colorId": 1,
+                  "color": "white"
+                }
+              },
+              "quantity": 4,
+              "id": 38979
+            },
+            {
+              "item": {
+                "id": 652,
+                "gameId": 714,
+                "rarity": 6,
+                "name": "Zoh Shia Crystalhorn",
+                "description": "A crystal-coated Zoh Shia horn. Heavy and wedge-like, as though it were used to seal something.",
+                "value": 6400,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 45,
+                  "kind": "claw",
+                  "colorId": 1,
+                  "color": "white"
+                }
+              },
+              "quantity": 4,
+              "id": 38980
+            },
+            {
+              "item": {
+                "id": 701,
+                "gameId": 736,
+                "rarity": 7,
+                "name": "Lagiacrus Sapphire",
+                "description": "A deep azure gem formed inside a Lagiacrus. The sound of rippling water can be heard from its core.",
+                "value": 13200,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 20,
+                  "kind": "gem",
+                  "colorId": 16,
+                  "color": "sky"
+                }
+              },
+              "quantity": 1,
+              "id": 38981
+            },
+            {
+              "item": {
+                "id": 787,
+                "gameId": 762,
+                "rarity": 7,
+                "name": "Arkveld Certificate γ",
+                "description": "A Guild certificate for hunting an Arch-tempered Arkveld. Used to make equipment.",
+                "value": 3200,
+                "carryLimit": 99,
+                "recipes": [],
+                "icon": {
+                  "id": 30,
+                  "kind": "certificate",
+                  "colorId": 1,
+                  "color": "white"
+                }
+              },
+              "quantity": 3,
+              "id": 38982
+            }
+          ],
+          "zennyCost": 16000,
+          "id": 187
+        },
+        "id": 187
       }
     ],
     "random": false,
@@ -19554,6 +19955,7 @@
             "level": 1,
             "name": null,
             "description": "Attack +6 against large monsters affected by poison or paralysis.",
+            "setPiecesRequired": null,
             "id": 182
           }
         ],
@@ -19666,6 +20068,7 @@
             "level": 2,
             "name": null,
             "description": "Attack +8 and affinity +5% against large monsters affected by poison or paralysis.",
+            "setPiecesRequired": null,
             "id": 183
           }
         ],
@@ -19778,6 +20181,7 @@
             "level": 3,
             "name": null,
             "description": "Attack +10 and affinity +10% against large monsters affected by poison or paralysis.",
+            "setPiecesRequired": null,
             "id": 184
           }
         ],
@@ -19897,6 +20301,7 @@
             "level": 1,
             "name": null,
             "description": "On first hit, gain a small temporary attack and element boost, replaced by a larger boost after the fifth hit.",
+            "setPiecesRequired": null,
             "id": 236
           }
         ],
@@ -20009,6 +20414,7 @@
             "level": 2,
             "name": null,
             "description": "Hit 5 successive times for a moderate stat boost.",
+            "setPiecesRequired": null,
             "id": 237
           }
         ],
@@ -20121,6 +20527,7 @@
             "level": 3,
             "name": null,
             "description": "Hit 5 successive times for a bigger stat boost.",
+            "setPiecesRequired": null,
             "id": 238
           }
         ],
@@ -20240,6 +20647,7 @@
             "level": 1,
             "name": null,
             "description": "Activates skill effect.",
+            "setPiecesRequired": null,
             "id": 413
           }
         ],

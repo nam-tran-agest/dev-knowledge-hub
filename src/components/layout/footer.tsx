@@ -111,8 +111,7 @@ export default function Footer({ footer }: { footer: FooterData }) {
                                 </div>
                             </div>
                             <div className="flex gap-4 items-start">
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                {footer.social_links.map((link: any, idx: number) => {
+                                {footer.social_links.map((link, idx: number) => {
                                     const l = link.label.toLowerCase();
                                     const getSocialIcon = () => {
                                         if (l.includes('twitter') || l.includes('x')) return <Twitter className="w-5 h-5" />;

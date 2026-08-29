@@ -48,11 +48,12 @@ export function MarkdownViewer({ content, className = '', accentClass = 'text-pr
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkBreaks]}
                 components={{
-                    code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode;[key: string]: any }) { // eslint-disable-line @typescript-eslint/no-explicit-any
+                    code({ className, children, ...props }) {
                         const match = /language-(\w+)/.exec(className || '');
+                        const isBlock = match || String(children).includes('\n');
                         
-                        // Handle code blocks (not inline) even if no language is detected
-                        if (!inline) {
+                        // Handle code blocks (not inline)
+                        if (isBlock) {
                             return (
                                 <SyntaxHighlighter
                                     {...props}
