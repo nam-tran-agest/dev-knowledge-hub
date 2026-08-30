@@ -537,5 +537,66 @@
                 "delete": "Xóa"
             }
         }
+    },
+    "auth": {
+        "login": {
+            "title": "XÁC THỰC DANH TÍNH",
+            "subtitle": "// Nhập thông tin để giải mã và truy cập không gian làm việc",
+            "emailLabel": "Danh tính / Email",
+            "passwordLabel": "Mật mã bảo mật",
+            "submitButton": "Xác thực",
+            "loadingButton": "Đang giải mã thông tin...",
+            "forgotPassword": "Quên mật mã?",
+            "noAccount": "Chưa có danh tính?",
+            "signupLink": "Đăng ký truy cập mới",
+            "verifiedSuccess": "Email đã được xác nhận thành công! Vui lòng đăng nhập.",
+            "errorTitle": "Từ chối truy cập"
+        },
+        "signup": {
+            "title": "ĐĂNG KÝ DANH TÍNH MỚI",
+            "subtitle": "// Thiết lập thông tin người vận hành hệ thống",
+            "emailLabel": "Email định danh",
+            "passwordLabel": "Mật mã khởi tạo",
+            "confirmPasswordLabel": "Xác nhận mật mã",
+            "submitButton": "Khởi tạo tài khoản",
+            "loadingButton": "Đang khởi tạo...",
+            "hasAccount": "Đã có danh tính?",
+            "loginLink": "Đăng nhập ngay",
+            "passwordMismatch": "Mật mã xác nhận không khớp.",
+            "passwordTooShort": "Mật mã phải có ít nhất 6 ký tự.",
+            "checkEmailTitle": "XÁC THỰC EMAIL ĐÃ GỬI",
+            "checkEmailDesc": "Một liên kết xác thực đã được gửi đến email của bạn. Vui lòng kiểm tra hòm thư và nhấn vào liên kết để kích hoạt tài khoản.",
+            "backToLogin": "Quay lại trang đăng nhập"
+        },
+        "forgotPassword": {
+            "title": "KHÔI PHỤC MẬT MÃ",
+            "subtitle": "// Yêu cầu cấp lại mã thông hành bảo mật qua email",
+            "emailLabel": "Email đã đăng ký",
+            "submitButton": "Gửi liên kết khôi phục",
+            "loadingButton": "Đang gửi tín hiệu...",
+            "successTitle": "LIÊN KẾT ĐÃ ĐƯỢC GỬI",
+            "successDesc": "Vui lòng kiểm tra hòm thư để nhận hướng dẫn đặt lại mật mã.",
+            "backToLogin": "Quay lại đăng nhập"
+        },
+        "resetPassword": {
+            "title": "THIẾT LẬP MẬT MÃ MỚI",
+            "subtitle": "// Cập nhật mật mã thông hành mới cho danh tính của bạn",
+            "passwordLabel": "Mật mã mới",
+            "confirmPasswordLabel": "Xác nhận mật mã mới",
+            "submitButton": "Cập nhật mật mã",
+            "loadingButton": "Đang mã hóa...",
+            "passwordMismatch": "Mật mã xác nhận không khớp.",
+            "passwordTooShort": "Mật mã phải có ít nhất 6 ký tự.",
+            "successTitle": "CẬP NHẬT THÀNH CÔNG",
+            "successDesc": "Mật mã của bạn đã được thay đổi. Đang chuyển hướng về trang đăng nhập...",
+            "backToLogin": "Đăng nhập ngay"
+        },
+        "userMenu": {
+            "profile": "Hồ sơ cá nhân",
+            "logout": "Đăng xuất",
+            "login": "Đăng nhập",
+            "status": "Trực tuyến",
+            "operator": "Người vận hành"
+        }
     }
 }

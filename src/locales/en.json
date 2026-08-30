@@ -536,5 +536,66 @@
                 "delete": "Delete Task"
             }
         }
+    },
+    "auth": {
+        "login": {
+            "title": "AUTHENTICATE IDENTITY",
+            "subtitle": "// Enter credentials to decrypt and access workspace",
+            "emailLabel": "Identity / Email",
+            "passwordLabel": "Passkey Token",
+            "submitButton": "Authenticate",
+            "loadingButton": "Decrypting credentials...",
+            "forgotPassword": "Forgot Passkey?",
+            "noAccount": "No identity established?",
+            "signupLink": "Register new operator",
+            "verifiedSuccess": "Email successfully verified! Please log in.",
+            "errorTitle": "Access Denied"
+        },
+        "signup": {
+            "title": "ESTABLISH IDENTITY",
+            "subtitle": "// Create new operator profile on the terminal network",
+            "emailLabel": "Operator Email",
+            "passwordLabel": "Initial Passkey",
+            "confirmPasswordLabel": "Confirm Passkey",
+            "submitButton": "Initialize Account",
+            "loadingButton": "Registering...",
+            "hasAccount": "Already registered?",
+            "loginLink": "Access Terminal",
+            "passwordMismatch": "Passkeys do not match.",
+            "passwordTooShort": "Passkey must be at least 6 characters.",
+            "checkEmailTitle": "VERIFICATION DISPATCHED",
+            "checkEmailDesc": "A verification link has been dispatched to your email. Check your inbox and follow the link to activate your workspace.",
+            "backToLogin": "Return to Login"
+        },
+        "forgotPassword": {
+            "title": "RECOVER PASSKEY",
+            "subtitle": "// Dispatch security recovery token via registered email",
+            "emailLabel": "Registered Email",
+            "submitButton": "Send Recovery Link",
+            "loadingButton": "Transmitting signal...",
+            "successTitle": "RECOVERY DISPATCHED",
+            "successDesc": "Please check your inbox for instructions to reset your passkey token.",
+            "backToLogin": "Return to Login"
+        },
+        "resetPassword": {
+            "title": "CONFIGURE NEW PASSKEY",
+            "subtitle": "// Update security passkey for your operator identity",
+            "passwordLabel": "New Passkey",
+            "confirmPasswordLabel": "Confirm Passkey",
+            "submitButton": "Update Passkey",
+            "loadingButton": "Encrypting...",
+            "passwordMismatch": "Passkeys do not match.",
+            "passwordTooShort": "Passkey must be at least 6 characters.",
+            "successTitle": "PASSKEY UPDATED",
+            "successDesc": "Your passkey has been successfully updated. Redirecting to login terminal...",
+            "backToLogin": "Sign In Now"
+        },
+        "userMenu": {
+            "profile": "Operator Profile",
+            "logout": "Sign Out",
+            "login": "Sign In",
+            "status": "Online",
+            "operator": "Operator"
+        }
     }
 }

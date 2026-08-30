@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/collapsible";
 
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { UserMenu } from "@/components/layout/user-menu";
 
 export default function MobileMenu() {
     const [openId, setOpenId] = useState<string | null>(null);
@@ -156,8 +157,10 @@ export default function MobileMenu() {
                                 </ul>
 
                                 <div className="pt-3 border-t border-primary/20 flex items-center justify-between px-2">
-                                    <span className="text-[10px] font-mono uppercase tracking-widest text-primary/70">// LOCALE</span>
-                                    <LanguageSwitcher />
+                                    <div className="flex items-center gap-2">
+                                        <LanguageSwitcher />
+                                    </div>
+                                    <UserMenu />
                                 </div>
                             </div>
                         </PopoverContent>

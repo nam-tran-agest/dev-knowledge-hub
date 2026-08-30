@@ -12,6 +12,7 @@ import { routing } from '@/i18n/routing';
 import MobileMenu from "@/components/layout/mobile-menu";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { BrandLogo } from "@/components/layout/brand-logo";
+import { UserMenu } from "@/components/layout/user-menu";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin", "vietnamese"],
@@ -77,8 +78,9 @@ export default async function RootLayout({
                 <MainNav />
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <LanguageSwitcher />
+                <UserMenu />
               </div>
             </header>
 

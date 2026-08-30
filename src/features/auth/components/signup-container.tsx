@@ -1,51 +1,99 @@
 ﻿'use client'
 
 import { useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { login } from '@/lib/actions/auth'
+import { signup } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
-import { Loader2, Lock, Mail, Terminal, CheckCircle2, AlertTriangle } from 'lucide-react'
+import { Loader2, Lock, Mail, Terminal, AlertTriangle, ShieldCheck, MailCheck } from 'lucide-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 
-function LoginForm() {
-    const t = useTranslations('auth.login')
-    const searchParams = useSearchParams()
-    const verifiedParam = searchParams.get('verified') === 'true'
-    const errorParam = searchParams.get('error')
+function SignupForm() {
+    const t = useTranslations('auth.signup')
 
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState<string | null>(errorParam)
+    const [error, setError] = useState<string | null>(null)
+    const [isSuccess, setIsSuccess] = useState(false)
 
-    async function handleSubmit(formData: FormData) {
-        setIsLoading(true)
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         setError(null)
 
+        const formData = new FormData(e.currentTarget)
+        const password = formData.get('password') as string
+        const confirmPassword = formData.get('confirmPassword') as string
+
+        if (password.length < 6) {
+            setError(t('passwordTooShort'))
+            return
+        }
+
+        if (password !== confirmPassword) {
+            setError(t('passwordMismatch'))
+            return
+        }
+
+        setIsLoading(true)
+
         try {
-            const result = await login(formData)
+            const origin = window.location.origin
+            const result = await signup(formData, origin)
             if (result?.error) {
                 setError(result.error)
+            } else if (result?.success) {
+                setIsSuccess(true)
             }
-        } catch (e) {
-            if ((e as Error).message === 'NEXT_REDIRECT') {
-                throw e
+        } catch (err) {
+            if ((err as Error).message === 'NEXT_REDIRECT') {
+                throw err
             }
-            console.error(e)
-            setError('System access rejected. Check credentials.')
+            console.error(err)
+            setError('Account initialization failed. Please try again.')
         } finally {
             setIsLoading(false)
         }
+    }
+
+    if (isSuccess) {
+        return (
+            <Card className="w-full max-w-md bg-[#050714]/95 border border-emerald-500/50 shadow-[0_0_50px_rgba(16,185,129,0.2)] backdrop-blur-2xl cyber-clip-lg relative z-10 p-4 sm:p-6 text-center">
+                <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-emerald-500/50 text-[9px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+                    // DISPATCH_SUCCESS
+                </div>
+                <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
+
+                <div className="mx-auto my-4 w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                    <MailCheck className="w-8 h-8" />
+                </div>
+
+                <CardTitle className="text-lg sm:text-xl font-mono font-extrabold uppercase tracking-wider text-white">
+                    {t('checkEmailTitle')}
+                </CardTitle>
+
+                <p className="mt-3 text-xs font-mono text-slate-300 leading-relaxed px-2">
+                    {t('checkEmailDesc')}
+                </p>
+
+                <div className="mt-6 pt-4 border-t border-emerald-500/20">
+                    <Link
+                        href="/login"
+                        className="inline-flex items-center justify-center w-full font-mono text-xs font-bold uppercase tracking-wider bg-emerald-500 text-black hover:bg-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.4)] cyber-clip-button py-3.5 transition-all duration-300 cursor-pointer"
+                    >
+                        [ {t('backToLogin')} ]
+                    </Link>
+                </div>
+            </Card>
+        )
     }
 
     return (
         <Card className="w-full max-w-md bg-[#050714]/95 border border-primary/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] backdrop-blur-2xl cyber-clip-lg relative z-10 p-2 sm:p-4">
             {/* Top Corner System Tag */}
             <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-primary/40 text-[9px] font-mono uppercase tracking-widest text-primary font-bold">
-                // AUTH_TERMINAL_GATEWAY
+                // OPERATOR_ENROLLMENT
             </div>
             {/* Corner Brackets */}
             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
@@ -70,24 +118,17 @@ function LoginForm() {
             </CardHeader>
 
             <CardContent className="space-y-4">
-                {verifiedParam && (
-                    <div className="text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/40 p-3 cyber-clip-button flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
-                        <span>{t('verifiedSuccess')}</span>
-                    </div>
-                )}
-
                 {error && (
                     <div className="text-xs font-mono text-destructive bg-destructive/10 border border-destructive/30 p-3 cyber-clip-button flex items-start gap-2">
                         <AlertTriangle className="w-4 h-4 shrink-0 text-destructive mt-0.5" />
                         <div>
-                            <span className="font-bold">// {t('errorTitle')}:</span> {error}
+                            <span className="font-bold">// ENROLLMENT_FAILED:</span> {error}
                         </div>
                     </div>
                 )}
 
                 {/* Email/Password Form */}
-                <form action={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-1.5">
                         <Label htmlFor="email" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
                             <Mail className="w-3.5 h-3.5 text-primary" /> {t('emailLabel')} *
@@ -104,21 +145,29 @@ function LoginForm() {
                     </div>
 
                     <div className="space-y-1.5">
-                        <div className="flex items-center justify-between">
-                            <Label htmlFor="password" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
-                                <Lock className="w-3.5 h-3.5 text-primary" /> {t('passwordLabel')} *
-                            </Label>
-                            <Link
-                                href="/forgot-password"
-                                className="text-[10px] font-mono text-primary/60 hover:text-primary transition-colors uppercase tracking-wider"
-                            >
-                                {t('forgotPassword')}
-                            </Link>
-                        </div>
+                        <Label htmlFor="password" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
+                            <Lock className="w-3.5 h-3.5 text-primary" /> {t('passwordLabel')} *
+                        </Label>
                         <Input
                             id="password"
                             name="password"
                             type="password"
+                            placeholder="••••••••"
+                            required
+                            disabled={isLoading}
+                            className="bg-[#030712]/80 border-primary/30 focus:border-primary text-white font-mono text-sm"
+                        />
+                    </div>
+
+                    <div className="space-y-1.5">
+                        <Label htmlFor="confirmPassword" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-primary" /> {t('confirmPasswordLabel')} *
+                        </Label>
+                        <Input
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            type="password"
+                            placeholder="••••••••"
                             required
                             disabled={isLoading}
                             className="bg-[#030712]/80 border-primary/30 focus:border-primary text-white font-mono text-sm"
@@ -146,12 +195,12 @@ function LoginForm() {
 
             <CardFooter className="pt-2 pb-3 border-t border-primary/15 flex justify-center text-center">
                 <p className="text-xs font-mono text-muted-foreground">
-                    {t('noAccount')}{' '}
+                    {t('hasAccount')}{' '}
                     <Link
-                        href="/signup"
+                        href="/login"
                         className="text-primary hover:underline font-bold uppercase tracking-wider ml-1"
                     >
-                        [ {t('signupLink')} ]
+                        [ {t('loginLink')} ]
                     </Link>
                 </p>
             </CardFooter>
@@ -159,7 +208,7 @@ function LoginForm() {
     )
 }
 
-export function LoginContainer() {
+export function SignupContainer() {
     return (
         <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-background">
             {/* Background Ambient Cyber Grid & Glows */}
@@ -171,7 +220,7 @@ export function LoginContainer() {
                     <Loader2 className="w-5 h-5 animate-spin" /> LOADING_TERMINAL...
                 </div>
             }>
-                <LoginForm />
+                <SignupForm />
             </Suspense>
         </div>
     )
