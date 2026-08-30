@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
@@ -17,7 +17,7 @@ const DialogOverlay = React.forwardRef<
     <DialogPrimitive.Overlay
         ref={ref}
         className={cn(
-            "fixed inset-0 z-[9999] bg-[#02040a]/85 backdrop-blur-md transition-opacity duration-200",
+            "fixed inset-0 z-[9999] bg-[#02040a]/80 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 transition-all duration-200",
             className
         )}
         {...props}
@@ -39,8 +39,7 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed left-1/2 top-1/2 z-[10000] grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 shadow-[0_0_50px_rgba(0,0,0,0.95)] transition-all duration-200",
-                "cyber-clip-lg border border-primary/40 bg-[#050714] text-slate-200 relative overflow-hidden",
+                "fixed left-[50%] top-[50%] z-[10000] grid w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 border border-primary/40 bg-[#050714] shadow-[0_0_60px_rgba(0,0,0,0.95)] cyber-clip-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
                 hideHeaderBar ? "p-0" : "p-6 sm:p-8",
                 className
             )}
@@ -67,14 +66,14 @@ const DialogContent = React.forwardRef<
                     </div>
 
                     {/* Content Container (padded for header bar) */}
-                    <div className="relative z-10 pt-4 flex flex-col gap-4">
+                    <div className="relative z-10 pt-4 flex flex-col gap-4 text-slate-200">
                         {children}
                     </div>
                 </>
             )}
 
             {hideHeaderBar && (
-                <div className="relative z-10 w-full h-full flex flex-col">
+                <div className="relative z-10 w-full h-full flex flex-col text-slate-200">
                     {children}
                 </div>
             )}

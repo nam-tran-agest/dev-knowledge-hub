@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
@@ -18,7 +18,7 @@ const AlertDialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <AlertDialogPrimitive.Overlay
         className={cn(
-            "fixed inset-0 z-[9999] bg-[#02040a]/85 backdrop-blur-md transition-opacity duration-200",
+            "fixed inset-0 z-[9999] bg-[#02040a]/80 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 transition-all duration-200",
             className
         )}
         {...props}
@@ -40,8 +40,8 @@ const AlertDialogContent = React.forwardRef<
         <AlertDialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed left-1/2 top-1/2 z-[10000] grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4",
-                "bg-[#050714] text-slate-100 p-6 cyber-clip-lg border border-destructive/40 shadow-[0_0_50px_rgba(255,0,60,0.3)] duration-200 transition-all",
+                "fixed left-[50%] top-[50%] z-[10000] grid w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4",
+                "bg-[#050714] text-slate-100 p-6 cyber-clip-lg border border-destructive/40 shadow-[0_0_50px_rgba(255,0,60,0.3)] duration-200 transition-all data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
                 className
             )}
             {...props}
