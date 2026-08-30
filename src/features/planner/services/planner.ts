@@ -1,0 +1,124 @@
+'use server';
+
+import { createClient } from '@/lib/supabase/server';
+import { revalidatePath } from 'next/cache';
+
+export interface DBPlannerTask {
+    id: string;
+    user_id: string;
+    title: string;
+    status: 'todo' | 'in-progress' | 'done';
+    date: string;
+    time_block_id?: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
+export async function getPlannerTasks(date?: string) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return [];
+
+    const targetDate = date || new Date().toISOString().split('T')[0];
+
+    const query = supabase
+        .from('planner_tasks')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('date', targetDate)
+        .order('created_at', { ascending: true });
+
+    const { data, error } = await query;
+
+    if (error) {
+        if (error.code === '42P01') {
+            return [];
+        }
+        console.error('Error fetching planner tasks:', error);
+        return [];
+    }
+
+    return (data || []) as DBPlannerTask[];
+}
+
+export async function addPlannerTask(title: string, date?: string, timeBlockId?: string) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) throw new Error('User authentication required');
+
+    const targetDate = date || new Date().toISOString().split('T')[0];
+
+    const { data, error } = await supabase
+        .from('planner_tasks')
+        .insert({
+            user_id: user.id,
+            title,
+            status: 'todo',
+            date: targetDate,
+            time_block_id: timeBlockId || null
+        })
+        .select()
+        .single();
+
+    if (error) {
+        if (error.code === '42P01') return null;
+        console.error('Error adding planner task:', error);
+        throw new Error('Failed to add task');
+    }
+
+    revalidatePath('/planner');
+    return data as DBPlannerTask;
+}
+
+export async function updatePlannerTask(
+    id: string, 
+    updates: { 
+        status?: 'todo' | 'in-progress' | 'done'; 
+        time_block_id?: string | null; 
+        date?: string;
+        title?: string;
+    }
+) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const { error } = await supabase
+        .from('planner_tasks')
+        .update({
+            ...updates,
+            updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .eq('user_id', user.id);
+
+    if (error) {
+        if (error.code === '42P01') return;
+        console.error('Error updating planner task:', error);
+    }
+
+    revalidatePath('/planner');
+}
+
+export async function deletePlannerTask(id: string) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const { error } = await supabase
+        .from('planner_tasks')
+        .delete()
+        .eq('id', id)
+        .eq('user_id', user.id);
+
+    if (error) {
+        if (error.code === '42P01') return;
+        console.error('Error deleting planner task:', error);
+    }
+
+    revalidatePath('/planner');
+}

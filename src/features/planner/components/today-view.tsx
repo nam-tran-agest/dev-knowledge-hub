@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TimeTimeline } from './time-timeline';
 import { TaskItem } from './task-item';
-import { Plus, CheckCircle2, Activity, Terminal } from 'lucide-react';
+import { Plus, CheckCircle2, Activity, Terminal, Cloud } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export const TodayView = () => {
@@ -13,6 +13,8 @@ export const TodayView = () => {
     const addTask = usePlannerStore(state => state.addTask);
     const tasks = usePlannerStore(state => state.tasks);
     const schedules = usePlannerStore(state => state.schedules);
+    const loadServerTasks = usePlannerStore(state => state.loadServerTasks);
+    const isSyncing = usePlannerStore(state => state.isSyncing);
 
     const todayStr = new Date().toISOString().split('T')[0];
     const [isMounted, setIsMounted] = useState(false);
@@ -21,7 +23,8 @@ export const TodayView = () => {
 
     useEffect(() => {
         setIsMounted(true);
-    }, []);
+        loadServerTasks(todayStr);
+    }, [todayStr, loadServerTasks]);
 
     // SSR bailout for drag-and-drop
     if (!isMounted) return null;
@@ -67,8 +70,9 @@ export const TodayView = () => {
                     <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
                     
                     {/* Header Tag */}
-                    <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold">
-                        // SYS_SCHEDULE_TIMELINE
+                    <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold flex items-center gap-1.5">
+                        <Cloud className={`w-3 h-3 ${isSyncing ? 'animate-pulse text-cyan-400' : 'text-emerald-400'}`} />
+                        <span>{isSyncing ? '// SYNCING_CLOUD' : '// CLOUD_SYNCED'}</span>
                     </div>
 
                     <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-primary/20 pb-4">

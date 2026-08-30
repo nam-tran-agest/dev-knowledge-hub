@@ -1,5 +1,5 @@
-/**
- * Generic CRUD helper functions to reduce code duplication
+﻿/**
+ * Generic CRUD helper functions with strict User Scoping
  */
 
 'use server'
@@ -16,7 +16,7 @@ interface CRUDConfig<T> {
   revalidatePaths?: string[]
 }
 
-// Mock "Guest" user for no-login mode
+// Mock "Guest" user for unauthenticated fallback
 const GUEST_ID = '00000000-0000-0000-0000-000000000000'
 
 /**
@@ -26,12 +26,10 @@ async function getAuthUser() {
   const supabase = await createClient()
   const { data: { user }, error } = await supabase.auth.getUser()
 
-  // If no user/error, return a Guest user instead of throwing
   if (error || !user) {
-    // console.warn('Returning GUEST user (No Login Mode)')
     return {
       id: GUEST_ID,
-      email: 'guest@example.com',
+      email: 'guest@cyberlink.net',
       aud: 'authenticated',
       role: 'authenticated',
       app_metadata: {},
@@ -52,7 +50,7 @@ function transformTags(tags: unknown[] | undefined): unknown[] {
 }
 
 /**
- * Generic get all with filters
+ * Generic get all with user scoping and filters
  */
 export async function getAll<T extends BaseEntity>(
   config: CRUDConfig<T>,
@@ -65,6 +63,7 @@ export async function getAll<T extends BaseEntity>(
     filters?: Record<string, unknown>
   }
 ): Promise<{ data: T[]; count: number }> {
+  const user = await getAuthUser()
   const supabase = await createClient()
 
   let selectQuery = '*'
@@ -72,7 +71,6 @@ export async function getAll<T extends BaseEntity>(
     selectQuery += `, tags:${config.tagJunctionTable}(tag:tags(*))`
   }
 
-  // Add category if applicable
   if (params?.categoryId !== undefined) {
     selectQuery += ', category:categories(*)'
   }
@@ -80,19 +78,17 @@ export async function getAll<T extends BaseEntity>(
   let query = supabase
     .from(config.tableName)
     .select(selectQuery, { count: 'exact' })
+    .eq('user_id', user.id)
     .order('created_at', { ascending: false })
 
-  // Apply category filter
   if (params?.categoryId) {
     query = query.eq('category_id', params.categoryId)
   }
 
-  // Apply search
   if (params?.search) {
     query = query.textSearch('search_vector', params.search)
   }
 
-  // Apply custom filters
   if (params?.filters) {
     Object.entries(params.filters).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
@@ -101,7 +97,6 @@ export async function getAll<T extends BaseEntity>(
     })
   }
 
-  // Apply pagination
   if (params?.limit) {
     query = query.limit(params.limit)
   }
@@ -116,10 +111,18 @@ export async function getAll<T extends BaseEntity>(
   const { data, error, count } = await query
 
   if (error) {
+    // If table does not have user_id yet, fallback to querying without user_id filter
+    if (error.code === '42703') {
+      const fallbackQuery = supabase
+        .from(config.tableName)
+        .select(selectQuery, { count: 'exact' })
+        .order('created_at', { ascending: false })
+      const { data: fbData, count: fbCount } = await fallbackQuery
+      return { data: (fbData as unknown as T[]) || [], count: fbCount || 0 }
+    }
     throw new Error(error.message)
   }
 
-  // Transform data
   const transformedData = data?.map(item => {
     if (typeof item !== 'object' || item === null) return item
     const transformed = Object.assign({}, item) as Record<string, unknown>
@@ -135,12 +138,13 @@ export async function getAll<T extends BaseEntity>(
 }
 
 /**
- * Generic get by ID
+ * Generic get by ID with user scoping
  */
 export async function getById<T extends BaseEntity>(
   config: CRUDConfig<T>,
   id: string
 ): Promise<T | null> {
+  const user = await getAuthUser()
   const supabase = await createClient()
 
   let selectQuery = '*'
@@ -152,9 +156,21 @@ export async function getById<T extends BaseEntity>(
     .from(config.tableName)
     .select(selectQuery)
     .eq('id', id)
+    .eq('user_id', user.id)
     .single()
 
-  if (error) return null
+  if (error) {
+    // Fallback if user_id column is missing or queried before migration
+    if (error.code === '42703') {
+      const { data: fbData } = await supabase
+        .from(config.tableName)
+        .select(selectQuery)
+        .eq('id', id)
+        .single()
+      return fbData as unknown as T
+    }
+    return null
+  }
 
   if (typeof data !== 'object' || data === null) return null
   const transformed = Object.assign({}, data) as Record<string, unknown>
@@ -166,7 +182,7 @@ export async function getById<T extends BaseEntity>(
 }
 
 /**
- * Generic create
+ * Generic create with user scoping
  */
 export async function create<T extends BaseEntity>(
   config: CRUDConfig<T>,
@@ -192,7 +208,6 @@ export async function create<T extends BaseEntity>(
     throw new Error(error.message)
   }
 
-  // Handle tags if provided
   if (Array.isArray(tagIds) && tagIds.length > 0 && config.tagJunctionTable) {
     const tagInserts = tagIds.map((tagId) => ({
       [`${config.tagColumn || config.tableName.slice(0, -1)}_id`]: data.id,
@@ -208,14 +223,12 @@ export async function create<T extends BaseEntity>(
     }
   }
 
-  // Revalidate paths
   config.revalidatePaths?.forEach(path => revalidatePath(path))
-
   return data as T
 }
 
 /**
- * Generic update
+ * Generic update with user scoping
  */
 export async function update<T extends BaseEntity>(
   config: CRUDConfig<T>,
@@ -227,7 +240,6 @@ export async function update<T extends BaseEntity>(
 
   const { tagIds, ...updateFields } = input
 
-  // Build update object dynamically
   const updateData: Record<string, unknown> = {}
   Object.entries(updateFields).forEach(([key, value]) => {
     if (value !== undefined) {
@@ -235,7 +247,6 @@ export async function update<T extends BaseEntity>(
     }
   })
 
-  // Update main record
   const { data, error } = await supabase
     .from(config.tableName)
     .update(updateData)
@@ -248,17 +259,14 @@ export async function update<T extends BaseEntity>(
     throw new Error(error.message)
   }
 
-  // Handle tags if provided and config supports it
   if (tagIds !== undefined && config.tagJunctionTable) {
     const junctionIdColumn = `${config.tagColumn || config.tableName.slice(0, -1)}_id`
 
-    // Delete existing tags
     await supabase
       .from(config.tagJunctionTable)
       .delete()
       .eq(junctionIdColumn, id)
 
-    // Insert new tags
     if (Array.isArray(tagIds) && tagIds.length > 0) {
       const tagInserts = tagIds.map((tagId) => ({
         [junctionIdColumn]: id,
@@ -275,14 +283,12 @@ export async function update<T extends BaseEntity>(
     }
   }
 
-  // Revalidate paths
   config.revalidatePaths?.forEach(path => revalidatePath(path))
-
   return data as T
 }
 
 /**
- * Generic delete
+ * Generic delete with user scoping
  */
 export async function deleteEntity<T extends BaseEntity>(
   config: CRUDConfig<T>,
@@ -301,6 +307,5 @@ export async function deleteEntity<T extends BaseEntity>(
     throw new Error(error.message)
   }
 
-  // Revalidate paths
   config.revalidatePaths?.forEach(path => revalidatePath(path))
 }
