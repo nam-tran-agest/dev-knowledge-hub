@@ -21,20 +21,22 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { createTask } from '@/features/working/services/tasks'
-import { Loader2, Plus, Terminal } from 'lucide-react'
-import { Task, TaskStatus, TaskPriority } from '@/features/working/types'
+import { Loader2, Plus, Terminal, FolderKanban } from 'lucide-react'
+import { Task, TaskStatus, TaskPriority, Project } from '@/features/working/types'
 import { useTranslations } from 'next-intl'
 
 interface CreateTaskModalProps {
-    projectId: string
+    projectId?: string
+    projects?: Project[]
     open: boolean
     onOpenChange: (open: boolean) => void
     defaultStatus?: TaskStatus
-    onSuccess: (newTask: Task) => void
+    onSuccess?: (newTask: Task) => void
 }
 
 export function CreateTaskModal({
     projectId,
+    projects = [],
     open,
     onOpenChange,
     defaultStatus = 'todo',
@@ -44,6 +46,7 @@ export function CreateTaskModal({
     const [error, setError] = useState<string | null>(null)
     const t = useTranslations('navigation.tasks.columns')
 
+    const [selectedProjectId, setSelectedProjectId] = useState<string>(projectId || (projects[0]?.id || ''))
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -54,6 +57,7 @@ export function CreateTaskModal({
     // Reset form on open
     React.useEffect(() => {
         if (open) {
+            setSelectedProjectId(projectId || (projects[0]?.id || ''))
             setFormData({
                 title: '',
                 description: '',
@@ -62,10 +66,15 @@ export function CreateTaskModal({
             })
             setError(null)
         }
-    }, [open, defaultStatus])
+    }, [open, defaultStatus, projectId, projects])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        const targetProjectId = projectId || selectedProjectId
+        if (!targetProjectId) {
+            setError('Please create or select an active project first.')
+            return
+        }
         if (!formData.title.trim()) return
         setError(null)
 
@@ -76,9 +85,11 @@ export function CreateTaskModal({
                     description: formData.description.trim() || undefined,
                     status: formData.status,
                     priority: formData.priority,
-                    project_id: projectId,
+                    project_id: targetProjectId,
                 })
-                onSuccess(created as Task)
+                if (onSuccess) {
+                    onSuccess(created as Task)
+                }
                 onOpenChange(false)
             } catch (err: unknown) {
                 const message = err instanceof Error ? err.message : 'Failed to create task.'
@@ -105,6 +116,31 @@ export function CreateTaskModal({
                     {error && (
                         <div className="p-3 cyber-clip-button bg-destructive/10 border border-destructive/30 text-destructive text-xs font-mono">
                             // ERROR: {error}
+                        </div>
+                    )}
+
+                    {/* Project Selector if opened from main overview */}
+                    {!projectId && projects.length > 0 && (
+                        <div className="space-y-1.5">
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider flex items-center gap-1.5">
+                                <FolderKanban className="w-3.5 h-3.5 text-primary" />
+                                Target Project *
+                            </Label>
+                            <Select
+                                value={selectedProjectId}
+                                onValueChange={setSelectedProjectId}
+                            >
+                                <SelectTrigger className="bg-[#030712]/90 border-primary/30 text-xs font-mono">
+                                    <SelectValue placeholder="Select target project" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {projects.map((p) => (
+                                        <SelectItem key={p.id} value={p.id}>
+                                            {p.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                     )}
 

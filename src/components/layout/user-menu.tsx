@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -127,14 +127,26 @@ export function UserMenu() {
                     </div>
 
                     <DropdownMenuLabel className="font-normal px-2 py-1.5">
-                        <div className="flex flex-col space-y-1">
-                            <p className="text-xs font-mono font-bold text-white leading-none flex items-center gap-1.5">
-                                <Shield className="w-3.5 h-3.5 text-primary shrink-0" />
-                                <span className="truncate">{displayName}</span>
-                            </p>
-                            <p className="text-[10px] font-mono text-primary/60 leading-none truncate">
-                                {email}
-                            </p>
+                        <div className="flex items-center justify-between">
+                            <div className="flex flex-col space-y-1 min-w-0 pr-2">
+                                <p className="text-xs font-mono font-bold text-white leading-none flex items-center gap-1.5 truncate">
+                                    <Shield className="w-3.5 h-3.5 text-primary shrink-0" />
+                                    <span className="truncate">{displayName}</span>
+                                </p>
+                                <p className="text-[10px] font-mono text-primary/60 leading-none truncate">
+                                    {email}
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setTimeout(() => setIsSettingsOpen(true), 50)
+                                }}
+                                className="p-1.5 cyber-clip-button border border-primary/30 hover:border-primary bg-primary/10 hover:bg-primary/25 text-primary transition-all cursor-pointer shrink-0"
+                                title="Chỉnh sửa hồ sơ"
+                            >
+                                <Sliders className="w-3.5 h-3.5" />
+                            </button>
                         </div>
                     </DropdownMenuLabel>
 
@@ -149,9 +161,8 @@ export function UserMenu() {
 
                     {/* Settings Trigger Item */}
                     <DropdownMenuItem
-                        onSelect={(e) => {
-                            e.preventDefault()
-                            setIsSettingsOpen(true)
+                        onSelect={() => {
+                            setTimeout(() => setIsSettingsOpen(true), 50)
                         }}
                         className="cursor-pointer text-slate-200 hover:text-white hover:bg-primary/20 focus:text-white focus:bg-primary/20 text-xs font-mono"
                     >
