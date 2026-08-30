@@ -17,7 +17,7 @@ const DialogOverlay = React.forwardRef<
     <DialogPrimitive.Overlay
         ref={ref}
         className={cn(
-            "fixed inset-0 z-[99] bg-[#02040a]/85 backdrop-blur-md transition-opacity duration-200",
+            "fixed inset-0 z-[9999] bg-[#02040a]/85 backdrop-blur-md transition-opacity duration-200",
             className
         )}
         {...props}
@@ -39,7 +39,7 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed left-1/2 top-1/2 z-[100] grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 shadow-[0_0_50px_rgba(0,0,0,0.95)] transition-all duration-200",
+                "fixed left-1/2 top-1/2 z-[10000] grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 shadow-[0_0_50px_rgba(0,0,0,0.95)] transition-all duration-200",
                 "cyber-clip-lg border border-primary/40 bg-[#050714] text-slate-200 relative overflow-hidden",
                 hideHeaderBar ? "p-0" : "p-6 sm:p-8",
                 className

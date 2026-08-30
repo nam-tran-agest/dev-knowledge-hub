@@ -149,7 +149,10 @@ export function UserMenu() {
 
                     {/* Settings Trigger Item */}
                     <DropdownMenuItem
-                        onClick={() => setIsSettingsOpen(true)}
+                        onSelect={(e) => {
+                            e.preventDefault()
+                            setIsSettingsOpen(true)
+                        }}
                         className="cursor-pointer text-slate-200 hover:text-white hover:bg-primary/20 focus:text-white focus:bg-primary/20 text-xs font-mono"
                     >
                         <Sliders className="w-3.5 h-3.5 mr-2 text-primary" />

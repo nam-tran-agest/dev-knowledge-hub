@@ -12,7 +12,7 @@ export default async function WorkingPage({
     return (
         <PageShell className="bg-[#0a0a0c] relative text-slate-200">
             <MatrixRain />
-            <div className="relative z-10 mix-blend-lighten">
+            <div className="relative z-10">
                 <WorkingContainer locale={locale} />
             </div>
         </PageShell>
