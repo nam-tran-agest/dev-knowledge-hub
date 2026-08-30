@@ -1,14 +1,15 @@
-'use client'
+﻿'use client'
 
 import React, { useState } from 'react'
 import { Project, Task, TaskStatus } from '@/features/working/types'
 import { ProjectWorkspaceHeader } from './project-workspace-header'
 import { TaskList } from './task-list'
 import { KanbanView } from './kanban-view'
-import { List, LayoutGrid, Search } from 'lucide-react'
+import { List, LayoutGrid, Search, Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { createTask, updateTask, deleteTask } from '@/features/working/services/tasks'
 import { EditTaskModal } from './edit-task-modal'
+import { CreateTaskModal } from './create-task-modal'
 
 interface ProjectWorkspaceProps {
     project: Project
@@ -22,13 +23,15 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
     const [searchQuery, setSearchQuery] = useState('')
     const [editingTask, setEditingTask] = useState<Task | null>(null)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+    const [createDefaultStatus, setCreateDefaultStatus] = useState<TaskStatus>('todo')
 
     const filteredTasks = tasks.filter(task =>
         task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         task.description?.toLowerCase().includes(searchQuery.toLowerCase())
     )
 
-    const handleAddTask = async (title: string) => {
+    const handleQuickAddTask = async (title: string) => {
         try {
             const newTask = await createTask({
                 title,
@@ -40,6 +43,15 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
         } catch (error) {
             console.error('Failed to create task:', error)
         }
+    }
+
+    const handleCreateSuccess = (newTask: Task) => {
+        setTasks(prev => [newTask, ...prev])
+    }
+
+    const handleOpenCreateModal = (status: TaskStatus = 'todo') => {
+        setCreateDefaultStatus(status)
+        setIsCreateModalOpen(true)
     }
 
     const handleStatusChange = async (id: string, status: TaskStatus) => {
@@ -81,6 +93,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
 
             <main className="max-w-6xl mx-auto px-4 md:px-8 py-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    {/* Search Field */}
                     <div className="relative flex-1 max-w-md">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-primary/50" size={16} />
                         <Input
@@ -91,23 +104,35 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                         />
                     </div>
 
-                    <div className="flex items-center gap-1.5 bg-[#050714] p-1 cyber-clip-button border border-primary/30">
+                    <div className="flex items-center gap-3">
+                        {/* Primary Create Task Button */}
                         <button
-                            onClick={() => setView('list')}
-                            className={`px-3 py-1.5 cyber-clip-button transition-all text-xs font-mono uppercase tracking-wider cursor-pointer ${
-                                view === 'list' ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]' : 'text-primary/60 hover:text-white'
-                            }`}
+                            onClick={() => handleOpenCreateModal('todo')}
+                            className="inline-flex items-center gap-1.5 px-4 py-2 cyber-clip-button bg-primary text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-primary/90 transition-all cursor-pointer shadow-[0_0_20px_var(--color-primary)] hover:shadow-[0_0_30px_var(--color-primary)]"
                         >
-                            <span className="flex items-center gap-1.5"><List size={14} /> LIST</span>
+                            <Plus size={15} className="stroke-[2.5]" />
+                            <span>[ CREATE TASK ]</span>
                         </button>
-                        <button
-                            onClick={() => setView('kanban')}
-                            className={`px-3 py-1.5 cyber-clip-button transition-all text-xs font-mono uppercase tracking-wider cursor-pointer ${
-                                view === 'kanban' ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]' : 'text-primary/60 hover:text-white'
-                            }`}
-                        >
-                            <span className="flex items-center gap-1.5"><LayoutGrid size={14} /> KANBAN</span>
-                        </button>
+
+                        {/* View Mode Toggle */}
+                        <div className="flex items-center gap-1.5 bg-[#050714] p-1 cyber-clip-button border border-primary/30">
+                            <button
+                                onClick={() => setView('list')}
+                                className={`px-3 py-1.5 cyber-clip-button transition-all text-xs font-mono uppercase tracking-wider cursor-pointer ${
+                                    view === 'list' ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]' : 'text-primary/60 hover:text-white'
+                                }`}
+                            >
+                                <span className="flex items-center gap-1.5"><List size={14} /> LIST</span>
+                            </button>
+                            <button
+                                onClick={() => setView('kanban')}
+                                className={`px-3 py-1.5 cyber-clip-button transition-all text-xs font-mono uppercase tracking-wider cursor-pointer ${
+                                    view === 'kanban' ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]' : 'text-primary/60 hover:text-white'
+                                }`}
+                            >
+                                <span className="flex items-center gap-1.5"><LayoutGrid size={14} /> KANBAN</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -117,7 +142,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                         onStatusChange={handleStatusChange}
                         onDelete={handleDeleteTask}
                         onEdit={handleEditTask}
-                        onAddTask={handleAddTask}
+                        onAddTask={handleQuickAddTask}
                     />
                 ) : (
                     <KanbanView
@@ -125,9 +150,20 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                         onStatusChange={handleStatusChange}
                         onDelete={handleDeleteTask}
                         onEdit={handleEditTask}
+                        onOpenCreateModal={handleOpenCreateModal}
                     />
                 )}
 
+                {/* Create Task Modal */}
+                <CreateTaskModal
+                    projectId={project.id}
+                    open={isCreateModalOpen}
+                    onOpenChange={setIsCreateModalOpen}
+                    defaultStatus={createDefaultStatus}
+                    onSuccess={handleCreateSuccess}
+                />
+
+                {/* Edit Task Modal */}
                 <EditTaskModal
                     task={editingTask}
                     open={isEditModalOpen}

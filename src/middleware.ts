@@ -12,16 +12,34 @@ export const config = {
 const intlMiddleware = createMiddleware(routing)
 
 const PROTECTED_ROUTES = ['/planner', '/working', '/media/youtube']
-const AUTH_ROUTES = ['/login', '/signup', '/forgot-password', '/reset-password']
+const AUTH_ROUTES = ['/login', '/signup', '/forgot-password']
 
 export async function middleware(request: NextRequest) {
-    // 1. Run intl middleware first to handle routing/locales
+    const pathname = request.nextUrl.pathname
+
+    // 1. Auto-forward email verification / reset code to /callback if landed on any other page
+    const code = request.nextUrl.searchParams.get('code')
+    const token_hash = request.nextUrl.searchParams.get('token_hash')
+    if ((code || token_hash) && !pathname.startsWith('/callback')) {
+        const callbackUrl = new URL('/callback', request.url)
+        callbackUrl.search = request.nextUrl.search
+        return NextResponse.redirect(callbackUrl)
+    }
+
+    // 2. Run intl middleware first to handle routing/locales
     const response = intlMiddleware(request)
 
-    // 2. Run Supabase auth logic
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    if (!url || !key) {
+        return response
+    }
+
+    // 3. Run Supabase auth logic
     const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        url,
+        key,
         {
             cookies: {
                 getAll() {
@@ -40,7 +58,6 @@ export async function middleware(request: NextRequest) {
     // Refresh session if needed
     const { data: { user } } = await supabase.auth.getUser()
 
-    const pathname = request.nextUrl.pathname
     const pathnameWithoutLocale = pathname.replace(/^\/(?:vi|en)/, '') || '/'
     const locale = pathname.startsWith('/en') ? 'en' : 'vi'
 
@@ -57,14 +74,13 @@ export async function middleware(request: NextRequest) {
         const loginUrl = new URL(`/${locale}/login`, request.url)
         loginUrl.searchParams.set('next', pathname)
         const redirectResponse = NextResponse.redirect(loginUrl)
-        // Copy cookies from response to redirectResponse
         response.cookies.getAll().forEach(cookie => {
             redirectResponse.cookies.set(cookie.name, cookie.value)
         })
         return redirectResponse
     }
 
-    // Redirect authenticated users away from login/signup to home
+    // Redirect authenticated users away from login/signup to home (allow /reset-password)
     if (user && isAuthRoute) {
         const homeUrl = new URL(`/${locale}`, request.url)
         const redirectResponse = NextResponse.redirect(homeUrl)

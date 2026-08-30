@@ -1,18 +1,20 @@
-'use client'
+﻿'use client'
 
 import React from 'react'
 import { Task, TaskStatus } from '@/features/working/types'
 import { TaskItem } from './task-item'
 import { useTranslations } from 'next-intl'
+import { Plus } from 'lucide-react'
 
 interface KanbanViewProps {
     tasks: Task[]
     onStatusChange?: (id: string, status: TaskStatus) => void
     onDelete?: (id: string) => void
     onEdit?: (task: Task) => void
+    onOpenCreateModal?: (status: TaskStatus) => void
 }
 
-export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanViewProps) {
+export function KanbanView({ tasks, onStatusChange, onDelete, onEdit, onOpenCreateModal }: KanbanViewProps) {
     const t = useTranslations('navigation.tasks.columns')
 
     const COLUMNS: { id: TaskStatus; title: string; color: string; badge: string; glow: string }[] = [
@@ -67,10 +69,20 @@ export function KanbanView({ tasks, onStatusChange, onDelete, onEdit }: KanbanVi
                             ))}
 
                             {columnTasks.length === 0 && (
-                                <div className="h-28 border border-dashed border-primary/20 bg-primary/5 cyber-clip-button flex items-center justify-center text-primary/40 text-xs font-mono uppercase tracking-widest relative overflow-hidden">
+                                <div className="h-24 border border-dashed border-primary/20 bg-primary/5 cyber-clip-button flex items-center justify-center text-primary/40 text-xs font-mono uppercase tracking-widest relative overflow-hidden">
                                     <div className="absolute left-0 top-0 w-full h-full opacity-10 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#00f0ff_10px,#00f0ff_20px)]" />
                                     [ AWAITING_DATA ]
                                 </div>
+                            )}
+
+                            {onOpenCreateModal && (
+                                <button
+                                    onClick={() => onOpenCreateModal(column.id)}
+                                    className="w-full py-2.5 mt-2 cyber-clip-button border border-dashed border-primary/30 hover:border-primary bg-primary/5 hover:bg-primary/15 text-primary text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(0,240,255,0.2)]"
+                                >
+                                    <Plus className="w-3.5 h-3.5" />
+                                    <span>[ ADD_{column.id.toUpperCase()}_TASK ]</span>
+                                </button>
                             )}
                         </div>
                     </div>

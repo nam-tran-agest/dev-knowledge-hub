@@ -125,6 +125,50 @@ export async function updatePassword(formData: FormData) {
     return { success: true }
 }
 
+export async function updateProfile(formData: FormData) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+        return { error: 'Unauthorized: User is not authenticated' }
+    }
+
+    const displayName = (formData.get('displayName') as string)?.trim()
+    const password = (formData.get('password') as string)?.trim()
+
+    const updatePayload: {
+        password?: string
+        data?: { full_name?: string; name?: string }
+    } = {}
+
+    if (displayName) {
+        updatePayload.data = {
+            full_name: displayName,
+            name: displayName,
+        }
+    }
+
+    if (password) {
+        if (password.length < 6) {
+            return { error: 'New password must be at least 6 characters' }
+        }
+        updatePayload.password = password
+    }
+
+    if (!updatePayload.password && !updatePayload.data) {
+        return { error: 'No parameter updates provided' }
+    }
+
+    const { error } = await supabase.auth.updateUser(updatePayload)
+
+    if (error) {
+        return { error: error.message }
+    }
+
+    revalidatePath('/', 'layout')
+    return { success: true }
+}
+
 export async function logout() {
     const supabase = await createClient()
     await supabase.auth.signOut()
