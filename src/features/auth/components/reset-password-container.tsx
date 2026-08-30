@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
-import { Loader2, Lock, Terminal, AlertTriangle, CheckCircle2, ShieldCheck } from 'lucide-react'
+import { Loader2, Lock, Terminal, AlertTriangle, CheckCircle2, ShieldCheck, User } from 'lucide-react'
 import Image from 'next/image'
 import { Link, useRouter } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
@@ -61,7 +61,7 @@ function ResetPasswordForm() {
         return (
             <Card className="w-full max-w-md bg-[#050714]/95 border border-emerald-500/50 shadow-[0_0_50px_rgba(16,185,129,0.2)] backdrop-blur-2xl cyber-clip-lg relative z-10 p-4 sm:p-6 text-center">
                 <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-emerald-500/50 text-[9px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
-                    // KEY_UPDATED
+                    // PROFILE_UPDATED
                 </div>
                 <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
 
@@ -91,11 +91,9 @@ function ResetPasswordForm() {
 
     return (
         <Card className="w-full max-w-md bg-[#050714]/95 border border-primary/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] backdrop-blur-2xl cyber-clip-lg relative z-10 p-2 sm:p-4">
-            {/* Top Corner System Tag */}
             <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-primary/40 text-[9px] font-mono uppercase tracking-widest text-primary font-bold">
-                // PASSKEY_UPDATE
+                // PROFILE_RECONFIGURATION
             </div>
-            {/* Corner Brackets */}
             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
 
             <CardHeader className="space-y-3 text-center pb-4">
@@ -128,6 +126,22 @@ function ResetPasswordForm() {
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Display Name Input */}
+                    <div className="space-y-1.5">
+                        <Label htmlFor="displayName" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
+                            <User className="w-3.5 h-3.5 text-primary" /> {t('nameLabel')}
+                        </Label>
+                        <Input
+                            id="displayName"
+                            name="displayName"
+                            type="text"
+                            placeholder={t('namePlaceholder')}
+                            disabled={isLoading}
+                            className="bg-[#030712]/80 border-primary/30 focus:border-primary text-white font-mono text-sm"
+                        />
+                    </div>
+
+                    {/* New Password Input */}
                     <div className="space-y-1.5">
                         <Label htmlFor="password" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
                             <Lock className="w-3.5 h-3.5 text-primary" /> {t('passwordLabel')} *
@@ -143,6 +157,7 @@ function ResetPasswordForm() {
                         />
                     </div>
 
+                    {/* Confirm Password Input */}
                     <div className="space-y-1.5">
                         <Label htmlFor="confirmPassword" className="text-xs font-mono font-bold text-primary/80 uppercase tracking-widest flex items-center gap-1.5">
                             <ShieldCheck className="w-3.5 h-3.5 text-primary" /> {t('confirmPasswordLabel')} *
@@ -192,7 +207,6 @@ function ResetPasswordForm() {
 export function ResetPasswordContainer() {
     return (
         <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-background">
-            {/* Background Ambient Cyber Grid & Glows */}
             <div className="absolute inset-0 bg-grid-cyber opacity-20 pointer-events-none" />
             <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 blur-[140px] pointer-events-none" />
 

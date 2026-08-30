@@ -94,15 +94,28 @@ export async function forgotPassword(formData: FormData, origin?: string) {
 export async function updatePassword(formData: FormData) {
     const supabase = await createClient()
 
+    const displayName = (formData.get('displayName') as string)?.trim()
     const password = formData.get('password') as string
 
     if (!password || password.length < 6) {
         return { error: 'Password must be at least 6 characters' }
     }
 
-    const { error } = await supabase.auth.updateUser({
+    const updatePayload: {
+        password: string
+        data?: { full_name?: string; name?: string }
+    } = {
         password,
-    })
+    }
+
+    if (displayName) {
+        updatePayload.data = {
+            full_name: displayName,
+            name: displayName,
+        }
+    }
+
+    const { error } = await supabase.auth.updateUser(updatePayload)
 
     if (error) {
         return { error: error.message }

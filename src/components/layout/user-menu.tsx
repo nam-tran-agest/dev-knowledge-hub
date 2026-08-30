@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { logout } from '@/lib/actions/auth'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
-import { type User } from '@supabase/supabase-js'
+import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -23,22 +23,32 @@ export function UserMenu() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const supabase = createClient()
+        try {
+            const supabase = createClient()
+            if (!supabase) {
+                setLoading(false)
+                return
+            }
 
-        // Get initial user
-        supabase.auth.getUser().then(({ data: { user } }) => {
-            setUser(user)
+            // Get initial user
+            supabase.auth.getUser().then(({ data }: { data: { user: User | null } }) => {
+                setUser(data?.user ?? null)
+                setLoading(false)
+            }).catch(() => {
+                setLoading(false)
+            })
+
+            // Listen for auth state changes
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
+                setUser(session?.user ?? null)
+                setLoading(false)
+            })
+
+            return () => {
+                subscription.unsubscribe()
+            }
+        } catch {
             setLoading(false)
-        })
-
-        // Listen for auth state changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null)
-            setLoading(false)
-        })
-
-        return () => {
-            subscription.unsubscribe()
         }
     }, [])
 

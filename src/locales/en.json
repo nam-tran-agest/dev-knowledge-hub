@@ -588,7 +588,9 @@
             "passwordTooShort": "Passkey must be at least 6 characters.",
             "successTitle": "PASSKEY UPDATED",
             "successDesc": "Your passkey has been successfully updated. Redirecting to login terminal...",
-            "backToLogin": "Sign In Now"
+            "backToLogin": "Sign In Now",
+            "nameLabel": "Operator Call Sign / Name",
+            "namePlaceholder": "e.g. Neo, Operator_99"
         },
         "userMenu": {
             "profile": "Operator Profile",

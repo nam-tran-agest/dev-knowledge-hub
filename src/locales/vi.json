@@ -589,7 +589,9 @@
             "passwordTooShort": "Mật mã phải có ít nhất 6 ký tự.",
             "successTitle": "CẬP NHẬT THÀNH CÔNG",
             "successDesc": "Mật mã của bạn đã được thay đổi. Đang chuyển hướng về trang đăng nhập...",
-            "backToLogin": "Đăng nhập ngay"
+            "backToLogin": "Đăng nhập ngay",
+            "nameLabel": "Tên người vận hành / Call Sign",
+            "namePlaceholder": "Ví dụ: Neo, Operator_99"
         },
         "userMenu": {
             "profile": "Hồ sơ cá nhân",
