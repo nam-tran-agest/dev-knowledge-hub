@@ -83,6 +83,10 @@ export async function spotifyFetch(endpoint: string, accessToken: string) {
         return null;
     }
 
+    if (response.status === 204) {
+        return null; // Handle 204 No Content for currently-playing
+    }
+
     return response.json();
 }
 
