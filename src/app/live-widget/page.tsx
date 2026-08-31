@@ -56,9 +56,9 @@ export default function LiveWidgetPage() {
         <div className="p-4 flex flex-col gap-3 font-mono" style={{ width: '380px' }}>
             {/* Steam Module */}
             {steam?.game && (
-                <div className="relative p-3 bg-[#040612]/90 border border-blue-500/30 rounded-br-2xl shadow-[0_0_15px_rgba(59,130,246,0.15)] backdrop-blur-md overflow-hidden flex items-center gap-4">
+                <div className="relative p-3 glass-panel border-blue-500/30 overflow-hidden flex items-center gap-4 cyber-clip-sm">
                     <div className="absolute top-0 left-0 w-1 h-full bg-blue-500" />
-                    <div className="relative w-12 h-12 shrink-0 border border-blue-500/50">
+                    <div className="relative w-12 h-12 shrink-0 border border-blue-500/50 cyber-clip">
                         <Image src={`https://media.steampowered.com/steamcommunity/public/images/apps/${steam.gameId}/header.jpg`} 
                             alt={steam.game} 
                             fill 
@@ -68,8 +68,8 @@ export default function LiveWidgetPage() {
                     </div>
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
                         <div className="flex items-center gap-1.5 text-blue-400 mb-0.5">
-                            <Gamepad2 className="w-3 h-3" />
-                            <span className="text-[9px] font-bold tracking-widest uppercase">NOW PLAYING</span>
+                            <Gamepad2 className="w-3 h-3 animate-cyber-pulse-slow" />
+                            <span className="text-[9px] font-bold tracking-widest uppercase text-glow-cyan">NOW PLAYING</span>
                         </div>
                         <p className="text-sm font-bold text-white truncate shadow-black drop-shadow-md">{steam.game}</p>
                     </div>
@@ -78,7 +78,7 @@ export default function LiveWidgetPage() {
 
             {/* Spotify Module */}
             {spotify?.isPlaying && (
-                <div className="relative p-3 bg-[#040612]/90 border border-emerald-500/30 rounded-bl-2xl shadow-[0_0_15px_rgba(16,185,129,0.15)] backdrop-blur-md overflow-hidden flex items-center gap-4">
+                <div className="relative p-3 glass-panel border-emerald-500/30 overflow-hidden flex items-center gap-4 cyber-clip-sm">
                     <div className="absolute top-0 right-0 w-1 h-full bg-emerald-500" />
                     
                     <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border-2 border-emerald-500/50 animate-[spin_4s_linear_infinite]">
@@ -95,8 +95,8 @@ export default function LiveWidgetPage() {
 
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
                         <div className="flex items-center gap-1.5 text-emerald-400 mb-0.5">
-                            <Music2 className="w-3 h-3" />
-                            <span className="text-[9px] font-bold tracking-widest uppercase">AUDIO STREAM</span>
+                            <Music2 className="w-3 h-3 animate-cyber-pulse-slow" />
+                            <span className="text-[9px] font-bold tracking-widest uppercase" style={{ textShadow: '0 0 12px rgba(16,185,129,0.75)' }}>AUDIO STREAM</span>
                         </div>
                         <p className="text-sm font-bold text-white truncate drop-shadow-md">{spotify.songName}</p>
                         <p className="text-[10px] text-emerald-100/60 truncate">{spotify.artistName}</p>
