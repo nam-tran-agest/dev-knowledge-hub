@@ -1,603 +1,607 @@
 {
-    "home": {
-        "hero": {
-            "title": "𝕾𝖙𝖆𝖞 𝖍𝖚𝖓𝖌𝖗𝖞. 𝕾𝖙𝖆𝖞 𝖋𝖔𝖔𝖑𝖎𝖘𝖍",
-            "subtitle": "What I’m currently spending energy on.",
-            "ctaLabel": "Let’s Enjoy",
-            "ctaUrl": "/media/youtube"
-        },
-        "features": {
-            "title": "What can you do?",
-            "items": [
-                {
-                    "title": "Working Hub",
-                    "slug": "/working",
-                    "icon": "Working",
-                    "features": "Track projects, manage kanban tasks, and streamline your workflow."
-                },
-                {
-                    "title": "Planner",
-                    "slug": "/planner/today",
-                    "icon": "Planner",
-                    "features": "Organize your day, schedule upcoming tasks, and stay on top of goals."
-                },
-                {
-                    "title": "Media Vault",
-                    "slug": "/media/youtube",
-                    "icon": "Media",
-                    "features": "Save YouTube videos, read tech news, and enjoy curated Spotify music."
-                },
-                {
-                    "title": "Monster Hunter Wilds",
-                    "slug": "/mh-wilds",
-                    "icon": "MHWilds",
-                    "features": "Comprehensive game database, weapons analysis, and hunting guides."
-                }
-            ]
-        },
-        "showcase": {
-            "title1": "Why this place exists?",
-            "title2": "Everything I use, in one place.",
-            "cta": {
-                "label": "Enter my base",
-                "url": "/working"
-            },
-            "items": [
-                {
-                    "title": "A place to work clearly",
-                    "sub_title": "Projects, kanban, planner, and decisions — everything I need while working, without distractions."
-                },
-                {
-                    "title": "Know what I’m doing next",
-                    "sub_title": "A clear overview of what I’m working on, what’s blocked, and what’s coming next. No more guessing games."
-                },
-                {
-                    "title": "Enjoy it now. Find it later",
-                    "sub_title": "Movies, games, music, and random interests, saved so I can come back anytime."
-                }
-            ]
-        },
-        "gridLinks": {
-            "title": "Quick Resources",
-            "items": [
-                {
-                    "label": "Documentation",
-                    "url": "/docs"
-                },
-                {
-                    "label": "Stack Overflow",
-                    "url": "https://stackoverflow.com"
-                },
-                {
-                    "label": "GitHub",
-                    "url": "https://github.com"
-                },
-                {
-                    "label": "Cloudflare",
-                    "url": "https://dash.cloudflare.com"
-                }
-            ]
-        },
-        "marquee": {
-            "title": "I swear I’ll organize this later",
-            "logos": [
-                {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
-                    "alt": "Netflix",
-                    "href": "https://www.netflix.com"
-                },
-                {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
-                    "alt": "Spotify",
-                    "href": "https://open.spotify.com"
-                },
-                {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
-                    "alt": "YouTube",
-                    "href": "https://www.youtube.com"
-                },
-                {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-                    "alt": "ChatGPT",
-                    "href": "https://chat.openai.com"
-                },
-                {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg",
-                    "alt": "Steam",
-                    "href": "https://store.steampowered.com"
-                },
-                {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Twitch_Glitch_Logo_Purple.svg",
-                    "alt": "Twitch",
-                    "href": "https://www.twitch.tv"
-                },
-                {
-                    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg",
-                    "alt": "Reddit",
-                    "href": "https://www.reddit.com"
-                }
-            ]
-        },
-        "caseStudy": {
-            "title": "Timeless Classics",
-            "readMoreLabel": "Listen Now",
-            "items": [
-                {
-                    "title": "Beethoven - Moonlight Sonata",
-                    "slug": "https://www.youtube.com/watch?v=4Tr0otuiQuU",
-                    "description": "A hauntingly beautiful piano sonata that captures deep emotion and tranquility."
-                },
-                {
-                    "title": "Mozart - Requiem",
-                    "slug": "https://www.youtube.com/watch?v=Zi8vJ_lMxQI",
-                    "description": "One of the most powerful and moving choral masterpieces ever written."
-                },
-                {
-                    "title": "Debussy - Clair de Lune",
-                    "slug": "https://www.youtube.com/watch?v=CvFH_6DNRCY",
-                    "description": "A delicate and atmospheric piece evoking the gentle light of the moon."
-                },
-                {
-                    "title": "Chopin - Nocturne Op. 9 No. 2",
-                    "slug": "https://www.youtube.com/watch?v=9E6b3swbnWg",
-                    "description": "A romantic and expressive piano nocturne, perfect for late-night reflection."
-                },
-                {
-                    "title": "Dvořák - Symphony No. 9 'From the New World'",
-                    "slug": "https://www.youtube.com/watch?v=89jOPAGJq-M",
-                    "description": "A majestic symphony blending American spirituals with Czech folklore."
-                }
-            ]
-        },
-        "whyChooseUsSection": {
-            "title": "Nothing Else Here",
-            "items": [
-                {
-                    "id": 1,
-                    "title": "ALL MY STUFF, ONE PLACE",
-                    "subTitle": "Movies, games, music, random links, and notes — everything I like, saved so I don’t lose it again."
-                },
-                {
-                    "id": 2,
-                    "title": "MADE FOR BROWSING, NOT WORKING",
-                    "subTitle": "No dashboards. No pressure. Just scroll, click, save, and enjoy whenever I feel like it."
-                },
-                {
-                    "id": 3,
-                    "title": "FAST & LIGHT (FOR REAL)",
-                    "subTitle": "Opens fast, loads instantly, because waiting kills the mood."
-                },
-                {
-                    "id": 4,
-                    "title": "PRIVATE BY DEFAULT",
-                    "subTitle": "This space is for me. Nothing social, nothing noisy, no algorithms yelling at me."
-                }
-            ]
-        },
-        "statSection": {
-            "title": "My Little Digital Universe",
-            "stats": [
-                {
-                    "id": 1,
-                    "value": 300,
-                    "suffix": "+",
-                    "title": "Things Saved"
-                },
-                {
-                    "id": 2,
-                    "value": 50,
-                    "suffix": "+",
-                    "title": "Random Interests"
-                },
-                {
-                    "id": 3,
-                    "value": 10,
-                    "suffix": "+",
-                    "title": "Active Playlists"
-                },
-                {
-                    "id": 4,
-                    "value": 0,
-                    "suffix": "∞",
-                    "title": "Things to Explore"
-                }
-            ],
-            "features": [
-                {
-                    "title": "Save It Once, Find It Later",
-                    "sub_title": "Movies, games, videos, notes, links — everything stays exactly where I left it."
-                },
-                {
-                    "title": "Organized, But Not Complicated",
-                    "sub_title": "Tags, lists, and folders when I need them. Chaos is optional."
-                },
-                {
-                    "title": "Made For Curious Minds",
-                    "sub_title": "From deep dives to random interests, this space grows with whatever I’m into lately."
-                },
-                {
-                    "title": "Built To Last (Hopefully)",
-                    "sub_title": "Things change. Interests change. At least this place remembers them all."
-                }
-            ],
-            "cta": {
-                "label": "Open My Hub",
-                "url": "/cases"
-            }
-        }
+  "home": {
+    "hero": {
+      "title": "𝕾𝖙𝖆𝖞 𝖍𝖚𝖓𝖌𝖗𝖞. 𝕾𝖙𝖆𝖞 𝖋𝖔𝖔𝖑𝖎𝖘𝖍",
+      "subtitle": "What I’m currently spending energy on.",
+      "ctaLabel": "Let’s Enjoy",
+      "ctaUrl": "/media/youtube"
     },
-    "layout": {
-        "metadata": {
-            "title": "My Space",
-            "description": "Personal knowledge base, snippets, tasks, and bug tracker for developers"
+    "features": {
+      "title": "What can you do?",
+      "items": [
+        {
+          "title": "Working Hub",
+          "slug": "/working",
+          "icon": "Working",
+          "features": "Track projects, manage kanban tasks, and streamline your workflow."
+        },
+        {
+          "title": "Planner",
+          "slug": "/planner/today",
+          "icon": "Planner",
+          "features": "Organize your day, schedule upcoming tasks, and stay on top of goals."
+        },
+        {
+          "title": "Media Vault",
+          "slug": "/media/youtube",
+          "icon": "Media",
+          "features": "Save YouTube videos, read tech news, and enjoy curated Spotify music."
+        },
+        {
+          "title": "Monster Hunter Wilds",
+          "slug": "/mh-wilds",
+          "icon": "MHWilds",
+          "features": "Comprehensive game database, weapons analysis, and hunting guides."
         }
+      ]
     },
-    "footer": {
-        "email": "[EMAIL_ADDRESS]",
-        "phone": "[PHONE_NUMBER]",
-        "copyright": "© 2026 Ba Dum Tss! - All rights reserved.",
-        "social_links": [
-            {
-                "label": "Twitter",
-                "url": "https://twitter.com"
-            },
-            {
-                "label": "LinkedIn",
-                "url": "https://linkedin.com"
-            },
-            {
-                "label": "GitHub",
-                "url": "https://github.com"
-            }
-        ],
-        "footer_sections": [
-            {
-                "label": "Home",
-                "url": "/"
-            },
-            {
-                "label": "Notes",
-                "url": "/notes"
-            },
-            {
-                "label": "Working",
-                "url": "/working"
-            },
-            {
-                "label": "Planner",
-                "url": "/planner"
-            },
-            {
-                "label": "Scanner",
-                "url": "/scanner"
-            }
-        ],
-        "addresses": [
-            {
-                "id": "1",
-                "title": "Ho Chi Minh City",
-                "content": "Vietnam"
-            }
-        ],
-        "policy_links": [
-            {
-                "label": "Privacy Policy",
-                "url": "/privacy"
-            },
-            {
-                "label": "Terms of Service",
-                "url": "/terms"
-            }
-        ]
-    },
-    "navigation": {
-        "sections": {
-            "knowledge": "Knowledge",
-            "work": "Work"
+    "showcase": {
+      "title1": "Why this place exists?",
+      "title2": "Everything I use, in one place.",
+      "cta": {
+        "label": "Enter my base",
+        "url": "/working"
+      },
+      "items": [
+        {
+          "title": "A place to work clearly",
+          "sub_title": "Projects, kanban, planner, and decisions — everything I need while working, without distractions."
         },
-        "items": {
-            "working": {
-                "label": "Working",
-                "items": {
-                    "active": "Active",
-                    "paused": "Paused",
-                    "blocked": "Blocked"
-                }
-            },
-            "media": {
-                "label": "Media",
-                "items": {
-                    "youtube": "YouTube",
-                    "movies": "Movies",
-                    "series": "Series",
-                    "news": "News",
-                    "games": "Games",
-                    "music": "Music"
-                }
-            },
-            "planner": {
-                "label": "Planner",
-                "items": {
-                    "today": "Today",
-                    "week": "Week",
-                    "someday": "Someday"
-                }
-            },
-            "mh wilds": {
-                "label": "MH Wilds"
-            }
+        {
+          "title": "Know what I’m doing next",
+          "sub_title": "A clear overview of what I’m working on, what’s blocked, and what’s coming next. No more guessing games."
         },
-        "settings": "Settings",
-        "tasks": {
-            "columns": {
-                "todo": "To Do",
-                "doing": "In Progress",
-                "done": "Done"
-            },
-            "placeholder": "Task title...",
-            "move_to": "Move to",
-            "buttons": {
-                "add": "Add",
-                "cancel": "Cancel"
-            }
+        {
+          "title": "Enjoy it now. Find it later",
+          "sub_title": "Movies, games, music, and random interests, saved so I can come back anytime."
         }
+      ]
     },
-    "common": {
-        "error": {
-            "title": "Something went wrong!",
-            "description": "An unexpected error has occurred",
-            "unknown": "Unknown error",
-            "errorId": "Error ID",
-            "retry": "Try again",
-            "home": "Go Home"
+    "gridLinks": {
+      "title": "Quick Resources",
+      "items": [
+        {
+          "label": "Documentation",
+          "url": "/docs"
         },
-        "notFound": {
-            "title": "Page Not Found",
-            "description": "The page you're looking for doesn't exist",
-            "back": "Back to Home"
+        {
+          "label": "Stack Overflow",
+          "url": "https://stackoverflow.com"
         },
-        "loading": "Loading...",
-        "dialog": {
-            "confirm": "Confirm",
-            "cancel": "Cancel",
-            "loading": "Loading..."
+        {
+          "label": "GitHub",
+          "url": "https://github.com"
         },
-        "errorBoundary": {
-            "title": "Something went wrong",
-            "description": "An error occurred while rendering this component",
-            "retry": "Try Again"
+        {
+          "label": "Cloudflare",
+          "url": "https://dash.cloudflare.com"
         }
+      ]
     },
-    "media": {
-        "youtube": {
-            "title": "YouTube Center",
-            "subtitle": "Your personal library. Save moments, resume anytime.",
-            "tabs": {
-                "recent": "Recent",
-                "playlists": "Playlists",
-                "favorites": "Favorites"
-            },
-            "actions": {
-                "addVideo": "Add Video",
-                "createPlaylist": "Create Playlist",
-                "addToPlaylist": "Add to Playlist",
-                "adding": "Adding...",
-                "cancel": "Cancel"
-            },
-            "dialogs": {
-                "createPlaylist": {
-                    "title": "Create New Playlist",
-                    "description": "Add a new collection to organize your saved videos.",
-                    "titleLabel": "Playlist Title",
-                    "titlePlaceholder": "e.g. Learning React",
-                    "descriptionLabel": "Description (Optional)",
-                    "descriptionPlaceholder": "What is this playlist about?",
-                    "submit": "Create Playlist",
-                    "cancel": "Cancel"
-                },
-                "editPlaylist": {
-                    "title": "Edit Playlist",
-                    "submit": "Save Changes"
-                },
-                "addToPlaylist": {
-                    "title": "Add to Playlist",
-                    "empty": "No playlists yet. Create one first!",
-                    "close": "Close"
-                }
-            },
-            "gallery": {
-                "favoritePlaylists": "Favorite Playlists",
-                "noPlaylists": "No playlists found",
-                "noPlaylistsDesc": "Create a custom playlist to start organizing your videos.",
-                "createFirst": "Create First Playlist",
-                "viewContent": "View Content",
-                "videoCount": "{count} Videos",
-                "noVideosFound": "No videos found",
-                "emptyRecent": "Paste a YouTube Video URL above to start building your library.",
-                "emptyFavorites": "Mark videos as favorite to see them here.",
-                "today": "Today",
-                "yesterday": "Yesterday",
-                "confirmDeleteTitle": "Are you absolutely sure?",
-                "confirmDeleteDesc": "This action cannot be undone. This will permanently delete the item from your library.",
-                "delete": "Delete",
-                "searchPlaceholder": "Paste YouTube URL here..."
-            },
-            "playlist": {
-                "back": "Back to Hub",
-                "empty": "This playlist is empty",
-                "emptyDesc": "Add videos to this collection from your Recent library.",
-                "browseRecent": "Browse Recent Videos",
-                "videoCount": "{count} Videos",
-                "removeTitle": "Remove from collection?",
-                "removeDesc": "This will remove the video from \"{title}\" but keep it in your main library.",
-                "cancel": "Cancel",
-                "remove": "Remove",
-                "title": "Playlist Videos",
-                "itemsCount": "{count} items",
-                "addFromLibrary": "Add Videos from Library",
-                "quickAdd": "Quick Add from Your Library",
-                "searchLibrary": "Search library...",
-                "noMoreVideos": "No more videos in your library to add or search."
-            },
-            "video": {
-                "thumbnailAlt": "Video thumbnail",
-                "noThumbnail": "No Thumbnail",
-                "toggleFavorite": "Toggle Favorite",
-                "addToPlaylist": "Add to Playlist",
-                "delete": "Delete Video"
-            },
-            "modal": {
-                "defaultTitle": "YouTube Video",
-                "startedAt": "Started at: {time}",
-                "saveAndClose": "Save & Close",
-                "saving": "Saving...",
-                "maximize": "Maximize",
-                "miniPlayer": "Mini Player",
-                "close": "Close"
-            }
+    "marquee": {
+      "title": "I swear I’ll organize this later",
+      "logos": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+          "alt": "Netflix",
+          "href": "https://www.netflix.com"
         },
-        "music": {
-            "title": "Music Hub",
-            "subtitle": "Your personal selection from Spotify.",
-            "sidebar": {
-                "library": "Library",
-                "topTracks": "Top Tracks",
-                "topArtists": "Top Artists",
-                "playlists": "Playlists",
-                "disconnect": "Disconnect Spotify"
-            },
-            "auth": {
-                "title": "Connect Your Music",
-                "description": "Authorize with Spotify to view your top tracks, favorite artists, and personal playlists directly in your dashboard.",
-                "button": "Connect Spotify"
-            },
-            "grid": {
-                "empty": "No items found in this category.",
-                "by": "By"
-            },
-            "playlist": {
-                "back": "Back to Music",
-                "songs": "songs",
-                "openSpotify": "Open in Spotify"
-            }
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
+          "alt": "Spotify",
+          "href": "https://open.spotify.com"
         },
-        "news": {
-            "title": "News Hub",
-            "subtitle": "Stay updated with the latest tech, gaming and world trends.",
-            "latestNews": "Latest Trends",
-            "recent": "Recent",
-            "popular": "Popular",
-            "noNews": "No news available to display.",
-            "tryAgain": "Please try again later.",
-            "categoryDescription": "Here’s what’s new in {category}",
-            "featured": {
-                "badge": "LATEST NEWS",
-                "editor": "Source"
-            },
-            "sidebar": {
-                "categories": "Categories",
-                "trending": "Trending",
-                "viewMoreTrending": "View more"
-            },
-            "categories": {
-                "all": "All",
-                "social": "Social",
-                "world": "World",
-                "tech-science": "Technology & Science",
-                "sports": "Sports",
-                "gaming": "Gaming",
-                "entertainment": "Entertainment",
-                "health": "Health",
-                "business": "Business",
-                "education": "Education"
-            },
-            "card": {
-                "readMore": "READ MORE"
-            },
-            "header": {
-                "searchPlaceholder": "Search articles, news and insights..."
-            },
-            "pagination": {
-                "prev": "Prev",
-                "next": "Next",
-                "page": "Page",
-                "of": "of"
-            }
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+          "alt": "YouTube",
+          "href": "https://www.youtube.com"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+          "alt": "ChatGPT",
+          "href": "https://chat.openai.com"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg",
+          "alt": "Steam",
+          "href": "https://store.steampowered.com"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Twitch_Glitch_Logo_Purple.svg",
+          "alt": "Twitch",
+          "href": "https://www.twitch.tv"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg",
+          "alt": "Reddit",
+          "href": "https://www.reddit.com"
         }
+      ]
     },
-    "working": {
-        "title": "Working Hub",
-        "description": "Keep track of your current energy distribution.",
-        "list": {
-            "emptyTitle": "No tasks here",
-            "emptyDesc": "You don't have any tasks in this category. Start by adding one!",
-            "actions": {
-                "edit": "Edit Task",
-                "delete": "Delete Task"
-            }
+    "caseStudy": {
+      "title": "Timeless Classics",
+      "readMoreLabel": "Listen Now",
+      "items": [
+        {
+          "title": "Beethoven - Moonlight Sonata",
+          "slug": "https://www.youtube.com/watch?v=4Tr0otuiQuU",
+          "description": "A hauntingly beautiful piano sonata that captures deep emotion and tranquility."
+        },
+        {
+          "title": "Mozart - Requiem",
+          "slug": "https://www.youtube.com/watch?v=Zi8vJ_lMxQI",
+          "description": "One of the most powerful and moving choral masterpieces ever written."
+        },
+        {
+          "title": "Debussy - Clair de Lune",
+          "slug": "https://www.youtube.com/watch?v=CvFH_6DNRCY",
+          "description": "A delicate and atmospheric piece evoking the gentle light of the moon."
+        },
+        {
+          "title": "Chopin - Nocturne Op. 9 No. 2",
+          "slug": "https://www.youtube.com/watch?v=9E6b3swbnWg",
+          "description": "A romantic and expressive piano nocturne, perfect for late-night reflection."
+        },
+        {
+          "title": "Dvořák - Symphony No. 9 'From the New World'",
+          "slug": "https://www.youtube.com/watch?v=89jOPAGJq-M",
+          "description": "A majestic symphony blending American spirituals with Czech folklore."
         }
+      ]
     },
-    "auth": {
-        "login": {
-            "title": "AUTHENTICATE IDENTITY",
-            "subtitle": "// Enter credentials to decrypt and access workspace",
-            "emailLabel": "Identity / Email",
-            "passwordLabel": "Passkey Token",
-            "submitButton": "Authenticate",
-            "loadingButton": "Decrypting credentials...",
-            "forgotPassword": "Forgot Passkey?",
-            "noAccount": "No identity established?",
-            "signupLink": "Register new operator",
-            "verifiedSuccess": "Email successfully verified! Please log in.",
-            "errorTitle": "Access Denied"
+    "whyChooseUsSection": {
+      "title": "Nothing Else Here",
+      "items": [
+        {
+          "id": 1,
+          "title": "ALL MY STUFF, ONE PLACE",
+          "subTitle": "Movies, games, music, random links, and notes — everything I like, saved so I don’t lose it again."
         },
-        "signup": {
-            "title": "ESTABLISH IDENTITY",
-            "subtitle": "// Create new operator profile on the terminal network",
-            "emailLabel": "Operator Email",
-            "passwordLabel": "Initial Passkey",
-            "confirmPasswordLabel": "Confirm Passkey",
-            "submitButton": "Initialize Account",
-            "loadingButton": "Registering...",
-            "hasAccount": "Already registered?",
-            "loginLink": "Access Terminal",
-            "passwordMismatch": "Passkeys do not match.",
-            "passwordTooShort": "Passkey must be at least 6 characters.",
-            "checkEmailTitle": "VERIFICATION DISPATCHED",
-            "checkEmailDesc": "A verification link has been dispatched to your email. Check your inbox and follow the link to activate your workspace.",
-            "backToLogin": "Return to Login"
+        {
+          "id": 2,
+          "title": "MADE FOR BROWSING, NOT WORKING",
+          "subTitle": "No dashboards. No pressure. Just scroll, click, save, and enjoy whenever I feel like it."
         },
-        "forgotPassword": {
-            "title": "RECOVER PASSKEY",
-            "subtitle": "// Dispatch security recovery token via registered email",
-            "emailLabel": "Registered Email",
-            "submitButton": "Send Recovery Link",
-            "loadingButton": "Transmitting signal...",
-            "successTitle": "RECOVERY DISPATCHED",
-            "successDesc": "Please check your inbox for instructions to reset your passkey token.",
-            "backToLogin": "Return to Login"
+        {
+          "id": 3,
+          "title": "FAST & LIGHT (FOR REAL)",
+          "subTitle": "Opens fast, loads instantly, because waiting kills the mood."
         },
-        "resetPassword": {
-            "title": "CONFIGURE NEW PASSKEY",
-            "subtitle": "// Update security passkey for your operator identity",
-            "passwordLabel": "New Passkey",
-            "confirmPasswordLabel": "Confirm Passkey",
-            "submitButton": "Update Passkey",
-            "loadingButton": "Encrypting...",
-            "passwordMismatch": "Passkeys do not match.",
-            "passwordTooShort": "Passkey must be at least 6 characters.",
-            "successTitle": "PASSKEY UPDATED",
-            "successDesc": "Your passkey has been successfully updated. Redirecting to login terminal...",
-            "backToLogin": "Sign In Now",
-            "nameLabel": "Operator Call Sign / Name",
-            "namePlaceholder": "e.g. Neo, Operator_99"
-        },
-        "userMenu": {
-            "profile": "Operator Profile",
-            "logout": "Sign Out",
-            "login": "Sign In",
-            "status": "Online",
-            "operator": "Operator"
+        {
+          "id": 4,
+          "title": "PRIVATE BY DEFAULT",
+          "subTitle": "This space is for me. Nothing social, nothing noisy, no algorithms yelling at me."
         }
+      ]
+    },
+    "statSection": {
+      "title": "My Little Digital Universe",
+      "stats": [
+        {
+          "id": 1,
+          "value": 300,
+          "suffix": "+",
+          "title": "Things Saved"
+        },
+        {
+          "id": 2,
+          "value": 50,
+          "suffix": "+",
+          "title": "Random Interests"
+        },
+        {
+          "id": 3,
+          "value": 10,
+          "suffix": "+",
+          "title": "Active Playlists"
+        },
+        {
+          "id": 4,
+          "value": 0,
+          "suffix": "∞",
+          "title": "Things to Explore"
+        }
+      ],
+      "features": [
+        {
+          "title": "Save It Once, Find It Later",
+          "sub_title": "Movies, games, videos, notes, links — everything stays exactly where I left it."
+        },
+        {
+          "title": "Organized, But Not Complicated",
+          "sub_title": "Tags, lists, and folders when I need them. Chaos is optional."
+        },
+        {
+          "title": "Made For Curious Minds",
+          "sub_title": "From deep dives to random interests, this space grows with whatever I’m into lately."
+        },
+        {
+          "title": "Built To Last (Hopefully)",
+          "sub_title": "Things change. Interests change. At least this place remembers them all."
+        }
+      ],
+      "cta": {
+        "label": "Open My Hub",
+        "url": "/cases"
+      }
     }
+  },
+  "layout": {
+    "metadata": {
+      "title": "My Space",
+      "description": "Personal knowledge base, snippets, tasks, and bug tracker for developers"
+    }
+  },
+  "footer": {
+    "email": "[EMAIL_ADDRESS]",
+    "phone": "[PHONE_NUMBER]",
+    "copyright": "© 2026 Ba Dum Tss! - All rights reserved.",
+    "social_links": [
+      {
+        "label": "Twitter",
+        "url": "https://twitter.com"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com"
+      }
+    ],
+    "footer_sections": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "Notes",
+        "url": "/notes"
+      },
+      {
+        "label": "Working",
+        "url": "/working"
+      },
+      {
+        "label": "Planner",
+        "url": "/planner"
+      },
+      {
+        "label": "Scanner",
+        "url": "/scanner"
+      }
+    ],
+    "addresses": [
+      {
+        "id": "1",
+        "title": "Ho Chi Minh City",
+        "content": "Vietnam"
+      }
+    ],
+    "policy_links": [
+      {
+        "label": "Privacy Policy",
+        "url": "/privacy"
+      },
+      {
+        "label": "Terms of Service",
+        "url": "/terms"
+      }
+    ]
+  },
+  "navigation": {
+    "sections": {
+      "knowledge": "Knowledge",
+      "work": "Work"
+    },
+    "items": {
+      "working": {
+        "label": "Working",
+        "items": {
+          "active": "Active",
+          "paused": "Paused",
+          "blocked": "Blocked"
+        }
+      },
+      "media": {
+        "label": "Media",
+        "items": {
+          "youtube": "YouTube",
+          "movies": "Movies",
+          "series": "Series",
+          "news": "News",
+          "games": "Games",
+          "music": "Music"
+        }
+      },
+      "planner": {
+        "label": "Planner",
+        "items": {
+          "today": "Today",
+          "week": "Week",
+          "someday": "Someday"
+        }
+      },
+      "mh wilds": {
+        "label": "MH Wilds"
+      }
+    },
+    "settings": "Settings",
+    "tasks": {
+      "columns": {
+        "todo": "To Do",
+        "doing": "In Progress",
+        "done": "Done"
+      },
+      "placeholder": "Task title...",
+      "move_to": "Move to",
+      "buttons": {
+        "add": "Add",
+        "cancel": "Cancel"
+      }
+    }
+  },
+  "common": {
+    "error": {
+      "title": "Something went wrong!",
+      "description": "An unexpected error has occurred",
+      "unknown": "Unknown error",
+      "errorId": "Error ID",
+      "retry": "Try again",
+      "home": "Go Home"
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "The page you're looking for doesn't exist",
+      "back": "Back to Home"
+    },
+    "loading": "Loading...",
+    "dialog": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "loading": "Loading..."
+    },
+    "errorBoundary": {
+      "title": "Something went wrong",
+      "description": "An error occurred while rendering this component",
+      "retry": "Try Again"
+    }
+  },
+  "media": {
+    "youtube": {
+      "title": "YouTube Center",
+      "subtitle": "Your personal library. Save moments, resume anytime.",
+      "tabs": {
+        "recent": "Recent",
+        "playlists": "Playlists",
+        "favorites": "Favorites"
+      },
+      "actions": {
+        "addVideo": "Add Video",
+        "createPlaylist": "Create Playlist",
+        "addToPlaylist": "Add to Playlist",
+        "adding": "Adding...",
+        "cancel": "Cancel"
+      },
+      "dialogs": {
+        "createPlaylist": {
+          "title": "Create New Playlist",
+          "description": "Add a new collection to organize your saved videos.",
+          "titleLabel": "Playlist Title",
+          "titlePlaceholder": "e.g. Learning React",
+          "descriptionLabel": "Description (Optional)",
+          "descriptionPlaceholder": "What is this playlist about?",
+          "submit": "Create Playlist",
+          "cancel": "Cancel"
+        },
+        "editPlaylist": {
+          "title": "Edit Playlist",
+          "submit": "Save Changes"
+        },
+        "addToPlaylist": {
+          "title": "Add to Playlist",
+          "empty": "No playlists yet. Create one first!",
+          "close": "Close"
+        }
+      },
+      "gallery": {
+        "favoritePlaylists": "Favorite Playlists",
+        "noPlaylists": "No playlists found",
+        "noPlaylistsDesc": "Create a custom playlist to start organizing your videos.",
+        "createFirst": "Create First Playlist",
+        "viewContent": "View Content",
+        "videoCount": "{count} Videos",
+        "noVideosFound": "No videos found",
+        "emptyRecent": "Paste a YouTube Video URL above to start building your library.",
+        "emptyFavorites": "Mark videos as favorite to see them here.",
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "confirmDeleteTitle": "Are you absolutely sure?",
+        "confirmDeleteDesc": "This action cannot be undone. This will permanently delete the item from your library.",
+        "delete": "Delete",
+        "searchPlaceholder": "Paste YouTube URL here..."
+      },
+      "playlist": {
+        "back": "Back to Hub",
+        "empty": "This playlist is empty",
+        "emptyDesc": "Add videos to this collection from your Recent library.",
+        "browseRecent": "Browse Recent Videos",
+        "videoCount": "{count} Videos",
+        "removeTitle": "Remove from collection?",
+        "removeDesc": "This will remove the video from \"{title}\" but keep it in your main library.",
+        "cancel": "Cancel",
+        "remove": "Remove",
+        "title": "Playlist Videos",
+        "itemsCount": "{count} items",
+        "addFromLibrary": "Add Videos from Library",
+        "quickAdd": "Quick Add from Your Library",
+        "searchLibrary": "Search library...",
+        "noMoreVideos": "No more videos in your library to add or search."
+      },
+      "video": {
+        "thumbnailAlt": "Video thumbnail",
+        "noThumbnail": "No Thumbnail",
+        "toggleFavorite": "Toggle Favorite",
+        "addToPlaylist": "Add to Playlist",
+        "delete": "Delete Video"
+      },
+      "modal": {
+        "defaultTitle": "YouTube Video",
+        "startedAt": "Started at: {time}",
+        "saveAndClose": "Save & Close",
+        "saving": "Saving...",
+        "maximize": "Maximize",
+        "miniPlayer": "Mini Player",
+        "close": "Close"
+      }
+    },
+    "music": {
+      "title": "Music Hub",
+      "subtitle": "Your personal selection from Spotify.",
+      "sidebar": {
+        "library": "Library",
+        "topTracks": "Top Tracks",
+        "topArtists": "Top Artists",
+        "playlists": "Playlists",
+        "disconnect": "Disconnect Spotify"
+      },
+      "auth": {
+        "title": "Connect Your Music",
+        "description": "Authorize with Spotify to view your top tracks, favorite artists, and personal playlists directly in your dashboard.",
+        "button": "Connect Spotify"
+      },
+      "grid": {
+        "empty": "No items found in this category.",
+        "by": "By"
+      },
+      "playlist": {
+        "back": "Back to Music",
+        "songs": "songs",
+        "openSpotify": "Open in Spotify"
+      }
+    },
+    "news": {
+      "title": "News Hub",
+      "subtitle": "Stay updated with the latest tech, gaming and world trends.",
+      "latestNews": "Latest Trends",
+      "recent": "Recent",
+      "popular": "Popular",
+      "noNews": "No news available to display.",
+      "tryAgain": "Please try again later.",
+      "categoryDescription": "Here’s what’s new in {category}",
+      "featured": {
+        "badge": "LATEST NEWS",
+        "editor": "Source"
+      },
+      "sidebar": {
+        "categories": "Categories",
+        "trending": "Trending",
+        "viewMoreTrending": "View more"
+      },
+      "categories": {
+        "all": "All",
+        "social": "Social",
+        "world": "World",
+        "tech-science": "Technology & Science",
+        "sports": "Sports",
+        "gaming": "Gaming",
+        "entertainment": "Entertainment",
+        "health": "Health",
+        "business": "Business",
+        "education": "Education"
+      },
+      "card": {
+        "readMore": "READ MORE"
+      },
+      "header": {
+        "searchPlaceholder": "Search articles, news and insights..."
+      },
+      "pagination": {
+        "prev": "Prev",
+        "next": "Next",
+        "page": "Page",
+        "of": "of"
+      }
+    },
+    "gaming": {
+      "title": "Gaming Hub",
+      "description": "Steam Integration"
+    }
+  },
+  "working": {
+    "title": "Working Hub",
+    "description": "Keep track of your current energy distribution.",
+    "list": {
+      "emptyTitle": "No tasks here",
+      "emptyDesc": "You don't have any tasks in this category. Start by adding one!",
+      "actions": {
+        "edit": "Edit Task",
+        "delete": "Delete Task"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "AUTHENTICATE IDENTITY",
+      "subtitle": "// Enter credentials to decrypt and access workspace",
+      "emailLabel": "Identity / Email",
+      "passwordLabel": "Passkey Token",
+      "submitButton": "Authenticate",
+      "loadingButton": "Decrypting credentials...",
+      "forgotPassword": "Forgot Passkey?",
+      "noAccount": "No identity established?",
+      "signupLink": "Register new operator",
+      "verifiedSuccess": "Email successfully verified! Please log in.",
+      "errorTitle": "Access Denied"
+    },
+    "signup": {
+      "title": "ESTABLISH IDENTITY",
+      "subtitle": "// Create new operator profile on the terminal network",
+      "emailLabel": "Operator Email",
+      "passwordLabel": "Initial Passkey",
+      "confirmPasswordLabel": "Confirm Passkey",
+      "submitButton": "Initialize Account",
+      "loadingButton": "Registering...",
+      "hasAccount": "Already registered?",
+      "loginLink": "Access Terminal",
+      "passwordMismatch": "Passkeys do not match.",
+      "passwordTooShort": "Passkey must be at least 6 characters.",
+      "checkEmailTitle": "VERIFICATION DISPATCHED",
+      "checkEmailDesc": "A verification link has been dispatched to your email. Check your inbox and follow the link to activate your workspace.",
+      "backToLogin": "Return to Login"
+    },
+    "forgotPassword": {
+      "title": "RECOVER PASSKEY",
+      "subtitle": "// Dispatch security recovery token via registered email",
+      "emailLabel": "Registered Email",
+      "submitButton": "Send Recovery Link",
+      "loadingButton": "Transmitting signal...",
+      "successTitle": "RECOVERY DISPATCHED",
+      "successDesc": "Please check your inbox for instructions to reset your passkey token.",
+      "backToLogin": "Return to Login"
+    },
+    "resetPassword": {
+      "title": "CONFIGURE NEW PASSKEY",
+      "subtitle": "// Update security passkey for your operator identity",
+      "passwordLabel": "New Passkey",
+      "confirmPasswordLabel": "Confirm Passkey",
+      "submitButton": "Update Passkey",
+      "loadingButton": "Encrypting...",
+      "passwordMismatch": "Passkeys do not match.",
+      "passwordTooShort": "Passkey must be at least 6 characters.",
+      "successTitle": "PASSKEY UPDATED",
+      "successDesc": "Your passkey has been successfully updated. Redirecting to login terminal...",
+      "backToLogin": "Sign In Now",
+      "nameLabel": "Operator Call Sign / Name",
+      "namePlaceholder": "e.g. Neo, Operator_99"
+    },
+    "userMenu": {
+      "profile": "Operator Profile",
+      "logout": "Sign Out",
+      "login": "Sign In",
+      "status": "Online",
+      "operator": "Operator"
+    }
+  }
 }
