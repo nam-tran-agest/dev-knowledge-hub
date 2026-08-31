@@ -2,20 +2,19 @@ import { createClient } from '@/lib/supabase/server';
 import { getGameTagsFromSteamSpy } from '@/features/media/lib/steam-spy-client';
 import { getSpotifyAuthToken } from '@/features/media/services/spotify';
 import { searchSpotifyPlaylists } from '@/features/media/services/spotify-api';
-import genreMappingData from '@/features/media/data/genre_mapping.json';
-
-interface Mapping {
-    vibe: string;
-    tags: string[];
-    searchQueries: string[];
-}
-
-const genreMappings = genreMappingData.mappings as Mapping[];
-const fallbackQueries = genreMappingData.fallbackQueries;
 
 export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri: string; matchedTags: string[] }> {
     const supabase = await createClient();
     
+    // Fetch configuration from Database in real-time
+    const [configRes, dictRes] = await Promise.all([
+        supabase.from('game_mood_config').select('value').eq('id', 'fallback_queries').single(),
+        supabase.from('game_mood_dictionary').select('*')
+    ]);
+
+    const fallbackQueries = configRes.data?.value || ["gaming mix"];
+    const genreMappings = dictRes.data || [];
+
     let matchedTagsForDB: string[] = [];
     let matchedQueries: string[] = fallbackQueries;
 
