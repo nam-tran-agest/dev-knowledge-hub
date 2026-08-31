@@ -3,6 +3,14 @@ import { getGameTagsFromSteamSpy } from '@/features/media/lib/steam-spy-client';
 import { getSpotifyAuthToken } from '@/features/media/services/spotify';
 import { searchSpotifyPlaylists } from '@/features/media/services/spotify-api';
 
+interface GameMoodDictionaryEntry {
+    id: string;
+    vibe: string;
+    tags: string[];
+    search_queries?: string[];
+    searchQueries?: string[];
+}
+
 export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri: string; matchedTags: string[] }> {
     const supabase = await createClient();
     
@@ -12,11 +20,15 @@ export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri:
         supabase.from('game_mood_dictionary').select('*')
     ]);
 
-    const fallbackQueries = configRes.data?.value || ["gaming mix"];
-    const genreMappings = dictRes.data || [];
+    const fallbackQueries: string[] = configRes.data?.value || ["gaming mix", "epic gaming soundtrack"];
+    const genreMappings = (dictRes.data as unknown as GameMoodDictionaryEntry[]) || [];
 
     let matchedTagsForDB: string[] = [];
     let matchedQueries: string[] = fallbackQueries;
+
+    const getQueriesFromMapping = (m: GameMoodDictionaryEntry): string[] => {
+        return m.search_queries || m.searchQueries || fallbackQueries;
+    };
 
     // 1. Quét DB Cache nội bộ lấy Tags (Tránh spam API SteamSpy)
     const { data: cached } = await supabase
@@ -32,7 +44,7 @@ export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri:
         for (const mapping of genreMappings) {
             const intersection = matchedTagsForDB.filter(tag => mapping.tags.includes(tag));
             if (intersection.length > 0) {
-                matchedQueries = mapping.searchQueries;
+                matchedQueries = getQueriesFromMapping(mapping);
                 break;
             }
         }
@@ -47,7 +59,7 @@ export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri:
             for (const mapping of genreMappings) {
                 const intersection = top3Tags.filter(tag => mapping.tags.includes(tag));
                 if (intersection.length > 0) {
-                    matchedQueries = mapping.searchQueries;
+                    matchedQueries = getQueriesFromMapping(mapping);
                     matchedTagsForDB = intersection;
                     break;
                 }
@@ -58,7 +70,7 @@ export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri:
                 for (const mapping of genreMappings) {
                     const intersection = tags.filter(tag => mapping.tags.includes(tag));
                     if (intersection.length > 0) {
-                        matchedQueries = mapping.searchQueries;
+                        matchedQueries = getQueriesFromMapping(mapping);
                         matchedTagsForDB = intersection;
                         break;
                     }
