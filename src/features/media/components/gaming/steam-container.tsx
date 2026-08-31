@@ -1,5 +1,6 @@
 import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed } from '@/features/media/lib/steam-client';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Gamepad2, Activity } from 'lucide-react';
 import Image from 'next/image';
 import { GameMoodSync } from './game-mood-sync';
@@ -54,18 +55,20 @@ export async function SteamContainer() {
 
             {/* Profile Card */}
             {player && (
-                <div className="cyber-panel bg-surface p-6 flex items-center gap-6 border-blue-500/30">
-                    <div className="relative w-20 h-20 cyber-clip border border-blue-500/50">
-                        <Image src={player.avatarfull} alt={player.personaname} fill className="object-cover" />
-                    </div>
-                    <div>
-                        <h2 className="text-2xl font-bold text-white">{player.personaname}</h2>
-                        <p className="text-blue-400/70 text-sm">
-                            {player.personastate === 1 ? 'Online' : 'Offline'}
-                            {player.gameextrainfo && ` • In-Game: ${player.gameextrainfo}`}
-                        </p>
-                    </div>
-                </div>
+                <Card className="flex items-center gap-6 border-blue-500/30">
+                    <CardContent className="p-6 flex items-center gap-6 w-full pt-6">
+                        <div className="relative w-20 h-20 cyber-clip border border-blue-500/50">
+                            <Image src={player.avatarfull} alt={player.personaname} fill className="object-cover" />
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-bold text-white">{player.personaname}</h2>
+                            <p className="text-blue-400/70 text-sm">
+                                {player.personastate === 1 ? 'Online' : 'Offline'}
+                                {player.gameextrainfo && ` • In-Game: ${player.gameextrainfo}`}
+                            </p>
+                        </div>
+                    </CardContent>
+                </Card>
             )}
 
             {/* Game Mood Sync Tool */}
@@ -77,22 +80,25 @@ export async function SteamContainer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {recentGames && recentGames.length > 0 ? (
                         recentGames.map((game: SteamGame) => (
-                            <div key={game.appid} className="cyber-panel bg-surface p-4 flex gap-4 border-blue-500/20 hover:border-blue-500/50 transition-colors">
-                                <div className="relative w-24 h-12 shrink-0 bg-black cyber-clip-sm">
-                                    <Image 
-                                        src={`https://media.steampowered.com/steamcommunity/public/images/apps/${game.appid}/${game.img_logo_url}.jpg`} 
-                                        alt={game.name} 
-                                        fill 
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-col justify-center min-w-0">
-                                    <p className="text-sm font-bold text-white truncate">{game.name}</p>
-                                    <p className="text-xs text-blue-400/60">
-                                        {(game.playtime_2weeks / 60).toFixed(1)} hrs (past 2 weeks)
-                                    </p>
-                                </div>
-                            </div>
+                            <Card key={game.appid} className="border-blue-500/20 hover:border-blue-500/50 transition-colors">
+                                <CardContent className="p-4 flex gap-4 pt-4">
+                                    <div className="relative w-24 h-12 shrink-0 bg-black cyber-clip-sm">
+                                        <Image 
+                                            src={`https://media.steampowered.com/steamcommunity/public/images/apps/${game.appid}/${game.img_logo_url}.jpg`} 
+                                            alt={game.name} 
+                                            fill 
+                                            className="object-cover"
+                                            unoptimized
+                                        />
+                                    </div>
+                                    <div className="flex flex-col justify-center min-w-0">
+                                        <p className="text-sm font-bold text-white truncate">{game.name}</p>
+                                        <p className="text-xs text-blue-400/60">
+                                            {(game.playtime_2weeks / 60).toFixed(1)} hrs (past 2 weeks)
+                                        </p>
+                                    </div>
+                                </CardContent>
+                            </Card>
                         ))
                     ) : (
                         <p className="text-blue-400/50 text-sm">No recent activity detected.</p>
