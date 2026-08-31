@@ -14,22 +14,27 @@ export interface DBPlannerTask {
     updated_at: string;
 }
 
-export async function getPlannerTasks(date?: string) {
+export async function getPlannerTasks(date?: string, endDate?: string): Promise<DBPlannerTask[]> {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) return [];
 
-    const targetDate = date || new Date().toISOString().split('T')[0];
-
-    const query = supabase
+    let query = supabase
         .from('planner_tasks')
         .select('*')
-        .eq('user_id', user.id)
-        .eq('date', targetDate)
-        .order('created_at', { ascending: true });
+        .eq('user_id', user.id);
 
-    const { data, error } = await query;
+    if (date && endDate) {
+        query = query.gte('date', date).lte('date', endDate);
+    } else if (date) {
+        query = query.eq('date', date);
+    } else {
+        const today = new Date().toISOString().split('T')[0];
+        query = query.eq('date', today);
+    }
+
+    const { data, error } = await query.order('created_at', { ascending: true });
 
     if (error) {
         if (error.code === '42P01') {

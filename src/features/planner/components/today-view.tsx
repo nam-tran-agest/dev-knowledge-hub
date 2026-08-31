@@ -5,34 +5,50 @@ import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TimeTimeline } from './time-timeline';
 import { TaskItem } from './task-item';
-import { Plus, CheckCircle2, Activity, Terminal, Cloud } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { PlannerNavHeader } from './planner-nav-header';
+import { 
+    Plus, 
+    CheckCircle2, 
+    Activity, 
+    Terminal, 
+    ChevronLeft, 
+    ChevronRight, 
+    RotateCcw,
+    Clock,
+    LayoutGrid
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/card';
 
 export const TodayView = () => {
     const moveTask = usePlannerStore(state => state.moveTask);
     const addTask = usePlannerStore(state => state.addTask);
     const tasks = usePlannerStore(state => state.tasks);
     const schedules = usePlannerStore(state => state.schedules);
+    const selectedDate = usePlannerStore(state => state.selectedDate);
+    const setSelectedDate = usePlannerStore(state => state.setSelectedDate);
     const loadServerTasks = usePlannerStore(state => state.loadServerTasks);
-    const isSyncing = usePlannerStore(state => state.isSyncing);
 
-    const todayStr = new Date().toISOString().split('T')[0];
     const [isMounted, setIsMounted] = useState(false);
     const [newTaskTitle, setNewTaskTitle] = useState('');
-    const tNav = useTranslations('navigation.items.planner');
+    const [mobileTab, setMobileTab] = useState<'timeline' | 'buffer'>('timeline');
+
+    const realTodayStr = new Date().toISOString().split('T')[0];
+    const currentDateStr = selectedDate || realTodayStr;
+    const isToday = currentDateStr === realTodayStr;
 
     useEffect(() => {
         setIsMounted(true);
-        loadServerTasks(todayStr);
-    }, [todayStr, loadServerTasks]);
+        loadServerTasks(currentDateStr);
+    }, [currentDateStr, loadServerTasks]);
 
-    // SSR bailout for drag-and-drop
     if (!isMounted) return null;
 
-    const todaysTaskIds = schedules[todayStr]?.tasks || [];
-    const todaysTasks = todaysTaskIds.map(id => tasks[id]).filter(Boolean);
-    const unassignedTasks = todaysTasks.filter(t => !t.timeBlockId);
-    const completedCount = todaysTasks.filter(t => t.status === 'done').length;
+    const currentTaskIds = schedules[currentDateStr]?.tasks || [];
+    const currentTasks = currentTaskIds.map(id => tasks[id]).filter(Boolean);
+    const unassignedTasks = currentTasks.filter(t => !t.timeBlockId);
+    const scheduledTasks = currentTasks.filter(t => !!t.timeBlockId);
+    const completedCount = currentTasks.filter(t => t.status === 'done').length;
 
     const onDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
@@ -50,125 +66,215 @@ export const TodayView = () => {
             ? destination.droppableId.split('timeblock-')[1]
             : undefined;
 
-        moveTask(draggableId, undefined, newTimeBlockId);
+        moveTask(draggableId, currentDateStr, newTimeBlockId);
     };
 
     const handleAddTask = (e: React.FormEvent) => {
         e.preventDefault();
         if (!newTaskTitle.trim()) return;
-        addTask(newTaskTitle, todayStr);
+        addTask(newTaskTitle.trim(), currentDateStr);
         setNewTaskTitle('');
     };
 
+    const navigateDay = (offset: number) => {
+        const d = new Date(currentDateStr);
+        d.setDate(d.getDate() + offset);
+        setSelectedDate(d.toISOString().split('T')[0]);
+    };
+
+    const formattedDate = new Date(currentDateStr + 'T00:00:00').toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8 min-h-[85vh] pt-24 pb-12 px-4 sm:px-6">
+        <div className="w-full max-w-[1400px] mx-auto min-h-[85vh] pt-24 pb-12 px-4 sm:px-6 font-mono text-white">
+            {/* View Selector Header */}
+            <PlannerNavHeader />
 
-                {/* Left Column: Timeline Control Deck */}
-                <div className="flex-[2] cyber-panel p-6 sm:p-8 relative overflow-hidden flex flex-col max-h-[82vh]">
-                    {/* Corner Brackets */}
-                    <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
-                    
-                    {/* Header Tag */}
-                    <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold flex items-center gap-1.5">
-                        <Cloud className={`w-3 h-3 ${isSyncing ? 'animate-pulse text-cyan-400' : 'text-emerald-400'}`} />
-                        <span>{isSyncing ? '// SYNCING_CLOUD' : '// CLOUD_SYNCED'}</span>
+            {/* Date Control Deck & Action Bar */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 p-4 bg-surface-deep/90 border border-primary/20 cyber-clip backdrop-blur-md">
+                {/* Date Controls */}
+                <div className="flex items-center gap-2">
+                    <button
+                        type="button"
+                        onClick={() => navigateDay(-1)}
+                        className="p-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary cyber-clip-button cursor-pointer transition-colors"
+                        title="Previous Day"
+                    >
+                        <ChevronLeft className="w-4 h-4" />
+                    </button>
+
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-surface border border-primary/40 cyber-clip-button">
+                        <span className="text-sm font-bold text-white uppercase tracking-wider">
+                            {formattedDate}
+                        </span>
+                        {isToday && (
+                            <span className="text-[10px] bg-primary text-black font-bold px-1.5 py-0.2 cyber-clip-button">
+                                TODAY
+                            </span>
+                        )}
                     </div>
 
-                    <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-primary/20 pb-4">
-                        <div>
-                            <h2 className="text-2xl sm:text-3xl font-mono font-bold text-white uppercase tracking-wider flex items-center gap-3">
-                                {tNav('items.today')}
-                                <span suppressHydrationWarning className="text-xs font-mono font-semibold px-2.5 py-0.5 cyber-clip-button bg-primary/15 border border-primary/40 text-primary">
-                                    [ {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} ]
-                                </span>
-                            </h2>
-                            <p className="text-slate-300 font-mono text-xs mt-1 uppercase tracking-wide">
-                                // Schedule high-impact execution blocks
-                            </p>
-                        </div>
+                    <button
+                        type="button"
+                        onClick={() => navigateDay(1)}
+                        className="p-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary cyber-clip-button cursor-pointer transition-colors"
+                        title="Next Day"
+                    >
+                        <ChevronRight className="w-4 h-4" />
+                    </button>
 
-                        {/* Telemetry Progress Pill */}
-                        <div className="flex items-center gap-2 font-mono text-xs text-primary/80 bg-primary/10 border border-primary/30 px-3 py-1.5 cyber-clip-button w-fit">
-                            <Activity className="w-3.5 h-3.5 text-primary animate-pulse" />
-                            <span>COMPLETED: {completedCount}/{todaysTasks.length}</span>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">
-                        <TimeTimeline />
-                    </div>
+                    {!isToday && (
+                        <button
+                            type="button"
+                            onClick={() => setSelectedDate(realTodayStr)}
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/15 hover:bg-primary text-primary hover:text-black border border-primary/40 cyber-clip-button text-xs transition-colors cursor-pointer ml-2"
+                        >
+                            <RotateCcw className="w-3 h-3" />
+                            <span>JUMP_TODAY</span>
+                        </button>
+                    )}
                 </div>
 
-                {/* Right Column: Task Queue Backlog */}
-                <div className="flex-1 cyber-panel p-6 sm:p-8 flex flex-col max-h-[82vh] relative overflow-hidden">
-                    {/* Corner Brackets */}
-                    <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
-                    
-                    {/* Header Tag */}
-                    <div className="absolute top-4 right-6 px-3 py-1 bg-primary/10 border border-primary/30 cyber-clip-tag text-[10px] uppercase tracking-widest text-primary font-mono font-bold">
-                        // SYS_TASK_QUEUE
+                {/* Progress & Metrics */}
+                <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-2 text-xs text-primary/80 bg-primary/10 border border-primary/30 px-3 py-1.5 cyber-clip-button">
+                        <Clock className="w-3.5 h-3.5 text-primary" />
+                        <span>SCHEDULED: {scheduledTasks.length} HRS</span>
                     </div>
 
-                    <div className="mb-6 border-b border-primary/20 pb-4">
-                        <h3 className="text-lg font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                            <Terminal className="w-4 h-4 text-primary" />
-                            Task Buffer
-                        </h3>
-                        <p className="text-[10px] font-mono text-slate-300 mt-1 uppercase tracking-wide">
-                            // Unassigned tasks waiting for allocation
-                        </p>
+                    <div className="flex items-center gap-2 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 cyber-clip-button">
+                        <Activity className="w-3.5 h-3.5 animate-cyber-pulse-slow" />
+                        <span>DONE: {completedCount}/{currentTasks.length}</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile View Switcher */}
+            <div className="flex lg:hidden mb-4 border border-primary/30 cyber-clip p-1 bg-surface-deep">
+                <button
+                    type="button"
+                    onClick={() => setMobileTab('timeline')}
+                    className={cn(
+                        "flex-1 py-2 text-xs uppercase tracking-wider font-bold cyber-clip-button transition-all",
+                        mobileTab === 'timeline' ? "bg-primary text-black" : "text-primary/70"
+                    )}
+                >
+                    Timeline ({scheduledTasks.length})
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setMobileTab('buffer')}
+                    className={cn(
+                        "flex-1 py-2 text-xs uppercase tracking-wider font-bold cyber-clip-button transition-all",
+                        mobileTab === 'buffer' ? "bg-primary text-black" : "text-primary/70"
+                    )}
+                >
+                    Task Buffer ({unassignedTasks.length})
+                </button>
+            </div>
+
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div className="flex flex-col lg:flex-row gap-6 min-h-[75vh]">
+
+                    {/* Left Column: Timeline Control Deck */}
+                    <div className={cn(
+                        "flex-[2] flex flex-col",
+                        mobileTab === 'buffer' ? "hidden lg:flex" : "flex"
+                    )}>
+                        <Card className="flex-1 flex flex-col p-5 sm:p-6 relative overflow-hidden border-primary/30">
+                            <div className="flex items-center justify-between border-b border-primary/20 pb-3 mb-4">
+                                <div className="space-y-0.5">
+                                    <h3 className="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                                        <LayoutGrid className="w-4 h-4 text-primary" />
+                                        SCHEDULE MATRIX
+                                    </h3>
+                                    <p className="text-[10px] text-primary/60 uppercase">
+                                        // Drag items into hourly slots or click + to add directly
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 max-h-[70vh]">
+                                <TimeTimeline />
+                            </div>
+                        </Card>
                     </div>
 
-                    {/* Add Task Input */}
-                    <form onSubmit={handleAddTask} className="mb-6 relative">
-                        <input
-                            type="text"
-                            value={newTaskTitle}
-                            onChange={(e) => setNewTaskTitle(e.target.value)}
-                            placeholder="INPUT_TASK_TITLE..."
-                            className="w-full bg-surface-deep/90 border border-primary/30 cyber-clip-button px-4 py-2.5 text-xs font-mono text-white placeholder:text-primary/40 focus:outline-none focus:border-primary focus:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all pr-12"
-                        />
-                        <button
-                            type="submit"
-                            disabled={!newTaskTitle.trim()}
-                            className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 cyber-clip-button bg-primary/20 hover:bg-primary text-primary hover:text-black border border-primary/40 disabled:opacity-30 transition-all cursor-pointer"
-                        >
-                            <Plus className="w-4 h-4" />
-                        </button>
-                    </form>
+                    {/* Right Column: Task Queue Buffer */}
+                    <div className={cn(
+                        "flex-1 flex flex-col",
+                        mobileTab === 'timeline' ? "hidden lg:flex" : "flex"
+                    )}>
+                        <Card className="flex-1 flex flex-col p-5 sm:p-6 relative overflow-hidden border-primary/30">
+                            <div className="flex items-center justify-between border-b border-primary/20 pb-3 mb-4">
+                                <div className="space-y-0.5">
+                                    <h3 className="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                                        <Terminal className="w-4 h-4 text-primary" />
+                                        TASK BUFFER ({unassignedTasks.length})
+                                    </h3>
+                                    <p className="text-[10px] text-primary/60 uppercase">
+                                        // Unallocated tasks for {isToday ? 'Today' : formattedDate}
+                                    </p>
+                                </div>
+                            </div>
 
-                    <Droppable droppableId="unassigned-tasks">
-                        {(provided, snapshot) => (
-                            <div
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                                className={`flex-1 overflow-y-auto custom-scrollbar min-h-[120px] cyber-clip transition-all p-1.5 ${
-                                    snapshot.isDraggingOver ? 'bg-primary/10 border border-primary/50 shadow-[0_0_20px_rgba(0,240,255,0.2)]' : ''
-                                }`}
-                            >
-                                {unassignedTasks.map((task, index) => (
-                                    <TaskItem key={task.id} task={task} index={index} />
-                                ))}
-                                {provided.placeholder}
+                            {/* Quick Add Task Input */}
+                            <form onSubmit={handleAddTask} className="mb-4 relative">
+                                <input
+                                    type="text"
+                                    value={newTaskTitle}
+                                    onChange={(e) => setNewTaskTitle(e.target.value)}
+                                    placeholder="Add task to buffer..."
+                                    className="w-full bg-surface-deep/95 border border-primary/30 cyber-clip-button px-3.5 py-2 text-xs font-mono text-white placeholder:text-primary/40 focus:outline-none focus:border-primary focus:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all pr-10"
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={!newTaskTitle.trim()}
+                                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 cyber-clip-button bg-primary/20 hover:bg-primary text-primary hover:text-black border border-primary/40 disabled:opacity-30 transition-all cursor-pointer"
+                                >
+                                    <Plus className="w-3.5 h-3.5" />
+                                </button>
+                            </form>
 
-                                {unassignedTasks.length === 0 && !snapshot.isDraggingOver && (
-                                    <div className="h-full flex flex-col items-center justify-center text-primary/40 gap-3 border border-dashed border-primary/20 cyber-clip-button p-6 relative overflow-hidden">
-                                        <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
-                                        <div className="w-10 h-10 cyber-clip-button bg-primary/10 border border-primary/30 flex items-center justify-center">
-                                            <CheckCircle2 className="w-5 h-5 text-primary/70" />
-                                        </div>
-                                        <p className="text-[10px] font-mono uppercase tracking-widest text-center text-primary/60">
-                                            [ BUFFER_EMPTY ]
-                                        </p>
+                            {/* Droppable Task Buffer */}
+                            <Droppable droppableId="unassigned-tasks">
+                                {(provided, snapshot) => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps}
+                                        className={cn(
+                                            "flex-1 overflow-y-auto custom-scrollbar min-h-[160px] cyber-clip transition-all p-2 max-h-[60vh]",
+                                            snapshot.isDraggingOver ? "bg-primary/10 border border-primary/50 shadow-[0_0_20px_rgba(0,240,255,0.2)]" : ""
+                                        )}
+                                    >
+                                        {unassignedTasks.map((task, index) => (
+                                            <TaskItem key={task.id} task={task} index={index} />
+                                        ))}
+                                        {provided.placeholder}
+
+                                        {unassignedTasks.length === 0 && !snapshot.isDraggingOver && (
+                                            <div className="h-44 flex flex-col items-center justify-center text-primary/40 gap-2 border border-dashed border-primary/20 cyber-clip p-4 text-center">
+                                                <CheckCircle2 className="w-6 h-6 text-primary/60" />
+                                                <p className="text-[10px] uppercase tracking-widest text-primary/60">
+                                                    [ BUFFER IS EMPTY ]
+                                                </p>
+                                                <p className="text-[9px] text-slate-400 max-w-[200px]">
+                                                    All tasks scheduled or done. Type above to add more.
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
-                            </div>
-                        )}
-                    </Droppable>
-                </div>
+                            </Droppable>
+                        </Card>
+                    </div>
 
-            </div>
-        </DragDropContext>
+                </div>
+            </DragDropContext>
+        </div>
     );
 };
