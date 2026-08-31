@@ -137,14 +137,20 @@ Tất cả màu sắc và hiệu ứng giao diện đều tuân theo chuẩn **S
 
 ```bash
 # 1. Khởi chạy môi trường phát triển
-npm run dev
+yarn dev
 
-# 2. Kiểm tra lỗi cú pháp và quy chuẩn TypeScript / ESLint
-npm run lint
+# 2. Kiểm tra toàn diện cả TypeScript (tsc) và ESLint (lint)
+yarn check
 
-# 3. Build production (Tự động chạy script cập nhật MH Wilds data trước khi build Next.js)
-npm run build
+# 3. Chỉ kiểm tra kiểu TypeScript
+yarn type-check
 
-# 4. Preview OpenNext Cloudflare build
-npm run preview
+# 4. Chỉ kiểm tra ESLint
+yarn lint
+
+# 5. Build production (Tự động chạy script cập nhật MH Wilds data trước khi build Next.js)
+yarn build
+
+# 6. Preview OpenNext Cloudflare build
+yarn preview
 ```
