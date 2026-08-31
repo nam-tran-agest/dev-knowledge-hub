@@ -1,35 +1,40 @@
 {
-    "fallbackPlaylistUri": "spotify:playlist:37i9dQZF1DWTyiBJ6yEqeu", 
+    "fallbackQueries": ["gaming mix", "epic gaming music", "background gaming", "gaming beats"], 
     "mappings": [
         {
             "vibe": "Cyberpunk / Sci-Fi",
-            "tags": ["Sci-fi", "Cyberpunk", "Space", "Mechs", "Futuristic"],
-            "playlistUri": "spotify:playlist:37i9dQZF1DXdLEN7aqioJC"
+            "tags": ["Sci-fi", "Cyberpunk", "Space", "Mechs", "Futuristic", "Post-apocalyptic"],
+            "searchQueries": ["synthwave", "cyberpunk mix", "dark synth", "sci-fi soundtrack", "darksynth"]
         },
         {
             "vibe": "Chill / Cozy",
-            "tags": ["Cozy", "Farming Sim", "Life Sim", "Relaxing", "Casual", "City Builder"],
-            "playlistUri": "spotify:playlist:37i9dQZF1DWWQRwui0ExPn"
+            "tags": ["Cozy", "Farming Sim", "Life Sim", "Relaxing", "Casual", "City Builder", "Puzzle"],
+            "searchQueries": ["lofi gaming", "cozy gaming", "chill beats", "stardew valley vibes", "relaxing gaming", "lofi chill"]
         },
         {
             "vibe": "Hardcore / Shooter",
-            "tags": ["FPS", "Shooter", "Gore", "Competitive", "Action", "Violent", "Fast-Paced"],
-            "playlistUri": "spotify:playlist:37i9dQZF1DX3oM43CtZ22L"
+            "tags": ["FPS", "Shooter", "Gore", "Competitive", "Action", "Violent", "Fast-Paced", "Hero Shooter"],
+            "searchQueries": ["gaming edm", "hype gaming", "doom soundtrack", "action gaming rock", "bass boosted gaming"]
         },
         {
             "vibe": "Fantasy / RPG",
-            "tags": ["RPG", "Fantasy", "Magic", "Medieval", "Open World", "Adventure", "Story Rich"],
-            "playlistUri": "spotify:playlist:37i9dQZF1DXaW8vfQEjesq"
+            "tags": ["RPG", "Fantasy", "Magic", "Medieval", "Open World", "Adventure", "Story Rich", "Souls-like"],
+            "searchQueries": ["epic orchestral", "fantasy tavern", "rpg soundtrack", "epic gaming", "witcher vibes"]
         },
         {
             "vibe": "Horror / Dark",
-            "tags": ["Horror", "Psychological Horror", "Survival Horror", "Dark", "Zombies"],
-            "playlistUri": "spotify:playlist:37i9dQZF1DX1s9knjP51Oa"
+            "tags": ["Horror", "Psychological Horror", "Survival Horror", "Dark", "Zombies", "Lovecraftian"],
+            "searchQueries": ["creepy ambient", "dark ambient", "horror soundtrack", "suspense music", "spooky gaming"]
         },
         {
             "vibe": "Racing / Sports",
             "tags": ["Racing", "Sports", "Driving", "Football", "Automobile Sim"],
-            "playlistUri": "spotify:playlist:37i9dQZF1DX70rn3T7HOAQ"
+            "searchQueries": ["racing beats", "need for speed soundtrack", "sports hype", "driving phonk", "eurobeat"]
+        },
+        {
+            "vibe": "Strategy / Tactical",
+            "tags": ["Strategy", "Tactical", "Turn-Based", "Grand Strategy", "RTS"],
+            "searchQueries": ["focus music", "deep focus gaming", "strategy soundtrack", "cinematic ambient"]
         }
     ]
 }

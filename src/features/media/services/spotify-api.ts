@@ -106,3 +106,20 @@ export async function playSpotifyContext(accessToken: string, contextUri: string
     return { success: true };
 }
 
+
+export async function searchSpotifyPlaylists(accessToken: string, query: string) {
+    const params = new URLSearchParams({
+        q: query,
+        type: 'playlist',
+        limit: '15'
+    });
+    const response = await fetch(`https://api.spotify.com/v1/search?${params.toString()}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+
+    if (!response.ok) return [];
+    const data = await response.json();
+    return data.playlists?.items || [];
+}
