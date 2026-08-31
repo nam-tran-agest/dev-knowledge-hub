@@ -44,6 +44,23 @@ export function getYoutubeThumbnail(videoId: string): string {
 }
 
 /**
+ * Extracts a YouTube playlist ID from various URL formats or direct IDs.
+ */
+export function extractCleanPlaylistId(urlOrId: string): string {
+    if (!urlOrId) return '';
+    const clean = urlOrId.trim();
+    // Direct playlist ID (starts with PL, RD, UU, FL, etc.)
+    if (/^[a-zA-Z0-9_-]{12,}$/.test(clean) && (clean.startsWith('PL') || clean.startsWith('UU') || clean.startsWith('FL') || clean.startsWith('RD') || clean.startsWith('OLAK5uy_'))) {
+        return clean;
+    }
+    const match = clean.match(/[?&]list=([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+        return match[1];
+    }
+    return '';
+}
+
+/**
  * Generates a privacy-enhanced YouTube embed URL.
  */
 export function getYoutubeEmbedUrl(videoId: string, startTime: number = 0): string {

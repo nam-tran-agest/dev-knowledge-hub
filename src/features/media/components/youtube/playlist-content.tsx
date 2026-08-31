@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { VideoCard } from './video-card';
-import { PlaylistVideoModal } from './playlist-video-modal';
 import { removeVideoFromPlaylist, addVideoToPlaylist } from '@/features/media/services/youtube';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import type { SavedVideo, SavedPlaylist } from '@/features/media/types';
+import { useYouTubePlayerStore } from '@/features/media/store/useYouTubePlayerStore';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { ListPlus, Search, LayoutGrid, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -24,7 +24,6 @@ interface PlaylistContentProps {
 
 export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos }: PlaylistContentProps) {
     const t = useTranslations('media.youtube.playlist');
-    const [selectedVideo, setSelectedVideo] = useState<SavedVideo | null>(null);
     const [videoIdToRemove, setVideoIdToRemove] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [isAddingMode, setIsAddingMode] = useState(false);
@@ -142,7 +141,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                     <VideoCard
                         key={video.id}
                         video={video}
-                        onSelect={setSelectedVideo}
+                        onSelect={(v) => useYouTubePlayerStore.getState().playVideo(v, true)}
                         onDelete={(id) => setVideoIdToRemove(id)}
                         onToggleFavorite={async (e, v) => {
                             e.stopPropagation();
@@ -158,14 +157,6 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                     />
                 ))}
             </div>
-
-            <PlaylistVideoModal
-                isOpen={!!selectedVideo}
-                video={selectedVideo}
-                onClose={() => setSelectedVideo(null)}
-                playlistVideos={videos}
-                onSelectVideo={setSelectedVideo}
-            />
 
             <AlertDialog open={!!videoIdToRemove} onOpenChange={(open) => !open && setVideoIdToRemove(null)}>
                 <AlertDialogContent tag="REMOVE_FROM_PLAYLIST">

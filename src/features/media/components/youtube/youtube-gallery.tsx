@@ -4,18 +4,19 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations, useFormatter } from 'next-intl';
 
-import { Plus, Clock, ListVideo, Heart } from 'lucide-react';
-import { VideoModal } from './video-modal';
+import { Plus, Clock, ListVideo, Heart, ListPlus } from 'lucide-react';
 import { VideoCard } from './video-card';
 import { PlaylistCard } from './playlist-card';
 import { CreatePlaylistDialog } from './create-playlist-dialog';
 import { EditPlaylistDialog } from './edit-playlist-dialog';
 import { AddToPlaylistDialog } from './add-to-playlist-dialog';
+import { ImportPlaylistDialog } from './import-playlist-dialog';
 import { YouTubeSearchBar } from './youtube-search-bar';
 import { YouTubeEmptyState } from './youtube-empty-state';
 import { YouTubeDeleteDialog } from './youtube-delete-dialog';
 import type { SavedVideo, SavedPlaylist } from '@/features/media/types';
 import { addVideo, deleteVideo, toggleFavorite, deletePlaylist, togglePlaylistFavorite } from '@/features/media/services/youtube';
+import { useYouTubePlayerStore } from '@/features/media/store/useYouTubePlayerStore';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { isToday, isYesterday } from 'date-fns';
@@ -28,15 +29,16 @@ interface YouTubeGalleryProps {
 export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
     const t = useTranslations('media.youtube');
     const format = useFormatter();
-    const [selectedVideo, setSelectedVideo] = useState<SavedVideo | null>(null);
     const [videoToDelete, setVideoToDelete] = useState<string | null>(null);
     const [playlistToDelete, setPlaylistToDelete] = useState<string | null>(null);
     const [videoIdToAdd, setVideoIdToAdd] = useState<string | null>(null);
     const [isCreatePlaylistOpen, setIsCreatePlaylistOpen] = useState(false);
+    const [isImportPlaylistOpen, setIsImportPlaylistOpen] = useState(false);
     const [playlistToEdit, setPlaylistToEdit] = useState<SavedPlaylist | null>(null);
     const [url, setUrl] = useState('');
     const [isAdding, setIsAdding] = useState(false);
     const router = useRouter();
+    const playVideo = useYouTubePlayerStore(state => state.playVideo);
 
     const favoriteVideos = videos.filter(v => v.is_favorite);
     const favoritePlaylists = playlists.filter(p => p.is_favorite);
@@ -131,7 +133,7 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                                 <VideoCard
                                     key={video.id}
                                     video={video}
-                                    onSelect={setSelectedVideo}
+                                    onSelect={(v) => playVideo(v, true)}
                                     onDelete={(id) => setVideoToDelete(id)}
                                     onToggleFavorite={handleToggleVideoFavorite}
                                     playlists={playlists}
@@ -174,14 +176,24 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                         </TabsTrigger>
                     </TabsList>
 
-                    <Button
-                        onClick={() => setIsCreatePlaylistOpen(true)}
-                        variant="outline"
-                        className="bg-primary/10 border-primary/40 hover:bg-primary/20 text-primary gap-2 h-10 px-5 cyber-clip-button transition-all w-full sm:w-auto cursor-pointer font-mono text-xs uppercase tracking-wider"
-                    >
-                        <Plus className="w-4 h-4" />
-                        [ + {t('actions.createPlaylist')} ]
-                    </Button>
+                    <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                        <Button
+                            onClick={() => setIsImportPlaylistOpen(true)}
+                            variant="outline"
+                            className="bg-emerald-500/10 border-emerald-500/40 hover:bg-emerald-500/20 text-emerald-300 gap-1.5 h-10 px-4 cyber-clip-button transition-all flex-1 sm:flex-initial cursor-pointer font-mono text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+                        >
+                            <ListPlus className="w-4 h-4 text-emerald-400" />
+                            <span>[ + IMPORT_PLAYLIST ]</span>
+                        </Button>
+                        <Button
+                            onClick={() => setIsCreatePlaylistOpen(true)}
+                            variant="outline"
+                            className="bg-primary/10 border-primary/40 hover:bg-primary/20 text-primary gap-1.5 h-10 px-4 cyber-clip-button transition-all flex-1 sm:flex-initial cursor-pointer font-mono text-xs uppercase tracking-wider"
+                        >
+                            <Plus className="w-4 h-4" />
+                            <span>[ + {t('actions.createPlaylist')} ]</span>
+                        </Button>
+                    </div>
                 </div>
 
                 <TabsContent value="recent" className="mt-0">
@@ -258,12 +270,6 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
                 </TabsContent>
             </Tabs>
 
-            <VideoModal
-                isOpen={!!selectedVideo}
-                onClose={() => setSelectedVideo(null)}
-                video={selectedVideo}
-            />
-
             <YouTubeDeleteDialog
                 isOpen={!!videoToDelete || !!playlistToDelete}
                 onClose={() => { setVideoToDelete(null); setPlaylistToDelete(null); }}
@@ -277,6 +283,10 @@ export function YouTubeGallery({ videos, playlists }: YouTubeGalleryProps) {
             <CreatePlaylistDialog
                 open={isCreatePlaylistOpen}
                 onOpenChange={setIsCreatePlaylistOpen}
+            />
+            <ImportPlaylistDialog
+                isOpen={isImportPlaylistOpen}
+                onClose={() => setIsImportPlaylistOpen(false)}
             />
             <EditPlaylistDialog
                 open={!!playlistToEdit}

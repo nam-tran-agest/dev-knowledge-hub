@@ -452,3 +452,157 @@ export async function togglePlaylistFavorite(id: string, isFavorite: boolean) {
 
     revalidatePath('/media/youtube');
 }
+
+interface RawYouTubePlaylistItem {
+    id?: string;
+    'yt:videoId'?: string;
+    title?: string;
+    author?: { name?: string };
+    'media:group'?: {
+        'media:title'?: string;
+        'media:thumbnail'?: { '@_url'?: string };
+        'media:description'?: string;
+    };
+}
+
+interface ParsedYouTubePlaylistFeed {
+    feed?: {
+        title?: string;
+        author?: { name?: string };
+        entry?: RawYouTubePlaylistItem | RawYouTubePlaylistItem[];
+    };
+}
+
+export async function importYouTubePlaylist(urlOrId: string): Promise<{ success: boolean; playlistId?: string; videoCount?: number; message?: string }> {
+    const { extractCleanPlaylistId } = await import('../utils/youtube');
+    const { XMLParser } = await import('fast-xml-parser');
+
+    const playlistId = extractCleanPlaylistId(urlOrId);
+    if (!playlistId) {
+        return { success: false, message: 'Invalid YouTube playlist URL or ID. Make sure it contains "list=PL..."' };
+    }
+
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        return { success: false, message: 'User not authenticated' };
+    }
+
+    try {
+        const feedUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
+        const res = await fetch(feedUrl, { next: { revalidate: 0 } });
+        if (!res.ok) {
+            return { success: false, message: 'Failed to fetch playlist from YouTube. Please ensure the playlist is Public or Unlisted.' };
+        }
+
+        const xmlText = await res.text();
+        const parser = new XMLParser({
+            ignoreAttributes: false,
+            attributeNamePrefix: '@_'
+        });
+        const result = parser.parse(xmlText) as ParsedYouTubePlaylistFeed;
+
+        const feed = result?.feed;
+        if (!feed) {
+            return { success: false, message: 'Invalid playlist feed data received from YouTube.' };
+        }
+
+        const playlistTitle = feed.title || `Imported Playlist ${playlistId.slice(0, 6)}`;
+        const authorName = feed.author?.name || 'YouTube';
+
+        const rawEntries = Array.isArray(feed.entry) ? feed.entry : (feed.entry ? [feed.entry] : []);
+        if (rawEntries.length === 0) {
+            return { success: false, message: 'Playlist contains no videos.' };
+        }
+
+        // First video thumbnail as playlist cover
+        const firstEntry = rawEntries[0];
+        const firstVideoId = firstEntry['yt:videoId'] || '';
+        const playlistThumbnail = firstEntry['media:group']?.['media:thumbnail']?.['@_url'] || (firstVideoId ? `https://img.youtube.com/vi/${firstVideoId}/maxresdefault.jpg` : null);
+
+        // 1. Create Playlist
+        const { data: createdPlaylist, error: plError } = await supabase
+            .from('youtube_playlists')
+            .insert({
+                user_id: user.id,
+                title: playlistTitle,
+                description: `Imported from YouTube (${authorName}) • ${rawEntries.length} videos`,
+                thumbnail_url: playlistThumbnail,
+                is_favorite: false
+            })
+            .select()
+            .single();
+
+        if (plError || !createdPlaylist) {
+            return { success: false, message: plError?.message || 'Failed to create playlist in database.' };
+        }
+
+        // 2. Insert videos and connect items
+        let addedCount = 0;
+        for (let i = 0; i < rawEntries.length; i++) {
+            const entry = rawEntries[i];
+            const videoId = entry['yt:videoId'];
+            if (!videoId) continue;
+
+            const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+            const videoTitle = entry.title || entry['media:group']?.['media:title'] || `Video ${videoId}`;
+            const videoThumbnail = entry['media:group']?.['media:thumbnail']?.['@_url'] || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+            // Check if video already exists
+            let savedVideoId: string | null = null;
+            const { data: existingVideo } = await supabase
+                .from('youtube_videos')
+                .select('id')
+                .eq('user_id', user.id)
+                .eq('url', videoUrl)
+                .single();
+
+            if (existingVideo) {
+                savedVideoId = existingVideo.id;
+            } else {
+                const { data: newVideo } = await supabase
+                    .from('youtube_videos')
+                    .insert({
+                        user_id: user.id,
+                        url: videoUrl,
+                        title: videoTitle,
+                        thumbnail_url: videoThumbnail,
+                        saved_time: 0,
+                        is_favorite: false
+                    })
+                    .select('id')
+                    .single();
+
+                if (newVideo) {
+                    savedVideoId = newVideo.id;
+                }
+            }
+
+            if (savedVideoId) {
+                await supabase
+                    .from('youtube_playlist_items')
+                    .insert({
+                        user_id: user.id,
+                        playlist_id: createdPlaylist.id,
+                        video_id: savedVideoId,
+                        position: i
+                    });
+                addedCount++;
+            }
+        }
+
+        revalidatePath('/media/youtube');
+        return {
+            success: true,
+            playlistId: createdPlaylist.id,
+            videoCount: addedCount,
+            message: `Successfully imported "${playlistTitle}" with ${addedCount} videos!`
+        };
+    } catch (err: unknown) {
+        console.error('Import playlist failed:', err);
+        return {
+            success: false,
+            message: err instanceof Error ? err.message : 'Unknown error occurred during playlist import.'
+        };
+    }
+}
