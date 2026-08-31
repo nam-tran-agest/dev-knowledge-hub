@@ -2,6 +2,7 @@ import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed } from '@
 import { Button } from '@/components/ui/button';
 import { Gamepad2, Activity } from 'lucide-react';
 import Image from 'next/image';
+import { GameMoodSync } from './game-mood-sync';
 
 interface SteamGame {
     appid: number;
@@ -66,6 +67,9 @@ export async function SteamContainer() {
                     </div>
                 </div>
             )}
+
+            {/* Game Mood Sync Tool */}
+            <GameMoodSync />
 
             {/* Recent Games */}
             <div className="space-y-4">

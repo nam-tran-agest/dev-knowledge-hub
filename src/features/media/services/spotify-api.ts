@@ -8,7 +8,9 @@ const SCOPES = [
     'user-read-email',
     'user-top-read',
     'playlist-read-private',
-    'playlist-read-collaborative'
+    'playlist-read-collaborative',
+    'user-modify-playback-state',
+    'user-read-playback-state'
 ].join(' ');
 
 export function getSpotifyAuthUrl() {
@@ -83,3 +85,24 @@ export async function spotifyFetch(endpoint: string, accessToken: string) {
 
     return response.json();
 }
+
+export async function playSpotifyContext(accessToken: string, contextUri: string) {
+    const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ context_uri: contextUri })
+    });
+
+    if (!response.ok && response.status !== 204) {
+        // 404 means no active device found
+        if (response.status === 404) return { error: 'NO_ACTIVE_DEVICE' };
+        const error = await response.json().catch(() => ({}));
+        console.error('Spotify Playback Error:', error);
+        throw new Error('Failed to play context');
+    }
+    return { success: true };
+}
+

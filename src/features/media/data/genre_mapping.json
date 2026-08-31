@@ -1,0 +1,35 @@
+{
+    "fallbackPlaylistUri": "spotify:playlist:37i9dQZF1DWTyiBJ6yEqeu", 
+    "mappings": [
+        {
+            "vibe": "Cyberpunk / Sci-Fi",
+            "tags": ["Sci-fi", "Cyberpunk", "Space", "Mechs", "Futuristic"],
+            "playlistUri": "spotify:playlist:37i9dQZF1DXdLEN7aqioJC"
+        },
+        {
+            "vibe": "Chill / Cozy",
+            "tags": ["Cozy", "Farming Sim", "Life Sim", "Relaxing", "Casual", "City Builder"],
+            "playlistUri": "spotify:playlist:37i9dQZF1DWWQRwui0ExPn"
+        },
+        {
+            "vibe": "Hardcore / Shooter",
+            "tags": ["FPS", "Shooter", "Gore", "Competitive", "Action", "Violent", "Fast-Paced"],
+            "playlistUri": "spotify:playlist:37i9dQZF1DX3oM43CtZ22L"
+        },
+        {
+            "vibe": "Fantasy / RPG",
+            "tags": ["RPG", "Fantasy", "Magic", "Medieval", "Open World", "Adventure", "Story Rich"],
+            "playlistUri": "spotify:playlist:37i9dQZF1DXaW8vfQEjesq"
+        },
+        {
+            "vibe": "Horror / Dark",
+            "tags": ["Horror", "Psychological Horror", "Survival Horror", "Dark", "Zombies"],
+            "playlistUri": "spotify:playlist:37i9dQZF1DX1s9knjP51Oa"
+        },
+        {
+            "vibe": "Racing / Sports",
+            "tags": ["Racing", "Sports", "Driving", "Football", "Automobile Sim"],
+            "playlistUri": "spotify:playlist:37i9dQZF1DX70rn3T7HOAQ"
+        }
+    ]
+}
