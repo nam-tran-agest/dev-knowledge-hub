@@ -17,24 +17,25 @@ export async function SteamContainer() {
 
     if (!steamId) {
         return (
-            <div className="flex flex-col items-center justify-center p-6 space-y-8 h-full min-h-[60vh] relative overflow-hidden">
-                <div className="absolute inset-0 bg-grid-cyber opacity-15 pointer-events-none" />
-                <div className="p-6 cyber-clip-lg bg-blue-500/10 border border-blue-500/40 shadow-[0_0_40px_rgba(59,130,246,0.2)]">
-                    <Gamepad2 className="h-16 w-16 text-blue-400 animate-pulse" />
-                </div>
-                <div className="text-center space-y-3 max-w-md">
-                    <h1 className="text-2xl sm:text-3xl font-mono font-extrabold uppercase tracking-wider text-white">
-                        STEAM_INTEGRATION_REQUIRED
-                    </h1>
-                    <p className="text-blue-400/60 font-mono text-xs uppercase leading-relaxed">
-                        // Connect your Steam profile to sync gaming activity and telemetry data into the hub.
-                    </p>
-                </div>
-                <Button asChild className="bg-blue-600 text-white font-mono font-bold uppercase tracking-wider h-12 px-8 cyber-clip-button shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:bg-blue-500 cursor-pointer">
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                    <a href="/api/auth/steam">[ CONNECT_STEAM_ACCOUNT ]</a>
-                </Button>
-            </div>
+            <Card className="flex flex-col items-center justify-center p-6 space-y-8 h-full min-h-[60vh] border-blue-500/20">
+                <CardContent className="flex flex-col items-center justify-center pt-6 space-y-8">
+                    <div className="p-6 cyber-clip-lg bg-blue-500/10 border border-blue-500/40 glow-cyan">
+                        <Gamepad2 className="h-16 w-16 text-blue-400 animate-cyber-pulse-slow" />
+                    </div>
+                    <div className="text-center space-y-3 max-w-md">
+                        <h1 className="text-2xl sm:text-3xl font-mono font-extrabold uppercase tracking-wider text-glow-cyan text-white">
+                            STEAM_INTEGRATION_REQUIRED
+                        </h1>
+                        <p className="text-blue-400/60 font-mono text-xs uppercase leading-relaxed">
+                            // Connect your Steam profile to sync gaming activity and telemetry data into the hub.
+                        </p>
+                    </div>
+                    <Button asChild variant="cta" className="h-12 px-8">
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                        <a href="/api/auth/steam">[ CONNECT_STEAM_ACCOUNT ]</a>
+                    </Button>
+                </CardContent>
+            </Card>
         );
     }
 
