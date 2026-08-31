@@ -3,8 +3,9 @@
 import React from 'react';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-import { Calendar, CalendarDays, Inbox, Cloud } from 'lucide-react';
+import { Calendar, CalendarDays, Inbox, Cloud, Radio } from 'lucide-react';
 import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
+import { usePlannerRealtime } from '../hooks/use-planner-realtime';
 
 const TABS = [
     {
@@ -33,6 +34,7 @@ const TABS = [
 export const PlannerNavHeader: React.FC = () => {
     const pathname = usePathname();
     const isSyncing = usePlannerStore(state => state.isSyncing);
+    const { isConnected } = usePlannerRealtime();
 
     return (
         <div className="w-full border-b border-primary/20 bg-surface-deep/90 backdrop-blur-xl mb-6 pb-4">
@@ -64,10 +66,21 @@ export const PlannerNavHeader: React.FC = () => {
                     })}
                 </div>
 
-                {/* Status Indicator */}
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/30 cyber-clip-button text-[10px] uppercase tracking-widest text-primary font-mono w-fit">
-                    <Cloud className={cn("w-3.5 h-3.5", isSyncing ? "animate-pulse text-cyan-400" : "text-emerald-400")} />
-                    <span>{isSyncing ? 'SYNCING_CLOUD' : 'SYSTEM_SYNCED'}</span>
+                {/* Status Indicator with Live WebSockets */}
+                <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/30 cyber-clip-button text-[10px] uppercase tracking-widest font-mono w-fit">
+                        {isConnected ? (
+                            <>
+                                <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                                <span className="text-emerald-400">REALTIME_LIVE</span>
+                            </>
+                        ) : (
+                            <>
+                                <Cloud className={cn("w-3.5 h-3.5", isSyncing ? "animate-pulse text-cyan-400" : "text-primary/60")} />
+                                <span className="text-primary/70">{isSyncing ? 'SYNCING_CLOUD' : 'SYSTEM_SYNCED'}</span>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -46,6 +46,9 @@ interface PlannerState {
     clearTaskTimeBlock: (taskId: string) => void;
     moveTaskToSomeday: (taskId: string) => void;
 
+    // Realtime Sync
+    handleRealtimeEvent: (eventType: 'INSERT' | 'UPDATE' | 'DELETE', payload: DBPlannerTask | { id: string }) => void;
+
     // Getters
     getTasksForDate: (date: string) => PlannerTask[];
     getSomedayTasks: () => PlannerTask[];
@@ -265,6 +268,61 @@ export const usePlannerStore = create<PlannerState>()(
 
             moveTaskToSomeday: (taskId) => {
                 get().moveTask(taskId, 'someday', undefined);
+            },
+
+            handleRealtimeEvent: (eventType, payload) => {
+                const state = get();
+                if (eventType === 'DELETE') {
+                    const taskId = payload.id;
+                    if (!state.tasks[taskId]) return;
+
+                    const newTasks = { ...state.tasks };
+                    delete newTasks[taskId];
+
+                    const newSchedules = { ...state.schedules };
+                    Object.keys(newSchedules).forEach(d => {
+                        newSchedules[d] = {
+                            ...newSchedules[d],
+                            tasks: newSchedules[d].tasks.filter(id => id !== taskId)
+                        };
+                    });
+
+                    set({ tasks: newTasks, schedules: newSchedules });
+                    return;
+                }
+
+                const dbTask = payload as DBPlannerTask;
+                if (!dbTask || !dbTask.id) return;
+
+                const convertedTask: PlannerTask = {
+                    id: dbTask.id,
+                    title: dbTask.title,
+                    status: dbTask.status || 'todo',
+                    date: dbTask.date || 'someday',
+                    timeBlockId: dbTask.time_block_id || undefined,
+                    createdAt: dbTask.created_at || new Date().toISOString()
+                };
+
+                const newTasks = { ...state.tasks, [convertedTask.id]: convertedTask };
+                const newSchedules = { ...state.schedules };
+
+                // Clean old schedule if exists
+                Object.keys(newSchedules).forEach(d => {
+                    newSchedules[d] = {
+                        ...newSchedules[d],
+                        tasks: newSchedules[d].tasks.filter(id => id !== convertedTask.id)
+                    };
+                });
+
+                // Add to current schedule
+                const targetDate = convertedTask.date;
+                const existingSchedule = newSchedules[targetDate] || { date: targetDate, tasks: [] };
+                newSchedules[targetDate] = {
+                    ...existingSchedule,
+                    tasks: [...existingSchedule.tasks, convertedTask.id]
+                };
+
+                set({ tasks: newTasks, schedules: newSchedules });
             },
 
             getTasksForDate: (date: string) => {

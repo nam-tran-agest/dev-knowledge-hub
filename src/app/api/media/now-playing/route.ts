@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserSteamId, getSteamPlayerSummary } from '@/features/media/lib/steam-client';
+import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed } from '@/features/media/lib/steam-client';
 import { getSpotifyAuthToken } from '@/features/media/services/spotify';
 import { spotifyFetch, type SpotifyCurrentlyPlaying } from '@/features/media/services/spotify-api';
 
@@ -13,14 +13,31 @@ export async function GET() {
 
         let steamData = null;
         if (steamId) {
-            const player = await getSteamPlayerSummary();
+            const [player, recentGames] = await Promise.all([
+                getSteamPlayerSummary(),
+                getSteamRecentlyPlayed()
+            ]);
+
             if (player) {
+                let playtimeForeverHours: number | null = null;
+                let playtimeRecentHours: number | null = null;
+
+                if (player.gameid) {
+                    const activeRecentGame = recentGames.find(g => String(g.appid) === String(player.gameid));
+                    if (activeRecentGame) {
+                        playtimeForeverHours = Number((activeRecentGame.playtime_forever / 60).toFixed(1));
+                        playtimeRecentHours = Number((activeRecentGame.playtime_2weeks / 60).toFixed(1));
+                    }
+                }
+
                 steamData = {
                     personaname: player.personaname,
                     avatar: player.avatarfull,
                     state: player.personastate,
                     game: player.gameextrainfo || null,
-                    gameId: player.gameid || null
+                    gameId: player.gameid || null,
+                    playtimeForeverHours,
+                    playtimeRecentHours
                 };
             }
         }
