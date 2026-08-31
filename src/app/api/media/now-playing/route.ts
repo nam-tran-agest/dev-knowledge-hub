@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getUserSteamId, getSteamPlayerSummary } from '@/features/media/lib/steam-client';
 import { getSpotifyAuthToken } from '@/features/media/services/spotify';
-import { spotifyFetch } from '@/features/media/services/spotify-api';
+import { spotifyFetch, type SpotifyCurrentlyPlaying } from '@/features/media/services/spotify-api';
 
 export async function GET() {
     try {
@@ -27,12 +27,12 @@ export async function GET() {
 
         let spotifyData = null;
         if (spotifyToken) {
-            const currentTrack = await spotifyFetch('me/player/currently-playing', spotifyToken);
+            const currentTrack = (await spotifyFetch('me/player/currently-playing', spotifyToken)) as SpotifyCurrentlyPlaying | null;
             if (currentTrack && currentTrack.item) {
                 spotifyData = {
                     isPlaying: currentTrack.is_playing,
                     songName: currentTrack.item.name,
-                    artistName: currentTrack.item.artists?.map((a: any) => a.name).join(', '),
+                    artistName: currentTrack.item.artists?.map(a => a.name).join(', '),
                     albumArt: currentTrack.item.album?.images?.[0]?.url,
                     progress_ms: currentTrack.progress_ms,
                     duration_ms: currentTrack.item.duration_ms

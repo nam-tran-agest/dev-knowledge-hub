@@ -33,8 +33,29 @@ export async function getUserSteamId(): Promise<string | null> {
     return integration.steam_id64;
 }
 
+export interface SteamPlayerSummary {
+    steamid: string;
+    personaname: string;
+    profileurl: string;
+    avatar: string;
+    avatarmedium: string;
+    avatarfull: string;
+    personastate: number;
+    gameextrainfo?: string;
+    gameid?: string;
+}
+
+export interface SteamRecentGame {
+    appid: number;
+    name: string;
+    playtime_2weeks: number;
+    playtime_forever: number;
+    img_icon_url: string;
+    img_logo_url: string;
+}
+
 // Steam API Methods
-export async function getSteamPlayerSummary() {
+export async function getSteamPlayerSummary(): Promise<SteamPlayerSummary | null> {
     const steamId = await getUserSteamId();
     const apiKey = process.env.STEAM_WEB_API_KEY;
 
@@ -45,21 +66,21 @@ export async function getSteamPlayerSummary() {
     );
 
     if (!res.ok) return null;
-    const data = await res.json();
+    const data = (await res.json()) as { response?: { players?: SteamPlayerSummary[] } };
     return data.response?.players?.[0] || null;
 }
 
-export async function getSteamRecentlyPlayed() {
+export async function getSteamRecentlyPlayed(): Promise<SteamRecentGame[]> {
     const steamId = await getUserSteamId();
     const apiKey = process.env.STEAM_WEB_API_KEY;
 
-    if (!steamId || !apiKey) return null;
+    if (!steamId || !apiKey) return [];
 
     const res = await fetch(
         `http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${apiKey}&steamid=${steamId}&format=json`
     );
 
-    if (!res.ok) return null;
-    const data = await res.json();
+    if (!res.ok) return [];
+    const data = (await res.json()) as { response?: { games?: SteamRecentGame[] } };
     return data.response?.games || [];
 }

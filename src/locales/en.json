@@ -307,6 +307,7 @@
       "media": {
         "label": "Media",
         "items": {
+          "gaming": "Gaming",
           "youtube": "YouTube",
           "movies": "Movies",
           "series": "Series",
@@ -369,6 +370,11 @@
     }
   },
   "media": {
+    "gaming": {
+      "title": "Gaming Hub",
+      "subtitle": "Track your Steam gaming activity and sync mood-matching playlists.",
+      "description": "Your gaming activity and Steam telemetry center."
+    },
     "youtube": {
       "title": "YouTube Center",
       "subtitle": "Your personal library. Save moments, resume anytime.",

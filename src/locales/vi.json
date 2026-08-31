@@ -307,6 +307,7 @@
       "media": {
         "label": "Giải Trí",
         "items": {
+          "gaming": "Gaming",
           "youtube": "YouTube",
           "movies": "Phim Lẻ",
           "series": "Phim Bộ",
@@ -369,6 +370,11 @@
     }
   },
   "media": {
+    "gaming": {
+      "title": "Khu Vực Gaming",
+      "subtitle": "Theo dõi hoạt động chơi game Steam và tự động đồng bộ nhạc nền theo mood game.",
+      "description": "Trung tâm theo dõi telemetry Steam và tự động chuyển đổi playlist Spotify theo game."
+    },
     "youtube": {
       "title": "Trung Tâm YouTube",
       "subtitle": "Kho video cá nhân. Lưu lại khoảnh khắc, xem tiếp bất cứ lúc nào.",

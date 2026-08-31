@@ -46,7 +46,7 @@ export function GameMoodSync() {
                 tags: data.matchedTags
             });
 
-        } catch (error) {
+        } catch {
             setStatus('error');
             setMessage('Network error.');
         }

@@ -1,16 +1,9 @@
-import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed } from '@/features/media/lib/steam-client';
+import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed, type SteamRecentGame } from '@/features/media/lib/steam-client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Gamepad2, Activity } from 'lucide-react';
 import Image from 'next/image';
 import { GameMoodSync } from './game-mood-sync';
-
-interface SteamGame {
-    appid: number;
-    name: string;
-    playtime_2weeks: number;
-    img_logo_url: string;
-}
 
 export async function SteamContainer() {
     const steamId = await getUserSteamId();
@@ -80,7 +73,7 @@ export async function SteamContainer() {
                 <h3 className="text-sm font-bold text-blue-400 uppercase tracking-widest">// RECENTLY_PLAYED</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {recentGames && recentGames.length > 0 ? (
-                        recentGames.map((game: SteamGame) => (
+                        recentGames.map((game: SteamRecentGame) => (
                             <Card key={game.appid} className="border-blue-500/20 hover:border-blue-500/50 transition-colors">
                                 <CardContent className="p-4 flex gap-4 pt-4">
                                     <div className="relative w-24 h-12 shrink-0 bg-black cyber-clip-sm">

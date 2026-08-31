@@ -1,4 +1,36 @@
 
+export interface SpotifyPlaylistItem {
+    id: string;
+    name: string;
+    uri: string;
+    description?: string;
+    images?: { url: string }[];
+}
+
+export interface SpotifyArtist {
+    name: string;
+    id?: string;
+    uri?: string;
+}
+
+export interface SpotifyTrackItem {
+    id: string;
+    name: string;
+    uri: string;
+    duration_ms: number;
+    artists?: SpotifyArtist[];
+    album?: {
+        name: string;
+        images?: { url: string }[];
+    };
+}
+
+export interface SpotifyCurrentlyPlaying {
+    is_playing: boolean;
+    progress_ms: number;
+    item?: SpotifyTrackItem | null;
+}
+
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI || 'http://localhost:3000/api/auth/spotify/callback';
@@ -111,7 +143,7 @@ export async function playSpotifyContext(accessToken: string, contextUri: string
 }
 
 
-export async function searchSpotifyPlaylists(accessToken: string, query: string) {
+export async function searchSpotifyPlaylists(accessToken: string, query: string): Promise<SpotifyPlaylistItem[]> {
     const params = new URLSearchParams({
         q: query,
         type: 'playlist',
@@ -124,6 +156,6 @@ export async function searchSpotifyPlaylists(accessToken: string, query: string)
     });
 
     if (!response.ok) return [];
-    const data = await response.json();
+    const data = (await response.json()) as { playlists?: { items?: SpotifyPlaylistItem[] } };
     return data.playlists?.items || [];
 }

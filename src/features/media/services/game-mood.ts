@@ -83,7 +83,7 @@ export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri:
         const playlists = await searchSpotifyPlaylists(token, randomQuery);
         
         // Lọc bỏ những playlist bị rỗng hoặc lỗi
-        const validPlaylists = playlists.filter((p: any) => p && p.uri);
+        const validPlaylists = playlists.filter(p => p && p.uri);
         
         if (validPlaylists.length > 0) {
             // Chọn ngẫu nhiên 1 playlist trong top 15 kết quả trả về (Randomness 2)

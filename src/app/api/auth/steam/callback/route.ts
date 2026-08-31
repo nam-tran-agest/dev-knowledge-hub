@@ -85,9 +85,9 @@ export async function GET(request: Request) {
             return NextResponse.redirect(`${baseUrl}/vi/media?error=db_update_failed`);
         }
 
-        return NextResponse.redirect(`${baseUrl}/vi/media`);
+        return NextResponse.redirect(`${baseUrl}/vi/media/gaming`);
     } catch (err) {
         console.error('Steam OpenID verification error:', err);
-        return NextResponse.redirect(`${baseUrl}/vi/media?error=server_error`);
+        return NextResponse.redirect(`${baseUrl}/vi/media/gaming?error=server_error`);
     }
 }

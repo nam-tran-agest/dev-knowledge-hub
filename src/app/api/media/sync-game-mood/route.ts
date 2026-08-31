@@ -62,7 +62,7 @@ export async function POST(request: Request) {
             matchedTags
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Lỗi Sync Game Mood:', error);
         return NextResponse.json({ error: 'SERVER_ERROR' }, { status: 500 });
     }
