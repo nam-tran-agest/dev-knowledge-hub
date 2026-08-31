@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
@@ -65,7 +65,7 @@ export const TodayView = () => {
             <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8 min-h-[85vh] pt-24 pb-12 px-4 sm:px-6">
 
                 {/* Left Column: Timeline Control Deck */}
-                <div className="flex-[2] cyber-clip glass-panel border border-primary/30 p-6 sm:p-8 shadow-[0_0_40px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col max-h-[82vh]">
+                <div className="flex-[2] cyber-panel p-6 sm:p-8 relative overflow-hidden flex flex-col max-h-[82vh]">
                     {/* Corner Brackets */}
                     <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
                     
@@ -101,7 +101,7 @@ export const TodayView = () => {
                 </div>
 
                 {/* Right Column: Task Queue Backlog */}
-                <div className="flex-1 cyber-clip glass-panel border border-primary/30 p-6 sm:p-8 shadow-[0_0_40px_rgba(0,0,0,0.8)] flex flex-col max-h-[82vh] relative overflow-hidden">
+                <div className="flex-1 cyber-panel p-6 sm:p-8 flex flex-col max-h-[82vh] relative overflow-hidden">
                     {/* Corner Brackets */}
                     <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
                     
@@ -127,7 +127,7 @@ export const TodayView = () => {
                             value={newTaskTitle}
                             onChange={(e) => setNewTaskTitle(e.target.value)}
                             placeholder="INPUT_TASK_TITLE..."
-                            className="w-full bg-[#040711]/90 border border-primary/30 cyber-clip-button px-4 py-2.5 text-xs font-mono text-white placeholder:text-primary/40 focus:outline-none focus:border-primary focus:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all pr-12"
+                            className="w-full bg-surface-deep/90 border border-primary/30 cyber-clip-button px-4 py-2.5 text-xs font-mono text-white placeholder:text-primary/40 focus:outline-none focus:border-primary focus:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all pr-12"
                         />
                         <button
                             type="submit"

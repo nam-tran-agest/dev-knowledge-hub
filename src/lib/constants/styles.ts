@@ -31,9 +31,9 @@ export const TYPOGRAPHY = {
 } as const;
 
 export const COLORS = {
-    background: 'bg-[#04060f]',
-    surface: 'bg-[#050714]/90',
-    surfaceHover: 'bg-[#060a1e]/95',
+    background: 'bg-background',
+    surface: 'bg-surface/90',
+    surfaceHover: 'bg-surface-elevated/95',
     foreground: 'text-white',
     primary: 'text-primary',
     primaryBg: 'bg-primary',
@@ -143,7 +143,7 @@ export const MODULE_THEMES: Record<'planner' | 'working' | 'media' | 'mhWilds', 
 } as const;
 
 export const EFFECTS = {
-    glass: 'bg-[#050714]/80 backdrop-blur-xl border border-primary/30 cyber-clip shadow-2xl hover:border-primary transition-all duration-300',
+    glass: 'bg-surface/80 backdrop-blur-xl border border-primary/30 cyber-clip shadow-2xl hover:border-primary transition-all duration-300',
     glassCard: 'cyber-clip glass-panel border border-primary/30 hover:border-primary transition-all duration-300',
     glow: 'shadow-[0_0_20px_rgba(0,240,255,0.35)]',
     subtleGlow: 'shadow-[0_0_15px_rgba(0,240,255,0.15)]',

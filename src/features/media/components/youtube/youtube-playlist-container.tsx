@@ -59,7 +59,7 @@ export async function YouTubePlaylistContainer({ playlistId }: YouTubePlaylistCo
                 )}
 
                 {videos.length === 0 && !playlist.description ? (
-                    <div className="bg-[#050714]/60 border border-dashed border-primary/25 cyber-clip p-12 text-center relative overflow-hidden">
+                    <div className="bg-surface/60 border border-dashed border-primary/25 cyber-clip p-12 text-center relative overflow-hidden">
                         <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
                         <div className="w-12 h-12 bg-primary/10 border border-primary/30 cyber-clip-button flex items-center justify-center mx-auto mb-3 text-primary">
                             <ListVideo className="w-6 h-6" />

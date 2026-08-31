@@ -50,7 +50,7 @@ export const TimeTimeline: React.FC = () => {
                                     "absolute left-[69px] top-3.5 w-2 h-2 border z-10 transition-all duration-300",
                                     isCurrentHour
                                         ? "bg-primary border-primary shadow-[0_0_12px_var(--color-primary)] scale-125"
-                                        : "border-primary/30 bg-[#050714] group-hover:border-primary group-hover:scale-125"
+                                        : "border-primary/30 bg-surface group-hover:border-primary group-hover:scale-125"
                                 )} />
 
                                 {/* Drop Zone */}

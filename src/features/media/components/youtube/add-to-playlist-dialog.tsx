@@ -37,7 +37,7 @@ export function AddToPlaylistDialog({ videoId, playlists, onClose }: AddToPlayli
 
     return (
         <Dialog open={!!videoId} onOpenChange={(open) => !open && onClose()}>
-            <DialogContent tag="PLAYLIST_ALLOCATOR" className="bg-[#050714] border-primary/40 text-white sm:max-w-[420px] p-0 overflow-hidden">
+            <DialogContent tag="PLAYLIST_ALLOCATOR" className="sm:max-w-[420px] p-0 overflow-hidden">
                 <DialogHeader className="p-5 pb-2 border-b border-primary/20">
                     <DialogTitle className="text-base font-mono font-bold uppercase tracking-wider flex items-center gap-2">
                         <ListVideo className="w-4 h-4 text-primary" />

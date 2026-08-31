@@ -34,9 +34,9 @@ interface FilterControlsProps {
     };
 }
 
-const triggerCls = 'h-9 bg-[#050714] border border-primary/30 text-slate-200 text-xs font-mono uppercase tracking-wider cyber-clip-button focus:border-primary [&>svg]:text-primary/70 cursor-pointer';
-const contentCls = 'bg-[#050714]/95 border-primary/30 backdrop-blur-2xl max-h-72 cyber-clip shadow-[0_0_25px_rgba(0,0,0,0.9)]';
-const toggleCls = (active: boolean) => `text-xs font-mono uppercase tracking-wider px-3 py-2 cyber-clip-button border transition-all cursor-pointer ${active ? 'bg-primary/20 text-primary border-primary shadow-[0_0_12px_rgba(0,240,255,0.25)] font-bold' : 'bg-[#050714] text-primary/60 border-primary/20 hover:text-white hover:border-primary/40'}`;
+const triggerCls = 'h-9 bg-surface border border-primary/30 text-slate-200 text-xs font-mono uppercase tracking-wider cyber-clip-button focus:border-primary [&>svg]:text-primary/70 cursor-pointer';
+const contentCls = 'bg-surface/95 border-primary/30 backdrop-blur-2xl max-h-72 cyber-clip shadow-[0_0_25px_rgba(0,0,0,0.9)]';
+const toggleCls = (active: boolean) => `text-xs font-mono uppercase tracking-wider px-3 py-2 cyber-clip-button border transition-all cursor-pointer ${active ? 'bg-primary/20 text-primary border-primary shadow-[0_0_12px_rgba(0,240,255,0.25)] font-bold' : 'bg-surface text-primary/60 border-primary/20 hover:text-white hover:border-primary/40'}`;
 
 interface FilterOption<T = string> {
     value: T;

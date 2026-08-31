@@ -38,7 +38,7 @@ export function CreatePlaylistDialog({ open, onOpenChange }: CreatePlaylistDialo
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent tag="PLAYLIST_FACTORY" className="bg-[#050714] border-primary/40 text-white sm:max-w-[440px]">
+            <DialogContent tag="PLAYLIST_FACTORY" className="sm:max-w-[440px]">
                 <DialogHeader>
                     <DialogTitle className="text-base font-mono font-bold uppercase tracking-wider flex items-center gap-2">
                         <PlusSquare className="w-4 h-4 text-primary" />

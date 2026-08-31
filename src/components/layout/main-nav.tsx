@@ -57,7 +57,7 @@ export function MainNav() {
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <ul className="grid w-[380px] gap-2 p-4 md:w-[480px] md:grid-cols-2 relative">
-                                            <div className="absolute top-0 right-4 px-2 bg-[#050714] border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
+                                            <div className="cyber-tag-header !right-4">
                                                 // SYS_MODULES
                                             </div>
                                             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-40" />

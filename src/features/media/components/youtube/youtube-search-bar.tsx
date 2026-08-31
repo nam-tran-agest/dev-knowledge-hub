@@ -38,7 +38,7 @@ export function YouTubeSearchBar({
                         placeholder={placeholder}
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
-                        className="bg-[#040612]/90 border-primary/40 text-white placeholder:text-primary/40 focus:border-primary h-11 text-xs sm:text-sm w-full cyber-clip-button font-mono px-4"
+                        className="bg-surface-deep/90 border-primary/40 text-white placeholder:text-primary/40 focus:border-primary h-11 text-xs sm:text-sm w-full cyber-clip-button font-mono px-4"
                         disabled={isAdding}
                     />
                 </div>

@@ -79,7 +79,7 @@ export function NewsGrid({ items }: { items: NewsItem[] }) {
                     </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 bg-[#050714] p-1 cyber-clip-button border border-primary/30 w-fit">
+                <div className="flex items-center gap-1.5 bg-surface p-1 cyber-clip-button border border-primary/30 w-fit">
                     <button
                         onClick={() => setActiveTab('recent')}
                         className={cn(
@@ -121,7 +121,7 @@ export function NewsGrid({ items }: { items: NewsItem[] }) {
                     </div>
 
                     {/* Pagination Controls */}
-                    <div className="flex items-center gap-1.5 bg-[#050714]/80 p-1.5 cyber-clip border border-primary/30">
+                    <div className="flex items-center gap-1.5 bg-surface/80 p-1.5 cyber-clip border border-primary/30">
                         {/* First Page */}
                         <button
                             onClick={() => handlePageChange(1)}

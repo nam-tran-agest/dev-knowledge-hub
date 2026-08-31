@@ -20,10 +20,10 @@ export function DrawerLayout({ title, icon, onClose, children, subtitle }: { tit
 
     return (
         <div className="fixed inset-0 z-50 flex items-start justify-end font-mono">
-            <div className="absolute inset-0 bg-[#04060f]/80 backdrop-blur-md" onClick={onClose} />
-            <div className="relative h-full w-full max-w-xl bg-[#050714] backdrop-blur-2xl border-l border-primary/30 overflow-y-auto animate-in slide-in-from-right duration-300 custom-scrollbar shadow-[0_0_50px_rgba(0,0,0,0.9)]">
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-md" onClick={onClose} />
+            <div className="relative h-full w-full max-w-xl bg-surface backdrop-blur-2xl border-l border-primary/30 overflow-y-auto animate-in slide-in-from-right duration-300 custom-scrollbar shadow-[0_0_50px_rgba(0,0,0,0.9)]">
                 {/* Header HUD Tag */}
-                <div className="sticky top-0 z-20 bg-[#050714]/95 backdrop-blur-xl border-b border-primary/20 p-5 flex items-start justify-between">
+                <div className="sticky top-0 z-20 bg-surface/95 backdrop-blur-xl border-b border-primary/20 p-5 flex items-start justify-between">
                     <div className="flex items-center gap-3.5">
                         <div className="w-11 h-11 cyber-clip-button bg-primary/10 border border-primary/30 flex items-center justify-center text-primary">
                             {icon}

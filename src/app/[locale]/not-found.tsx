@@ -11,8 +11,8 @@ export default function NotFound() {
     <div className="min-h-screen flex items-center justify-center p-6 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-cyber opacity-15 pointer-events-none" />
 
-      <Card className="max-w-md w-full cyber-clip-lg border border-primary/40 bg-[#050714]/95 shadow-[0_0_50px_rgba(0,240,255,0.2)] relative">
-        <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-primary/40 text-[9px] font-mono uppercase tracking-widest text-primary font-bold">
+      <Card className="max-w-md w-full cyber-panel-lg border-primary/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] relative">
+        <div className="cyber-tag-header">
           // SYS_NODE_NOT_FOUND
         </div>
         <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />

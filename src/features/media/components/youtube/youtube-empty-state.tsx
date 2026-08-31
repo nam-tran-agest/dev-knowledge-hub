@@ -22,7 +22,7 @@ export function YouTubeEmptyState({
 }: YouTubeEmptyStateProps) {
     if (type === 'playlists') {
         return (
-            <div className="col-span-full py-16 text-center bg-[#050714]/80 border border-dashed border-primary/30 cyber-clip space-y-4 backdrop-blur-xl relative overflow-hidden">
+            <div className="col-span-full py-16 text-center bg-surface/80 border border-dashed border-primary/30 cyber-clip space-y-4 backdrop-blur-xl relative overflow-hidden">
                 <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
                 <div className="w-12 h-12 bg-primary/10 border border-primary/30 cyber-clip-button flex items-center justify-center mx-auto mb-3 text-primary">
                     <ListVideo className="w-6 h-6" />
@@ -42,7 +42,7 @@ export function YouTubeEmptyState({
     }
 
     return (
-        <Card className="text-center py-16 bg-[#050714]/80 border border-dashed border-primary/30 cyber-clip relative overflow-hidden">
+        <Card className="text-center py-16 bg-surface/80 border border-dashed border-primary/30 cyber-clip relative overflow-hidden">
             <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
             <CardContent>
                 <div className="inline-flex items-center justify-center w-12 h-12 cyber-clip-button bg-primary/10 border border-primary/30 mb-3 text-primary">

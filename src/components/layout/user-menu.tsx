@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -122,7 +122,7 @@ export function UserMenu() {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end" className="w-60 p-2">
-                    <div className="absolute top-0 right-2 px-1.5 bg-[#050714] border-x border-primary/30 text-[8px] uppercase tracking-widest text-primary/60 font-mono pointer-events-none">
+                    <div className="absolute top-0 right-2 px-1.5 bg-surface border-x border-primary/30 text-[8px] uppercase tracking-widest text-primary/60 font-mono pointer-events-none">
                         // USER_PROFILE
                     </div>
 

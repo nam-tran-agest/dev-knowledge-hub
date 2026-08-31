@@ -66,8 +66,8 @@ export const SKILL_KIND_COLORS: Record<string, string> = {
 };
 
 // ─── Cyberpunk FUI Tokens (Wilds Vault Theme) ───────────────
-export const CARD_CLS = 'bg-[#050714]/80 backdrop-blur-2xl border border-primary/30 hover:border-primary hover:bg-[#060a1e]/90 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] hover:-translate-y-1 cyber-clip overflow-hidden relative cursor-pointer';
-export const STAT_BOX_CLS = 'bg-[#04060f]/80 border border-primary/20 backdrop-blur-xl cyber-clip-button';
+export const CARD_CLS = 'bg-surface/80 backdrop-blur-2xl border border-primary/30 hover:border-primary hover:bg-surface-elevated/90 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] hover:-translate-y-1 cyber-clip overflow-hidden relative cursor-pointer';
+export const STAT_BOX_CLS = 'bg-background/80 border border-primary/20 backdrop-blur-xl cyber-clip-button';
 
 // ─── Sorting & Pagination ───────────────────────────────────
 export type SortOption = 'name-asc' | 'name-desc' | 'rarity-asc' | 'rarity-desc';

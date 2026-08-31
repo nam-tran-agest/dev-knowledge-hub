@@ -22,23 +22,23 @@ export function PlaylistCard({ playlist, onDelete, onToggleFavorite, onEdit }: P
 
     return (
         <Card
-            className="group relative overflow-hidden bg-[#050714]/90 border border-primary/30 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:-translate-y-1 p-0 cursor-pointer cyber-clip backdrop-blur-2xl"
+            className="group relative overflow-hidden bg-surface/90 border border-primary/30 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:-translate-y-1 p-0 cursor-pointer cyber-clip backdrop-blur-2xl"
             onClick={() => router.push(`/media/youtube/playlist/${playlist.id}`)}
         >
             <div className="flex flex-col h-full">
                 {/* Playlist Thumbnail Deck */}
-                <div className="relative aspect-video w-full overflow-hidden bg-[#04060f]">
+                <div className="relative aspect-video w-full overflow-hidden bg-background">
                     {/* Background Grid Pattern */}
                     <div className="absolute inset-0 opacity-20 pointer-events-none z-0 bg-grid-cyber" />
 
                     <div className="absolute inset-0 flex items-center justify-center p-3 z-10">
-                        <div className={`relative w-full h-full cyber-clip overflow-hidden border border-primary/20 bg-[#07091a] transform transition-all duration-500 ease-out 
+                        <div className={`relative w-full h-full cyber-clip overflow-hidden border border-primary/20 bg-surface-deep transform transition-all duration-500 ease-out 
                             ${playlist.video_thumbnails?.length ? 'group-hover:scale-105' : 'group-hover:scale-102'}`}>
 
                             {playlist.video_thumbnails?.length ? (
                                 <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-0.5">
                                     {[0, 1, 2, 3].map((idx) => (
-                                        <div key={idx} className="relative w-full h-full overflow-hidden bg-[#04060f]">
+                                        <div key={idx} className="relative w-full h-full overflow-hidden bg-background">
                                             <Image
                                                 src={playlist.video_thumbnails?.[idx] || playlist.video_thumbnails?.[0] || ""}
                                                 alt="" fill className="object-cover opacity-80"

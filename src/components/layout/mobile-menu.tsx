@@ -75,8 +75,8 @@ export default function MobileMenu() {
                                 "border-none bg-transparent shadow-none text-inherit"
                             )}
                         >
-                            <div className="w-full border border-primary/40 p-4 flex flex-col space-y-4 cyber-clip bg-[#050714]/95 backdrop-blur-2xl shadow-[0_0_40px_rgba(0,0,0,0.9)] text-slate-200 relative">
-                                <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[9px] uppercase tracking-widest text-primary/70 font-mono">
+                            <div className="w-full border-primary/40 p-4 flex flex-col space-y-4 cyber-panel text-slate-200 relative">
+                                <div className="cyber-tag-header !right-4">
                                     // SYS_MOBILE_DRAWER
                                 </div>
                                 <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-50" />

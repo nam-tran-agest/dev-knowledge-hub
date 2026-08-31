@@ -41,7 +41,7 @@ export default async function PlannerPage({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl opacity-40 pointer-events-none relative z-10">
                 {[1, 2, 3].map(i => (
-                    <div key={i} className="h-36 cyber-clip bg-[#050714] border border-dashed border-primary/30 p-4 relative overflow-hidden">
+                    <div key={i} className="h-36 cyber-clip bg-surface border border-dashed border-primary/30 p-4 relative overflow-hidden">
                         <div className="absolute top-0 right-4 px-2 bg-background border-x border-primary/30 text-[8px] text-primary/60">
                             // BUFFER_{i}
                         </div>

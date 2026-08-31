@@ -50,9 +50,9 @@ export function FeaturedArticle({ items }: { items: NewsItem[] }) {
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.link}>
-                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="relative block h-[340px] md:h-[500px] overflow-hidden group cursor-pointer bg-[#050714]">
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#04060f] via-[#04060f]/70 to-transparent z-10" />
-                            <div className="absolute inset-0 bg-[#050714]">
+                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="relative block h-[340px] md:h-[500px] overflow-hidden group cursor-pointer bg-surface">
+                            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent z-10" />
+                            <div className="absolute inset-0 bg-surface">
                                 <Image
                                     src={item.image}
                                     alt={item.title || "Featured"}

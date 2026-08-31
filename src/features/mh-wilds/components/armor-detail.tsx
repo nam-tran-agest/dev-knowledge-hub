@@ -90,7 +90,7 @@ export function ArmorDetail({ armor, onClose }: { armor: Armor, onClose: () => v
                     <div className={`${DETAIL_PANEL_CLS} font-mono`}>
                         <div className="space-y-1.5">
                             {armor.crafting.materials.map(mat => (
-                                <div key={mat.id} className="flex items-center justify-between text-xs bg-[#050714] border border-primary/20 cyber-clip-button px-3 py-2">
+                                <div key={mat.id} className="flex items-center justify-between text-xs bg-surface border border-primary/20 cyber-clip-button px-3 py-2">
                                     <div className="flex items-center gap-2">
                                         <Package className="w-3.5 h-3.5 text-primary" />
                                         <span className="text-slate-200 uppercase">{mat.item.name}</span>

@@ -122,7 +122,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                 if (e.target === e.currentTarget) onClose();
             }}
         >
-            <div className="relative w-full max-w-4xl bg-[#050714] border border-primary/50 cyber-clip-lg shadow-[0_0_50px_rgba(0,240,255,0.35)] overflow-hidden flex flex-col">
+            <div className="relative w-full max-w-4xl bg-surface border border-primary/50 cyber-clip-lg shadow-[0_0_50px_rgba(0,240,255,0.35)] overflow-hidden flex flex-col">
                 {/* Background Grid Accent */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f0ff08_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff08_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
 
@@ -130,7 +130,7 @@ export function VideoModal({ isOpen, onClose, video }: VideoModalProps) {
                 <div className="absolute inset-0 cyber-brackets pointer-events-none" />
 
                 {/* Header Deck */}
-                <div className="relative z-10 p-3 sm:p-4 bg-[#050714]/95 backdrop-blur-md flex flex-row items-center justify-between border-b border-primary/25">
+                <div className="relative z-10 p-3 sm:p-4 bg-surface/95 backdrop-blur-md flex flex-row items-center justify-between border-b border-primary/25">
                     <div className="flex-1 pr-4 min-w-0">
                         <div className="text-white truncate flex items-center gap-2 font-mono text-xs sm:text-sm uppercase font-bold">
                             <a

@@ -59,13 +59,13 @@ export function WeaponDetail({ weapon, onClose }: { weapon: Weapon, onClose: () 
 
                             {weapon.crafting.previous && (
                                 <div className="flex flex-col">
-                                    <div className="flex items-center gap-3 p-2.5 bg-[#050714] border border-primary/20 cyber-clip-button opacity-70">
+                                    <div className="flex items-center gap-3 p-2.5 bg-surface border border-primary/20 cyber-clip-button opacity-70">
                                         <div className="w-7 h-7 cyber-clip-button bg-primary/10 flex items-center justify-center shrink-0">
                                             <Sword className="w-3.5 h-3.5 text-primary" />
                                         </div>
                                         <div>
-                                            <p className="text-[9px] text-primary/60 uppercase tracking-widest font-bold">// UPGRADES_FROM</p>
-                                            <p className="text-xs text-slate-200 font-bold uppercase">{weapon.crafting.previous.name}</p>
+                                             <p className="text-[9px] text-primary/60 uppercase tracking-widest font-bold">// UPGRADES_FROM</p>
+                                             <p className="text-xs text-slate-200 font-bold uppercase">{weapon.crafting.previous.name}</p>
                                         </div>
                                     </div>
                                     <div className="w-0.5 h-4 bg-primary/30 ml-6" />
@@ -85,7 +85,7 @@ export function WeaponDetail({ weapon, onClose }: { weapon: Weapon, onClose: () 
                                     <div className="space-y-1.5 mt-1 pl-3 border-l-2 border-primary/30 ml-6">
                                         <p className="text-[9px] text-primary/60 uppercase tracking-widest font-bold mb-1">// UPGRADES_TO</p>
                                         {weapon.crafting.branches.map((b) => (
-                                            <div key={b.id} className="flex items-center gap-2.5 p-2 bg-[#050714] border border-primary/20 cyber-clip-button hover:border-primary transition-colors">
+                                            <div key={b.id} className="flex items-center gap-2.5 p-2 bg-surface border border-primary/20 cyber-clip-button hover:border-primary transition-colors">
                                                 <div className="w-6 h-6 cyber-clip-button bg-primary/10 flex items-center justify-center shrink-0">
                                                     <Sword className="w-3 h-3 text-primary" />
                                                 </div>

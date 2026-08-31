@@ -39,7 +39,7 @@ export function TaskList({
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 bg-[#050714] p-1 cyber-clip-button border border-primary/30">
+                <div className="flex items-center gap-1 bg-surface p-1 cyber-clip-button border border-primary/30">
                     {(['all', 'todo', 'doing', 'done'] as const).map((f) => (
                         <button
                             key={f}
@@ -87,7 +87,7 @@ export function TaskList({
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="flex flex-col items-center justify-center py-20 text-center bg-[#050714]/60 border border-dashed border-primary/25 cyber-clip relative overflow-hidden"
+                                className="flex flex-col items-center justify-center py-20 text-center bg-surface/60 border border-dashed border-primary/25 cyber-clip relative overflow-hidden"
                             >
                                 <div className="absolute inset-0 hazard-stripes-cyan opacity-5 pointer-events-none" />
                                 <div className="w-12 h-12 bg-primary/10 border border-primary/30 cyber-clip-button flex items-center justify-center mb-4 text-primary">

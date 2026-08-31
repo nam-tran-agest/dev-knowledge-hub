@@ -84,7 +84,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
             </div>
 
             {isAddingMode && (
-                <div className="bg-[#050714] border border-primary/30 cyber-clip p-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
+                <div className="bg-surface border border-primary/30 cyber-clip p-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
                     <div className="flex items-center justify-between gap-4 border-b border-primary/20 pb-3">
                         <div className="flex items-center gap-2 text-white font-mono text-xs uppercase font-bold">
                             <ListPlus className="w-4 h-4 text-primary" />
@@ -96,7 +96,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                                 placeholder={t('searchLibrary')}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-9 bg-[#04060f]/90 border-primary/30 w-full font-mono text-xs"
+                                className="pl-9 bg-surface-deep/90 border-primary/30 w-full font-mono text-xs"
                             />
                         </div>
                     </div>
@@ -109,7 +109,7 @@ export function PlaylistContent({ playlist, videos, allPlaylists, libraryVideos 
                                         {v.thumbnail_url ? (
                                             <Image src={v.thumbnail_url} alt={v.title || "video"} fill className="object-cover opacity-80" />
                                         ) : (
-                                            <div className="w-full h-full bg-[#050714]" />
+                                            <div className="w-full h-full bg-surface" />
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0 pr-2">

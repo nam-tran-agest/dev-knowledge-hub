@@ -13,7 +13,7 @@ export default function Footer({ footer }: { footer: FooterData }) {
     };
 
     return (
-        <footer className="relative bg-[#02040a] border-t border-primary/30 overflow-hidden text-slate-300 glare-top font-mono">
+        <footer className="relative bg-background border-t border-primary/30 overflow-hidden text-slate-300 glare-top font-mono">
             <StarryBackground />
             
             {/* Top decorative neon wire & scanner */}
@@ -186,7 +186,7 @@ export default function Footer({ footer }: { footer: FooterData }) {
                         </div>
                         <div className="space-y-3">
                             {footer.addresses.map((address: { id: string | number; title: string; content: string }) => (
-                                <div key={address.id} className="p-3.5 cyber-clip bg-[#050714]/90 border border-primary/30 space-y-1 relative group hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+                                <div key={address.id} className="p-3.5 cyber-clip bg-surface/90 border border-primary/30 space-y-1 relative group hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(0,240,255,0.2)]">
                                     <div className="flex items-center gap-2 text-cyan-300 text-xs font-bold uppercase">
                                         <span className="w-1.5 h-1.5 bg-primary" />
                                         <span>{address.title}</span>

@@ -75,6 +75,11 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  /* Semantic Cyber Surfaces */
+  --color-surface: #050714;
+  --color-surface-deep: #030712;
+  --color-surface-elevated: #0a0d1a;
+
   /* Centralized override for hardcoded 'indigo' classes scattered in UI to map to Cyberpunk Cyan */
   --color-indigo-50: #e0fbfc;
   --color-indigo-100: #ccfbfd;
@@ -192,56 +197,56 @@
   );
 }
 
-/* Diagonal Hazard / Hatching Stripes */
-.hazard-stripes-cyan {
+/* Diagonal Hazard / Hatching Stripes - DRY with CSS variables */
+.hazard-stripes,
+.hazard-stripes-cyan,
+.hazard-stripes-pink,
+.hazard-stripes-yellow,
+.hazard-stripes-dark {
+  --stripe-color: rgba(0, 240, 255, 0.15);
+  --stripe-size: 6px;
+  --stripe-gap: 12px;
   background: repeating-linear-gradient(
     -45deg,
-    rgba(0, 240, 255, 0.15),
-    rgba(0, 240, 255, 0.15) 6px,
-    transparent 6px,
-    transparent 12px
+    var(--stripe-color),
+    var(--stripe-color) var(--stripe-size),
+    transparent var(--stripe-size),
+    transparent var(--stripe-gap)
   );
+}
+
+.hazard-stripes-cyan {
+  --stripe-color: rgba(0, 240, 255, 0.15);
 }
 
 .hazard-stripes-pink {
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 0, 127, 0.18),
-    rgba(255, 0, 127, 0.18) 6px,
-    transparent 6px,
-    transparent 12px
-  );
+  --stripe-color: rgba(255, 0, 127, 0.18);
 }
 
 .hazard-stripes-yellow {
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 183, 3, 0.2),
-    rgba(255, 183, 3, 0.2) 6px,
-    transparent 6px,
-    transparent 12px
-  );
+  --stripe-color: rgba(255, 183, 3, 0.2);
 }
 
 .hazard-stripes-dark {
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0.04) 4px,
-    transparent 4px,
-    transparent 8px
-  );
+  --stripe-color: rgba(255, 255, 255, 0.04);
+  --stripe-size: 4px;
+  --stripe-gap: 8px;
 }
 
-/* Cyber Frame & Brackets */
+/* Cyber Frame & Brackets - DRY unified implementation */
 .cyber-brackets,
 .cyber-brackets-pink,
 .cyber-brackets-red,
-.cyber-brackets-yellow {
+.cyber-brackets-yellow,
+.cyber-brackets-amber,
+.cyber-brackets-indigo,
+.cyber-brackets-emerald {
   position: absolute !important;
   inset: 0 !important;
   pointer-events: none;
+  --bracket-color: var(--color-primary);
 }
+
 .cyber-brackets::before,
 .cyber-brackets::after,
 .cyber-brackets-pink::before,
@@ -249,7 +254,13 @@
 .cyber-brackets-red::before,
 .cyber-brackets-red::after,
 .cyber-brackets-yellow::before,
-.cyber-brackets-yellow::after {
+.cyber-brackets-yellow::after,
+.cyber-brackets-amber::before,
+.cyber-brackets-amber::after,
+.cyber-brackets-indigo::before,
+.cyber-brackets-indigo::after,
+.cyber-brackets-emerald::before,
+.cyber-brackets-emerald::after {
   content: '';
   position: absolute;
   width: 14px;
@@ -257,71 +268,49 @@
   pointer-events: none;
   z-index: 10;
 }
-.cyber-brackets::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid var(--color-primary);
-  border-left: 2px solid var(--color-primary);
-}
-.cyber-brackets::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid var(--color-primary);
-  border-right: 2px solid var(--color-primary);
-}
 
+.cyber-brackets::before,
 .cyber-brackets-pink::before,
-.cyber-brackets-red::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid #ff007f;
-  border-left: 2px solid #ff007f;
-}
-.cyber-brackets-pink::after,
-.cyber-brackets-red::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid #ff007f;
-  border-right: 2px solid #ff007f;
-}
-
-.cyber-brackets-indigo::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid #6366f1;
-  border-left: 2px solid #6366f1;
-}
-.cyber-brackets-indigo::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid #6366f1;
-  border-right: 2px solid #6366f1;
-}
-
+.cyber-brackets-red::before,
+.cyber-brackets-yellow::before,
+.cyber-brackets-amber::before,
+.cyber-brackets-indigo::before,
 .cyber-brackets-emerald::before {
   top: -1px;
   left: -1px;
-  border-top: 2px solid #10b981;
-  border-left: 2px solid #10b981;
+  border-top: 2px solid var(--bracket-color);
+  border-left: 2px solid var(--bracket-color);
 }
+
+.cyber-brackets::after,
+.cyber-brackets-pink::after,
+.cyber-brackets-red::after,
+.cyber-brackets-yellow::after,
+.cyber-brackets-amber::after,
+.cyber-brackets-indigo::after,
 .cyber-brackets-emerald::after {
   bottom: -1px;
   right: -1px;
-  border-bottom: 2px solid #10b981;
-  border-right: 2px solid #10b981;
+  border-bottom: 2px solid var(--bracket-color);
+  border-right: 2px solid var(--bracket-color);
 }
 
-.cyber-brackets-amber::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid #f59e0b;
-  border-left: 2px solid #f59e0b;
+.cyber-brackets-pink,
+.cyber-brackets-red {
+  --bracket-color: #ff007f;
 }
-.cyber-brackets-amber::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid #f59e0b;
-  border-right: 2px solid #f59e0b;
+
+.cyber-brackets-yellow,
+.cyber-brackets-amber {
+  --bracket-color: #f59e0b;
+}
+
+.cyber-brackets-indigo {
+  --bracket-color: #6366f1;
+}
+
+.cyber-brackets-emerald {
+  --bracket-color: #10b981;
 }
 
 /* Full 4-corner Tech Frame */
@@ -380,6 +369,42 @@
   background: rgba(10, 14, 32, 0.85);
   transform: translateY(-3px);
   box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.9), 0 0 25px -5px rgba(0, 240, 255, 0.35);
+}
+
+/* Reusable Standard FUI / Cyber Classes */
+.cyber-panel {
+  background-color: rgba(5, 7, 20, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.85);
+}
+
+.cyber-panel-lg {
+  background-color: rgba(5, 7, 20, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+}
+
+.cyber-tag-header {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  padding: 0.125rem 0.625rem;
+  background-color: var(--color-surface);
+  border-left: 1px solid rgba(0, 240, 255, 0.3);
+  border-right: 1px solid rgba(0, 240, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  pointer-events: none;
+  z-index: 20;
 }
 
 /* Neon Glow Utilities */

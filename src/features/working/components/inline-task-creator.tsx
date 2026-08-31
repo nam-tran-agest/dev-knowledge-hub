@@ -27,7 +27,7 @@ export function InlineTaskCreator({ onSuggest }: InlineTaskCreatorProps) {
         <div className="relative">
             <form
                 onSubmit={handleSubmit}
-                className={isFocused ? "bg-[#040612]/95 cyber-clip border border-primary/60 p-1 shadow-[0_0_20px_rgba(0,240,255,0.25)]" : "bg-[#040612]/60 cyber-clip border border-primary/20 p-1"}
+                className={isFocused ? "bg-surface-deep/95 cyber-clip border border-primary/60 p-1 shadow-[0_0_20px_rgba(0,240,255,0.25)]" : "bg-surface-deep/60 cyber-clip border border-primary/20 p-1"}
             >
                 <div className="relative flex items-center">
                     <div className="absolute left-3 text-primary/60">

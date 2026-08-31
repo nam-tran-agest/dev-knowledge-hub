@@ -10,7 +10,7 @@ const Textarea = React.forwardRef<
             <textarea
                 className={cn(
                     "flex min-h-[80px] w-full cyber-clip-button px-3.5 py-2.5 text-sm font-mono text-slate-200 placeholder:text-primary/40 transition-all",
-                    "bg-[#040612]/80 border border-primary/30",
+                    "bg-surface-deep/80 border border-primary/30",
                     "hover:border-primary/60 focus:outline-none focus:bg-primary/[0.04] focus:border-primary focus:shadow-[0_0_15px_rgba(0,240,255,0.25)]",
                     "disabled:cursor-not-allowed disabled:opacity-40",
                     className

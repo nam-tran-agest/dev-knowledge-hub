@@ -35,7 +35,7 @@ export function MusicCard({ item, type }: MusicCardProps) {
             : item.genres?.slice(0, 2).join(', ');
 
     return (
-        <div className="group relative bg-[#050714]/80 hover:bg-primary/10 border border-primary/25 hover:border-primary cyber-clip p-4 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.2)] hover:-translate-y-1 cursor-pointer">
+        <div className="group relative bg-surface/80 hover:bg-primary/10 border border-primary/25 hover:border-primary cyber-clip p-4 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.2)] hover:-translate-y-1 cursor-pointer">
             {/* Top Corner Tag */}
             <div className="absolute top-2.5 right-4 px-2 py-0.5 bg-black/80 border border-primary/30 text-[8px] uppercase tracking-widest text-primary/80 font-mono z-20 cyber-clip-tag">
                 // TRACK_{item.id.slice(0, 4)}

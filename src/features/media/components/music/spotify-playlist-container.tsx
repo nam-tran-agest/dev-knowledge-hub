@@ -33,7 +33,7 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
                 <main className="flex-1 overflow-hidden flex flex-col">
                     <div className="flex-1 overflow-y-auto custom-scrollbar">
                         {/* Header Hero */}
-                        <div className="relative bg-[#050714] border-b border-primary/20 p-6 md:p-10 flex flex-col md:flex-row items-end gap-6 overflow-hidden">
+                        <div className="relative bg-surface border-b border-primary/20 p-6 md:p-10 flex flex-col md:flex-row items-end gap-6 overflow-hidden">
                             <div className="absolute inset-0 bg-grid-cyber opacity-15 pointer-events-none" />
 
                             <Link href="/media/music?category=playlists" className="absolute top-6 left-6 flex items-center gap-1.5 text-primary/70 hover:text-primary transition-colors font-mono text-xs uppercase z-20">
@@ -45,7 +45,7 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
                                 {playlist.images?.[0]?.url ? (
                                     <Image src={playlist.images[0].url} alt={playlist.name} fill className="object-cover opacity-85" />
                                 ) : (
-                                    <div className="w-full h-full bg-[#050714] flex items-center justify-center">
+                                    <div className="w-full h-full bg-surface flex items-center justify-center">
                                         <Music2 className="w-16 h-16 text-primary" />
                                     </div>
                                 )}
@@ -79,7 +79,7 @@ export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPl
 
                         {/* Tracks List */}
                         <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-4">
-                            <div className="bg-[#050714]/80 border border-primary/30 cyber-clip overflow-hidden shadow-2xl backdrop-blur-2xl">
+                            <div className="bg-surface/80 border border-primary/30 cyber-clip overflow-hidden shadow-2xl backdrop-blur-2xl">
                                 <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_1fr_auto] gap-4 p-3.5 border-b border-primary/20 text-primary/60 text-xs font-mono font-bold uppercase tracking-wider px-6">
                                     <div className="w-8 text-center">#</div>
                                     <div>TITLE</div>

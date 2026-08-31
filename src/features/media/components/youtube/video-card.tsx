@@ -23,11 +23,11 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
     return (
         <Card
             onClick={() => onSelect(video)}
-            className="group relative overflow-hidden bg-[#050714]/90 border border-primary/30 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:-translate-y-1 cursor-pointer p-0 cyber-clip backdrop-blur-2xl"
+            className="group relative overflow-hidden bg-surface/90 border border-primary/30 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:-translate-y-1 cursor-pointer p-0 cyber-clip backdrop-blur-2xl"
         >
             <div className="flex flex-col h-full">
                 {/* Thumbnail Area */}
-                <div className="relative aspect-video w-full overflow-hidden bg-[#04060f]">
+                <div className="relative aspect-video w-full overflow-hidden bg-background">
                     {video.thumbnail_url ? (
                         <Image
                             src={video.thumbnail_url}
@@ -42,7 +42,7 @@ export function VideoCard({ video, onSelect, onDelete, onToggleFavorite, onAddTo
                     )}
 
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#04060f]/90 via-transparent to-black/30 opacity-90" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-black/30 opacity-90" />
 
                     {/* Top Action Row */}
                     <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-20 pointer-events-none">

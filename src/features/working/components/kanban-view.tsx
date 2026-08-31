@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React from 'react'
 import { Task, TaskStatus } from '@/features/working/types'
@@ -31,7 +31,7 @@ export function KanbanView({ tasks, onStatusChange, onDelete, onEdit, onOpenCrea
                 return (
                     <div
                         key={column.id}
-                        className="flex-1 flex flex-col min-w-[320px] bg-card/60 cyber-clip border border-primary/20 p-5 sm:p-6 backdrop-blur-2xl shadow-[0_0_20px_rgba(0,0,0,0.8)] relative group"
+                        className="flex-1 flex flex-col min-w-[320px] cyber-panel p-5 sm:p-6 relative group"
                     >
                         {/* Brackets and Grid */}
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f0ff05_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff05_1px,transparent_1px)] bg-[size:14px_14px] pointer-events-none" />

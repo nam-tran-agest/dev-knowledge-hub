@@ -13,7 +13,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
     return (
         <a href={item.link} target="_blank" rel="noopener noreferrer" className="block h-full group cursor-pointer">
             <Card className="bg-card/70 border-primary/25 overflow-hidden hover:border-primary hover:bg-card hover:shadow-[0_0_30px_rgba(0,240,255,0.2)] transition-all duration-300 flex flex-col h-full cyber-clip backdrop-blur-2xl">
-                <div className="h-48 relative overflow-hidden bg-[#050714]">
+                <div className="h-48 relative overflow-hidden bg-surface">
                     <Image
                         src={item.image}
                         alt={item.title || "News"}
@@ -21,7 +21,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
                         className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
                         unoptimized={item.image.startsWith('http') && !item.image.toLowerCase().includes('dantri')}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#04060f]/90 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
                     
                     <div className="absolute top-2.5 left-2.5 z-10">
                         <Badge className="bg-background/80 backdrop-blur-md border-primary/40 text-primary text-[10px] font-mono font-bold px-2.5 py-0.5 shadow-sm">

@@ -158,7 +158,7 @@ export function MHWildsContainer() {
                 </aside>
 
                 {/* Mobile bottom bar */}
-                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#050714]/95 backdrop-blur-xl border-t border-primary/30 overflow-x-auto scrollbar-none" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-xl border-t border-primary/30 overflow-x-auto scrollbar-none" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className="flex gap-1 px-2 py-2">
                         {CATEGORIES.map(cat => (
                             <button key={cat.key} onClick={() => setActiveCategory(cat.key)}
@@ -191,7 +191,7 @@ export function MHWildsContainer() {
                             placeholder={`SEARCH_${catMeta.label.toUpperCase()}_DATABASE...`}
                             value={filters.searchQuery}
                             onChange={e => filters.setSearchQuery(e.target.value)}
-                            className="pl-9 bg-[#040612]/90 border-primary/30 text-white font-mono text-xs"
+                            className="pl-9 bg-surface-deep/90 border-primary/30 text-white font-mono text-xs"
                         />
                     </div>
 

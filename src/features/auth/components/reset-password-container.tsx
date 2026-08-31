@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, Suspense } from 'react'
 import { updatePassword } from '@/lib/actions/auth'
@@ -59,8 +59,8 @@ function ResetPasswordForm() {
 
     if (isSuccess) {
         return (
-            <Card className="w-full max-w-md bg-[#050714]/95 border border-emerald-500/50 shadow-[0_0_50px_rgba(16,185,129,0.2)] backdrop-blur-2xl cyber-clip-lg relative z-10 p-4 sm:p-6 text-center">
-                <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-emerald-500/50 text-[9px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+            <Card className="w-full max-w-md cyber-panel-lg border-emerald-500/50 shadow-[0_0_50px_rgba(16,185,129,0.2)] relative z-10 p-4 sm:p-6 text-center">
+                <div className="cyber-tag-header !border-emerald-500/50 !text-emerald-400">
                     // PROFILE_UPDATED
                 </div>
                 <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
@@ -90,8 +90,8 @@ function ResetPasswordForm() {
     }
 
     return (
-        <Card className="w-full max-w-md bg-[#050714]/95 border border-primary/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] backdrop-blur-2xl cyber-clip-lg relative z-10 p-2 sm:p-4">
-            <div className="absolute top-0 right-6 px-2.5 py-0.5 bg-[#050714] border-x border-b border-primary/40 text-[9px] font-mono uppercase tracking-widest text-primary font-bold">
+        <Card className="w-full max-w-md cyber-panel-lg border-primary/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] relative z-10 p-2 sm:p-4">
+            <div className="cyber-tag-header">
                 // PROFILE_RECONFIGURATION
             </div>
             <div className="absolute inset-0 cyber-brackets pointer-events-none opacity-60" />
@@ -153,7 +153,7 @@ function ResetPasswordForm() {
                             placeholder="••••••••"
                             required
                             disabled={isLoading}
-                            className="bg-[#030712]/80 border-primary/30 focus:border-primary text-white font-mono text-sm"
+                            className="bg-surface-deep/80 border-primary/30 focus:border-primary text-white font-mono text-sm"
                         />
                     </div>
 
@@ -169,7 +169,7 @@ function ResetPasswordForm() {
                             placeholder="••••••••"
                             required
                             disabled={isLoading}
-                            className="bg-[#030712]/80 border-primary/30 focus:border-primary text-white font-mono text-sm"
+                            className="bg-surface-deep/80 border-primary/30 focus:border-primary text-white font-mono text-sm"
                         />
                     </div>
 

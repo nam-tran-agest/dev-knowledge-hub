@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React, { useState } from 'react'
 import { Project, Task, TaskStatus } from '@/features/working/types'
@@ -100,7 +100,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                             placeholder="SEARCH_TELEMETRY_TASKS..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-9 bg-[#040612]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
+                            className="pl-9 bg-surface-deep/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
                         />
                     </div>
 
@@ -115,7 +115,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                         </button>
 
                         {/* View Mode Toggle */}
-                        <div className="flex items-center gap-1.5 bg-[#050714] p-1 cyber-clip-button border border-primary/30">
+                        <div className="flex items-center gap-1.5 bg-surface p-1 cyber-clip-button border border-primary/30">
                             <button
                                 onClick={() => setView('list')}
                                 className={`px-3 py-1.5 cyber-clip-button transition-all text-xs font-mono uppercase tracking-wider cursor-pointer ${

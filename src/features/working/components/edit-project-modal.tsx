@@ -164,7 +164,7 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
             </Dialog>
 
             <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-                <AlertDialogContent className="bg-[#050714] border border-destructive/40 text-white cyber-clip-lg shadow-[0_0_50px_rgba(255,0,60,0.3)]">
+                <AlertDialogContent className="border-destructive/40 text-white shadow-[0_0_50px_rgba(255,0,60,0.3)]">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-base font-mono font-bold uppercase tracking-wider text-destructive">
                             // WARNING: IRREVERSIBLE_PURGE
