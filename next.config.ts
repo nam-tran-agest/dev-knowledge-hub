@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+﻿import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
     '*': [
       'node_modules/next/dist/compiled/@vercel/og/**',
       'node_modules/sharp/**',
+      'public/data/mhwilds/**',
+      'public/img/**',
+      'public/**/*.webm',
+      'public/**/*.mp4',
     ],
   },
   experimental: {
@@ -18,7 +22,19 @@ const nextConfig: NextConfig = {
       'lucide-react',
       'date-fns',
       '@radix-ui/react-icons',
-      'react-syntax-highlighter',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-select',
+      '@radix-ui/react-popover',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-alert-dialog',
+      '@radix-ui/react-avatar',
+      '@radix-ui/react-scroll-area',
+      '@radix-ui/react-collapsible',
+      '@hello-pangea/dnd',
+      'motion',
+      'zustand',
+      'fast-xml-parser',
     ],
   },
   images: {

@@ -1,10 +1,23 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed } from '@/features/media/lib/steam-client';
 import { getSpotifyAuthToken } from '@/features/media/services/spotify';
 import { spotifyFetch, type SpotifyCurrentlyPlaying } from '@/features/media/services/spotify-api';
 
+// Short TTL memory cache to prevent hammering external APIs on high frequency polling
+let memoryCache: { data: unknown; timestamp: number } | null = null;
+const CACHE_TTL_MS = 5000; // 5 seconds
+
 export async function GET() {
     try {
+        const now = Date.now();
+        if (memoryCache && (now - memoryCache.timestamp < CACHE_TTL_MS)) {
+            return NextResponse.json(memoryCache.data, {
+                headers: {
+                    'Cache-Control': 'public, max-age=5, s-maxage=5, stale-while-revalidate=10'
+                }
+            });
+        }
+
         // Fetch Steam and Spotify concurrently
         const [steamId, spotifyToken] = await Promise.all([
             getUserSteamId(),
@@ -57,9 +70,20 @@ export async function GET() {
             }
         }
 
-        return NextResponse.json({
+        const payload = {
             steam: steamData,
             spotify: spotifyData
+        };
+
+        memoryCache = {
+            data: payload,
+            timestamp: now
+        };
+
+        return NextResponse.json(payload, {
+            headers: {
+                'Cache-Control': 'public, max-age=5, s-maxage=5, stale-while-revalidate=10'
+            }
         });
 
     } catch (error) {
