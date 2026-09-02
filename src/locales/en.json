@@ -331,9 +331,24 @@
     "settings": "Settings",
     "tasks": {
       "columns": {
+        "backlog": "Backlog",
         "todo": "To Do",
         "doing": "In Progress",
+        "review": "In Review",
         "done": "Done"
+      },
+      "issueTypes": {
+        "story": "Story",
+        "task": "Task",
+        "bug": "Bug",
+        "epic": "Epic"
+      },
+      "priorities": {
+        "highest": "Highest",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low",
+        "lowest": "Lowest"
       },
       "placeholder": "Task title...",
       "move_to": "Move to",

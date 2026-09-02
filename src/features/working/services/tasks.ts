@@ -1,4 +1,4 @@
-'use server'
+﻿'use server'
 
 import { create, update, deleteEntity, getAll, getById } from '@/lib/actions/base-crud'
 import { Task } from '@/features/working/types'
@@ -25,11 +25,45 @@ export async function getTaskById(id: string) {
 }
 
 export async function createTask(input: Record<string, unknown>) {
-    return await create<Task>(CONFIG, input)
+    try {
+        return await create<Task>(CONFIG, input)
+    } catch (error: unknown) {
+        const errorMsg = error instanceof Error ? error.message : String(error)
+        // If columns issue_type, story_points or subtasks do not exist in DB yet, fallback to core fields
+        if (errorMsg.includes('column') || errorMsg.includes('schema') || errorMsg.includes('does not exist')) {
+            const { issue_type: _it, story_points: _sp, subtasks: _st, issue_key: _ik, ...coreInput } = input
+            const fallbackResult = await create<Task>(CONFIG, coreInput)
+            return {
+                ...fallbackResult,
+                issue_type: input.issue_type as Task['issue_type'],
+                story_points: input.story_points as Task['story_points'],
+                subtasks: input.subtasks as Task['subtasks'],
+                issue_key: input.issue_key as Task['issue_key'],
+            } as Task
+        }
+        throw error
+    }
 }
 
 export async function updateTask(id: string, input: Record<string, unknown>) {
-    return await update<Task>(CONFIG, id, input)
+    try {
+        return await update<Task>(CONFIG, id, input)
+    } catch (error: unknown) {
+        const errorMsg = error instanceof Error ? error.message : String(error)
+        // If columns issue_type, story_points or subtasks do not exist in DB yet, fallback to core fields
+        if (errorMsg.includes('column') || errorMsg.includes('schema') || errorMsg.includes('does not exist')) {
+            const { issue_type: _it, story_points: _sp, subtasks: _st, issue_key: _ik, ...coreInput } = input
+            const fallbackResult = await update<Task>(CONFIG, id, coreInput)
+            return {
+                ...fallbackResult,
+                issue_type: input.issue_type as Task['issue_type'],
+                story_points: input.story_points as Task['story_points'],
+                subtasks: input.subtasks as Task['subtasks'],
+                issue_key: input.issue_key as Task['issue_key'],
+            } as Task
+        }
+        throw error
+    }
 }
 
 export async function deleteTask(id: string) {

@@ -1,8 +1,15 @@
 import { BaseEntity } from '@/types/base';
 
-export type TaskStatus = 'todo' | 'doing' | 'done';
-export type TaskPriority = 'low' | 'medium' | 'high';
+export type TaskStatus = 'backlog' | 'todo' | 'doing' | 'review' | 'done';
+export type TaskPriority = 'lowest' | 'low' | 'medium' | 'high' | 'highest';
+export type IssueType = 'story' | 'task' | 'bug' | 'epic';
 export type ProjectStatus = 'active' | 'archived';
+
+export interface SubTask {
+    id: string;
+    title: string;
+    completed: boolean;
+}
 
 export interface Project extends BaseEntity {
     id: string; // Override to be specific
@@ -14,6 +21,7 @@ export interface Project extends BaseEntity {
     status: ProjectStatus;
     order: number;
     is_pinned: boolean;
+    key?: string; // e.g. PRJ, DEV
 }
 
 export interface Task extends BaseEntity {
@@ -27,6 +35,10 @@ export interface Task extends BaseEntity {
     due_date: string | null;
     position: number;
     tags?: string[];
+    issue_type?: IssueType;
+    story_points?: number | null;
+    subtasks?: SubTask[];
+    issue_key?: string; // e.g. DEV-101
 }
 
 export interface CreateProjectInput {
@@ -37,6 +49,7 @@ export interface CreateProjectInput {
     status?: ProjectStatus;
     order?: number;
     is_pinned?: boolean;
+    key?: string;
 }
 
 export interface CreateTaskInput {
@@ -47,6 +60,10 @@ export interface CreateTaskInput {
     priority?: TaskPriority;
     due_date?: string;
     position?: number;
+    issue_type?: IssueType;
+    story_points?: number | null;
+    subtasks?: SubTask[];
+    issue_key?: string;
 }
 
 export interface UpdateProjectInput {
@@ -57,6 +74,7 @@ export interface UpdateProjectInput {
     status?: ProjectStatus;
     order?: number;
     is_pinned?: boolean;
+    key?: string;
 }
 
 export interface UpdateTaskInput {
@@ -67,5 +85,9 @@ export interface UpdateTaskInput {
     priority?: TaskPriority;
     due_date?: string;
     position?: number;
+    issue_type?: IssueType;
+    story_points?: number | null;
+    subtasks?: SubTask[];
+    issue_key?: string;
 }
 

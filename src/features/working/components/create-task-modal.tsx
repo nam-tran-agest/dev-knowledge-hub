@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React, { useState, useTransition } from 'react'
 import {
@@ -22,8 +22,9 @@ import {
 } from '@/components/ui/select'
 import { createTask } from '@/features/working/services/tasks'
 import { Loader2, Plus, Terminal, FolderKanban } from 'lucide-react'
-import { Task, TaskStatus, TaskPriority, Project } from '@/features/working/types'
+import { Task, TaskStatus, TaskPriority, IssueType, Project } from '@/features/working/types'
 import { useTranslations } from 'next-intl'
+import { IssueTypeBadge, PriorityBadge } from './task-badges'
 
 interface CreateTaskModalProps {
     projectId?: string
@@ -52,6 +53,9 @@ export function CreateTaskModal({
         description: '',
         status: defaultStatus,
         priority: 'medium' as TaskPriority,
+        issue_type: 'task' as IssueType,
+        story_points: '' as string,
+        tags: '' as string,
     })
 
     // Reset form on open
@@ -63,6 +67,9 @@ export function CreateTaskModal({
                 description: '',
                 status: defaultStatus,
                 priority: 'medium',
+                issue_type: 'task',
+                story_points: '',
+                tags: '',
             })
             setError(null)
         }
@@ -78,6 +85,12 @@ export function CreateTaskModal({
         if (!formData.title.trim()) return
         setError(null)
 
+        const parsedPoints = formData.story_points ? parseInt(formData.story_points, 10) : null
+        const tagsList = formData.tags
+            .split(',')
+            .map(t => t.trim().replace(/^#/, ''))
+            .filter(Boolean)
+
         startTransition(async () => {
             try {
                 const created = await createTask({
@@ -85,6 +98,9 @@ export function CreateTaskModal({
                     description: formData.description.trim() || undefined,
                     status: formData.status,
                     priority: formData.priority,
+                    issue_type: formData.issue_type,
+                    story_points: isNaN(Number(parsedPoints)) ? null : parsedPoints,
+                    tags: tagsList.length > 0 ? tagsList : undefined,
                     project_id: targetProjectId,
                 })
                 if (onSuccess) {
@@ -101,14 +117,14 @@ export function CreateTaskModal({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent tag="TASK_CREATOR" className="sm:max-w-[450px]">
+            <DialogContent tag="TASK_CREATOR" className="sm:max-w-[520px] font-mono">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <Plus className="w-4 h-4 text-primary" />
-                        // INITIALIZE_NEW_TASK
+                        // ALLOCATE_NEW_ISSUE
                     </DialogTitle>
-                    <DialogDescription>
-                        Allocate a new execution task into this workspace matrix.
+                    <DialogDescription className="font-mono text-xs text-primary/60">
+                        Allocate a new execution issue into this workspace backlog or sprint board.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -133,7 +149,7 @@ export function CreateTaskModal({
                                 <SelectTrigger className="bg-[#030712]/90 border-primary/30 text-xs font-mono">
                                     <SelectValue placeholder="Select target project" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="font-mono">
                                     {projects.map((p) => (
                                         <SelectItem key={p.id} value={p.id}>
                                             {p.name}
@@ -144,36 +160,36 @@ export function CreateTaskModal({
                         </div>
                     )}
 
-                    <div className="space-y-1.5">
-                        <Label htmlFor="create-task-title" className="text-primary/80 font-mono text-xs uppercase tracking-wider">
-                            Task Title *
-                        </Label>
-                        <Input
-                            id="create-task-title"
-                            required
-                            placeholder="e.g. Implement OAuth Flow, Fix Shader Bug"
-                            value={formData.title}
-                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
-                        />
-                    </div>
-
-                    <div className="space-y-1.5">
-                        <Label htmlFor="create-task-desc" className="text-primary/80 font-mono text-xs uppercase tracking-wider">
-                            Description
-                        </Label>
-                        <Textarea
-                            id="create-task-desc"
-                            placeholder="Technical specification, acceptance criteria, or logs..."
-                            className="min-h-[80px] bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
-                            value={formData.description}
-                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* Row 1: Issue Type & Status */}
+                    <div className="grid grid-cols-2 gap-3">
                         <div className="space-y-1.5">
-                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Column Status</Label>
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Issue Type</Label>
+                            <Select
+                                value={formData.issue_type}
+                                onValueChange={(value) => setFormData({ ...formData, issue_type: value as IssueType })}
+                            >
+                                <SelectTrigger className="bg-[#030712]/90 border-primary/30 text-xs font-mono">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent className="font-mono">
+                                    <SelectItem value="story">
+                                        <div className="flex items-center gap-2"><IssueTypeBadge type="story" size="sm" /></div>
+                                    </SelectItem>
+                                    <SelectItem value="task">
+                                        <div className="flex items-center gap-2"><IssueTypeBadge type="task" size="sm" /></div>
+                                    </SelectItem>
+                                    <SelectItem value="bug">
+                                        <div className="flex items-center gap-2"><IssueTypeBadge type="bug" size="sm" /></div>
+                                    </SelectItem>
+                                    <SelectItem value="epic">
+                                        <div className="flex items-center gap-2"><IssueTypeBadge type="epic" size="sm" /></div>
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="space-y-1.5">
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Status Column</Label>
                             <Select
                                 value={formData.status}
                                 onValueChange={(value) => setFormData({ ...formData, status: value as TaskStatus })}
@@ -181,16 +197,50 @@ export function CreateTaskModal({
                                 <SelectTrigger className="bg-[#030712]/90 border-primary/30 text-xs font-mono">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="todo">{t('todo')}</SelectItem>
-                                    <SelectItem value="doing">{t('doing')}</SelectItem>
-                                    <SelectItem value="done">{t('done')}</SelectItem>
+                                <SelectContent className="font-mono">
+                                    <SelectItem value="backlog">{t('backlog') || 'Backlog'}</SelectItem>
+                                    <SelectItem value="todo">{t('todo') || 'To Do'}</SelectItem>
+                                    <SelectItem value="doing">{t('doing') || 'In Progress'}</SelectItem>
+                                    <SelectItem value="review">{t('review') || 'In Review'}</SelectItem>
+                                    <SelectItem value="done">{t('done') || 'Done'}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
+                    </div>
 
+                    {/* Title */}
+                    <div className="space-y-1.5">
+                        <Label htmlFor="create-task-title" className="text-primary/80 font-mono text-xs uppercase tracking-wider">
+                            Issue Summary / Title *
+                        </Label>
+                        <Input
+                            id="create-task-title"
+                            required
+                            placeholder="e.g. As a developer, I want to authenticate via OAuth"
+                            value={formData.title}
+                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                            className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
+                        />
+                    </div>
+
+                    {/* Description */}
+                    <div className="space-y-1.5">
+                        <Label htmlFor="create-task-desc" className="text-primary/80 font-mono text-xs uppercase tracking-wider">
+                            Description & Acceptance Criteria
+                        </Label>
+                        <Textarea
+                            id="create-task-desc"
+                            placeholder="Detailed technical context, steps to reproduce, or specifications..."
+                            className="min-h-[75px] bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
+                            value={formData.description}
+                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        />
+                    </div>
+
+                    {/* Row 2: Priority & Story Points */}
+                    <div className="grid grid-cols-2 gap-3">
                         <div className="space-y-1.5">
-                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Priority Rank</Label>
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Priority Level</Label>
                             <Select
                                 value={formData.priority}
                                 onValueChange={(value) => setFormData({ ...formData, priority: value as TaskPriority })}
@@ -198,13 +248,51 @@ export function CreateTaskModal({
                                 <SelectTrigger className="bg-[#030712]/90 border-primary/30 text-xs font-mono">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="low">LOW</SelectItem>
-                                    <SelectItem value="medium">MEDIUM</SelectItem>
-                                    <SelectItem value="high">HIGH</SelectItem>
+                                <SelectContent className="font-mono">
+                                    <SelectItem value="highest">
+                                        <div className="flex items-center gap-2"><PriorityBadge priority="highest" showLabel /></div>
+                                    </SelectItem>
+                                    <SelectItem value="high">
+                                        <div className="flex items-center gap-2"><PriorityBadge priority="high" showLabel /></div>
+                                    </SelectItem>
+                                    <SelectItem value="medium">
+                                        <div className="flex items-center gap-2"><PriorityBadge priority="medium" showLabel /></div>
+                                    </SelectItem>
+                                    <SelectItem value="low">
+                                        <div className="flex items-center gap-2"><PriorityBadge priority="low" showLabel /></div>
+                                    </SelectItem>
+                                    <SelectItem value="lowest">
+                                        <div className="flex items-center gap-2"><PriorityBadge priority="lowest" showLabel /></div>
+                                    </SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
+
+                        <div className="space-y-1.5">
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Story Points (Fibonacci)</Label>
+                            <Input
+                                type="number"
+                                min="0"
+                                max="100"
+                                placeholder="1, 2, 3, 5, 8, 13..."
+                                value={formData.story_points}
+                                onChange={(e) => setFormData({ ...formData, story_points: e.target.value })}
+                                className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="space-y-1.5">
+                        <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">
+                            Labels / Tags (comma separated)
+                        </Label>
+                        <Input
+                            placeholder="frontend, auth, p1, security"
+                            value={formData.tags}
+                            onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                            className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
+                        />
                     </div>
 
                     <DialogFooter className="pt-2">
@@ -216,11 +304,11 @@ export function CreateTaskModal({
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    CREATING_TASK...
+                                    CREATING_ISSUE...
                                 </>
                             ) : (
                                 <span className="flex items-center gap-1.5">
-                                    <Terminal className="w-3.5 h-3.5" /> [ ALLOCATE_TASK ]
+                                    <Terminal className="w-3.5 h-3.5" /> [ ALLOCATE_ISSUE ]
                                 </span>
                             )}
                         </Button>

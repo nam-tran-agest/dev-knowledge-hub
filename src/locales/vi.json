@@ -331,9 +331,24 @@
     "settings": "Cài đặt",
     "tasks": {
       "columns": {
-        "todo": "Cần làm",
-        "doing": "Đang làm",
-        "done": "Hoàn thành"
+        "backlog": "Tồn đọng (Backlog)",
+        "todo": "Cần làm (To Do)",
+        "doing": "Đang thực hiện",
+        "review": "Đang duyệt (Review)",
+        "done": "Hoàn tất (Done)"
+      },
+      "issueTypes": {
+        "story": "Story",
+        "task": "Task",
+        "bug": "Bug",
+        "epic": "Epic"
+      },
+      "priorities": {
+        "highest": "Rất cao",
+        "high": "Cao",
+        "medium": "Trung bình",
+        "low": "Thấp",
+        "lowest": "Rất thấp"
       },
       "placeholder": "Tiêu đề công việc...",
       "move_to": "Di chuyển tới",

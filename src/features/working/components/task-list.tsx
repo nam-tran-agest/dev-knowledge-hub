@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React, { useState } from 'react'
 import { Task, TaskStatus } from '@/features/working/types'
@@ -24,7 +24,7 @@ export function TaskList({
     onAddTask
 }: TaskListProps) {
     const t = useTranslations('navigation.tasks.columns')
-    const [filter, setFilter] = useState<'all' | 'todo' | 'doing' | 'done'>('all')
+    const [filter, setFilter] = useState<'all' | TaskStatus>('all')
 
     const filteredTasks = tasks.filter(task => {
         if (filter === 'all') return true
@@ -33,18 +33,21 @@ export function TaskList({
 
     const getStatusLabel = (f: string) => {
         if (f === 'all') return 'ALL'
-        return t(f)
+        return t(f) || f.toUpperCase()
     }
+
+    const STATUS_TABS: ('all' | TaskStatus)[] = ['all', 'backlog', 'todo', 'doing', 'review', 'done']
 
     return (
         <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between overflow-x-auto pb-2 custom-scrollbar">
                 <div className="flex items-center gap-1 bg-surface p-1 cyber-clip-button border border-primary/30">
-                    {(['all', 'todo', 'doing', 'done'] as const).map((f) => (
+                    {STATUS_TABS.map((f) => (
                         <button
                             key={f}
+                            type="button"
                             onClick={() => setFilter(f)}
-                            className={`px-3 py-1 cyber-clip-button text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                            className={`px-3 py-1 cyber-clip-button text-xs font-mono uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
                                 filter === f
                                     ? 'bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]'
                                     : 'text-primary/60 hover:text-white'
@@ -80,6 +83,7 @@ export function TaskList({
                                         onStatusChange={onStatusChange}
                                         onDelete={onDelete}
                                         onEdit={onEdit}
+                                        isDragDisabled={true}
                                     />
                                 </motion.div>
                             ))
