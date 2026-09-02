@@ -16,7 +16,7 @@ export async function ProjectDetailContainer({ projectId, locale }: ProjectDetai
         notFound();
     }
 
-    const tasks = await getTasks(projectId);
+    const tasks = await getTasks(project.id);
 
     return (
         <PageShell variant="landing" className="bg-[#0a0a0c]">

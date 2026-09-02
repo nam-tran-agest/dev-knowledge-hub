@@ -80,6 +80,8 @@ ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES aut
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS name TEXT;
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS "order" INT DEFAULT 0;
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS is_pinned BOOLEAN DEFAULT false;
+ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS slug TEXT;
+CREATE INDEX IF NOT EXISTS idx_projects_slug ON public.projects(slug);
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Projects User Isolation" ON public.projects;
 CREATE POLICY "Projects User Isolation" ON public.projects FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);

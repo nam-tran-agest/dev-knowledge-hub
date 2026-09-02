@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React, { useState } from 'react'
 import { Project } from '@/features/working/types'
@@ -8,6 +8,7 @@ import { CreateTaskModal } from './create-task-modal'
 import { Button } from '@/components/ui/button'
 import { CheckSquare } from 'lucide-react'
 import { useRouter } from '@/i18n/routing'
+import { getProjectUrl } from '../utils/slug'
 
 interface ProjectListProps {
     projects: Project[]
@@ -51,7 +52,9 @@ export function ProjectList({ projects }: ProjectListProps) {
                 open={isCreateTaskOpen}
                 onOpenChange={setIsCreateTaskOpen}
                 onSuccess={(newTask) => {
-                    router.push(`/working/${newTask.project_id}`)
+                    const targetProj = projects.find(p => p.id === newTask.project_id)
+                    const targetUrl = targetProj ? getProjectUrl(targetProj) : newTask.project_id
+                    router.push(`/working/${targetUrl}`)
                 }}
             />
         </div>

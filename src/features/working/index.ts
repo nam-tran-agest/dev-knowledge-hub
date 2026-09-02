@@ -1,6 +1,7 @@
 export * from './types';
 export * from './constants';
 export * from './services';
+export * from './utils/slug';
 export { WorkingContainer } from './components/working-container';
 export { ProjectDetailContainer } from './components/project-detail-container';
 export { ProjectWorkspace } from './components/project-workspace';

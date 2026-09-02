@@ -21,6 +21,7 @@ export interface Project extends BaseEntity {
     status: ProjectStatus;
     order: number;
     is_pinned: boolean;
+    slug?: string; // Human-friendly URL slug
     key?: string; // e.g. PRJ, DEV
 }
 

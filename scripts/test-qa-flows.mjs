@@ -311,6 +311,71 @@ runTest('TC_KANBAN_05', 'Quick Filters: accurately filters by issue type, priori
     assert.strictEqual(overdue[0].id, '1');
 });
 
+runTest('TC_SLUG_01', 'Slug URL generator & resolution: converts project names to clean SEO-friendly URLs', () => {
+    function slugify(text) {
+        if (!text) return '';
+        return text
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd')
+            .replace(/Đ/g, 'd')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function getProjectUrl(project) {
+        if (project.slug && project.slug.trim()) return project.slug.trim();
+        if (project.name && project.name.trim()) {
+            const s = slugify(project.name.trim());
+            if (s) return s;
+        }
+        return project.id;
+    }
+
+    // Test English name
+    assert.strictEqual(slugify('Dev Knowledge Hub'), 'dev-knowledge-hub');
+    assert.strictEqual(slugify('Neural Interface V2.0!'), 'neural-interface-v2-0');
+
+    // Test Vietnamese name with diacritics
+    assert.strictEqual(slugify('Dự Án Hệ Thống Mới'), 'du-an-he-thong-moi');
+    assert.strictEqual(slugify('Nghiên Cứu & Phát Triển'), 'nghien-cuu-phat-trien');
+
+    // Test URL generator fallback
+    const projWithSlug = { id: 'uuid-1', name: 'Original Name', slug: 'custom-slug' };
+    assert.strictEqual(getProjectUrl(projWithSlug), 'custom-slug');
+
+    const projWithoutSlug = { id: 'uuid-2', name: 'My Awesome App' };
+    assert.strictEqual(getProjectUrl(projWithoutSlug), 'my-awesome-app');
+
+    const projFallback = { id: 'uuid-3', name: '' };
+    assert.strictEqual(getProjectUrl(projFallback), 'uuid-3');
+
+    // Test Resolution matching
+    const projects = [
+        { id: '7a17b66e-0f37-4401-b405-cd392e748af4', name: 'Neural Interface V2', slug: 'neural-interface-v2' },
+        { id: 'b520c11f-1111-2222-3333-444455556666', name: 'Game Engine Hub' }
+    ];
+
+    function resolveProject(idOrSlug) {
+        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
+        if (isUUID) {
+            const found = projects.find(p => p.id === idOrSlug);
+            if (found) return found;
+        }
+        return projects.find(p => p.slug === idOrSlug) ||
+               projects.find(p => slugify(p.name) === idOrSlug.toLowerCase()) ||
+               projects.find(p => p.id === idOrSlug) || null;
+    }
+
+    // Check UUID lookup works
+    assert.strictEqual(resolveProject('7a17b66e-0f37-4401-b405-cd392e748af4')?.name, 'Neural Interface V2');
+
+    // Check Slug lookup works
+    assert.strictEqual(resolveProject('neural-interface-v2')?.id, '7a17b66e-0f37-4401-b405-cd392e748af4');
+    assert.strictEqual(resolveProject('game-engine-hub')?.id, 'b520c11f-1111-2222-3333-444455556666');
+});
+
 // Summary
 console.log('\n====================================================');
 console.log(`📊 TEST SUITE SUMMARY: ${passedTests} PASSED | ${failedTests} FAILED`);

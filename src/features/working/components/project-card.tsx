@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { deleteProject } from '@/features/working/services/projects'
 import { EditProjectModal } from './edit-project-modal'
+import { getProjectUrl } from '../utils/slug'
 
 interface ProjectCardProps {
     project: Project
@@ -60,7 +61,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
             >
-                <Link href={`/working/${project.id}`} className="block h-full">
+                <Link href={`/working/${getProjectUrl(project)}`} className="block h-full">
                     <Card className="h-full p-6 bg-card/60 border-primary/30 hover:border-primary hover:bg-card/80 transition-all duration-300 cursor-pointer group relative overflow-hidden backdrop-blur-xl hover:shadow-[0_0_25px_var(--color-primary)]">
                         {/* FUI Accent Corner */}
                         <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 opacity-50 group-hover:opacity-100 transition-opacity" style={{ borderColor: project.color }} />

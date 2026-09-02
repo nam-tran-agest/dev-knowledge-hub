@@ -1,9 +1,14 @@
-﻿import type { NextConfig } from "next";
+import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
   outputFileTracingExcludes: {
     '*': [
       'node_modules/next/dist/compiled/@vercel/og/**',
@@ -31,10 +36,14 @@ const nextConfig: NextConfig = {
       '@radix-ui/react-avatar',
       '@radix-ui/react-scroll-area',
       '@radix-ui/react-collapsible',
+      '@radix-ui/react-navigation-menu',
+      '@radix-ui/react-label',
+      '@radix-ui/react-separator',
       '@hello-pangea/dnd',
       'motion',
       'zustand',
       'fast-xml-parser',
+      'swiper',
     ],
   },
   images: {

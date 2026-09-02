@@ -16,6 +16,7 @@ import { Label } from '@/components/ui/label'
 import { createProject } from '@/features/working/services/projects'
 import { Plus, Loader2, Sparkles } from 'lucide-react'
 import { useRouter } from '@/i18n/routing'
+import { getProjectUrl } from '../utils/slug'
 
 const COLORS = [
     '#00f0ff', // Cyber Cyan
@@ -49,7 +50,7 @@ export function CreateProjectModal() {
                 const project = await createProject(formData)
                 setOpen(false)
                 setFormData({ name: '', description: '', color: COLORS[0], icon: 'Layout' })
-                router.push(`/working/${project.id}`)
+                router.push(`/working/${getProjectUrl(project)}`)
             } catch (err: unknown) {
                 const message = err instanceof Error ? err.message : 'Failed to create project. Please verify you are logged in.';
                 console.error('Failed to create project:', err)
