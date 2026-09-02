@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Task, TaskStatus } from '@/features/working/types'
+import { Task, TaskStatus, IssueType, TaskPriority } from '@/features/working/types'
 import { TaskItem } from './task-item'
 import { useTranslations } from 'next-intl'
 import { 
@@ -19,6 +19,8 @@ import { cn } from '@/lib/utils'
 interface KanbanViewProps {
     tasks: Task[]
     onStatusChange?: (id: string, status: TaskStatus) => void
+    onTypeChange?: (id: string, type: IssueType) => void
+    onPriorityChange?: (id: string, priority: TaskPriority) => void
     onDelete?: (id: string) => void
     onEdit?: (task: Task) => void
     onOpenCreateModal?: (status: TaskStatus) => void
@@ -28,6 +30,8 @@ interface KanbanViewProps {
 export function KanbanView({ 
     tasks, 
     onStatusChange, 
+    onTypeChange,
+    onPriorityChange,
     onDelete, 
     onEdit, 
     onOpenCreateModal,
@@ -104,7 +108,7 @@ export function KanbanView({
 
     if (!isMounted) {
         return (
-            <div className="flex gap-4.5 overflow-x-auto pb-6 pt-2 custom-scrollbar min-h-[calc(100vh-280px)] select-none">
+            <div className="flex overflow-x-auto xl:overflow-x-visible gap-3.5 pb-6 pt-2 custom-scrollbar min-h-[calc(100vh-280px)] select-none w-full">
                 {COLUMNS.map((column) => {
                     const columnTasks = tasks.filter(t => t.status === column.id)
                     const Icon = column.icon
@@ -114,7 +118,7 @@ export function KanbanView({
                         <div
                             key={column.id}
                             className={cn(
-                                "flex-1 flex flex-col min-w-[290px] max-w-[340px] cyber-panel p-4 sm:p-4.5 relative group border transition-all duration-300",
+                                "w-[280px] shrink-0 xl:shrink xl:w-auto xl:flex-1 xl:min-w-0 flex flex-col cyber-panel p-3.5 relative group border transition-all duration-300",
                                 column.border,
                                 "bg-[#04060f]/90 backdrop-blur-md"
                             )}
@@ -148,6 +152,8 @@ export function KanbanView({
                                         key={task.id}
                                         task={task}
                                         onStatusChange={onStatusChange}
+                                        onTypeChange={onTypeChange}
+                                        onPriorityChange={onPriorityChange}
                                         onDelete={onDelete}
                                         onEdit={onEdit}
                                         isDragDisabled={true}
@@ -163,7 +169,7 @@ export function KanbanView({
 
     return (
         <DragDropContext onDragEnd={handleDragEndInternal}>
-            <div className="flex gap-4.5 overflow-x-auto pb-6 pt-2 custom-scrollbar min-h-[calc(100vh-280px)] select-none">
+            <div className="flex overflow-x-auto xl:overflow-x-visible gap-3.5 pb-6 pt-2 custom-scrollbar min-h-[calc(100vh-280px)] select-none w-full">
                 {COLUMNS.map((column) => {
                     const columnTasks = tasks.filter(t => t.status === column.id)
                     const Icon = column.icon
@@ -175,7 +181,7 @@ export function KanbanView({
                         <div
                             key={column.id}
                             className={cn(
-                                "flex-1 flex flex-col min-w-[290px] max-w-[340px] cyber-panel p-4 sm:p-4.5 relative group border transition-all duration-300",
+                                "w-[280px] shrink-0 xl:shrink xl:w-auto xl:flex-1 xl:min-w-0 flex flex-col cyber-panel p-3.5 relative group border transition-all duration-300",
                                 column.border,
                                 "bg-[#04060f]/90 backdrop-blur-md"
                             )}
@@ -234,6 +240,8 @@ export function KanbanView({
                                                 task={task}
                                                 index={index}
                                                 onStatusChange={onStatusChange}
+                                                onTypeChange={onTypeChange}
+                                                onPriorityChange={onPriorityChange}
                                                 onDelete={onDelete}
                                                 onEdit={onEdit}
                                             />
@@ -259,7 +267,7 @@ export function KanbanView({
                                     className="relative z-10 w-full py-2 mt-3 cyber-clip-button border border-dashed border-primary/25 hover:border-primary/60 bg-primary/5 hover:bg-primary/15 text-primary/80 hover:text-white text-[11px] font-mono uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_12px_rgba(0,240,255,0.2)]"
                                 >
                                     <Plus className="w-3.5 h-3.5" />
-                                    <span>[ + ISSUE ]</span>
+                                    <span>[ + TASK ]</span>
                                 </button>
                             )}
                         </div>

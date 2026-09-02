@@ -64,6 +64,7 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
             await deleteProject(project.id)
             onOpenChange(false)
             router.push('/working')
+            router.refresh()
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : 'Failed to delete project.';
             console.error('Failed to delete project:', err)
@@ -82,6 +83,7 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
             try {
                 await updateProject(project.id, formData)
                 onOpenChange(false)
+                router.refresh()
             } catch (err: unknown) {
                 const message = err instanceof Error ? err.message : 'Failed to update project.';
                 console.error('Failed to update project:', err)

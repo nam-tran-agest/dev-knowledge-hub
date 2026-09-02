@@ -121,10 +121,10 @@ export function CreateTaskModal({
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <Plus className="w-4 h-4 text-primary" />
-                        // ALLOCATE_NEW_ISSUE
+                        // ALLOCATE_NEW_TASK
                     </DialogTitle>
                     <DialogDescription className="font-mono text-xs text-primary/60">
-                        Allocate a new execution issue into this workspace backlog or sprint board.
+                        Thêm công việc mới vào bảng công việc hoặc backlog của dự án.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -160,10 +160,10 @@ export function CreateTaskModal({
                         </div>
                     )}
 
-                    {/* Row 1: Issue Type & Status */}
+                    {/* Row 1: Task Type & Status */}
                     <div className="grid grid-cols-2 gap-3">
                         <div className="space-y-1.5">
-                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Issue Type</Label>
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Loại công việc (Type)</Label>
                             <Select
                                 value={formData.issue_type}
                                 onValueChange={(value) => setFormData({ ...formData, issue_type: value as IssueType })}
@@ -304,11 +304,11 @@ export function CreateTaskModal({
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    CREATING_ISSUE...
+                                    ĐANG TẠO CÔNG VIỆC...
                                 </>
                             ) : (
                                 <span className="flex items-center gap-1.5">
-                                    <Terminal className="w-3.5 h-3.5" /> [ ALLOCATE_ISSUE ]
+                                    <Terminal className="w-3.5 h-3.5" /> [ TẠO CÔNG VIỆC ]
                                 </span>
                             )}
                         </Button>

@@ -181,7 +181,22 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
         })
     }
 
-    const hasActiveFilters = selectedType !== 'all' || selectedPriority !== 'all' || showOnlyOverdue
+    // 1-Click Inline Type & Priority Switchers
+    const handleTypeChange = (taskId: string, newType: IssueType) => {
+        setTasks(prev => prev.map(t => t.id === taskId ? { ...t, issue_type: newType } : t))
+        updateTask(taskId, { issue_type: newType }).catch(err => {
+            console.error('Failed to persist task type:', err)
+        })
+    }
+
+    const handlePriorityChange = (taskId: string, newPriority: TaskPriority) => {
+        setTasks(prev => prev.map(t => t.id === taskId ? { ...t, priority: newPriority } : t))
+        updateTask(taskId, { priority: newPriority }).catch(err => {
+            console.error('Failed to persist task priority:', err)
+        })
+    }
+
+    const hasActiveFilters = selectedType !== 'all' || selectedPriority !== 'all' || showOnlyOverdue || !!searchQuery.trim()
 
     const clearAllFilters = () => {
         setSelectedType('all')
@@ -194,14 +209,14 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
         <div className="min-h-screen pb-16 font-mono">
             <ProjectWorkspaceHeader project={project} locale={locale} />
 
-            <main className="max-w-7xl mx-auto px-4 md:px-8 py-6">
-                {/* JIRA Command & Search Bar */}
+            <main className="w-full max-w-[1920px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6">
+                {/* Agile Command & Search Bar */}
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
                     {/* Search Field */}
                     <div className="relative flex-1 max-w-md">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-primary/50" size={15} />
                         <Input
-                            placeholder="SEARCH_ISSUES_OR_#TAGS..."
+                            placeholder="TÌM_KIẾM_TASK_HOẶC_#TAGS..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-9 bg-surface-deep/90 border-primary/30 focus:border-primary text-white font-mono text-xs h-9 cyber-clip-button"
@@ -211,7 +226,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                     <div className="flex flex-wrap items-center gap-3">
                         {/* Story Points Total Board Counter */}
                         {totalStoryPoints > 0 && (
-                            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 border border-primary/30 cyber-clip-tag text-xs">
+                            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 border border-primary/30 cyber-clip-tag text-xs" title="Tổng Story Points của dự án">
                                 <span className="text-primary/60">◈ TOTAL_SP:</span>
                                 <span className="text-primary font-bold">{totalStoryPoints}</span>
                             </div>
@@ -224,7 +239,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 cyber-clip-button bg-primary text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-primary/90 transition-all cursor-pointer shadow-[0_0_15px_var(--color-primary)] hover:shadow-[0_0_25px_var(--color-primary)] h-9"
                         >
                             <Plus size={14} className="stroke-[3]" />
-                            <span>[ + NEW ISSUE ]</span>
+                            <span>[ + TẠO TASK MỚI ]</span>
                         </button>
 
                         {/* View Mode Toggle */}
@@ -255,82 +270,110 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                     </div>
                 </div>
 
-                {/* JIRA Agile Quick Filters Toolbar */}
-                <div className="flex flex-wrap items-center gap-2 mb-6 pb-3 border-b border-primary/15 text-xs select-none">
-                    <span className="text-[10px] text-primary/50 uppercase tracking-widest flex items-center gap-1 mr-1">
-                        <Filter className="w-3 h-3 text-primary/60" />
-                        FILTERS:
-                    </span>
+                {/* Agile Quick Filters Toolbar */}
+                <div className="flex flex-wrap items-center gap-3 mb-6 p-2.5 bg-surface-deep/60 border border-primary/20 cyber-clip text-xs select-none">
+                    {/* Header Label */}
+                    <div className="flex items-center gap-1.5 text-primary/70 text-[11px] font-bold uppercase tracking-wider pr-2 border-r border-primary/20">
+                        <Filter className="w-3.5 h-3.5 text-primary" />
+                        <span>BỘ LỌC</span>
+                    </div>
 
-                    {/* Issue Type Quick Filters */}
-                    <button
-                        type="button"
-                        onClick={() => setSelectedType('all')}
-                        className={cn(
-                            "px-2 py-0.5 cyber-clip-tag border text-[10px] uppercase font-bold transition-all cursor-pointer",
-                            selectedType === 'all' 
-                                ? "bg-primary/25 border-primary text-primary shadow-[0_0_8px_var(--color-primary)]" 
-                                : "bg-primary/5 border-primary/20 text-primary/60 hover:text-white hover:border-primary/40"
-                        )}
-                    >
-                        ALL TYPES
-                    </button>
-
-                    {(['story', 'task', 'bug', 'epic'] as IssueType[]).map(type => (
+                    {/* Group 1: Loại công việc (Task Type) */}
+                    <div className="flex flex-wrap items-center gap-1.5">
+                        <span className="text-[10px] text-primary/40 uppercase">Loại việc:</span>
                         <button
-                            key={type}
                             type="button"
-                            onClick={() => setSelectedType((prev: IssueType | 'all') => prev === type ? 'all' : type)}
+                            onClick={() => setSelectedType('all')}
                             className={cn(
-                                "cursor-pointer transition-all",
-                                selectedType === type ? "scale-105" : "opacity-70 hover:opacity-100"
+                                "px-2 py-0.5 cyber-clip-tag border text-[10px] uppercase font-bold transition-all cursor-pointer",
+                                selectedType === 'all' 
+                                    ? "bg-primary/25 border-primary text-primary shadow-[0_0_8px_var(--color-primary)]" 
+                                    : "bg-primary/5 border-primary/20 text-primary/60 hover:text-white hover:border-primary/40"
                             )}
                         >
-                            <IssueTypeBadge type={type} size="sm" />
+                            TẤT CẢ
                         </button>
-                    ))}
+                        {(['story', 'task', 'bug', 'epic'] as IssueType[]).map(type => (
+                            <button
+                                key={type}
+                                type="button"
+                                onClick={() => setSelectedType((prev: IssueType | 'all') => prev === type ? 'all' : type)}
+                                className={cn(
+                                    "cursor-pointer transition-all",
+                                    selectedType === type ? "scale-105 ring-1 ring-white/60" : "opacity-60 hover:opacity-100"
+                                )}
+                                title={`Lọc chỉ xem ${type.toUpperCase()}`}
+                            >
+                                <IssueTypeBadge type={type} size="sm" />
+                            </button>
+                        ))}
+                    </div>
 
-                    <div className="w-[1px] h-4 bg-primary/20 mx-1 hidden sm:block" />
+                    <div className="w-[1px] h-4 bg-primary/20 hidden md:block" />
 
-                    {/* Priority Quick Filters */}
-                    {(['highest', 'high', 'medium'] as TaskPriority[]).map(pri => (
+                    {/* Group 2: Mức ưu tiên (Priority) */}
+                    <div className="flex flex-wrap items-center gap-1.5">
+                        <span className="text-[10px] text-primary/40 uppercase">Ưu tiên:</span>
                         <button
-                            key={pri}
                             type="button"
-                            onClick={() => setSelectedPriority((prev: TaskPriority | 'all') => prev === pri ? 'all' : pri)}
+                            onClick={() => setSelectedPriority('all')}
                             className={cn(
-                                "cursor-pointer transition-all",
-                                selectedPriority === pri ? "scale-105" : "opacity-70 hover:opacity-100"
+                                "px-2 py-0.5 cyber-clip-tag border text-[10px] uppercase font-bold transition-all cursor-pointer",
+                                selectedPriority === 'all' 
+                                    ? "bg-primary/25 border-primary text-primary shadow-[0_0_8px_var(--color-primary)]" 
+                                    : "bg-primary/5 border-primary/20 text-primary/60 hover:text-white hover:border-primary/40"
                             )}
                         >
-                            <PriorityBadge priority={pri} showLabel />
+                            TẤT CẢ
                         </button>
-                    ))}
+                        {(['highest', 'high', 'medium'] as TaskPriority[]).map(pri => (
+                            <button
+                                key={pri}
+                                type="button"
+                                onClick={() => setSelectedPriority((prev: TaskPriority | 'all') => prev === pri ? 'all' : pri)}
+                                className={cn(
+                                    "cursor-pointer transition-all",
+                                    selectedPriority === pri ? "scale-105 ring-1 ring-white/60" : "opacity-60 hover:opacity-100"
+                                )}
+                                title={`Lọc ưu tiên ${pri.toUpperCase()}`}
+                            >
+                                <PriorityBadge priority={pri} showLabel />
+                            </button>
+                        ))}
+                    </div>
 
-                    {/* Overdue Filter */}
+                    <div className="w-[1px] h-4 bg-primary/20 hidden md:block" />
+
+                    {/* Group 3: Quá hạn (Overdue) */}
                     <button
                         type="button"
                         onClick={() => setShowOnlyOverdue(prev => !prev)}
                         className={cn(
-                            "px-2 py-0.5 cyber-clip-tag border text-[10px] uppercase font-bold transition-all cursor-pointer",
+                            "px-2.5 py-0.5 cyber-clip-tag border text-[10px] uppercase font-bold transition-all cursor-pointer flex items-center gap-1",
                             showOnlyOverdue 
-                                ? "bg-rose-500/20 border-rose-500 text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.4)] animate-pulse" 
+                                ? "bg-rose-500/25 border-rose-500 text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.4)] animate-pulse" 
                                 : "bg-rose-500/5 border-rose-500/20 text-rose-400/60 hover:text-rose-400 hover:border-rose-500/40"
                         )}
+                        title="Chỉ hiển thị các công việc đã quá hạn hoàn thành"
                     >
-                        OVERDUE ONLY
+                        <span>⚠️ QUÁ HẠN</span>
                     </button>
 
-                    {/* Clear Filters Button */}
+                    {/* Results Counter & Reset Action */}
                     {hasActiveFilters && (
-                        <button
-                            type="button"
-                            onClick={clearAllFilters}
-                            className="flex items-center gap-1 text-[10px] text-destructive hover:text-rose-300 transition-colors ml-auto cursor-pointer"
-                        >
-                            <X className="w-3 h-3" />
-                            <span>RESET_FILTERS</span>
-                        </button>
+                        <div className="flex items-center gap-2 ml-auto">
+                            <span className="text-[10px] text-primary/60">
+                                Hiển thị <span className="text-white font-bold">{filteredTasks.length}</span>/{tasks.length}
+                            </span>
+                            <button
+                                type="button"
+                                onClick={clearAllFilters}
+                                className="flex items-center gap-1 text-[10px] text-destructive hover:text-rose-300 transition-colors cursor-pointer px-1.5 py-0.5 bg-destructive/10 border border-destructive/30 cyber-clip-tag"
+                            >
+                                <X className="w-3 h-3" />
+                                <span>[ ĐẶT LẠI ]</span>
+                            </button>
+                        </div>
                     )}
                 </div>
 
@@ -339,6 +382,8 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                     <KanbanView
                         tasks={filteredTasks}
                         onStatusChange={handleStatusChange}
+                        onTypeChange={handleTypeChange}
+                        onPriorityChange={handlePriorityChange}
                         onDelete={handleDeleteTask}
                         onEdit={handleEditTask}
                         onOpenCreateModal={handleOpenCreateModal}
@@ -348,6 +393,8 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                     <TaskList
                         tasks={filteredTasks}
                         onStatusChange={handleStatusChange}
+                        onTypeChange={handleTypeChange}
+                        onPriorityChange={handlePriorityChange}
                         onDelete={handleDeleteTask}
                         onEdit={handleEditTask}
                         onAddTask={handleQuickAddTask}

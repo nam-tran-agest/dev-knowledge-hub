@@ -137,7 +137,7 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent tag="TASK_ISSUE_DETAILS" className="sm:max-w-[560px] font-mono max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <DialogContent tag="TASK_DETAILS" className="sm:max-w-[560px] font-mono max-h-[90vh] overflow-y-auto custom-scrollbar">
                 <DialogHeader className="border-b border-primary/15 pb-3">
                     <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
@@ -145,14 +145,14 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                             <IssueTypeBadge type={formData.issue_type} size="sm" />
                         </div>
                         <span className="text-[10px] text-primary/60 font-mono tracking-widest uppercase">
-                            // ISSUE_PARAMETERS
+                            // TASK_SPECIFICATION
                         </span>
                     </div>
                     <DialogTitle className="text-base font-bold text-white tracking-wide pt-1">
-                        {task?.title || 'Edit Issue'}
+                        {task?.title || 'Chi Tiết Công Việc'}
                     </DialogTitle>
                     <DialogDescription className="text-xs text-primary/60 font-mono">
-                        Adjust workflow state, technical specifications, and checklist progress.
+                        Chỉnh sửa trạng thái, loại công việc, danh sách việc con và thông số kỹ thuật.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -163,10 +163,10 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                         </div>
                     )}
 
-                    {/* Row 1: Issue Type & Status Transition */}
+                    {/* Row 1: Task Type & Status Transition */}
                     <div className="grid grid-cols-2 gap-3">
                         <div className="space-y-1.5">
-                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Issue Type</Label>
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Loại công việc (Type)</Label>
                             <Select
                                 value={formData.issue_type}
                                 onValueChange={(value) => setFormData({ ...formData, issue_type: value as IssueType })}
@@ -379,11 +379,11 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    COMMITTING_CHANGES...
+                                    ĐANG LƯU THAY ĐỔI...
                                 </>
                             ) : (
                                 <span className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 stroke-[3]" /> [ SAVE_ISSUE_CHANGES ]
+                                    <Check className="w-4 h-4 stroke-[3]" /> [ LƯU THAY ĐỔI ]
                                 </span>
                             )}
                         </Button>

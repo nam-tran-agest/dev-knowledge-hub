@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Task, TaskStatus } from '@/features/working/types'
+import { Task, TaskStatus, IssueType, TaskPriority } from '@/features/working/types'
 import { Card, CardContent } from '@/components/ui/card'
 import {
     Circle,
@@ -33,6 +33,8 @@ interface TaskItemProps {
     task: Task
     index?: number
     onStatusChange?: (id: string, status: TaskStatus) => void
+    onTypeChange?: (id: string, type: IssueType) => void
+    onPriorityChange?: (id: string, priority: TaskPriority) => void
     onDelete?: (id: string) => void
     onEdit?: (task: Task) => void
     isDragDisabled?: boolean
@@ -42,6 +44,8 @@ export function TaskItem({
     task, 
     index, 
     onStatusChange, 
+    onTypeChange,
+    onPriorityChange,
     onDelete, 
     onEdit,
     isDragDisabled = false
@@ -85,11 +89,97 @@ export function TaskItem({
                         </div>
 
                         <IssueKeyBadge issueKey={displayKey} />
-                        <IssueTypeBadge type={task.issue_type || 'task'} size="sm" showLabel={false} />
+                        
+                        {/* Quick Interactive Issue Type Switcher */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <button 
+                                    type="button" 
+                                    className="cursor-pointer hover:scale-110 transition-transform focus:outline-none"
+                                    title="Nhấn để đổi loại công việc (Story / Task / Bug / Epic)"
+                                >
+                                    <IssueTypeBadge type={task.issue_type || 'task'} size="sm" showLabel={false} />
+                                </button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="start" className="w-40 font-mono">
+                                <DropdownMenuItem 
+                                    onClick={() => onTypeChange?.(task.id, 'task')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <IssueTypeBadge type="task" size="sm" />
+                                    <span>Task</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => onTypeChange?.(task.id, 'story')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <IssueTypeBadge type="story" size="sm" />
+                                    <span>Story</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => onTypeChange?.(task.id, 'bug')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <IssueTypeBadge type="bug" size="sm" />
+                                    <span>Bug</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => onTypeChange?.(task.id, 'epic')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <IssueTypeBadge type="epic" size="sm" />
+                                    <span>Epic</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
 
                     <div className="flex items-center gap-1 shrink-0">
-                        <PriorityBadge priority={task.priority} showLabel={false} />
+                        {/* Quick Interactive Priority Switcher */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <button 
+                                    type="button" 
+                                    className="cursor-pointer hover:scale-110 transition-transform focus:outline-none"
+                                    title="Nhấn để đổi mức độ ưu tiên"
+                                >
+                                    <PriorityBadge priority={task.priority} showLabel={false} />
+                                </button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-44 font-mono">
+                                <DropdownMenuItem 
+                                    onClick={() => onPriorityChange?.(task.id, 'highest')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <PriorityBadge priority="highest" showLabel />
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => onPriorityChange?.(task.id, 'high')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <PriorityBadge priority="high" showLabel />
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => onPriorityChange?.(task.id, 'medium')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <PriorityBadge priority="medium" showLabel />
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => onPriorityChange?.(task.id, 'low')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <PriorityBadge priority="low" showLabel />
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => onPriorityChange?.(task.id, 'lowest')} 
+                                    className="gap-2 text-xs uppercase cursor-pointer"
+                                >
+                                    <PriorityBadge priority="lowest" showLabel />
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
                         <StoryPointsBadge points={task.story_points} />
 
                         <DropdownMenu>
@@ -102,18 +192,18 @@ export function TaskItem({
                                     <MoreVertical size={11} />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-40 font-mono">
+                            <DropdownMenuContent align="end" className="w-44 font-mono">
                                 <DropdownMenuItem
                                     onClick={() => onEdit?.(task)}
                                     className="gap-2 cursor-pointer text-xs uppercase"
                                 >
-                                    <Edit2 size={12} className="text-primary" /> [ EDIT_ISSUE ]
+                                    <Edit2 size={12} className="text-primary" /> [ CHỈNH SỬA TASK ]
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     onClick={() => onDelete?.(task.id)}
                                     className="gap-2 text-destructive focus:bg-destructive/20 focus:text-destructive cursor-pointer text-xs uppercase"
                                 >
-                                    <Trash2 size={12} /> [ PURGE_TASK ]
+                                    <Trash2 size={12} /> [ XOÁ TASK ]
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

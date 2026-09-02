@@ -1,7 +1,7 @@
-﻿'use client'
+'use client'
 
 import React, { useState } from 'react'
-import { Task, TaskStatus } from '@/features/working/types'
+import { Task, TaskStatus, IssueType, TaskPriority } from '@/features/working/types'
 import { TaskItem } from './task-item'
 import { InlineTaskCreator } from './inline-task-creator'
 import { motion, AnimatePresence } from 'motion/react'
@@ -11,6 +11,8 @@ import { useTranslations } from 'next-intl'
 interface TaskListProps {
     tasks: Task[]
     onStatusChange?: (id: string, status: TaskStatus) => void
+    onTypeChange?: (id: string, type: IssueType) => void
+    onPriorityChange?: (id: string, priority: TaskPriority) => void
     onDelete?: (id: string) => void
     onEdit?: (task: Task) => void
     onAddTask?: (title: string) => void
@@ -19,6 +21,8 @@ interface TaskListProps {
 export function TaskList({
     tasks,
     onStatusChange,
+    onTypeChange,
+    onPriorityChange,
     onDelete,
     onEdit,
     onAddTask
@@ -81,6 +85,8 @@ export function TaskList({
                                     <TaskItem
                                         task={task}
                                         onStatusChange={onStatusChange}
+                                        onTypeChange={onTypeChange}
+                                        onPriorityChange={onPriorityChange}
                                         onDelete={onDelete}
                                         onEdit={onEdit}
                                         isDragDisabled={true}
