@@ -5,7 +5,7 @@ import { Project } from '@/features/working/types'
 
 const CONFIG = {
     tableName: 'projects',
-    revalidatePaths: ['/working', '/[locale]/working']
+    revalidatePaths: ['/working']
 }
 
 export async function getProjects() {

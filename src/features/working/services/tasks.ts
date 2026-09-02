@@ -7,7 +7,7 @@ const CONFIG = {
     tableName: 'tasks',
     tagJunctionTable: 'task_tags',
     tagColumn: 'task_id',
-    revalidatePaths: ['/working', '/[locale]/working']
+    revalidatePaths: ['/working']
 }
 
 export async function getTasks(projectId?: string) {
