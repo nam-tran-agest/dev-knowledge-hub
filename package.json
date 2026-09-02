@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint",
     "type-check": "tsc --noEmit",
-    "check": "tsc --noEmit && eslint"
+    "check": "tsc --noEmit && eslint",
+    "test": "node scripts/test-qa-flows.mjs"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
