@@ -36,14 +36,44 @@ export async function middleware(request: NextRequest) {
         return response
     }
 
-    // 3. Run Supabase auth logic
+    const pathnameWithoutLocale = pathname.replace(/^\/(?:vi|en)/, '') || '/'
+    const locale = pathname.startsWith('/en') ? 'en' : 'vi'
+
+    const isProtectedRoute = PROTECTED_ROUTES.some(route =>
+        pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(`${route}/`)
+    )
+
+    const isAuthRoute = AUTH_ROUTES.some(route =>
+        pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(`${route}/`)
+    )
+
+    const allCookies = request.cookies.getAll()
+    const hasAuthCookie = allCookies.some(c => c.name.includes('-auth-token'))
+
+    // Fast-path: Unauthenticated guest accessing protected route without cookies -> redirect immediately
+    if (isProtectedRoute && !hasAuthCookie) {
+        const loginUrl = new URL(`/${locale}/login`, request.url)
+        loginUrl.searchParams.set('next', pathname)
+        const redirectResponse = NextResponse.redirect(loginUrl)
+        response.cookies.getAll().forEach(cookie => {
+            redirectResponse.cookies.set(cookie.name, cookie.value)
+        })
+        return redirectResponse
+    }
+
+    // Fast-path: Public page without auth cookies -> bypass Supabase subrequest completely
+    if (!hasAuthCookie && !isAuthRoute) {
+        return response
+    }
+
+    // 3. Run Supabase auth logic only when session cookies exist or auth route
     const supabase = createServerClient(
         url,
         key,
         {
             cookies: {
                 getAll() {
-                    return request.cookies.getAll()
+                    return allCookies
                 },
                 setAll(cookiesToSet) {
                     cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
@@ -57,17 +87,6 @@ export async function middleware(request: NextRequest) {
 
     // Refresh session if needed
     const { data: { user } } = await supabase.auth.getUser()
-
-    const pathnameWithoutLocale = pathname.replace(/^\/(?:vi|en)/, '') || '/'
-    const locale = pathname.startsWith('/en') ? 'en' : 'vi'
-
-    const isProtectedRoute = PROTECTED_ROUTES.some(route =>
-        pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(`${route}/`)
-    )
-
-    const isAuthRoute = AUTH_ROUTES.some(route =>
-        pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(`${route}/`)
-    )
 
     // Redirect unauthenticated users from protected routes to login
     if (!user && isProtectedRoute) {

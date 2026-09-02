@@ -6,7 +6,7 @@ import { FooterData } from '@/types/layout';
 import Footer from '@/components/layout/footer';
 import ScrollToTop from '@/components/ui/scroll-to-top';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import MobileMenu from "@/components/layout/mobile-menu";
@@ -56,6 +56,9 @@ export default async function RootLayout({
   if (!routing.locales.includes(locale as typeof routing.locales[number])) {
     notFound();
   }
+
+  // Enable static rendering
+  setRequestLocale(locale);
 
   const messages = await getMessages();
   const footerData = (messages as unknown as { footer: FooterData }).footer;

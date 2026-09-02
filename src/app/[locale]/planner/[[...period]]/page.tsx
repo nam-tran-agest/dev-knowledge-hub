@@ -1,9 +1,20 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { TodayView, WeekView, SomedayView } from '@/features/planner';
+import { routing } from '@/i18n/routing';
 
 interface PlannerPageProps {
     params: Promise<{ locale: string; period?: string[] }>;
+}
+
+export function generateStaticParams() {
+    const periods = [['today'], ['week'], ['someday'], []];
+    return routing.locales.flatMap((locale) =>
+        periods.map((period) => ({
+            locale,
+            period: period.length > 0 ? period : undefined
+        }))
+    );
 }
 
 export async function generateMetadata({ params }: PlannerPageProps) {
@@ -21,7 +32,8 @@ export async function generateMetadata({ params }: PlannerPageProps) {
 }
 
 export default async function PlannerPage({ params }: PlannerPageProps) {
-    const { period: periodParam } = await params;
+    const { locale, period: periodParam } = await params;
+    setRequestLocale(locale);
     const period = periodParam?.[0] || 'today';
 
     const validPeriods = ['today', 'week', 'someday'];
