@@ -6,6 +6,7 @@ import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TimeTimeline } from './time-timeline';
 import { TaskItem } from './task-item';
 import { PlannerNavHeader } from './planner-nav-header';
+import { getTodayDateStr, formatDateStr } from '../utils/date';
 import { 
     Plus, 
     CheckCircle2, 
@@ -33,7 +34,7 @@ export const TodayView = () => {
     const [newTaskTitle, setNewTaskTitle] = useState('');
     const [mobileTab, setMobileTab] = useState<'timeline' | 'buffer'>('timeline');
 
-    const realTodayStr = new Date().toISOString().split('T')[0];
+    const realTodayStr = getTodayDateStr();
     const currentDateStr = selectedDate || realTodayStr;
     const isToday = currentDateStr === realTodayStr;
 
@@ -77,9 +78,10 @@ export const TodayView = () => {
     };
 
     const navigateDay = (offset: number) => {
-        const d = new Date(currentDateStr);
+        const [year, month, day] = currentDateStr.split('-').map(Number);
+        const d = new Date(year, month - 1, day);
         d.setDate(d.getDate() + offset);
-        setSelectedDate(d.toISOString().split('T')[0]);
+        setSelectedDate(formatDateStr(d));
     };
 
     const formattedDate = new Date(currentDateStr + 'T00:00:00').toLocaleDateString('en-US', {

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { PlannerNavHeader } from './planner-nav-header';
 import { TaskItem } from './task-item';
+import { getTodayDateStr, formatDateStr } from '../utils/date';
 import { 
     Inbox, 
     Plus, 
@@ -47,14 +48,14 @@ export const SomedayView: React.FC = () => {
     };
 
     const handleScheduleToday = (taskId: string) => {
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = getTodayDateStr();
         moveTask(taskId, todayStr, undefined);
     };
 
     const handleScheduleTomorrow = (taskId: string) => {
         const d = new Date();
         d.setDate(d.getDate() + 1);
-        const tomorrowStr = d.toISOString().split('T')[0];
+        const tomorrowStr = formatDateStr(d);
         moveTask(taskId, tomorrowStr, undefined);
     };
 

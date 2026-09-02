@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { PlannerNavHeader } from './planner-nav-header';
 import { TaskItem } from './task-item';
+import { getTodayDateStr, formatDateStr } from '../utils/date';
 import { 
     ChevronLeft, 
     ChevronRight, 
@@ -39,16 +40,19 @@ export const WeekView: React.FC = () => {
     const [addingDayStr, setAddingDayStr] = useState<string | null>(null);
     const [newTitle, setNewTitle] = useState('');
 
+    const todayStr = getTodayDateStr();
+
     // Generate 7 days of the week
     const weekDays = Array.from({ length: 7 }, (_, i) => {
         const d = new Date(currentMonday);
         d.setDate(d.getDate() + i);
+        const dateStr = formatDateStr(d);
         return {
             dateObj: d,
-            dateStr: d.toISOString().split('T')[0],
+            dateStr,
             dayName: d.toLocaleDateString('en-US', { weekday: 'short' }),
             displayDate: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-            isToday: d.toISOString().split('T')[0] === new Date().toISOString().split('T')[0]
+            isToday: dateStr === todayStr
         };
     });
 

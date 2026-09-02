@@ -6,12 +6,17 @@ import { usePlannerStore } from '@/features/planner/store/usePlannerStore';
 import { TaskItem } from './task-item';
 import { cn } from '@/lib/utils';
 import { Plus, X } from 'lucide-react';
+import { getTodayDateStr } from '../utils/date';
 
 const HOURS = Array.from({ length: 17 }, (_, i) => i + 6).map(h => {
     return `${h.toString().padStart(2, '0')}:00`;
 });
 
-export const TimeTimeline: React.FC = () => {
+interface TimeTimelineProps {
+    onTaskClick?: (taskId: string) => void;
+}
+
+export const TimeTimeline: React.FC<TimeTimelineProps> = () => {
     const tasks = usePlannerStore(state => state.tasks);
     const schedules = usePlannerStore(state => state.schedules);
     const selectedDate = usePlannerStore(state => state.selectedDate);
@@ -20,8 +25,9 @@ export const TimeTimeline: React.FC = () => {
     const [activeAddingHour, setActiveAddingHour] = useState<string | null>(null);
     const [inlineTaskTitle, setInlineTaskTitle] = useState('');
 
-    const targetDateStr = selectedDate || new Date().toISOString().split('T')[0];
-    const isViewingToday = targetDateStr === new Date().toISOString().split('T')[0];
+    const realTodayStr = getTodayDateStr();
+    const targetDateStr = selectedDate || realTodayStr;
+    const isViewingToday = targetDateStr === realTodayStr;
 
     const currentTaskIds = schedules[targetDateStr]?.tasks || [];
     const currentTasks = currentTaskIds.map(id => tasks[id]).filter(Boolean);

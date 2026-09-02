@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
+import { format } from 'date-fns';
 
 export interface DBPlannerTask {
     id: string;
@@ -30,7 +31,7 @@ export async function getPlannerTasks(date?: string, endDate?: string): Promise<
     } else if (date) {
         query = query.eq('date', date);
     } else {
-        const today = new Date().toISOString().split('T')[0];
+        const today = format(new Date(), 'yyyy-MM-dd');
         query = query.eq('date', today);
     }
 
@@ -53,7 +54,7 @@ export async function addPlannerTask(title: string, date?: string, timeBlockId?:
 
     if (!user) throw new Error('User authentication required');
 
-    const targetDate = date || new Date().toISOString().split('T')[0];
+    const targetDate = date || format(new Date(), 'yyyy-MM-dd');
 
     const { data, error } = await supabase
         .from('planner_tasks')

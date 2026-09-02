@@ -8,6 +8,7 @@ import {
     deletePlannerTask,
     type DBPlannerTask 
 } from '@/features/planner/services/planner';
+import { getTodayDateStr } from '../utils/date';
 
 export type TaskStatus = 'todo' | 'in-progress' | 'done';
 
@@ -54,7 +55,7 @@ interface PlannerState {
     getSomedayTasks: () => PlannerTask[];
 }
 
-const getInitialTodayStr = () => new Date().toISOString().split('T')[0];
+const getInitialTodayStr = () => getTodayDateStr();
 
 export const usePlannerStore = create<PlannerState>()(
     persist(
