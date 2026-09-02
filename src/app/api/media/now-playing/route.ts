@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed } from '@/features/media/lib/steam-client';
 import { getSpotifyAuthToken } from '@/features/media/services/spotify';
 import { spotifyFetch, type SpotifyCurrentlyPlaying } from '@/features/media/services/spotify-api';
@@ -57,7 +57,7 @@ export async function GET() {
 
         let spotifyData = null;
         if (spotifyToken) {
-            const currentTrack = (await spotifyFetch('me/player/currently-playing', spotifyToken)) as SpotifyCurrentlyPlaying | null;
+            const currentTrack = (await spotifyFetch('me/player/currently-playing', spotifyToken, { cache: 'no-store' })) as SpotifyCurrentlyPlaying | null;
             if (currentTrack && currentTrack.item) {
                 spotifyData = {
                     isPlaying: currentTrack.is_playing,

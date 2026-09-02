@@ -6,7 +6,8 @@ export async function getGameTagsFromSteamSpy(appId: string): Promise<string[]> 
     try {
         const res = await fetch(`https://steamspy.com/api.php?request=appdetails&appid=${appId}`, {
             // SteamSpy API is sometimes slow or rate-limited, set a reasonable timeout/cache
-            next: { revalidate: 86400 } // Cache for 24 hours
+            next: { revalidate: 86400 }, // Cache for 24 hours
+            signal: AbortSignal.timeout(5000)
         });
 
         if (!res.ok) {

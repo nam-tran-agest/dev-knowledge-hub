@@ -100,26 +100,34 @@ export async function refreshSpotifyToken(refreshToken: string) {
     return response.json();
 }
 
-export async function spotifyFetch(endpoint: string, accessToken: string) {
-    const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        },
-        next: { revalidate: 3600 } // Cache for 1 hour
-    });
+export async function spotifyFetch(endpoint: string, accessToken: string, init?: RequestInit) {
+    try {
+        const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+            next: { revalidate: 3600 }, // Cache for 1 hour default
+            signal: AbortSignal.timeout(5000),
+            ...init
+        });
 
-    if (!response.ok) {
-        if (response.status === 401) {
-            throw new Error('Unauthorized');
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('Unauthorized');
+            }
+            return null;
         }
+
+        if (response.status === 204) {
+            return null; // Handle 204 No Content for currently-playing
+        }
+
+        return response.json();
+    } catch (error) {
+        if (error instanceof Error && error.message === 'Unauthorized') throw error;
+        console.error(`Spotify fetch error for ${endpoint}:`, error);
         return null;
     }
-
-    if (response.status === 204) {
-        return null; // Handle 204 No Content for currently-playing
-    }
-
-    return response.json();
 }
 
 export async function playSpotifyContext(accessToken: string, contextUri: string) {

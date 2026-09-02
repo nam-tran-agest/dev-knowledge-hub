@@ -1,4 +1,4 @@
-import { createServerClient } from '@supabase/ssr';
+﻿import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 /**
@@ -61,13 +61,19 @@ export async function getSteamPlayerSummary(): Promise<SteamPlayerSummary | null
 
     if (!steamId || !apiKey) return null;
 
-    const res = await fetch(
-        `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${steamId}`
-    );
+    try {
+        const res = await fetch(
+            `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${steamId}`,
+            { signal: AbortSignal.timeout(5000) }
+        );
 
-    if (!res.ok) return null;
-    const data = (await res.json()) as { response?: { players?: SteamPlayerSummary[] } };
-    return data.response?.players?.[0] || null;
+        if (!res.ok) return null;
+        const data = (await res.json()) as { response?: { players?: SteamPlayerSummary[] } };
+        return data.response?.players?.[0] || null;
+    } catch (error) {
+        console.error('Error fetching Steam player summary:', error);
+        return null;
+    }
 }
 
 export async function getSteamRecentlyPlayed(): Promise<SteamRecentGame[]> {
@@ -76,11 +82,17 @@ export async function getSteamRecentlyPlayed(): Promise<SteamRecentGame[]> {
 
     if (!steamId || !apiKey) return [];
 
-    const res = await fetch(
-        `http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${apiKey}&steamid=${steamId}&format=json`
-    );
+    try {
+        const res = await fetch(
+            `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${apiKey}&steamid=${steamId}&format=json`,
+            { signal: AbortSignal.timeout(5000) }
+        );
 
-    if (!res.ok) return [];
-    const data = (await res.json()) as { response?: { games?: SteamRecentGame[] } };
-    return data.response?.games || [];
+        if (!res.ok) return [];
+        const data = (await res.json()) as { response?: { games?: SteamRecentGame[] } };
+        return data.response?.games || [];
+    } catch (error) {
+        console.error('Error fetching Steam recently played games:', error);
+        return [];
+    }
 }
