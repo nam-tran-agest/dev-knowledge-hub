@@ -25,7 +25,8 @@ const ROUTES = [
     { path: '/vi/planner/someday', expectedStatus: [307], desc: 'Protected Planner Someday (Guest Redirect)' },
     { path: '/vi/working', expectedStatus: [307], desc: 'Protected Working Kanban (Guest Redirect)' },
     { path: '/en/working', expectedStatus: [307], desc: 'Protected Working Kanban EN (Guest Redirect)' },
-    { path: '/api/health', expectedStatus: [200], desc: 'Health Check API' }
+    { path: '/data/mhwilds/monsters.json', expectedStatus: [200], desc: 'Monster Hunter Wilds Dataset (24h Edge Cache)', checkCache: (h) => h && h.includes('max-age=86400') },
+    { path: '/api/health', expectedStatus: [200], desc: 'Health Check API (No Store / No Cache)', checkCache: (h) => h && (h.includes('no-store') || h.includes('no-cache')) }
 ];
 
 async function checkServerReady(retries = 20, intervalMs = 1000) {
@@ -56,7 +57,8 @@ function fetchRoute(path) {
         }, (res) => {
             resolve({
                 statusCode: res.statusCode,
-                location: res.headers['location'] || null
+                location: res.headers['location'] || null,
+                cacheControl: res.headers['cache-control'] || null
             });
         });
         req.on('error', (err) => {
@@ -92,13 +94,15 @@ async function run() {
 
     for (const route of ROUTES) {
         const result = await fetchRoute(route.path);
-        const isExpected = route.expectedStatus.includes(result.statusCode);
+        const cacheOk = route.checkCache ? route.checkCache(result.cacheControl) : true;
+        const isExpected = route.expectedStatus.includes(result.statusCode) && cacheOk;
 
         if (isExpected) {
-            console.log(`✅ [PASS] ${route.path.padEnd(24)} ➔ HTTP ${result.statusCode} | ${route.desc}`);
+            const cacheSuffix = route.checkCache ? ` [Cache: ${result.cacheControl}]` : '';
+            console.log(`✅ [PASS] ${route.path.padEnd(28)} ➔ HTTP ${result.statusCode} | ${route.desc}${cacheSuffix}`);
             passed++;
         } else {
-            console.error(`❌ [FAIL] ${route.path.padEnd(24)} ➔ Expected [${route.expectedStatus}], got HTTP ${result.statusCode} | ${route.desc}`);
+            console.error(`❌ [FAIL] ${route.path.padEnd(28)} ➔ Expected [${route.expectedStatus}], got HTTP ${result.statusCode} (Cache: ${result.cacheControl}) | ${route.desc}`);
             failed++;
         }
     }

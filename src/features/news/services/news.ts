@@ -27,7 +27,17 @@ interface ParsedRSSResult {
 
 const DEFAULT_NEWS_THUMBNAIL = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop";
 
+// In-memory news cache (3 minutes TTL) to prevent repeated RSS fetching and parsing
+const newsMemoryCache = new Map<string, { data: NewsItem[]; timestamp: number }>();
+const NEWS_CACHE_TTL_MS = 180 * 1000;
+
 export async function getNews(categoryId?: string): Promise<NewsItem[]> {
+    const cacheKey = categoryId || 'all';
+    const cached = newsMemoryCache.get(cacheKey);
+    if (cached && (Date.now() - cached.timestamp) < NEWS_CACHE_TTL_MS) {
+        return cached.data;
+    }
+
     const parser = new XMLParser({
         ignoreAttributes: false,
         attributeNamePrefix: ""
@@ -102,9 +112,12 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
             return true;
         });
 
-        return uniqueNews
+        const finalNews = uniqueNews
             .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
             .map(({ ...rest }) => rest);
+
+        newsMemoryCache.set(cacheKey, { data: finalNews, timestamp: Date.now() });
+        return finalNews;
     } catch (error) {
         console.error("Error aggregating news:", error);
         return [];

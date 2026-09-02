@@ -15,18 +15,49 @@ interface ProjectDetailContainerProps {
     locale: string;
 }
 
+interface WorkspaceCacheEntry {
+    project: Project;
+    tasks: Task[];
+    timestamp: number;
+}
+
+// Client-side SWR cache for instant workspace transitions
+const clientWorkspaceCache = new Map<string, WorkspaceCacheEntry>();
+const WORKSPACE_CACHE_TTL = 30 * 1000; // 30s TTL
+
 export function ProjectDetailContainer({ projectId, locale }: ProjectDetailContainerProps) {
-    const [project, setProject] = useState<Project | null>(null);
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [project, setProject] = useState<Project | null>(() => {
+        return clientWorkspaceCache.get(projectId)?.project || null;
+    });
+    const [tasks, setTasks] = useState<Task[]>(() => {
+        return clientWorkspaceCache.get(projectId)?.tasks || [];
+    });
+    const [isLoading, setIsLoading] = useState(() => {
+        const cached = clientWorkspaceCache.get(projectId);
+        return !cached;
+    });
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         let isMounted = true;
 
         async function loadWorkspaceData() {
+            // Check SWR cache: if available, display immediately
+            const cached = clientWorkspaceCache.get(projectId);
+            if (cached && isMounted) {
+                setProject(cached.project);
+                setTasks(cached.tasks);
+                setIsLoading(false);
+                // If cache is fresh, skip background refetch
+                if ((Date.now() - cached.timestamp) < WORKSPACE_CACHE_TTL) {
+                    return;
+                }
+            }
+
             try {
-                setIsLoading(true);
+                if (!cached) {
+                    setIsLoading(true);
+                }
                 setError(null);
 
                 const proj = await getProjectById(projectId);
@@ -43,7 +74,16 @@ export function ProjectDetailContainer({ projectId, locale }: ProjectDetailConta
                 const taskList = await getTasks(proj.id);
                 if (!isMounted) return;
 
-                setTasks(taskList || []);
+                const finalTasks = taskList || [];
+                setTasks(finalTasks);
+
+                // Update SWR cache under all aliases (raw id, proj.id, slug)
+                const cacheEntry = { project: proj, tasks: finalTasks, timestamp: Date.now() };
+                clientWorkspaceCache.set(projectId, cacheEntry);
+                clientWorkspaceCache.set(proj.id, cacheEntry);
+                if (proj.slug) {
+                    clientWorkspaceCache.set(proj.slug, cacheEntry);
+                }
             } catch (err: unknown) {
                 if (isMounted) {
                     const msg = err instanceof Error ? err.message : 'FAILED_TO_LOAD_WORKSPACE';

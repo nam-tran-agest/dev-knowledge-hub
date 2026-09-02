@@ -45,6 +45,32 @@ const nextConfig: NextConfig = {
       'fast-xml-parser',
       'swiper',
     ],
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
+  },
+  async headers() {
+    return [
+      {
+        source: '/:all*(svg|jpg|jpeg|png|webp|avif|ico|webm|mp4|woff2|woff)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/data/mhwilds/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+    ];
   },
   images: {
     remotePatterns: [
