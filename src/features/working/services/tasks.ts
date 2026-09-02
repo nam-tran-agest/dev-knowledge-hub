@@ -4,9 +4,7 @@ import { create, update, deleteEntity, getAll, getById } from '@/lib/actions/bas
 import { Task } from '@/features/working/types'
 
 const CONFIG = {
-    tableName: 'tasks',
-    tagJunctionTable: 'task_tags',
-    tagColumn: 'task_id'
+    tableName: 'tasks'
 }
 
 export async function getTasks(projectId?: string) {

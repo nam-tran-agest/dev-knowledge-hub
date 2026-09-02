@@ -9,7 +9,7 @@ interface WorkingContainerProps {
 
 export async function WorkingContainer({ locale }: WorkingContainerProps) {
     const t = await getTranslations({ locale, namespace: 'working' });
-    const projects = await getProjects();
+    const projects = (await getProjects()) || [];
 
     return (
         <div className="py-8 md:py-12 space-y-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
