@@ -17,30 +17,50 @@ export async function getProjects() {
 export async function getProjectById(idOrSlug: string) {
     if (!idOrSlug) return null
 
-    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug)
+    let target = idOrSlug.trim()
+    try {
+        target = decodeURIComponent(target)
+    } catch {
+        // use raw target if URI is malformed
+    }
+
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(target)
     if (isUUID) {
-        const project = await getById<Project>(CONFIG, idOrSlug)
+        const project = await getById<Project>(CONFIG, target)
         if (project) return project
     }
 
-    // If not a UUID or UUID lookup didn't match, search user's projects by slug or name
+    // If not a UUID or UUID lookup didn't match, search user's projects by slug, name or id
     const { data: projects } = await getAll<Project>(CONFIG)
     if (!projects || projects.length === 0) return null
 
+    const lowerTarget = target.toLowerCase()
+    const rawLower = idOrSlug.toLowerCase().trim()
+    const slugifiedTarget = slugify(target)
+    const slugifiedRaw = slugify(idOrSlug)
+
     // 1. Check explicit slug column
-    const bySlug = projects.find(p => p.slug && p.slug.toLowerCase() === idOrSlug.toLowerCase())
+    const bySlug = projects.find(p => p.slug && (
+        p.slug.toLowerCase() === lowerTarget || 
+        p.slug.toLowerCase() === rawLower ||
+        p.slug.toLowerCase() === slugifiedTarget ||
+        p.slug.toLowerCase() === slugifiedRaw
+    ))
     if (bySlug) return bySlug
 
     // 2. Check generated slug from name
-    const bySlugifiedName = projects.find(p => slugify(p.name) === idOrSlug.toLowerCase())
+    const bySlugifiedName = projects.find(p => {
+        const s = slugify(p.name)
+        return s === lowerTarget || s === rawLower || s === slugifiedTarget || s === slugifiedRaw
+    })
     if (bySlugifiedName) return bySlugifiedName
 
     // 3. Check exact name (case-insensitive)
-    const byName = projects.find(p => p.name.toLowerCase() === idOrSlug.toLowerCase())
+    const byName = projects.find(p => p.name.toLowerCase() === lowerTarget || p.name.toLowerCase() === rawLower)
     if (byName) return byName
 
     // 4. Fallback check by id
-    return projects.find(p => p.id === idOrSlug) || null
+    return projects.find(p => p.id === target || p.id === idOrSlug.trim()) || null
 }
 
 export async function createProject(input: Record<string, unknown>) {

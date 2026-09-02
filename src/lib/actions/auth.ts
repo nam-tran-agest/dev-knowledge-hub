@@ -1,4 +1,4 @@
-﻿'use server'
+'use server'
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
@@ -23,8 +23,11 @@ export async function login(formData: FormData) {
         return { error: error.message || 'Invalid email or password' }
     }
 
+    const nextUrl = (formData.get('next') as string) || '/'
+    const safeNext = (nextUrl.startsWith('/') && !nextUrl.startsWith('//')) ? nextUrl : '/'
+
     revalidatePath('/', 'layout')
-    redirect('/')
+    redirect(safeNext)
 }
 
 export async function signup(formData: FormData, origin?: string) {

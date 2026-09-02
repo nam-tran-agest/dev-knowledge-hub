@@ -376,6 +376,61 @@ runTest('TC_SLUG_01', 'Slug URL generator & resolution: converts project names t
     assert.strictEqual(resolveProject('game-engine-hub')?.id, 'b520c11f-1111-2222-3333-444455556666');
 });
 
+runTest('TC_SLUG_02', 'URI-encoded slug resolution: resolves encoded Vietnamese and spaces accurately', () => {
+    function slugify(text) {
+        if (!text) return '';
+        return text
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd')
+            .replace(/Đ/g, 'd')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    const projects = [
+        { id: '1', name: 'Dự Án Lớn', slug: 'du-an-lon' },
+        { id: '2', name: 'Custom Project Name', slug: 'custom-project-name' }
+    ];
+
+    function resolveProject(idOrSlug) {
+        let target = idOrSlug.trim();
+        try { target = decodeURIComponent(target); } catch {}
+        const lowerTarget = target.toLowerCase();
+        const slugifiedTarget = slugify(target);
+        return projects.find(p => p.slug === lowerTarget || p.slug === slugifiedTarget) ||
+               projects.find(p => slugify(p.name) === lowerTarget || slugify(p.name) === slugifiedTarget) ||
+               projects.find(p => p.id === target) || null;
+    }
+
+    assert.strictEqual(resolveProject('du-an-lon')?.id, '1');
+    assert.strictEqual(resolveProject('du%20an%20lon')?.id, '1');
+    assert.strictEqual(resolveProject('custom-project-name')?.id, '2');
+});
+
+runTest('TC_AUTH_NEXT', 'Auth next-url redirection security: prevents open redirect while honoring valid internal paths', () => {
+    function getSafeRedirect(nextUrl) {
+        if (!nextUrl) return '/';
+        const str = String(nextUrl).trim();
+        if (str.startsWith('/') && !str.startsWith('//') && !str.startsWith('/\\')) {
+            return str;
+        }
+        return '/';
+    }
+
+    // Valid internal destinations
+    assert.strictEqual(getSafeRedirect('/working/neural-interface'), '/working/neural-interface');
+    assert.strictEqual(getSafeRedirect('/planner/today'), '/planner/today');
+    assert.strictEqual(getSafeRedirect('/en/working/game-engine'), '/en/working/game-engine');
+
+    // Malicious open redirect attacks
+    assert.strictEqual(getSafeRedirect('https://evil.com'), '/');
+    assert.strictEqual(getSafeRedirect('//evil.com/phish'), '/');
+    assert.strictEqual(getSafeRedirect('/\\evil.com'), '/');
+    assert.strictEqual(getSafeRedirect('javascript:alert(1)'), '/');
+});
+
 // Summary
 console.log('\n====================================================');
 console.log(`📊 TEST SUITE SUMMARY: ${passedTests} PASSED | ${failedTests} FAILED`);

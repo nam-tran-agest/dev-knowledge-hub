@@ -54,7 +54,7 @@ export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps)
                     <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => router.back()}
+                        onClick={() => router.push('/working')}
                         className="text-primary/70 hover:text-primary cyber-clip-button border border-primary/20 cursor-pointer"
                     >
                         <ArrowLeft size={16} />
