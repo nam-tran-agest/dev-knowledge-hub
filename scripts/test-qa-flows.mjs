@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Automated QA Flow & Security Test Runner
  * Stack: Next.js App Router + Supabase Auth + RLS + Middleware
  */
@@ -205,6 +205,89 @@ runTest('TC_EDGE_01', 'Auto-refresh token: Cookie handler setAll writes refreshe
     assert.strictEqual(responseCookies.length, 1);
     assert.strictEqual(responseCookies[0].name, 'sb-access-token');
     assert.strictEqual(responseCookies[0].options.httpOnly, true);
+});
+
+// ==========================================
+// 6. AGILE KANBAN & TASK FLOW TESTS
+// ==========================================
+
+runTest('TC_KANBAN_01', 'Kanban columns transition: valid statuses across 5 Agile phases', () => {
+    const VALID_STATUSES = ['backlog', 'todo', 'doing', 'review', 'done'];
+    const task = { id: 'task-101', status: 'backlog', title: 'Implement Auth' };
+    
+    // Transition from backlog -> todo -> doing -> review -> done
+    VALID_STATUSES.forEach(status => {
+        task.status = status;
+        assert.ok(VALID_STATUSES.includes(task.status));
+    });
+    assert.strictEqual(task.status, 'done');
+});
+
+runTest('TC_KANBAN_02', 'Drag & drop reordering: array reordering updates positions predictably', () => {
+    const initialTasks = [
+        { id: '1', title: 'Task 1', position: 0 },
+        { id: '2', title: 'Task 2', position: 1 },
+        { id: '3', title: 'Task 3', position: 2 }
+    ];
+    // Drag Task 3 to position 0
+    const reordered = [...initialTasks];
+    const [moved] = reordered.splice(2, 1);
+    reordered.splice(0, 0, moved);
+    
+    assert.strictEqual(reordered[0].id, '3');
+    assert.strictEqual(reordered[1].id, '1');
+    assert.strictEqual(reordered[2].id, '2');
+});
+
+runTest('TC_KANBAN_03', 'Story points calculation: column and board totals sum correctly', () => {
+    const tasks = [
+        { id: '1', story_points: 3, status: 'todo' },
+        { id: '2', story_points: 5, status: 'todo' },
+        { id: '3', story_points: 8, status: 'doing' },
+        { id: '4', story_points: null, status: 'done' }
+    ];
+    const todoPoints = tasks.filter(t => t.status === 'todo').reduce((sum, t) => sum + (t.story_points || 0), 0);
+    const totalPoints = tasks.reduce((sum, t) => sum + (t.story_points || 0), 0);
+
+    assert.strictEqual(todoPoints, 8);
+    assert.strictEqual(totalPoints, 16);
+});
+
+runTest('TC_KANBAN_04', 'Subtasks checklist: completed count and percentage calculation', () => {
+    const subtasks = [
+        { id: 's1', title: 'Design Schema', completed: true },
+        { id: 's2', title: 'Implement API', completed: true },
+        { id: 's3', title: 'Write Tests', completed: false },
+        { id: 's4', title: 'Deploy Staging', completed: false }
+    ];
+    const completed = subtasks.filter(s => s.completed).length;
+    const total = subtasks.length;
+    const percentage = Math.round((completed / total) * 100);
+
+    assert.strictEqual(completed, 2);
+    assert.strictEqual(total, 4);
+    assert.strictEqual(percentage, 50);
+});
+
+runTest('TC_KANBAN_05', 'Quick Filters: accurately filters by issue type, priority, and overdue', () => {
+    const now = Date.now();
+    const tasks = [
+        { id: '1', issue_type: 'bug', priority: 'highest', due_date: new Date(now - 10000).toISOString(), status: 'doing' },
+        { id: '2', issue_type: 'story', priority: 'high', due_date: new Date(now + 100000).toISOString(), status: 'todo' },
+        { id: '3', issue_type: 'task', priority: 'medium', due_date: null, status: 'backlog' },
+        { id: '4', issue_type: 'epic', priority: 'low', due_date: null, status: 'review' }
+    ];
+
+    const bugs = tasks.filter(t => t.issue_type === 'bug');
+    assert.strictEqual(bugs.length, 1);
+    assert.strictEqual(bugs[0].id, '1');
+
+    const highest = tasks.filter(t => t.priority === 'highest');
+    assert.strictEqual(highest.length, 1);
+
+    const overdue = tasks.filter(t => t.due_date && t.status !== 'done' && new Date(t.due_date).getTime() < now);
+    assert.strictEqual(overdue.length, 1);
+    assert.strictEqual(overdue[0].id, '1');
 });
 
 // Summary

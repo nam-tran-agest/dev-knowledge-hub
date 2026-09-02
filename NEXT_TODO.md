@@ -102,6 +102,10 @@ ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.u
 ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS project_id UUID REFERENCES public.projects(id) ON DELETE CASCADE;
 ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS position INT DEFAULT 0;
 ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS tags TEXT[];
+ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS issue_type TEXT DEFAULT 'task';
+ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS story_points INT;
+ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS subtasks JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS issue_key TEXT;
 ALTER TABLE public.tasks ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Tasks User Isolation" ON public.tasks;
 CREATE POLICY "Tasks User Isolation" ON public.tasks FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);

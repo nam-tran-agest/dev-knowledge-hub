@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React from 'react'
 import { Task, TaskStatus } from '@/features/working/types'
@@ -34,6 +34,11 @@ export function KanbanView({
     onDragEnd 
 }: KanbanViewProps) {
     const t = useTranslations('navigation.tasks.columns')
+    const [isMounted, setIsMounted] = React.useState(false)
+
+    React.useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
     const COLUMNS: { 
         id: TaskStatus; 
@@ -86,7 +91,7 @@ export function KanbanView({
             icon: CheckCircle2,
             color: '#10b981', 
             border: 'border-emerald-500/30 group-hover:border-emerald-400/50', 
-            glow: 'shadow-[0_0_15px_rgba(16,185,129,0.45)]',
+            glow: 'shadow-[0_0_15px_rgba(168,85,247,0.45)]',
             accentText: 'text-emerald-400'
         },
     ]
@@ -95,6 +100,65 @@ export function KanbanView({
         if (onDragEnd) {
             onDragEnd(result)
         }
+    }
+
+    if (!isMounted) {
+        return (
+            <div className="flex gap-4.5 overflow-x-auto pb-6 pt-2 custom-scrollbar min-h-[calc(100vh-280px)] select-none">
+                {COLUMNS.map((column) => {
+                    const columnTasks = tasks.filter(t => t.status === column.id)
+                    const Icon = column.icon
+                    const totalPoints = columnTasks.reduce((sum, task) => sum + (task.story_points || 0), 0)
+
+                    return (
+                        <div
+                            key={column.id}
+                            className={cn(
+                                "flex-1 flex flex-col min-w-[290px] max-w-[340px] cyber-panel p-4 sm:p-4.5 relative group border transition-all duration-300",
+                                column.border,
+                                "bg-[#04060f]/90 backdrop-blur-md"
+                            )}
+                        >
+                            <div className="relative z-10 flex items-center justify-between pb-3.5 mb-3 border-b border-primary/15">
+                                <div className="flex items-center gap-2 min-w-0">
+                                    <div 
+                                        className={cn("w-6 h-6 flex items-center justify-center cyber-clip-tag border", column.glow)}
+                                        style={{ backgroundColor: `${column.color}15`, borderColor: `${column.color}50` }}
+                                    >
+                                        <Icon className={cn("w-3.5 h-3.5", column.accentText)} />
+                                    </div>
+                                    <h3 className="font-mono font-bold text-xs uppercase tracking-wider text-white truncate">
+                                        {column.title}
+                                    </h3>
+                                </div>
+                                <div className="flex items-center gap-1.5 shrink-0 font-mono text-[10px]">
+                                    <span className="px-1.5 py-0.5 bg-primary/10 border border-primary/30 text-primary font-bold cyber-clip-tag">
+                                        {columnTasks.length}
+                                    </span>
+                                    {totalPoints > 0 && (
+                                        <span className="px-1.5 py-0.5 bg-surface-deep border border-primary/20 text-primary/70 font-semibold cyber-clip-tag">
+                                            {totalPoints} SP
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="relative z-10 flex-1 space-y-2.5 min-h-[140px] p-1">
+                                {columnTasks.map((task) => (
+                                    <TaskItem
+                                        key={task.id}
+                                        task={task}
+                                        onStatusChange={onStatusChange}
+                                        onDelete={onDelete}
+                                        onEdit={onEdit}
+                                        isDragDisabled={true}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        )
     }
 
     return (
