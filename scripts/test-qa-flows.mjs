@@ -223,20 +223,41 @@ runTest('TC_KANBAN_01', 'Kanban columns transition: valid statuses across 5 Agil
     assert.strictEqual(task.status, 'done');
 });
 
-runTest('TC_KANBAN_02', 'Drag & drop reordering: array reordering updates positions predictably', () => {
-    const initialTasks = [
-        { id: '1', title: 'Task 1', position: 0 },
-        { id: '2', title: 'Task 2', position: 1 },
-        { id: '3', title: 'Task 3', position: 2 }
+runTest('TC_KANBAN_02', 'Drag & drop reordering: column-aware insertion and position updates', () => {
+    const tasks = [
+        { id: '1', title: 'Task 1', status: 'todo', position: 0 },
+        { id: '2', title: 'Task 2', status: 'todo', position: 1 },
+        { id: '3', title: 'Task 3', status: 'doing', position: 0 }
     ];
-    // Drag Task 3 to position 0
-    const reordered = [...initialTasks];
-    const [moved] = reordered.splice(2, 1);
-    reordered.splice(0, 0, moved);
-    
-    assert.strictEqual(reordered[0].id, '3');
-    assert.strictEqual(reordered[1].id, '1');
-    assert.strictEqual(reordered[2].id, '2');
+
+    // Drag Task 1 into 'doing' column at index 1
+    const draggableId = '1';
+    const destStatus = 'doing';
+    const destIndex = 1;
+
+    const target = tasks.find(t => t.id === draggableId);
+    const updatedTarget = { ...target, status: destStatus, position: destIndex };
+
+    const otherTasks = tasks.filter(t => t.id !== draggableId && t.status !== destStatus);
+    const destTasks = tasks.filter(t => t.id !== draggableId && t.status === destStatus);
+
+    destTasks.splice(destIndex, 0, updatedTarget);
+    destTasks.forEach((t, idx) => { t.position = idx; });
+
+    const newTasks = [...otherTasks, ...destTasks];
+
+    // Verify 'todo' only has Task 2 now
+    const todoTasks = newTasks.filter(t => t.status === 'todo');
+    assert.strictEqual(todoTasks.length, 1);
+    assert.strictEqual(todoTasks[0].id, '2');
+
+    // Verify 'doing' has Task 3 at pos 0 and Task 1 at pos 1
+    const doingTasks = newTasks.filter(t => t.status === 'doing');
+    assert.strictEqual(doingTasks.length, 2);
+    assert.strictEqual(doingTasks[0].id, '3');
+    assert.strictEqual(doingTasks[0].position, 0);
+    assert.strictEqual(doingTasks[1].id, '1');
+    assert.strictEqual(doingTasks[1].position, 1);
 });
 
 runTest('TC_KANBAN_03', 'Story points calculation: column and board totals sum correctly', () => {

@@ -135,30 +135,47 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
 
         const destStatus = destination.droppableId as TaskStatus
 
-        // Clone current tasks
-        const updatedTasks = [...tasks]
-        const targetTaskIndex = updatedTasks.findIndex(t => t.id === draggableId)
-        if (targetTaskIndex === -1) return
+        // Find target task
+        const targetTask = tasks.find(t => t.id === draggableId)
+        if (!targetTask) return
 
-        const targetTask = { ...updatedTasks[targetTaskIndex] }
+        const updatedTarget = { 
+            ...targetTask, 
+            status: destStatus, 
+            position: destination.index 
+        }
 
-        // Remove from list
-        updatedTasks.splice(targetTaskIndex, 1)
+        // Get tasks from other columns (unaffected)
+        const otherColumnTasks = tasks.filter(t => t.id !== draggableId && t.status !== destStatus)
 
-        // Update task status and position
-        targetTask.status = destStatus
-        targetTask.position = destination.index
+        // Get tasks in the destination column (excluding dragged task)
+        const destTasks = tasks.filter(t => t.id !== draggableId && t.status === destStatus)
 
-        // Re-insert into new location in tasks array
-        updatedTasks.splice(destination.index, 0, targetTask)
+        // Determine precise insertion point (accounting for active filters if any)
+        const filteredDestTasks = filteredTasks.filter(t => t.id !== draggableId && t.status === destStatus)
+        const referenceTask = filteredDestTasks[destination.index]
 
-        // Optimistically update client state immediately
-        setTasks(updatedTasks)
+        let insertIdx = destTasks.length
+        if (referenceTask) {
+            const foundIdx = destTasks.findIndex(t => t.id === referenceTask.id)
+            if (foundIdx !== -1) insertIdx = foundIdx
+        } else if (destination.index === 0) {
+            insertIdx = 0
+        }
+
+        destTasks.splice(insertIdx, 0, updatedTarget)
+        destTasks.forEach((t, idx) => {
+            t.position = idx
+        })
+
+        // Combine all tasks and update state optimistically
+        const newTasks = [...otherColumnTasks, ...destTasks]
+        setTasks(newTasks)
 
         // Sync change to server asynchronously in background without blocking UI
         updateTask(draggableId, {
             status: destStatus,
-            position: destination.index
+            position: insertIdx
         }).catch(err => {
             console.error('Failed to persist dragged task state:', err)
         })

@@ -1,4 +1,4 @@
-﻿'use server'
+'use server'
 
 import { create, update, deleteEntity, getAll, getById } from '@/lib/actions/base-crud'
 import { Task } from '@/features/working/types'
@@ -6,8 +6,7 @@ import { Task } from '@/features/working/types'
 const CONFIG = {
     tableName: 'tasks',
     tagJunctionTable: 'task_tags',
-    tagColumn: 'task_id',
-    revalidatePaths: ['/working']
+    tagColumn: 'task_id'
 }
 
 export async function getTasks(projectId?: string) {
