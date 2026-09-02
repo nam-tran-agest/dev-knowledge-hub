@@ -22,7 +22,7 @@ export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps)
             {/* Top Wire */}
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
             
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                     <Button
                         variant="ghost"

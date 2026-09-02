@@ -94,6 +94,7 @@ export function CreateProjectModal() {
                             placeholder="e.g. NEURAL_INTERFACE_V2"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
                         />
                     </div>
                     <div className="space-y-1.5">
@@ -103,6 +104,7 @@ export function CreateProjectModal() {
                             placeholder="Enter project telemetry details..."
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
                         />
                     </div>
                     <div className="space-y-2">

@@ -116,6 +116,7 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
                                 required
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
                             />
                         </div>
                         <div className="space-y-1.5">
@@ -124,6 +125,7 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
                                 id="edit-description"
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
                             />
                         </div>
 
