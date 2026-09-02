@@ -12,7 +12,9 @@
     "lint": "eslint",
     "type-check": "tsc --noEmit",
     "check": "tsc --noEmit && eslint",
-    "test": "node scripts/test-qa-flows.mjs"
+    "test": "node scripts/test-qa-flows.mjs",
+    "test:e2e": "node scripts/test-live-endpoints.mjs",
+    "test:all": "node scripts/test-qa-flows.mjs && node scripts/test-live-endpoints.mjs"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
