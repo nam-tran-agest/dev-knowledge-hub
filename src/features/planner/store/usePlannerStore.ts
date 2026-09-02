@@ -55,14 +55,15 @@ interface PlannerState {
     getSomedayTasks: () => PlannerTask[];
 }
 
-const getInitialTodayStr = () => getTodayDateStr();
+const syncCache = new Map<string, number>();
+const SYNC_CACHE_TTL_MS = 5000; // 5s throttle to prevent request storms
 
 export const usePlannerStore = create<PlannerState>()(
     persist(
         (set, get) => ({
             tasks: {},
             schedules: {},
-            selectedDate: getInitialTodayStr(),
+            selectedDate: getTodayDateStr(),
             isSyncing: false,
 
             setSelectedDate: (date: string) => {
@@ -70,6 +71,16 @@ export const usePlannerStore = create<PlannerState>()(
             },
 
             loadServerTasks: async (date?: string, endDate?: string) => {
+                const cacheKey = `${date || 'today'}_${endDate || ''}`;
+                const lastSynced = syncCache.get(cacheKey);
+                const now = Date.now();
+
+                // Skip request if recently fetched within 5 seconds
+                if (lastSynced && (now - lastSynced < SYNC_CACHE_TTL_MS)) {
+                    return;
+                }
+
+                syncCache.set(cacheKey, now);
                 set({ isSyncing: true });
                 try {
                     const serverTasks = await getPlannerTasks(date, endDate);
@@ -106,7 +117,7 @@ export const usePlannerStore = create<PlannerState>()(
             },
 
             addTask: (title, date, timeBlockId) => {
-                const targetDate = date || get().selectedDate || getInitialTodayStr();
+                const targetDate = date || get().selectedDate || getTodayDateStr();
                 const tempId = uuidv4();
                 const newTask: PlannerTask = {
                     id: tempId,

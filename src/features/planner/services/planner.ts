@@ -1,7 +1,6 @@
-'use server';
+﻿'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { revalidatePath } from 'next/cache';
 import { format } from 'date-fns';
 
 export interface DBPlannerTask {
@@ -74,7 +73,6 @@ export async function addPlannerTask(title: string, date?: string, timeBlockId?:
         throw new Error('Failed to add task');
     }
 
-    revalidatePath('/planner');
     return data as DBPlannerTask;
 }
 
@@ -105,8 +103,6 @@ export async function updatePlannerTask(
         if (error.code === '42P01') return;
         console.error('Error updating planner task:', error);
     }
-
-    revalidatePath('/planner');
 }
 
 export async function deletePlannerTask(id: string) {
@@ -125,6 +121,4 @@ export async function deletePlannerTask(id: string) {
         if (error.code === '42P01') return;
         console.error('Error deleting planner task:', error);
     }
-
-    revalidatePath('/planner');
 }
