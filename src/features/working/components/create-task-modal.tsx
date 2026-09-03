@@ -103,6 +103,10 @@ export function CreateTaskModal({
                     tags: tagsList.length > 0 ? tagsList : undefined,
                     project_id: targetProjectId,
                 })
+                if (created && 'error' in created && (created as { error?: string }).error) {
+                    setError(String((created as { error?: string }).error))
+                    return
+                }
                 if (onSuccess) {
                     onSuccess(created as Task)
                 }

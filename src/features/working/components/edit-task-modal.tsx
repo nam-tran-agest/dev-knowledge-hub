@@ -122,6 +122,10 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
         startTransition(async () => {
             try {
                 const updated = await updateTask(task.id, updatePayload)
+                if (updated && 'error' in updated && (updated as { error?: string }).error) {
+                    setError(String((updated as { error?: string }).error))
+                    return
+                }
                 onSuccess(updated as Task)
                 onOpenChange(false)
             } catch (err: unknown) {

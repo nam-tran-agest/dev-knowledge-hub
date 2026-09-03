@@ -21,7 +21,7 @@ export async function getTaskById(id: string) {
     return await getById<Task>(CONFIG, id)
 }
 
-export async function createTask(input: Record<string, unknown>) {
+export async function createTask(input: Record<string, unknown>): Promise<Task | { error: string }> {
     try {
         return await create<Task>(CONFIG, input)
     } catch (error: unknown) {
@@ -29,20 +29,27 @@ export async function createTask(input: Record<string, unknown>) {
         // If columns issue_type, story_points or subtasks do not exist in DB yet, fallback to core fields
         if (errorMsg.includes('column') || errorMsg.includes('schema') || errorMsg.includes('does not exist')) {
             const { issue_type: _it, story_points: _sp, subtasks: _st, issue_key: _ik, ...coreInput } = input
-            const fallbackResult = await create<Task>(CONFIG, coreInput)
-            return {
-                ...fallbackResult,
-                issue_type: input.issue_type as Task['issue_type'],
-                story_points: input.story_points as Task['story_points'],
-                subtasks: input.subtasks as Task['subtasks'],
-                issue_key: input.issue_key as Task['issue_key'],
-            } as Task
+            try {
+                const fallbackResult = await create<Task>(CONFIG, coreInput)
+                return {
+                    ...fallbackResult,
+                    issue_type: input.issue_type as Task['issue_type'],
+                    story_points: input.story_points as Task['story_points'],
+                    subtasks: input.subtasks as Task['subtasks'],
+                    issue_key: input.issue_key as Task['issue_key'],
+                } as Task
+            } catch (innerErr: unknown) {
+                const innerMsg = innerErr instanceof Error ? innerErr.message : String(innerErr)
+                console.error('createTask fallback error:', innerMsg)
+                return { error: innerMsg }
+            }
         }
-        throw error
+        console.error('createTask error:', errorMsg)
+        return { error: errorMsg }
     }
 }
 
-export async function updateTask(id: string, input: Record<string, unknown>) {
+export async function updateTask(id: string, input: Record<string, unknown>): Promise<Task | { error: string }> {
     try {
         return await update<Task>(CONFIG, id, input)
     } catch (error: unknown) {
@@ -50,16 +57,23 @@ export async function updateTask(id: string, input: Record<string, unknown>) {
         // If columns issue_type, story_points or subtasks do not exist in DB yet, fallback to core fields
         if (errorMsg.includes('column') || errorMsg.includes('schema') || errorMsg.includes('does not exist')) {
             const { issue_type: _it, story_points: _sp, subtasks: _st, issue_key: _ik, ...coreInput } = input
-            const fallbackResult = await update<Task>(CONFIG, id, coreInput)
-            return {
-                ...fallbackResult,
-                issue_type: input.issue_type as Task['issue_type'],
-                story_points: input.story_points as Task['story_points'],
-                subtasks: input.subtasks as Task['subtasks'],
-                issue_key: input.issue_key as Task['issue_key'],
-            } as Task
+            try {
+                const fallbackResult = await update<Task>(CONFIG, id, coreInput)
+                return {
+                    ...fallbackResult,
+                    issue_type: input.issue_type as Task['issue_type'],
+                    story_points: input.story_points as Task['story_points'],
+                    subtasks: input.subtasks as Task['subtasks'],
+                    issue_key: input.issue_key as Task['issue_key'],
+                } as Task
+            } catch (innerErr: unknown) {
+                const innerMsg = innerErr instanceof Error ? innerErr.message : String(innerErr)
+                console.error('updateTask fallback error:', innerMsg)
+                return { error: innerMsg }
+            }
         }
-        throw error
+        console.error('updateTask error:', errorMsg)
+        return { error: errorMsg }
     }
 }
 

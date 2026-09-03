@@ -81,7 +81,11 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
 
         startTransition(async () => {
             try {
-                await updateProject(project.id, formData)
+                const res = await updateProject(project.id, formData)
+                if (res && 'error' in res && (res as { error?: string }).error) {
+                    setError(String((res as { error?: string }).error))
+                    return
+                }
                 onOpenChange(false)
                 router.refresh()
             } catch (err: unknown) {

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Generic CRUD helper functions with strict User Scoping
  */
 
@@ -189,6 +189,9 @@ export async function create<T extends BaseEntity>(
   input: Record<string, unknown>
 ): Promise<T> {
   const user = await getAuthUser()
+  if (!user || user.id === GUEST_ID) {
+    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để tạo dữ liệu.')
+  }
   const supabase = await createClient()
 
   const { tagIds, ...insertData } = input
@@ -223,7 +226,12 @@ export async function create<T extends BaseEntity>(
     }
   }
 
-  config.revalidatePaths?.forEach(path => revalidatePath(path))
+  try {
+    config.revalidatePaths?.forEach(path => revalidatePath(path))
+  } catch (e) {
+    console.warn('revalidatePath ignored:', e)
+  }
+
   return data as T
 }
 
@@ -236,6 +244,9 @@ export async function update<T extends BaseEntity>(
   input: Record<string, unknown>
 ): Promise<T> {
   const user = await getAuthUser()
+  if (!user || user.id === GUEST_ID) {
+    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để cập nhật dữ liệu.')
+  }
   const supabase = await createClient()
 
   const { tagIds, ...updateFields } = input
@@ -283,7 +294,12 @@ export async function update<T extends BaseEntity>(
     }
   }
 
-  config.revalidatePaths?.forEach(path => revalidatePath(path))
+  try {
+    config.revalidatePaths?.forEach(path => revalidatePath(path))
+  } catch (e) {
+    console.warn('revalidatePath ignored:', e)
+  }
+
   return data as T
 }
 
@@ -295,6 +311,9 @@ export async function deleteEntity<T extends BaseEntity>(
   id: string
 ): Promise<void> {
   const user = await getAuthUser()
+  if (!user || user.id === GUEST_ID) {
+    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để xóa dữ liệu.')
+  }
   const supabase = await createClient()
 
   const { error } = await supabase
@@ -307,5 +326,9 @@ export async function deleteEntity<T extends BaseEntity>(
     throw new Error(error.message)
   }
 
-  config.revalidatePaths?.forEach(path => revalidatePath(path))
+  try {
+    config.revalidatePaths?.forEach(path => revalidatePath(path))
+  } catch (e) {
+    console.warn('revalidatePath ignored:', e)
+  }
 }

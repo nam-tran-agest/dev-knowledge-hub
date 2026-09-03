@@ -64,14 +64,16 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
 
     const handleQuickAddTask = async (title: string) => {
         try {
-            const newTask = await createTask({
+            const res = await createTask({
                 title,
                 project_id: project.id,
                 status: 'todo',
                 priority: 'medium',
                 issue_type: 'task'
             })
-            setTasks(prev => [newTask, ...prev])
+            if (res && !('error' in res)) {
+                setTasks(prev => [res as Task, ...prev])
+            }
         } catch (error) {
             console.error('Failed to create task:', error)
         }

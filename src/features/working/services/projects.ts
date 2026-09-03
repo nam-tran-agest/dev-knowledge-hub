@@ -63,49 +63,94 @@ export async function getProjectById(idOrSlug: string) {
     return projects.find(p => p.id === target || p.id === idOrSlug.trim()) || null
 }
 
-export async function createProject(input: Record<string, unknown>) {
+export async function createProject(input: Record<string, unknown>): Promise<Project | { error: string }> {
     const payload = { ...input }
-    if (payload.name && !payload.slug) {
-        payload.slug = slugify(String(payload.name))
+    if (payload.name) {
+        if (!payload.slug) payload.slug = slugify(String(payload.name));
+        if (!payload.title) payload.title = payload.name;
+    } else if (payload.title && !payload.name) {
+        payload.name = payload.title;
+        if (!payload.slug) payload.slug = slugify(String(payload.title));
     }
 
     try {
         return await create<Project>(CONFIG, payload)
     } catch (error: unknown) {
         const errorMsg = error instanceof Error ? error.message : String(error)
-        // If DB doesn't have slug column yet, fallback gracefully without slug
-        if (errorMsg.includes('slug') || errorMsg.includes('column') || errorMsg.includes('does not exist')) {
-            const { slug: _slug, ...coreInput } = payload
-            const created = await create<Project>(CONFIG, coreInput)
-            return {
-                ...created,
-                slug: payload.slug as string
-            } as Project
+        
+        // 1. If DB lacks 'slug' column
+        if (errorMsg.includes('slug')) {
+            const { slug: _s, ...noSlug } = payload
+            try {
+                return await create<Project>(CONFIG, noSlug)
+            } catch {
+                // fall through
+            }
         }
-        throw error
+
+        // 2. If DB lacks 'title' column (clean schema)
+        if (errorMsg.includes('title')) {
+            const { title: _t, ...noTitle } = payload
+            try {
+                return await create<Project>(CONFIG, noTitle)
+            } catch {
+                // fall through
+            }
+        }
+
+        // 3. If DB lacks 'name' column (legacy schema)
+        if (errorMsg.includes('name')) {
+            const { name: _n, ...noName } = payload
+            try {
+                const created = await create<Project>(CONFIG, noName)
+                return { ...created, name: payload.name as string } as Project
+            } catch {
+                // fall through
+            }
+        }
+
+        console.error('createProject error:', errorMsg)
+        return { error: errorMsg }
     }
 }
 
-export async function updateProject(id: string, input: Record<string, unknown>) {
+export async function updateProject(id: string, input: Record<string, unknown>): Promise<Project | { error: string }> {
     const payload = { ...input }
-    if (payload.name && !payload.slug) {
-        payload.slug = slugify(String(payload.name))
+    if (payload.name) {
+        if (!payload.slug) payload.slug = slugify(String(payload.name));
+        if (!payload.title) payload.title = payload.name;
+    } else if (payload.title && !payload.name) {
+        payload.name = payload.title;
+        if (!payload.slug) payload.slug = slugify(String(payload.title));
     }
 
     try {
         return await update<Project>(CONFIG, id, payload)
     } catch (error: unknown) {
         const errorMsg = error instanceof Error ? error.message : String(error)
-        // If DB doesn't have slug column yet, fallback gracefully without slug
-        if (errorMsg.includes('slug') || errorMsg.includes('column') || errorMsg.includes('does not exist')) {
-            const { slug: _slug, ...coreInput } = payload
-            const updated = await update<Project>(CONFIG, id, coreInput)
-            return {
-                ...updated,
-                slug: payload.slug as string
-            } as Project
+        
+        // 1. If DB lacks 'slug' column
+        if (errorMsg.includes('slug')) {
+            const { slug: _s, ...noSlug } = payload
+            try {
+                return await update<Project>(CONFIG, id, noSlug)
+            } catch {
+                // fall through
+            }
         }
-        throw error
+
+        // 2. If DB lacks 'title' column
+        if (errorMsg.includes('title')) {
+            const { title: _t, ...noTitle } = payload
+            try {
+                return await update<Project>(CONFIG, id, noTitle)
+            } catch {
+                // fall through
+            }
+        }
+
+        console.error('updateProject error:', errorMsg)
+        return { error: errorMsg }
     }
 }
 
