@@ -49,13 +49,16 @@ export function EditProjectModal({ project, open, onOpenChange }: EditProjectMod
     })
 
     useEffect(() => {
-        setFormData({
-            name: project.name,
-            description: project.description || '',
-            color: project.color,
-            icon: project.icon || 'Layout'
-        })
-    }, [project])
+        if (open) {
+            setFormData({
+                name: project.name,
+                description: project.description || '',
+                color: project.color,
+                icon: project.icon || 'Layout'
+            })
+            setError(null)
+        }
+    }, [open, project.id, project.name, project.description, project.color, project.icon])
 
     const handleDelete = async () => {
         setIsDeleting(true)

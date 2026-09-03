@@ -52,7 +52,7 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
     const [newSubtaskTitle, setNewSubtaskTitle] = useState('')
 
     useEffect(() => {
-        if (task) {
+        if (open && task) {
             setFormData({
                 title: task.title,
                 description: task.description || '',
@@ -66,7 +66,8 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
             setNewSubtaskTitle('')
             setError(null)
         }
-    }, [task, open])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, task?.id, task?.updated_at])
 
     const handleAddSubtask = (e: React.FormEvent) => {
         e.preventDefault()

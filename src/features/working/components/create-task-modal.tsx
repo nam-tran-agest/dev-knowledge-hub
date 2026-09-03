@@ -35,9 +35,11 @@ interface CreateTaskModalProps {
     onSuccess?: (newTask: Task) => void
 }
 
+const DEFAULT_PROJECTS: Project[] = []
+
 export function CreateTaskModal({
     projectId,
-    projects = [],
+    projects = DEFAULT_PROJECTS,
     open,
     onOpenChange,
     defaultStatus = 'todo',
@@ -47,7 +49,8 @@ export function CreateTaskModal({
     const [error, setError] = useState<string | null>(null)
     const t = useTranslations('navigation.tasks.columns')
 
-    const [selectedProjectId, setSelectedProjectId] = useState<string>(projectId || (projects[0]?.id || ''))
+    const fallbackProjectId = projects[0]?.id || ''
+    const [selectedProjectId, setSelectedProjectId] = useState<string>(projectId || fallbackProjectId)
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -61,7 +64,7 @@ export function CreateTaskModal({
     // Reset form on open
     React.useEffect(() => {
         if (open) {
-            setSelectedProjectId(projectId || (projects[0]?.id || ''))
+            setSelectedProjectId(projectId || fallbackProjectId)
             setFormData({
                 title: '',
                 description: '',
@@ -73,7 +76,7 @@ export function CreateTaskModal({
             })
             setError(null)
         }
-    }, [open, defaultStatus, projectId, projects])
+    }, [open, defaultStatus, projectId, fallbackProjectId])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
