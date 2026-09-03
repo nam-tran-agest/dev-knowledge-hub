@@ -1,20 +1,87 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { MusicSidebar } from '@/features/media/components/music/music-sidebar';
 import { MusicGrid } from '@/features/media/components/music/music-grid';
+import { SpotifyItem } from '@/features/media/components/music/music-card';
 import { getSpotifyAuthToken, getTopTracks, getTopArtists, getUserPlaylists } from '@/features/media/services/spotify';
 import { getSpotifyAuthUrl } from '@/features/media/services/spotify-api';
 import { Button } from '@/components/ui/button';
-import { Music2, Radio } from 'lucide-react';
+import { Music2, Radio, Loader2 } from 'lucide-react';
 import { PageShell } from '@/components/layout/page-shell';
 
+import { useSearchParams } from 'next/navigation';
+
 interface MusicContainerProps {
-    category: string;
+    category?: string;
 }
 
-export async function MusicContainer({ category }: MusicContainerProps) {
-    const token = await getSpotifyAuthToken();
+// Client-side cache per category
+const clientMusicCache = new Map<string, SpotifyItem[]>();
+let cachedHasToken: boolean | null = null;
+
+export function MusicContainer({ category: propCategory }: MusicContainerProps = {}) {
+    const searchParams = useSearchParams();
+    const category = propCategory || searchParams.get('category') || 'top-tracks';
+    const [token, setToken] = useState<string | null>(() => cachedHasToken === false ? null : 'placeholder');
+    const [items, setItems] = useState<SpotifyItem[]>(() => clientMusicCache.get(category) || []);
+    const [isLoading, setIsLoading] = useState(() => !clientMusicCache.has(category));
     const authUrl = getSpotifyAuthUrl();
 
-    if (!token) {
+    useEffect(() => {
+        let isMounted = true;
+
+        async function loadMusicTelemetry() {
+            try {
+                if (!clientMusicCache.has(category)) {
+                    setIsLoading(true);
+                }
+
+                const authToken = await getSpotifyAuthToken();
+                if (!isMounted) return;
+
+                if (!authToken) {
+                    cachedHasToken = false;
+                    setToken(null);
+                    setIsLoading(false);
+                    return;
+                }
+
+                cachedHasToken = true;
+                setToken(authToken);
+
+                let data: SpotifyItem[] = [];
+                switch (category) {
+                    case 'top-artists':
+                        data = await getTopArtists(20);
+                        break;
+                    case 'playlists':
+                        data = await getUserPlaylists(20);
+                        break;
+                    default:
+                        data = await getTopTracks(20);
+                }
+
+                if (!isMounted) return;
+                clientMusicCache.set(category, data || []);
+                setItems(data || []);
+            } catch (err) {
+                console.error('Failed to load Spotify telemetry:', err);
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
+        loadMusicTelemetry();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [category]);
+
+    if (!token && !isLoading) {
         return (
             <PageShell variant="landing" className="bg-background flex flex-col items-center justify-center p-6 space-y-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid-cyber opacity-15 pointer-events-none" />
@@ -36,22 +103,7 @@ export async function MusicContainer({ category }: MusicContainerProps) {
         );
     }
 
-    let data = [];
-    let title = '';
-
-    switch (category) {
-        case 'top-artists':
-            data = await getTopArtists(20);
-            title = 'TOP_ARTISTS';
-            break;
-        case 'playlists':
-            data = await getUserPlaylists(20);
-            title = 'ACTIVE_PLAYLISTS';
-            break;
-        default:
-            data = await getTopTracks(20);
-            title = 'TOP_AUDIO_TRACKS';
-    }
+    const title = category === 'top-artists' ? 'TOP_ARTISTS' : category === 'playlists' ? 'ACTIVE_PLAYLISTS' : 'TOP_AUDIO_TRACKS';
 
     return (
         <PageShell variant="landing" className="bg-background flex flex-col">
@@ -69,7 +121,28 @@ export async function MusicContainer({ category }: MusicContainerProps) {
                                     <h1 className="text-xl sm:text-2xl font-mono font-bold text-white uppercase tracking-wider">{title}</h1>
                                 </div>
                             </div>
-                            <MusicGrid items={data} type={category as 'top-tracks' | 'top-artists' | 'playlists'} />
+
+                            {isLoading ? (
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-2 text-primary font-mono text-xs uppercase tracking-wider animate-pulse pb-2">
+                                        <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                                        <span>// SYNCHRONIZING_AUDIO_TELEMETRY...</span>
+                                    </div>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                                            <div key={n} className="h-52 bg-surface-deep/40 border border-primary/15 cyber-clip-button animate-pulse p-3 flex flex-col justify-between">
+                                                <div className="aspect-square bg-primary/10 border border-primary/20 cyber-clip" />
+                                                <div className="space-y-2 pt-2">
+                                                    <div className="h-3 w-3/4 bg-primary/10" />
+                                                    <div className="h-2 w-1/2 bg-primary/5" />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (
+                                <MusicGrid items={items} type={category as 'top-tracks' | 'top-artists' | 'playlists'} />
+                            )}
                         </div>
                     </div>
                 </main>

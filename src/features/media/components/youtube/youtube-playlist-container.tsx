@@ -1,23 +1,85 @@
-import { notFound } from 'next/navigation';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { PlaylistContent } from '@/features/media/components/youtube/playlist-content';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ListVideo } from 'lucide-react';
+import { ChevronLeft, ListVideo, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { getPlaylists, getPlaylistDetails, getVideos } from '@/features/media/services/youtube';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
 interface YouTubePlaylistContainerProps {
     playlistId: string;
 }
 
-export async function YouTubePlaylistContainer({ playlistId }: YouTubePlaylistContainerProps) {
-    const t = await getTranslations('media.youtube.playlist');
-    const data = await getPlaylistDetails(playlistId);
-    const playlists = await getPlaylists();
-    const libraryVideos = await getVideos() || [];
+export function YouTubePlaylistContainer({ playlistId }: YouTubePlaylistContainerProps) {
+    const t = useTranslations('media.youtube.playlist');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [data, setData] = useState<{ playlist: any; videos: any[] } | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [playlists, setPlaylists] = useState<any[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [libraryVideos, setLibraryVideos] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        async function loadPlaylist() {
+            try {
+                setIsLoading(true);
+                const [pDetails, allPlaylists, libVideos] = await Promise.all([
+                    getPlaylistDetails(playlistId),
+                    getPlaylists(),
+                    getVideos()
+                ]);
+
+                if (!isMounted) return;
+                setData(pDetails);
+                setPlaylists(allPlaylists || []);
+                setLibraryVideos(libVideos || []);
+            } catch (err) {
+                console.error('Failed to load YouTube playlist details:', err);
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
+        loadPlaylist();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [playlistId]);
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-transparent relative font-mono">
+                <div className="max-w-7xl mx-auto space-y-8">
+                    <div className="flex items-center gap-2 text-primary text-xs uppercase tracking-wider animate-pulse">
+                        <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                        <span>// BUFFERING_PLAYLIST_STREAM...</span>
+                    </div>
+                    <div className="h-28 bg-surface/50 border border-primary/20 cyber-clip animate-pulse p-6" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[1, 2, 3, 4, 5, 6].map((n) => (
+                            <div key={n} className="h-56 bg-surface/30 border border-primary/10 cyber-clip animate-pulse" />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     if (!data) {
-        notFound();
+        return (
+            <div className="min-h-screen pt-32 text-center font-mono space-y-4">
+                <h1 className="text-xl text-white uppercase">// PLAYLIST_NOT_FOUND</h1>
+                <Link href="/media/youtube" className="text-primary hover:underline text-xs">[ ← BACK_TO_YOUTUBE_HUB ]</Link>
+            </div>
+        );
     }
 
     const { playlist, videos } = data;

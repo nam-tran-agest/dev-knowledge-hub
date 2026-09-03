@@ -1,21 +1,83 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { getPlaylist, getPlaylistTracks } from '@/features/media/services/spotify';
 import { MusicSidebar } from '@/features/media/components/music/music-sidebar';
 import { Link } from '@/i18n/routing';
-import { ChevronLeft, Music2, Clock, ExternalLink } from 'lucide-react';
+import { ChevronLeft, Music2, Clock, ExternalLink, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
 interface SpotifyPlaylistContainerProps {
     playlistId: string;
     locale: string;
 }
 
-export async function SpotifyPlaylistContainer({ playlistId, locale }: SpotifyPlaylistContainerProps) {
-    const t = await getTranslations({ locale, namespace: 'media.music' });
+export function SpotifyPlaylistContainer({ playlistId, locale: _locale }: SpotifyPlaylistContainerProps) {
+    const t = useTranslations('media.music');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [playlist, setPlaylist] = useState<any | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [tracks, setTracks] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const playlist = await getPlaylist(playlistId);
-    const tracks = await getPlaylistTracks(playlistId);
+    useEffect(() => {
+        let isMounted = true;
+
+        async function loadPlaylistData() {
+            try {
+                setIsLoading(true);
+                const [pData, tData] = await Promise.all([
+                    getPlaylist(playlistId),
+                    getPlaylistTracks(playlistId)
+                ]);
+                if (!isMounted) return;
+                setPlaylist(pData);
+                setTracks(tData || []);
+            } catch (err) {
+                console.error('Failed to load Spotify playlist:', err);
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
+        loadPlaylistData();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [playlistId]);
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen pt-16 flex flex-col text-slate-200">
+                <div className="flex flex-col lg:flex-row flex-1 min-h-[calc(100vh-64px)] overflow-hidden">
+                    <MusicSidebar currentCategory="playlists" />
+                    <main className="flex-1 overflow-hidden flex flex-col p-6 md:p-10 space-y-6">
+                        <div className="flex items-center gap-2 text-primary font-mono text-xs uppercase tracking-wider animate-pulse">
+                            <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                            <span>// BUFFERING_SPOTIFY_PLAYLIST_FEED...</span>
+                        </div>
+                        <div className="h-44 bg-surface border border-primary/20 cyber-clip animate-pulse p-6 flex gap-6">
+                            <div className="w-36 h-36 bg-primary/20 cyber-clip shrink-0" />
+                            <div className="space-y-3 flex-1 justify-center flex flex-col">
+                                <div className="h-6 w-1/3 bg-primary/20" />
+                                <div className="h-4 w-1/4 bg-primary/10" />
+                            </div>
+                        </div>
+                        <div className="space-y-2">
+                            {[1, 2, 3, 4, 5].map((n) => (
+                                <div key={n} className="h-12 bg-surface/50 border border-primary/10 cyber-clip animate-pulse" />
+                            ))}
+                        </div>
+                    </main>
+                </div>
+            </div>
+        );
+    }
 
     if (!playlist) {
         return (

@@ -1,14 +1,25 @@
 
 
 import { MusicContainer } from '@/features/media';
+import { routing } from '@/i18n/routing';
+import { setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 
-interface MusicPageProps {
-    params: Promise<{ locale: string }>;
-    searchParams: Promise<{ category?: string }>;
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function MusicPage({ searchParams }: MusicPageProps) {
-    const { category = 'top-tracks' } = await searchParams;
+export default async function MusicPage({
+    params
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    const { locale } = await params;
+    setRequestLocale(locale);
 
-    return <MusicContainer category={category} />;
+    return (
+        <Suspense fallback={null}>
+            <MusicContainer />
+        </Suspense>
+    );
 }

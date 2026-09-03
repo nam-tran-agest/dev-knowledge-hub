@@ -1,12 +1,107 @@
-import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed, type SteamRecentGame } from '@/features/media/lib/steam-client';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed, type SteamRecentGame, type SteamPlayerSummary } from '@/features/media/lib/steam-client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Gamepad2, Activity } from 'lucide-react';
+import { Gamepad2, Activity, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { GameMoodSync } from './game-mood-sync';
 
-export async function SteamContainer() {
-    const steamId = await getUserSteamId();
+// Client-side cache for instant tab transitions
+let cachedSteamData: { steamId: string | null; player: SteamPlayerSummary | null; recentGames: SteamRecentGame[] } | null = null;
+
+export function SteamContainer() {
+    const [steamId, setSteamId] = useState<string | null>(() => cachedSteamData?.steamId || null);
+    const [player, setPlayer] = useState<SteamPlayerSummary | null>(() => cachedSteamData?.player || null);
+    const [recentGames, setRecentGames] = useState<SteamRecentGame[]>(() => cachedSteamData?.recentGames || []);
+    const [isLoading, setIsLoading] = useState(() => !cachedSteamData);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        async function loadSteamTelemetry() {
+            try {
+                if (!cachedSteamData) {
+                    setIsLoading(true);
+                }
+                const id = await getUserSteamId();
+                if (!isMounted) return;
+                setSteamId(id);
+
+                if (!id) {
+                    cachedSteamData = { steamId: null, player: null, recentGames: [] };
+                    setIsLoading(false);
+                    return;
+                }
+
+                const [playerData, gamesData] = await Promise.all([
+                    getSteamPlayerSummary(),
+                    getSteamRecentlyPlayed()
+                ]);
+
+                if (!isMounted) return;
+                setPlayer(playerData);
+                setRecentGames(gamesData || []);
+                cachedSteamData = { steamId: id, player: playerData, recentGames: gamesData || [] };
+            } catch (err) {
+                console.error('Failed to load Steam telemetry:', err);
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
+        loadSteamTelemetry();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="p-6 md:p-10 space-y-8 max-w-7xl mx-auto font-mono text-white">
+                <div className="border-b border-blue-500/20 pb-4 flex items-center justify-between">
+                    <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                            <Activity className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
+                            <span className="text-[10px] text-blue-400/60 uppercase tracking-widest">// INITIALIZING_STEAM_BRIDGE...</span>
+                        </div>
+                        <h1 className="text-xl sm:text-2xl font-bold uppercase tracking-wider text-white">GAMING_ACTIVITY</h1>
+                    </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-blue-400 font-mono text-xs uppercase tracking-wider animate-pulse py-4">
+                    <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
+                    <span>// SYNCING_STEAM_PROFILE_TELEMETRY...</span>
+                </div>
+
+                {/* Profile Skeleton */}
+                <div className="h-32 bg-blue-500/5 border border-blue-500/20 cyber-clip animate-pulse p-6 flex items-center gap-6">
+                    <div className="w-20 h-20 bg-blue-500/20 cyber-clip shrink-0" />
+                    <div className="space-y-3 flex-1">
+                        <div className="h-6 w-48 bg-blue-500/20" />
+                        <div className="h-4 w-32 bg-blue-500/10" />
+                    </div>
+                </div>
+
+                {/* Games Skeleton */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[1, 2, 3].map((n) => (
+                        <div key={n} className="h-24 bg-blue-500/5 border border-blue-500/15 cyber-clip-sm animate-pulse p-4 flex gap-4">
+                            <div className="w-24 h-14 bg-blue-500/20 cyber-clip-sm shrink-0" />
+                            <div className="space-y-2 flex-1 justify-center flex flex-col">
+                                <div className="h-4 w-3/4 bg-blue-500/20" />
+                                <div className="h-3 w-1/2 bg-blue-500/10" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
 
     if (!steamId) {
         return (
@@ -31,9 +126,6 @@ export async function SteamContainer() {
             </Card>
         );
     }
-
-    const player = await getSteamPlayerSummary();
-    const recentGames = await getSteamRecentlyPlayed();
 
     return (
         <div className="p-6 md:p-10 space-y-8 max-w-7xl mx-auto font-mono text-white">
