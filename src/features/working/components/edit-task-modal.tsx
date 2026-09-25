@@ -154,10 +154,10 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                         </span>
                     </div>
                     <DialogTitle className="text-base font-bold text-white tracking-wide pt-1">
-                        {task?.title || 'Chi Tiết Công Việc'}
+                        {task?.title || 'Task Details'}
                     </DialogTitle>
                     <DialogDescription className="text-xs text-primary/60 font-mono">
-                        Chỉnh sửa trạng thái, loại công việc, danh sách việc con và thông số kỹ thuật.
+                        Update the status, task type, subtasks, and technical details.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -171,7 +171,7 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                     {/* Row 1: Task Type & Status Transition */}
                     <div className="grid grid-cols-2 gap-3">
                         <div className="space-y-1.5">
-                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Loại công việc (Type)</Label>
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Task Type</Label>
                             <Select
                                 value={formData.issue_type}
                                 onValueChange={(value) => setFormData({ ...formData, issue_type: value as IssueType })}
@@ -384,11 +384,11 @@ export function EditTaskModal({ task, open, onOpenChange, onSuccess }: EditTaskM
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    ĐANG LƯU THAY ĐỔI...
+                                    SAVING CHANGES...
                                 </>
                             ) : (
                                 <span className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 stroke-[3]" /> [ LƯU THAY ĐỔI ]
+                                    <Check className="w-4 h-4 stroke-[3]" /> [ SAVE CHANGES ]
                                 </span>
                             )}
                         </Button>

@@ -153,14 +153,14 @@ export function ProjectDetailContainer({ projectId, locale }: ProjectDetailConta
                                 [ PROJECT_NOT_FOUND ]
                             </h2>
                             <p className="text-xs text-primary/60 uppercase">
-                                Không tìm thấy dự án với định danh: &ldquo;{projectId}&rdquo;.
+                                No project found with identifier: &ldquo;{projectId}&rdquo;.
                             </p>
                         </div>
                         <div className="pt-2">
                             <Link href="/working">
                                 <Button className="w-full bg-primary text-black font-mono font-bold uppercase tracking-wider cyber-clip-button hover:bg-primary/90 cursor-pointer">
                                     <ArrowLeft className="w-4 h-4 mr-2" />
-                                    [ VỀ DANH SÁCH DỰ ÁN ]
+                                    [ BACK TO PROJECTS ]
                                 </Button>
                             </Link>
                         </div>

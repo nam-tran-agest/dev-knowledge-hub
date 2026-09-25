@@ -131,7 +131,7 @@ export function CreateTaskModal({
                         // ALLOCATE_NEW_TASK
                     </DialogTitle>
                     <DialogDescription className="font-mono text-xs text-primary/60">
-                        Thêm công việc mới vào bảng công việc hoặc backlog của dự án.
+                        Add a new task to the project board or backlog.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -170,7 +170,7 @@ export function CreateTaskModal({
                     {/* Row 1: Task Type & Status */}
                     <div className="grid grid-cols-2 gap-3">
                         <div className="space-y-1.5">
-                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Loại công việc (Type)</Label>
+                            <Label className="text-primary/80 font-mono text-xs uppercase tracking-wider">Task Type</Label>
                             <Select
                                 value={formData.issue_type}
                                 onValueChange={(value) => setFormData({ ...formData, issue_type: value as IssueType })}
@@ -311,11 +311,11 @@ export function CreateTaskModal({
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    ĐANG TẠO CÔNG VIỆC...
+                                    CREATING TASK...
                                 </>
                             ) : (
                                 <span className="flex items-center gap-1.5">
-                                    <Terminal className="w-3.5 h-3.5" /> [ TẠO CÔNG VIỆC ]
+                                    <Terminal className="w-3.5 h-3.5" /> [ CREATE TASK ]
                                 </span>
                             )}
                         </Button>

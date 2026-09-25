@@ -24,7 +24,7 @@ async function getAuthUser() {
   const { data: { user }, error } = await supabase.auth.getUser()
 
   if (error || !user) {
-    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để truy cập dữ liệu.')
+    throw new Error('AUTH_REQUIRED: Sign in to access your data.')
   }
 
   return user

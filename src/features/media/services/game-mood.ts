@@ -11,23 +11,31 @@ interface GameMoodDictionaryEntry {
     searchQueries?: string[];
 }
 
-export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri: string; matchedTags: string[] }> {
+const DEFAULT_SEARCH_QUERIES = ['gaming mix', 'epic gaming soundtrack'];
+
+function validQueries(value: unknown, fallback: string[]): string[] {
+    if (!Array.isArray(value)) return fallback;
+    const queries = value.filter((query): query is string => typeof query === 'string' && query.trim().length > 0);
+    return queries.length > 0 ? queries : fallback;
+}
+
+export async function matchGameToPlaylist(appId: string, spotifyToken?: string | null): Promise<{ playlistUri: string; matchedTags: string[] }> {
     const supabase = await createClient();
     
     // Fetch configuration from Database in real-time
     const [configRes, dictRes] = await Promise.all([
         supabase.from('game_mood_config').select('value').eq('id', 'fallback_queries').single(),
-        supabase.from('game_mood_dictionary').select('*')
+        supabase.from('game_mood_dictionary').select('tags, search_queries')
     ]);
 
-    const fallbackQueries: string[] = configRes.data?.value || ["gaming mix", "epic gaming soundtrack"];
+    const fallbackQueries = validQueries(configRes.data?.value, DEFAULT_SEARCH_QUERIES);
     const genreMappings = (dictRes.data as unknown as GameMoodDictionaryEntry[]) || [];
 
     let matchedTagsForDB: string[] = [];
     let matchedQueries: string[] = fallbackQueries;
 
     const getQueriesFromMapping = (m: GameMoodDictionaryEntry): string[] => {
-        return m.search_queries || m.searchQueries || fallbackQueries;
+        return validQueries(m.search_queries || m.searchQueries, fallbackQueries);
     };
 
     // 1. Quét DB Cache nội bộ lấy Tags (Tránh spam API SteamSpy)
@@ -88,7 +96,7 @@ export async function matchGameToPlaylist(appId: string): Promise<{ playlistUri:
     const randomQuery = matchedQueries[Math.floor(Math.random() * matchedQueries.length)];
     
     let finalPlaylistUri = "spotify:playlist:37i9dQZF1DWTyiBJ6yEqeu"; // Fallback tối thượng
-    const token = await getSpotifyAuthToken();
+    const token = spotifyToken ?? await getSpotifyAuthToken();
     
     if (token) {
         // Gọi API tìm kiếm

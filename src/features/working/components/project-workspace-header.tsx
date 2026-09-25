@@ -99,7 +99,7 @@ export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps)
                         size="sm"
                         className="bg-destructive/10 border-destructive/40 text-destructive hover:bg-destructive/20 cyber-clip-button px-3 cursor-pointer font-mono text-xs uppercase tracking-wider"
                         onClick={() => setShowDeleteConfirm(true)}
-                        title="Xoá vĩnh viễn dự án này"
+                        title="Permanently delete this project"
                     >
                         <Trash2 size={13} className="mr-1.5" />
                         [ DELETE ]
@@ -120,12 +120,12 @@ export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps)
                             // WARNING: IRREVERSIBLE_PURGE
                         </AlertDialogTitle>
                         <AlertDialogDescription className="text-primary/70 text-xs font-mono">
-                            Xác nhận xoá vĩnh viễn dự án <span className="text-white font-bold">{project.name}</span> cùng toàn bộ các công việc liên quan? Thao tác này không thể hoàn tác.
+                            Permanently delete project <span className="text-white font-bold">{project.name}</span> and all related tasks? This action cannot be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="gap-2">
                         <AlertDialogCancel className="bg-transparent border border-primary/30 text-primary hover:bg-primary/10 cyber-clip-button font-mono text-xs uppercase cursor-pointer">
-                            [ HUỶ BỎ ]
+                            [ CANCEL ]
                         </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
@@ -135,10 +135,10 @@ export function ProjectWorkspaceHeader({ project }: ProjectWorkspaceHeaderProps)
                             {isDeleting ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    ĐANG XOÁ...
+                                    DELETING...
                                 </>
                             ) : (
-                                '[ XÁC NHẬN XOÁ ]'
+                                '[ CONFIRM DELETE ]'
                             )}
                         </AlertDialogAction>
                     </AlertDialogFooter>

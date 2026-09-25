@@ -10,14 +10,13 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import MobileMenu from "@/components/layout/mobile-menu";
-import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { UserMenu } from "@/components/layout/user-menu";
 import { QuantumClock } from "@/components/layout/quantum-clock";
 import { GlobalYouTubePlayer } from "@/features/media/components/youtube/global-youtube-player";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin", "vietnamese"],
+  subsets: ["latin"],
   variable: "--font-plus-jakarta",
   weight: ["300", "400", "500", "600", "700", "800"],
 });
@@ -85,7 +84,6 @@ export default async function RootLayout({
 
               <div className="flex items-center gap-3">
                 <QuantumClock />
-                <LanguageSwitcher />
                 <UserMenu />
               </div>
             </header>

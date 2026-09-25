@@ -20,7 +20,8 @@ export function NewsSidebar({ categories, trendingItems }: NewsSidebarProps) {
     const tCategories = useTranslations('media.news.categories');
     const tSidebar = useTranslations('media.news.sidebar');
     const params = useParams();
-    const currentCategoryId = params.categoryId as string || 'all';
+    const categoryParam = params?.categoryId;
+    const currentCategoryId = Array.isArray(categoryParam) ? categoryParam[0] : categoryParam || 'all';
     const [displayCount, setDisplayCount] = useState(5);
 
     const hasMore = displayCount < trendingItems.length;

@@ -1,40 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatDistanceToNow, parseISO } from "date-fns";
-import { vi, enUS } from "date-fns/locale";
-import { useParams } from "next/navigation";
+import { formatDistanceToNow, isValid, parseISO } from "date-fns";
 
 export function TimeDisplay({ isoDate, className }: { isoDate?: string; className?: string }) {
-    const params = useParams();
-    const localeString = params?.locale as string || "en";
     const [formattedTime, setFormattedTime] = useState<string>("");
 
     useEffect(() => {
         if (!isoDate) return;
 
-        try {
-            const date = parseISO(isoDate);
-            const locale = localeString === "vi" ? vi : enUS;
-
-            // Initial relative time
-            setFormattedTime(formatDistanceToNow(date, { addSuffix: true, locale }));
-
-            // Update every minute for relative accuracy
-            const interval = setInterval(() => {
-                setFormattedTime(formatDistanceToNow(date, { addSuffix: true, locale }));
-            }, 60000);
-
-            return () => clearInterval(interval);
-        } catch (e) {
-            console.error("Error formatting date:", e);
+        const date = parseISO(isoDate);
+        if (!isValid(date)) {
+            setFormattedTime("");
+            return;
         }
-    }, [isoDate, localeString]);
+
+        const updateFormattedTime = () => {
+            setFormattedTime(formatDistanceToNow(date, { addSuffix: true }));
+        };
+
+        updateFormattedTime();
+        const interval = setInterval(updateFormattedTime, 60000);
+
+        return () => clearInterval(interval);
+    }, [isoDate]);
 
     if (!isoDate) return null;
 
+    const date = parseISO(isoDate);
+    if (!isValid(date)) return null;
+
     return (
-        <span className={className} title={new Date(isoDate).toLocaleString(localeString === 'vi' ? 'vi-VN' : 'en-US')}>
+        <span className={className} title={date.toLocaleString('en-US')}>
             {formattedTime || "..."}
         </span>
     );

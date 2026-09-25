@@ -19,7 +19,6 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { UserMenu } from "@/components/layout/user-menu";
 
 export default function MobileMenu() {
@@ -156,10 +155,7 @@ export default function MobileMenu() {
                                     })}
                                 </ul>
 
-                                <div className="pt-3 border-t border-primary/20 flex items-center justify-between px-2">
-                                    <div className="flex items-center gap-2">
-                                        <LanguageSwitcher />
-                                    </div>
+                                <div className="pt-3 border-t border-primary/20 flex items-center justify-end px-2">
                                     <UserMenu />
                                 </div>
                             </div>

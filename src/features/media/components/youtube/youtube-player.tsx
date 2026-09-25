@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { extractCleanVideoId, getYoutubeEmbedUrl } from '@/features/media/utils/youtube';
 
 interface YouTubePlayerProps {
     videoId: string;
@@ -18,7 +19,7 @@ export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, cla
 
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
-            if (event.origin !== 'https://www.youtube.com') return;
+            if (event.origin !== 'https://www.youtube.com' && event.origin !== 'https://www.youtube-nocookie.com') return;
 
             try {
                 const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
@@ -42,7 +43,7 @@ export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, cla
             if (iframeRef.current && iframeRef.current.contentWindow) {
                 iframeRef.current.contentWindow.postMessage(
                     JSON.stringify({ event: 'listening', id: cleanId }),
-                    '*'
+                    'https://www.youtube-nocookie.com'
                 );
             }
         }, 1000);
@@ -65,7 +66,7 @@ export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, cla
         <div className={`relative aspect-video w-full bg-black overflow-hidden ${className}`}>
             <iframe
                 ref={iframeRef}
-                src={`https://www.youtube-nocookie.com/embed/${cleanId}?autoplay=1&enablejsapi=1&start=${Math.floor(startTime)}&rel=0&modestbranding=1`}
+                src={getYoutubeEmbedUrl(cleanId, startTime)}
                 title="YouTube Video Player"
                 className="absolute inset-0 w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -73,18 +74,4 @@ export function YouTubePlayer({ videoId, onTimeUpdate, onEnd, startTime = 0, cla
             />
         </div>
     );
-}
-
-function extractCleanVideoId(urlOrId: string): string {
-    if (!urlOrId) return '';
-    const clean = urlOrId.trim();
-    if (/^[a-zA-Z0-9_-]{11}$/.test(clean)) {
-        return clean;
-    }
-    const match = clean.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/);
-    if (match && match[1]) {
-        return match[1];
-    }
-    const fallback = clean.match(/[\w-]{11}/);
-    return fallback ? fallback[0] : clean;
 }

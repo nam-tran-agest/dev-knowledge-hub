@@ -256,7 +256,7 @@ export function KanbanView({
                                         {columnTasks.length === 0 && !snapshot.isDraggingOver && (
                                             <div className="h-24 border border-dashed border-primary/15 bg-primary/2 cyber-clip-button flex flex-col items-center justify-center text-primary/30 text-[10px] font-mono uppercase tracking-widest gap-1 my-2 select-none">
                                                 <Sparkles className="w-3.5 h-3.5 text-primary/20" />
-                                                <span>[ CHƯA CÓ CÔNG VIỆC ]</span>
+                                                <span>[ NO TASKS YET ]</span>
                                             </div>
                                         )}
                                     </div>

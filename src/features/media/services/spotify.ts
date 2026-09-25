@@ -80,39 +80,39 @@ export async function disconnectSpotify() {
     revalidatePath('/media/music');
 }
 
-export async function getTopTracks(limit = 10) {
-    const token = await getSpotifyAuthToken();
+export async function getTopTracks(limit = 10, accessToken?: string) {
+    const token = accessToken ?? await getSpotifyAuthToken();
     if (!token) return [];
 
     const data = await spotifyFetch(`me/top/tracks?limit=${limit}&time_range=short_term`, token);
     return data?.items || [];
 }
 
-export async function getTopArtists(limit = 10) {
-    const token = await getSpotifyAuthToken();
+export async function getTopArtists(limit = 10, accessToken?: string) {
+    const token = accessToken ?? await getSpotifyAuthToken();
     if (!token) return [];
 
     const data = await spotifyFetch(`me/top/artists?limit=${limit}&time_range=short_term`, token);
     return data?.items || [];
 }
 
-export async function getUserPlaylists(limit = 10) {
-    const token = await getSpotifyAuthToken();
+export async function getUserPlaylists(limit = 10, accessToken?: string) {
+    const token = accessToken ?? await getSpotifyAuthToken();
     if (!token) return [];
 
     const data = await spotifyFetch(`me/playlists?limit=${limit}`, token);
     return data?.items || [];
 }
 
-export async function getPlaylist(id: string) {
-    const token = await getSpotifyAuthToken();
+export async function getPlaylist(id: string, accessToken?: string) {
+    const token = accessToken ?? await getSpotifyAuthToken();
     if (!token) return null;
 
     return await spotifyFetch(`playlists/${id}`, token);
 }
 
-export async function getPlaylistTracks(id: string, limit = 50) {
-    const token = await getSpotifyAuthToken();
+export async function getPlaylistTracks(id: string, limit = 50, accessToken?: string) {
+    const token = accessToken ?? await getSpotifyAuthToken();
     if (!token) return [];
 
     const data = await spotifyFetch(`playlists/${id}/tracks?limit=${limit}`, token);

@@ -1,6 +1,6 @@
 /**
  * Automated QA Flow & Security Test Runner
- * Stack: Next.js App Router + Supabase Auth + RLS + Middleware
+ * Stack: Next.js App Router + Supabase Auth + RLS + Proxy
  */
 
 import assert from 'assert';
@@ -25,64 +25,70 @@ function runTest(id, title, testFn) {
 }
 
 // ==========================================
-// 1. HAPPY PATH & MIDDLEWARE ROUTING TESTS
+// 1. HAPPY PATH & PROXY ROUTING TESTS
 // ==========================================
 
 const PROTECTED_ROUTES = ['/planner', '/working', '/media'];
 const AUTH_ROUTES = ['/login', '/signup', '/forgot-password'];
 
 function mockMiddleware(pathname, hasUser) {
-    const pathnameWithoutLocale = pathname.replace(/^\/(?:vi|en)/, '') || '/';
-    const locale = pathname.startsWith('/en') ? 'en' : 'vi';
+    if (/^\/(?:vi|en)(?:\/|$)/.test(pathname)) {
+        return { status: 307, redirect: pathname.replace(/^\/(?:vi|en)(?=\/|$)/, '') || '/' };
+    }
 
     const isProtectedRoute = PROTECTED_ROUTES.some(route =>
-        pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(`${route}/`)
+        pathname === route || pathname.startsWith(`${route}/`)
     );
 
     const isAuthRoute = AUTH_ROUTES.some(route =>
-        pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(`${route}/`)
+        pathname === route || pathname.startsWith(`${route}/`)
     );
 
     if (!hasUser && isProtectedRoute) {
-        return { status: 307, redirect: `/${locale}/login?next=${pathname}` };
+        return { status: 307, redirect: `/login?next=${pathname}` };
     }
 
     if (hasUser && isAuthRoute) {
-        return { status: 307, redirect: `/${locale}` };
+        return { status: 307, redirect: '/' };
     }
 
     return { status: 200, action: 'next' };
 }
 
-runTest('TC_HP_05', 'Middleware protects /planner from unauthenticated Guest', () => {
-    const res = mockMiddleware('/vi/planner', false);
+runTest('TC_HP_05', 'Proxy protects /planner from unauthenticated guest', () => {
+    const res = mockMiddleware('/planner', false);
     assert.strictEqual(res.status, 307);
-    assert.strictEqual(res.redirect, '/vi/login?next=/vi/planner');
+    assert.strictEqual(res.redirect, '/login?next=/planner');
 });
 
-runTest('TC_HP_05_EN', 'Middleware protects /en/working/[projectId] from unauthenticated Guest', () => {
-    const res = mockMiddleware('/en/working/proj-123', false);
+runTest('TC_HP_05_WORKING', 'Proxy protects /working/[projectId] from unauthenticated guest', () => {
+    const res = mockMiddleware('/working/proj-123', false);
     assert.strictEqual(res.status, 307);
-    assert.strictEqual(res.redirect, '/en/login?next=/en/working/proj-123');
+    assert.strictEqual(res.redirect, '/login?next=/working/proj-123');
 });
 
-runTest('TC_HP_06', 'Middleware redirects authenticated user away from /login to home', () => {
-    const res = mockMiddleware('/vi/login', true);
+runTest('TC_HP_06', 'Proxy redirects authenticated user away from /login to home', () => {
+    const res = mockMiddleware('/login', true);
     assert.strictEqual(res.status, 307);
-    assert.strictEqual(res.redirect, '/vi');
+    assert.strictEqual(res.redirect, '/');
 });
 
-runTest('TC_HP_06_SIGNUP', 'Middleware redirects authenticated user away from /signup to home', () => {
-    const res = mockMiddleware('/en/signup', true);
+runTest('TC_HP_06_SIGNUP', 'Proxy redirects authenticated user away from /signup to home', () => {
+    const res = mockMiddleware('/signup', true);
     assert.strictEqual(res.status, 307);
-    assert.strictEqual(res.redirect, '/en');
+    assert.strictEqual(res.redirect, '/');
 });
 
 runTest('TC_HP_PUBLIC', 'Public landing page accessible to both Guest and Authenticated user', () => {
-    const guestRes = mockMiddleware('/vi', false);
-    const authRes = mockMiddleware('/vi', true);
+    const guestRes = mockMiddleware('/', false);
+    const authRes = mockMiddleware('/', true);
     assert.strictEqual(guestRes.status, 200);
     assert.strictEqual(authRes.status, 200);
+});
+
+runTest('TC_HP_LEGACY_LOCALE', 'Old locale URLs redirect to the unprefixed route', () => {
+    assert.strictEqual(mockMiddleware('/vi/media/youtube', false).redirect, '/media/youtube');
+    assert.strictEqual(mockMiddleware('/en/working', false).redirect, '/working');
 });
 
 // ==========================================
@@ -422,7 +428,7 @@ runTest('TC_AUTH_NEXT', 'Auth next-url redirection security: prevents open redir
     // Valid internal destinations
     assert.strictEqual(getSafeRedirect('/working/neural-interface'), '/working/neural-interface');
     assert.strictEqual(getSafeRedirect('/planner/today'), '/planner/today');
-    assert.strictEqual(getSafeRedirect('/en/working/game-engine'), '/en/working/game-engine');
+    assert.strictEqual(getSafeRedirect('/working/game-engine'), '/working/game-engine');
 
     // Malicious open redirect attacks
     assert.strictEqual(getSafeRedirect('https://evil.com'), '/');

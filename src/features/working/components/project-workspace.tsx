@@ -235,7 +235,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                     <div className="relative flex-1 max-w-md">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-primary/50" size={15} />
                         <Input
-                            placeholder="TÌM_KIẾM_TASK_HOẶC_#TAGS..."
+                            placeholder="SEARCH_TASKS_OR_#TAGS..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-9 bg-surface-deep/90 border-primary/30 focus:border-primary text-white font-mono text-xs h-9 cyber-clip-button"
@@ -245,7 +245,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                     <div className="flex flex-wrap items-center gap-3">
                         {/* Story Points Total Board Counter */}
                         {totalStoryPoints > 0 && (
-                            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 border border-primary/30 cyber-clip-tag text-xs" title="Tổng Story Points của dự án">
+                            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 border border-primary/30 cyber-clip-tag text-xs" title="Total project story points">
                                 <span className="text-primary/60">◈ TOTAL_SP:</span>
                                 <span className="text-primary font-bold">{totalStoryPoints}</span>
                             </div>
@@ -258,7 +258,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 cyber-clip-button bg-primary text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-primary/90 transition-all cursor-pointer shadow-[0_0_15px_var(--color-primary)] hover:shadow-[0_0_25px_var(--color-primary)] h-9"
                         >
                             <Plus size={14} className="stroke-[3]" />
-                            <span>[ + TẠO TASK MỚI ]</span>
+                            <span>[ + CREATE TASK ]</span>
                         </button>
 
                         {/* View Mode Toggle */}
@@ -294,12 +294,12 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                     {/* Header Label */}
                     <div className="flex items-center gap-1.5 text-primary/70 text-[11px] font-bold uppercase tracking-wider pr-2 border-r border-primary/20">
                         <Filter className="w-3.5 h-3.5 text-primary" />
-                        <span>BỘ LỌC</span>
+                        <span>FILTERS</span>
                     </div>
 
-                    {/* Group 1: Loại công việc (Task Type) */}
+                    {/* Group 1: Task Type */}
                     <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="text-[10px] text-primary/40 uppercase">Loại việc:</span>
+                        <span className="text-[10px] text-primary/40 uppercase">Task Type:</span>
                         <button
                             type="button"
                             onClick={() => setSelectedType('all')}
@@ -310,7 +310,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                                     : "bg-primary/5 border-primary/20 text-primary/60 hover:text-white hover:border-primary/40"
                             )}
                         >
-                            TẤT CẢ
+                            ALL
                         </button>
                         {(['story', 'task', 'bug', 'epic'] as IssueType[]).map(type => (
                             <button
@@ -321,7 +321,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                                     "cursor-pointer transition-all",
                                     selectedType === type ? "scale-105 ring-1 ring-white/60" : "opacity-60 hover:opacity-100"
                                 )}
-                                title={`Lọc chỉ xem ${type.toUpperCase()}`}
+                                title={`Show only ${type.toUpperCase()} tasks`}
                             >
                                 <IssueTypeBadge type={type} size="sm" />
                             </button>
@@ -330,9 +330,9 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
 
                     <div className="w-[1px] h-4 bg-primary/20 hidden md:block" />
 
-                    {/* Group 2: Mức ưu tiên (Priority) */}
+                    {/* Group 2: Priority */}
                     <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="text-[10px] text-primary/40 uppercase">Ưu tiên:</span>
+                        <span className="text-[10px] text-primary/40 uppercase">Priority:</span>
                         <button
                             type="button"
                             onClick={() => setSelectedPriority('all')}
@@ -343,7 +343,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                                     : "bg-primary/5 border-primary/20 text-primary/60 hover:text-white hover:border-primary/40"
                             )}
                         >
-                            TẤT CẢ
+                            ALL
                         </button>
                         {(['highest', 'high', 'medium'] as TaskPriority[]).map(pri => (
                             <button
@@ -354,7 +354,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                                     "cursor-pointer transition-all",
                                     selectedPriority === pri ? "scale-105 ring-1 ring-white/60" : "opacity-60 hover:opacity-100"
                                 )}
-                                title={`Lọc ưu tiên ${pri.toUpperCase()}`}
+                                title={`Filter by ${pri.toUpperCase()} priority`}
                             >
                                 <PriorityBadge priority={pri} showLabel />
                             </button>
@@ -363,7 +363,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
 
                     <div className="w-[1px] h-4 bg-primary/20 hidden md:block" />
 
-                    {/* Group 3: Quá hạn (Overdue) */}
+                    {/* Group 3: Overdue */}
                     <button
                         type="button"
                         onClick={() => setShowOnlyOverdue(prev => !prev)}
@@ -373,16 +373,16 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                                 ? "bg-rose-500/25 border-rose-500 text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.4)] animate-pulse" 
                                 : "bg-rose-500/5 border-rose-500/20 text-rose-400/60 hover:text-rose-400 hover:border-rose-500/40"
                         )}
-                        title="Chỉ hiển thị các công việc đã quá hạn hoàn thành"
+                        title="Show only overdue tasks"
                     >
-                        <span>⚠️ QUÁ HẠN</span>
+                        <span>⚠️ OVERDUE</span>
                     </button>
 
                     {/* Results Counter & Reset Action */}
                     {hasActiveFilters && (
                         <div className="flex items-center gap-2 ml-auto">
                             <span className="text-[10px] text-primary/60">
-                                Hiển thị <span className="text-white font-bold">{filteredTasks.length}</span>/{tasks.length}
+                                Showing <span className="text-white font-bold">{filteredTasks.length}</span>/{tasks.length}
                             </span>
                             <button
                                 type="button"
@@ -390,7 +390,7 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
                                 className="flex items-center gap-1 text-[10px] text-destructive hover:text-rose-300 transition-colors cursor-pointer px-1.5 py-0.5 bg-destructive/10 border border-destructive/30 cyber-clip-tag"
                             >
                                 <X className="w-3 h-3" />
-                                <span>[ ĐẶT LẠI ]</span>
+                                <span>[ RESET ]</span>
                             </button>
                         </div>
                     )}

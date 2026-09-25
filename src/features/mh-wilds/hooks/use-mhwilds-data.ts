@@ -10,13 +10,20 @@ export function useMHWildsData(activeCategory: Category) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [refetchKey, setRefetchKey] = useState(0);
+    const activeRequestIdRef = useRef(0);
 
     // Use a ref to check cache without adding `data` to callback deps
     const dataRef = useRef(data);
     dataRef.current = data;
 
-    const fetchCategoryData = useCallback(async (cat: Category, force = false) => {
-        if (!force && dataRef.current[cat]) return;
+    const fetchCategoryData = useCallback(async (cat: Category, requestId: number, force = false) => {
+        if (!force && dataRef.current[cat]) {
+            if (requestId === activeRequestIdRef.current) {
+                setLoading(false);
+                setError(null);
+            }
+            return;
+        }
         setLoading(true);
         setError(null);
         try {
@@ -35,14 +42,20 @@ export function useMHWildsData(activeCategory: Category) {
             }
             setData(prev => ({ ...prev, [cat]: result }));
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to fetch data');
+            if (requestId === activeRequestIdRef.current) {
+                setError(err instanceof Error ? err.message : 'Failed to fetch data');
+            }
         } finally {
-            setLoading(false);
+            if (requestId === activeRequestIdRef.current) {
+                setLoading(false);
+            }
         }
     }, []);
 
     useEffect(() => {
-        fetchCategoryData(activeCategory, refetchKey > 0);
+        const requestId = activeRequestIdRef.current + 1;
+        activeRequestIdRef.current = requestId;
+        fetchCategoryData(activeCategory, requestId, refetchKey > 0);
     }, [activeCategory, fetchCategoryData, refetchKey]);
 
     const refetch = useCallback(() => {

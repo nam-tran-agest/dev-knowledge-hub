@@ -29,7 +29,19 @@ async function fetchApi(endpoint) {
     if (!res.ok) {
         throw new Error(`Failed to fetch ${endpoint}: ${res.status} ${res.statusText}`);
     }
-    return res.json();
+    const data = await res.json();
+    if (!Array.isArray(data)) {
+        throw new Error(`Unexpected response for ${endpoint}: expected an array`);
+    }
+    return data;
+}
+
+function hasValidCache(filepath) {
+    try {
+        return Array.isArray(JSON.parse(fs.readFileSync(filepath, 'utf8')));
+    } catch {
+        return false;
+    }
 }
 
 async function main() {
@@ -45,17 +57,11 @@ async function main() {
         const filename = category.replace(/\//g, '-') + '.json';
         const filepath = path.join(OUTPUT_DIR, filename);
 
-        // If file exists, is non-empty, and --force is not specified, skip
-        if (!force && fs.existsSync(filepath)) {
-            try {
-                const stat = fs.statSync(filepath);
-                if (stat.size > 100) {
-                    console.log(`⚡ Cached ${filename} (${(stat.size / 1024).toFixed(1)} KB)`);
-                    continue;
-                }
-            } catch {
-                // proceed with fetch
-            }
+        // An empty array is valid cached data too.
+        if (!force && hasValidCache(filepath)) {
+            const stat = fs.statSync(filepath);
+            console.log(`⚡ Cached ${filename} (${(stat.size / 1024).toFixed(1)} KB)`);
+            continue;
         }
 
         try {
@@ -65,7 +71,7 @@ async function main() {
         } catch (error) {
             console.error(`✗ Error processing ${category}:`, error.message);
             // If file already exists as fallback, don't fail build
-            if (fs.existsSync(filepath)) {
+            if (hasValidCache(filepath)) {
                 console.warn(`⚠ Using existing cached file for ${filename}`);
             } else {
                 process.exit(1);

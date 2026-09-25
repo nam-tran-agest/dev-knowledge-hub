@@ -98,7 +98,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                                 e.stopPropagation()
                                             }}
                                             className="h-7 w-7 text-primary/60 hover:text-white hover:bg-primary/20 cyber-clip-button border border-primary/20 cursor-pointer"
-                                            title="Tùy chọn dự án"
+                                            title="Project options"
                                         >
                                             <MoreVertical size={13} />
                                         </Button>
@@ -112,7 +112,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                             }}
                                             className="gap-2 cursor-pointer text-xs uppercase"
                                         >
-                                            <SettingsIcon size={12} className="text-primary" /> [ CẤU HÌNH ]
+                                            <SettingsIcon size={12} className="text-primary" /> [ SETTINGS ]
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             onClick={(e) => {
@@ -122,7 +122,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                             }}
                                             className="gap-2 text-destructive focus:bg-destructive/20 focus:text-destructive cursor-pointer text-xs uppercase"
                                         >
-                                            <Trash2 size={12} /> [ XOÁ DỰ ÁN ]
+                                            <Trash2 size={12} /> [ DELETE PROJECT ]
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
@@ -165,7 +165,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         // WARNING: IRREVERSIBLE_PURGE
                     </AlertDialogTitle>
                     <AlertDialogDescription className="text-primary/70 text-xs font-mono">
-                        Xác nhận xoá vĩnh viễn dự án <span className="text-white font-bold">{project.name}</span> cùng toàn bộ các công việc liên quan? Thao tác này không thể hoàn tác.
+                        Permanently delete project <span className="text-white font-bold">{project.name}</span> and all related tasks? This action cannot be undone.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="gap-2">
@@ -176,7 +176,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         }}
                         className="bg-transparent border border-primary/30 text-primary hover:bg-primary/10 cyber-clip-button font-mono text-xs uppercase cursor-pointer"
                     >
-                        [ HUỶ BỎ ]
+                        [ CANCEL ]
                     </AlertDialogCancel>
                     <AlertDialogAction
                         onClick={handleDelete}
@@ -186,10 +186,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         {isDeleting ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                ĐANG XOÁ...
+                                DELETING...
                             </>
                         ) : (
-                            '[ XÁC NHẬN XOÁ ]'
+                            '[ CONFIRM DELETE ]'
                         )}
                     </AlertDialogAction>
                 </AlertDialogFooter>

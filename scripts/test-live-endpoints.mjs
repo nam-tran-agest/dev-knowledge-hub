@@ -1,5 +1,8 @@
 import http from 'http';
 import { spawn } from 'child_process';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 console.log('====================================================');
 console.log('🌐 RUNNING FULL END-TO-END LIVE ROUTE INTEGRATION SUITE');
@@ -9,24 +12,34 @@ const PORT = 3008;
 const BASE_URL = `http://127.0.0.1:${PORT}`;
 
 const ROUTES = [
-    { path: '/', expectedStatus: [200, 307, 308], desc: 'Root Locale Redirect / Landing' },
-    { path: '/vi', expectedStatus: [200], desc: 'Vietnamese Landing Page' },
-    { path: '/en', expectedStatus: [200], desc: 'English Landing Page' },
-    { path: '/vi/login', expectedStatus: [200], desc: 'Vietnamese Login Page' },
-    { path: '/en/login', expectedStatus: [200], desc: 'English Login Page' },
-    { path: '/vi/signup', expectedStatus: [200], desc: 'Vietnamese Signup Page' },
-    { path: '/en/signup', expectedStatus: [200], desc: 'English Signup Page' },
-    { path: '/vi/forgot-password', expectedStatus: [200], desc: 'Forgot Password Page' },
-    { path: '/vi/reset-password', expectedStatus: [200], desc: 'Reset Password Page' },
-    { path: '/vi/mh-wilds', expectedStatus: [200], desc: 'Monster Hunter Wilds Hub' },
-    { path: '/en/mh-wilds', expectedStatus: [200], desc: 'Monster Hunter Wilds Hub (EN)' },
-    { path: '/vi/planner/today', expectedStatus: [307], desc: 'Protected Planner Today (Guest Redirect)' },
-    { path: '/vi/planner/week', expectedStatus: [307], desc: 'Protected Planner Week (Guest Redirect)' },
-    { path: '/vi/planner/someday', expectedStatus: [307], desc: 'Protected Planner Someday (Guest Redirect)' },
-    { path: '/vi/working', expectedStatus: [307], desc: 'Protected Working Kanban (Guest Redirect)' },
-    { path: '/en/working', expectedStatus: [307], desc: 'Protected Working Kanban EN (Guest Redirect)' },
+    { path: '/', expectedStatus: [200], desc: 'English landing page' },
+    { path: '/login', expectedStatus: [200], desc: 'Login page' },
+    { path: '/signup', expectedStatus: [200], desc: 'Signup page' },
+    { path: '/forgot-password', expectedStatus: [200], desc: 'Forgot password page' },
+    { path: '/reset-password', expectedStatus: [200], desc: 'Reset password page' },
+    { path: '/mh-wilds', expectedStatus: [200], desc: 'Monster Hunter Wilds hub' },
+    { path: '/live-widget', expectedStatus: [200], desc: 'Live widget' },
+    { path: '/planner', expectedStatus: [307], desc: 'Protected planner', location: '/login?next=%2Fplanner' },
+    { path: '/planner/today', expectedStatus: [307], desc: 'Protected planner today', location: '/login?next=%2Fplanner%2Ftoday' },
+    { path: '/working', expectedStatus: [307], desc: 'Protected working', location: '/login?next=%2Fworking' },
+    { path: '/working/project-123', expectedStatus: [307], desc: 'Protected project', location: '/login?next=%2Fworking%2Fproject-123' },
+    { path: '/media/youtube', expectedStatus: [307], desc: 'Protected YouTube', location: '/login?next=%2Fmedia%2Fyoutube' },
+    { path: '/media/youtube/playlist/playlist-123', expectedStatus: [307], desc: 'Protected YouTube playlist' },
+    { path: '/media/music', expectedStatus: [307], desc: 'Protected music' },
+    { path: '/media/music/playlist/playlist-123', expectedStatus: [307], desc: 'Protected music playlist' },
+    { path: '/media/gaming', expectedStatus: [307], desc: 'Protected gaming' },
+    { path: '/media/news', expectedStatus: [307], desc: 'Protected news' },
+    { path: '/media/news/technology', expectedStatus: [307], desc: 'Protected news category' },
+    { path: '/vi/media/youtube', expectedStatus: [307], desc: 'Old Vietnamese route', location: '/media/youtube' },
+    { path: '/en/media/youtube', expectedStatus: [307], desc: 'Old English route', location: '/media/youtube' },
+    { path: '/vi', expectedStatus: [307], desc: 'Old Vietnamese home', location: '/' },
+    { path: '/en', expectedStatus: [307], desc: 'Old English home', location: '/' },
     { path: '/data/mhwilds/monsters.json', expectedStatus: [200], desc: 'Monster Hunter Wilds Dataset (24h Edge Cache)', checkCache: (h) => h && h.includes('max-age=86400') },
-    { path: '/api/health', expectedStatus: [200], desc: 'Health Check API (No Store / No Cache)', checkCache: (h) => h && (h.includes('no-store') || h.includes('no-cache')) }
+    { path: '/api/health', expectedStatus: [200], desc: 'Health check', checkCache: (h) => h && (h.includes('no-store') || h.includes('no-cache')) },
+    { path: '/api/media/now-playing', expectedStatus: [200], desc: 'Private telemetry', checkCache: (h) => h && h.includes('private') && h.includes('no-store') },
+    { path: '/api/media/sync-game-mood', expectedStatus: [405], desc: 'POST-only game mood API' },
+    { path: '/api/auth/steam', expectedStatus: [401], desc: 'Steam auth requires a user' },
+    { path: '/missing-route', expectedStatus: [404], desc: 'Unknown route' }
 ];
 
 async function checkServerReady(retries = 20, intervalMs = 1000) {
@@ -73,18 +86,12 @@ function fetchRoute(path) {
 
 async function run() {
     console.log(`⏳ Starting Next.js Production Server on port ${PORT}...`);
-    const serverProcess = process.platform === 'win32'
-        ? spawn('cmd.exe', ['/c', 'npx', 'next', 'start', '-p', String(PORT)], { stdio: 'ignore' })
-        : spawn('npx', ['next', 'start', '-p', String(PORT)], { stdio: 'ignore' });
+    const serverProcess = spawn(process.execPath, [require.resolve('next/dist/bin/next'), 'start', '-p', String(PORT)], { stdio: 'ignore' });
 
     const isReady = await checkServerReady(30, 1000);
     if (!isReady) {
         console.error('❌ Failed to start Next.js test server.');
-        if (process.platform === 'win32') {
-            spawn('taskkill', ['/pid', String(serverProcess.pid), '/f', '/t']);
-        } else {
-            serverProcess.kill('SIGTERM');
-        }
+        serverProcess.kill();
         process.exit(1);
     }
     console.log('✅ Next.js Production Server is READY!\n');
@@ -95,14 +102,15 @@ async function run() {
     for (const route of ROUTES) {
         const result = await fetchRoute(route.path);
         const cacheOk = route.checkCache ? route.checkCache(result.cacheControl) : true;
-        const isExpected = route.expectedStatus.includes(result.statusCode) && cacheOk;
+        const locationOk = !route.location || new URL(result.location, BASE_URL).pathname + new URL(result.location, BASE_URL).search === route.location;
+        const isExpected = route.expectedStatus.includes(result.statusCode) && cacheOk && locationOk;
 
         if (isExpected) {
             const cacheSuffix = route.checkCache ? ` [Cache: ${result.cacheControl}]` : '';
             console.log(`✅ [PASS] ${route.path.padEnd(28)} ➔ HTTP ${result.statusCode} | ${route.desc}${cacheSuffix}`);
             passed++;
         } else {
-            console.error(`❌ [FAIL] ${route.path.padEnd(28)} ➔ Expected [${route.expectedStatus}], got HTTP ${result.statusCode} (Cache: ${result.cacheControl}) | ${route.desc}`);
+            console.error(`❌ [FAIL] ${route.path.padEnd(28)} ➔ Expected [${route.expectedStatus}], got HTTP ${result.statusCode} (Location: ${result.location}, Cache: ${result.cacheControl}) | ${route.desc}`);
             failed++;
         }
     }
@@ -111,11 +119,7 @@ async function run() {
     console.log(`📊 LIVE INTEGRATION RESULT: ${passed} PASSED | ${failed} FAILED`);
     console.log('====================================================\n');
 
-    if (process.platform === 'win32') {
-        spawn('taskkill', ['/pid', String(serverProcess.pid), '/f', '/t']);
-    } else {
-        serverProcess.kill('SIGTERM');
-    }
+    serverProcess.kill();
 
     if (failed > 0) {
         process.exit(1);

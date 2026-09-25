@@ -5,12 +5,12 @@ import { MusicSidebar } from '@/features/media/components/music/music-sidebar';
 import { MusicGrid } from '@/features/media/components/music/music-grid';
 import { SpotifyItem } from '@/features/media/components/music/music-card';
 import { getSpotifyAuthToken, getTopTracks, getTopArtists, getUserPlaylists } from '@/features/media/services/spotify';
-import { getSpotifyAuthUrl } from '@/features/media/services/spotify-api';
 import { Button } from '@/components/ui/button';
 import { Music2, Radio, Loader2 } from 'lucide-react';
 import { PageShell } from '@/components/layout/page-shell';
 
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 interface MusicContainerProps {
     category?: string;
@@ -26,7 +26,6 @@ export function MusicContainer({ category: propCategory }: MusicContainerProps =
     const [token, setToken] = useState<string | null>(() => cachedHasToken === false ? null : 'placeholder');
     const [items, setItems] = useState<SpotifyItem[]>(() => clientMusicCache.get(category) || []);
     const [isLoading, setIsLoading] = useState(() => !clientMusicCache.has(category));
-    const authUrl = getSpotifyAuthUrl();
 
     useEffect(() => {
         let isMounted = true;
@@ -53,13 +52,13 @@ export function MusicContainer({ category: propCategory }: MusicContainerProps =
                 let data: SpotifyItem[] = [];
                 switch (category) {
                     case 'top-artists':
-                        data = await getTopArtists(20);
+                        data = await getTopArtists(20, authToken);
                         break;
                     case 'playlists':
-                        data = await getUserPlaylists(20);
+                        data = await getUserPlaylists(20, authToken);
                         break;
                     default:
-                        data = await getTopTracks(20);
+                        data = await getTopTracks(20, authToken);
                 }
 
                 if (!isMounted) return;
@@ -97,7 +96,7 @@ export function MusicContainer({ category: propCategory }: MusicContainerProps =
                     </p>
                 </div>
                 <Button asChild className="bg-primary text-black font-mono font-bold uppercase tracking-wider h-12 px-8 cyber-clip-button shadow-[0_0_20px_var(--color-primary)] hover:bg-primary/90 cursor-pointer">
-                    <a href={authUrl}>[ CONNECT_SPOTIFY_TOKEN ]</a>
+                    <Link href="/api/auth/spotify">[ CONNECT_SPOTIFY_TOKEN ]</Link>
                 </Button>
             </PageShell>
         );

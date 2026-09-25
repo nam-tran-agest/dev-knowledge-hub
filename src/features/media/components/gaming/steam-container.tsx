@@ -36,8 +36,8 @@ export function SteamContainer() {
                 }
 
                 const [playerData, gamesData] = await Promise.all([
-                    getSteamPlayerSummary(),
-                    getSteamRecentlyPlayed()
+                    getSteamPlayerSummary(id),
+                    getSteamRecentlyPlayed(id)
                 ]);
 
                 if (!isMounted) return;

@@ -16,8 +16,7 @@ export function extractCleanVideoId(urlOrId: string): string {
     if (match && match[1]) {
         return match[1];
     }
-    const fallback = clean.match(/[\w-]{11}/);
-    return fallback ? fallback[0] : clean;
+    return '';
 }
 
 /**

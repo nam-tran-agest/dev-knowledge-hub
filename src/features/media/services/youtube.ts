@@ -22,15 +22,6 @@ export async function getVideos() {
     const { data, error } = await query;
 
     if (error) {
-        // Fallback if user_id column is not yet present before SQL migration
-        if (error.code === '42703') {
-            const { data: fallbackData } = await supabase
-                .from('youtube_videos')
-                .select('*')
-                .order('created_at', { ascending: false })
-                .limit(50);
-            return fallbackData || [];
-        }
         console.error('Error fetching videos:', error);
         return [];
     }
@@ -56,18 +47,14 @@ export async function addVideo(formData: FormData) {
     const thumbnailUrl = getYoutubeThumbnail(videoId);
 
     let title = `Video ${videoId}`;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
     try {
         const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
-        const res = await fetch(oembedUrl, { signal: controller.signal });
-        clearTimeout(timeoutId);
+        const res = await fetch(oembedUrl, { signal: AbortSignal.timeout(3000) });
         if (res.ok) {
             const data = await res.json();
             if (data.title) title = data.title;
         }
     } catch (e) {
-        clearTimeout(timeoutId);
         console.error('Error fetching oembed:', e);
     }
 
@@ -84,14 +71,8 @@ export async function addVideo(formData: FormData) {
         .insert(insertPayload);
 
     if (error) {
-        // Fallback without user_id if column not yet created
-        if (error.code === '42703') {
-            delete insertPayload.user_id;
-            await supabase.from('youtube_videos').insert(insertPayload);
-        } else {
-            console.error('Error adding video:', error);
-            throw new Error('Failed to add video');
-        }
+        console.error('Error adding video:', error);
+        throw new Error('Failed to add video');
     }
 
     revalidatePath('/media/youtube');
@@ -112,13 +93,8 @@ export async function deleteVideo(id: string) {
     const { error } = await deleteQuery;
 
     if (error) {
-        // Fallback if column not yet created
-        if (error.code === '42703') {
-            await supabase.from('youtube_videos').delete().eq('id', id);
-        } else {
-            console.error('Error deleting video:', error);
-            throw new Error('Failed to delete video');
-        }
+        console.error('Error deleting video:', error);
+        throw new Error('Failed to delete video');
     }
 
     revalidatePath('/media/youtube');
@@ -141,14 +117,8 @@ export async function updateVideoProgress(id: string, time: number) {
 
     const { error } = await updateQuery;
 
-    if (error && error.code === '42703') {
-        await supabase
-            .from('youtube_videos')
-            .update({
-                saved_time: time,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', id);
+    if (error) {
+        console.error('Error updating video progress:', error);
     }
 }
 
@@ -169,14 +139,8 @@ export async function toggleFavorite(id: string, isFavorite: boolean) {
 
     const { error } = await updateQuery;
 
-    if (error && error.code === '42703') {
-        await supabase
-            .from('youtube_videos')
-            .update({
-                is_favorite: isFavorite,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', id);
+    if (error) {
+        console.error('Error toggling video favorite:', error);
     }
 
     revalidatePath('/media/youtube');
@@ -205,31 +169,6 @@ export async function getPlaylists() {
     const { data, error } = await query;
 
     if (error) {
-        if (error.code === '42703') {
-            const { data: fbData } = await supabase
-                .from('youtube_playlists')
-                .select(`
-                    *,
-                    video_count:youtube_playlist_items(count),
-                    playlist_items:youtube_playlist_items(
-                        video:youtube_videos(thumbnail_url)
-                    )
-                `)
-                .order('updated_at', { ascending: false });
-            
-            return (fbData || []).map(p => {
-                const thumbnails = (p.playlist_items || [])
-                    .map((item: { video: { thumbnail_url: string } | null }) => item.video?.thumbnail_url)
-                    .filter(Boolean)
-                    .slice(0, 4);
-
-                return {
-                    ...p,
-                    video_count: p.video_count?.[0]?.count || 0,
-                    video_thumbnails: thumbnails
-                };
-            });
-        }
         console.error('Error fetching playlists:', error);
         return [];
     }
@@ -269,13 +208,8 @@ export async function createPlaylist(formData: FormData) {
         .insert(insertPayload);
 
     if (error) {
-        if (error.code === '42703') {
-            delete insertPayload.user_id;
-            await supabase.from('youtube_playlists').insert(insertPayload);
-        } else {
-            console.error('Error creating playlist:', error);
-            throw new Error('Failed to create playlist');
-        }
+        console.error('Error creating playlist:', error);
+        throw new Error('Failed to create playlist');
     }
 
     revalidatePath('/media/youtube');
@@ -295,8 +229,9 @@ export async function deletePlaylist(id: string) {
 
     const { error } = await deleteQuery;
 
-    if (error && error.code === '42703') {
-        await supabase.from('youtube_playlists').delete().eq('id', id);
+    if (error) {
+        console.error('Error deleting playlist:', error);
+        throw new Error('Failed to delete playlist');
     }
 
     revalidatePath('/media/youtube');
@@ -325,15 +260,9 @@ export async function updatePlaylist(id: string, formData: FormData) {
 
     const { error } = await updateQuery;
 
-    if (error && error.code === '42703') {
-        await supabase
-            .from('youtube_playlists')
-            .update({
-                title,
-                description,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', id);
+    if (error) {
+        console.error('Error updating playlist:', error);
+        throw new Error('Failed to update playlist');
     }
 
     revalidatePath('/media/youtube');
@@ -343,11 +272,27 @@ export async function updatePlaylist(id: string, formData: FormData) {
 export async function addVideoToPlaylist(videoId: string, playlistId: string) {
     const supabase = await createClient();
 
-    const { data: video } = await supabase
-        .from('youtube_videos')
-        .select('thumbnail_url')
-        .eq('id', videoId)
-        .single();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('User authentication required');
+
+    const [{ data: video, error: videoError }, { data: playlist, error: playlistError }] = await Promise.all([
+        supabase
+            .from('youtube_videos')
+            .select('thumbnail_url')
+            .eq('id', videoId)
+            .eq('user_id', user.id)
+            .single(),
+        supabase
+            .from('youtube_playlists')
+            .select('id')
+            .eq('id', playlistId)
+            .eq('user_id', user.id)
+            .single()
+    ]);
+
+    if (videoError || playlistError || !video || !playlist) {
+        throw new Error('Video or playlist not found');
+    }
 
     const { error } = await supabase
         .from('youtube_playlist_items')
@@ -370,6 +315,7 @@ export async function addVideoToPlaylist(videoId: string, playlistId: string) {
                 updated_at: new Date().toISOString()
             })
             .eq('id', playlistId)
+            .eq('user_id', user.id)
             .is('thumbnail_url', null);
     }
 
@@ -378,6 +324,18 @@ export async function addVideoToPlaylist(videoId: string, playlistId: string) {
 
 export async function removeVideoFromPlaylist(videoId: string, playlistId: string) {
     const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('User authentication required');
+
+    const { data: playlist, error: playlistError } = await supabase
+        .from('youtube_playlists')
+        .select('id')
+        .eq('id', playlistId)
+        .eq('user_id', user.id)
+        .single();
+
+    if (playlistError || !playlist) throw new Error('Playlist not found');
+
     const { error } = await supabase
         .from('youtube_playlist_items')
         .delete()
@@ -394,11 +352,14 @@ export async function removeVideoFromPlaylist(videoId: string, playlistId: strin
 
 export async function getPlaylistDetails(playlistId: string) {
     const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
 
     const { data: playlist, error: pError } = await supabase
         .from('youtube_playlists')
         .select('*')
         .eq('id', playlistId)
+        .eq('user_id', user.id)
         .single();
 
     if (pError || !playlist) return null;
@@ -440,14 +401,8 @@ export async function togglePlaylistFavorite(id: string, isFavorite: boolean) {
 
     const { error } = await updateQuery;
 
-    if (error && error.code === '42703') {
-        await supabase
-            .from('youtube_playlists')
-            .update({
-                is_favorite: isFavorite,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', id);
+    if (error) {
+        console.error('Error toggling playlist favorite:', error);
     }
 
     revalidatePath('/media/youtube');
@@ -490,12 +445,15 @@ export async function importYouTubePlaylist(urlOrId: string): Promise<{ success:
 
     try {
         const feedUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
-        const res = await fetch(feedUrl, { next: { revalidate: 0 } });
+        const res = await fetch(feedUrl, { signal: AbortSignal.timeout(5000) });
         if (!res.ok) {
             return { success: false, message: 'Failed to fetch playlist from YouTube. Please ensure the playlist is Public or Unlisted.' };
         }
 
         const xmlText = await res.text();
+        if (xmlText.length > 1_000_000) {
+            return { success: false, message: 'Playlist feed is too large to import.' };
+        }
         const parser = new XMLParser({
             ignoreAttributes: false,
             attributeNamePrefix: '@_'
@@ -510,7 +468,7 @@ export async function importYouTubePlaylist(urlOrId: string): Promise<{ success:
         const playlistTitle = feed.title || `Imported Playlist ${playlistId.slice(0, 6)}`;
         const authorName = feed.author?.name || 'YouTube';
 
-        const rawEntries = Array.isArray(feed.entry) ? feed.entry : (feed.entry ? [feed.entry] : []);
+        const rawEntries = (Array.isArray(feed.entry) ? feed.entry : (feed.entry ? [feed.entry] : [])).slice(0, 50);
         if (rawEntries.length === 0) {
             return { success: false, message: 'Playlist contains no videos.' };
         }
@@ -537,59 +495,57 @@ export async function importYouTubePlaylist(urlOrId: string): Promise<{ success:
             return { success: false, message: plError?.message || 'Failed to create playlist in database.' };
         }
 
-        // 2. Insert videos and connect items
-        let addedCount = 0;
-        for (let i = 0; i < rawEntries.length; i++) {
-            const entry = rawEntries[i];
+        // 2. Resolve and insert videos in batches. This avoids one database round trip
+        // per playlist entry, which can exceed a Worker request budget on larger feeds.
+        const importedVideos = rawEntries.flatMap((entry, position) => {
             const videoId = entry['yt:videoId'];
-            if (!videoId) continue;
+            if (!videoId) return [];
+            return [{
+                position,
+                url: `https://www.youtube.com/watch?v=${videoId}`,
+                title: entry.title || entry['media:group']?.['media:title'] || `Video ${videoId}`,
+                thumbnail_url: entry['media:group']?.['media:thumbnail']?.['@_url'] || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+            }];
+        });
+        const uniqueVideos = Array.from(new Map(importedVideos.map(video => [video.url, video])).values());
+        const { data: existingVideos, error: existingVideosError } = await supabase
+            .from('youtube_videos')
+            .select('id, url')
+            .eq('user_id', user.id)
+            .in('url', uniqueVideos.map(video => video.url));
 
-            const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-            const videoTitle = entry.title || entry['media:group']?.['media:title'] || `Video ${videoId}`;
-            const videoThumbnail = entry['media:group']?.['media:thumbnail']?.['@_url'] || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        if (existingVideosError) throw existingVideosError;
 
-            // Check if video already exists
-            let savedVideoId: string | null = null;
-            const { data: existingVideo } = await supabase
+        const existingByUrl = new Map((existingVideos || []).map(video => [video.url, video.id]));
+        const videosToCreate = uniqueVideos
+            .filter(video => !existingByUrl.has(video.url))
+            .map(({ position: _position, ...video }) => ({ ...video, user_id: user.id, saved_time: 0, is_favorite: false }));
+
+        if (videosToCreate.length > 0) {
+            const { data: newVideos, error: newVideosError } = await supabase
                 .from('youtube_videos')
-                .select('id')
-                .eq('user_id', user.id)
-                .eq('url', videoUrl)
-                .single();
-
-            if (existingVideo) {
-                savedVideoId = existingVideo.id;
-            } else {
-                const { data: newVideo } = await supabase
-                    .from('youtube_videos')
-                    .insert({
-                        user_id: user.id,
-                        url: videoUrl,
-                        title: videoTitle,
-                        thumbnail_url: videoThumbnail,
-                        saved_time: 0,
-                        is_favorite: false
-                    })
-                    .select('id')
-                    .single();
-
-                if (newVideo) {
-                    savedVideoId = newVideo.id;
-                }
-            }
-
-            if (savedVideoId) {
-                await supabase
-                    .from('youtube_playlist_items')
-                    .insert({
-                        user_id: user.id,
-                        playlist_id: createdPlaylist.id,
-                        video_id: savedVideoId,
-                        position: i
-                    });
-                addedCount++;
-            }
+                .insert(videosToCreate)
+                .select('id, url');
+            if (newVideosError) throw newVideosError;
+            for (const video of newVideos || []) existingByUrl.set(video.url, video.id);
         }
+
+        const seenVideoIds = new Set<string>();
+        const playlistItems = importedVideos.flatMap(video => {
+            const videoId = existingByUrl.get(video.url);
+            if (!videoId || seenVideoIds.has(videoId)) return [];
+            seenVideoIds.add(videoId);
+            return [{ user_id: user.id, playlist_id: createdPlaylist.id, video_id: videoId, position: video.position }];
+        });
+
+        if (playlistItems.length > 0) {
+            const { error: itemsError } = await supabase
+                .from('youtube_playlist_items')
+                .insert(playlistItems);
+            if (itemsError) throw itemsError;
+        }
+
+        const addedCount = playlistItems.length;
 
         revalidatePath('/media/youtube');
         return {

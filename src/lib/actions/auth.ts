@@ -24,7 +24,15 @@ export async function login(formData: FormData) {
     }
 
     const nextUrl = (formData.get('next') as string) || '/'
-    const safeNext = (nextUrl.startsWith('/') && !nextUrl.startsWith('//')) ? nextUrl : '/'
+    let safeNext = '/'
+    try {
+        const parsedNext = new URL(nextUrl, 'http://localhost')
+        if (nextUrl.startsWith('/') && parsedNext.origin === 'http://localhost') {
+            safeNext = `${parsedNext.pathname}${parsedNext.search}${parsedNext.hash}`
+        }
+    } catch {
+        // Ignore malformed return paths.
+    }
 
     revalidatePath('/', 'layout')
     redirect(safeNext)

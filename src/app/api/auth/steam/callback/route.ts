@@ -30,14 +30,14 @@ export async function GET(request: Request) {
     const { data: { user }, error } = await supabase.auth.getUser();
 
     if (error || !user) {
-        return NextResponse.redirect(`${baseUrl}/vi/login?error=unauthorized`);
+        return NextResponse.redirect(`${baseUrl}/login?error=unauthorized`);
     }
 
     const claimedId = searchParams.get('openid.claimed_id');
     const mode = searchParams.get('openid.mode');
 
     if (mode === 'cancel' || !claimedId) {
-        return NextResponse.redirect(`${baseUrl}/vi/media?error=steam_login_cancelled`);
+        return NextResponse.redirect(`${baseUrl}/media/gaming?error=steam_login_cancelled`);
     }
 
     // Verify OpenID parameters (Simplified signature validation)
@@ -57,7 +57,7 @@ export async function GET(request: Request) {
 
         const verifyText = await verifyRes.text();
         if (!verifyText.includes('is_valid:true')) {
-            return NextResponse.redirect(`${baseUrl}/vi/media?error=steam_verification_failed`);
+            return NextResponse.redirect(`${baseUrl}/media/gaming?error=steam_verification_failed`);
         }
 
         // Extract SteamID64 from claimed_id
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
         const steamId64 = steamIdMatch ? steamIdMatch[1] : null;
 
         if (!steamId64) {
-            return NextResponse.redirect(`${baseUrl}/vi/media?error=steam_id_not_found`);
+            return NextResponse.redirect(`${baseUrl}/media/gaming?error=steam_id_not_found`);
         }
 
         // Save to steam_credentials table (Upsert)
@@ -82,12 +82,12 @@ export async function GET(request: Request) {
 
         if (dbError) {
             console.error('Supabase integration error:', dbError);
-            return NextResponse.redirect(`${baseUrl}/vi/media?error=db_update_failed`);
+            return NextResponse.redirect(`${baseUrl}/media/gaming?error=db_update_failed`);
         }
 
-        return NextResponse.redirect(`${baseUrl}/vi/media/gaming`);
+        return NextResponse.redirect(`${baseUrl}/media/gaming`);
     } catch (err) {
         console.error('Steam OpenID verification error:', err);
-        return NextResponse.redirect(`${baseUrl}/vi/media/gaming?error=server_error`);
+        return NextResponse.redirect(`${baseUrl}/media/gaming?error=server_error`);
     }
 }

@@ -20,8 +20,8 @@ export async function GET() {
         let steamData = null;
         if (steamId) {
             const [player, recentGames] = await Promise.all([
-                getSteamPlayerSummary(),
-                getSteamRecentlyPlayed()
+                getSteamPlayerSummary(steamId),
+                getSteamRecentlyPlayed(steamId)
             ]);
 
             if (player) {

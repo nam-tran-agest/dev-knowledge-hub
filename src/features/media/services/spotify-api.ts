@@ -45,7 +45,7 @@ const SCOPES = [
     'user-read-playback-state'
 ].join(' ');
 
-export function getSpotifyAuthUrl() {
+export function getSpotifyAuthUrl(state?: string) {
     const params = new URLSearchParams({
         client_id: SPOTIFY_CLIENT_ID!,
         response_type: 'code',
@@ -53,6 +53,8 @@ export function getSpotifyAuthUrl() {
         scope: SCOPES,
         show_dialog: 'true'
     });
+
+    if (state) params.set('state', state);
 
     return `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
@@ -68,7 +70,8 @@ export async function getSpotifyTokens(code: string) {
             grant_type: 'authorization_code',
             code,
             redirect_uri: REDIRECT_URI
-        })
+        }),
+        signal: AbortSignal.timeout(5000)
     });
 
     if (!response.ok) {
@@ -89,7 +92,8 @@ export async function refreshSpotifyToken(refreshToken: string) {
         body: new URLSearchParams({
             grant_type: 'refresh_token',
             refresh_token: refreshToken
-        })
+        }),
+        signal: AbortSignal.timeout(5000)
     });
 
     if (!response.ok) {
@@ -137,7 +141,8 @@ export async function playSpotifyContext(accessToken: string, contextUri: string
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ context_uri: contextUri })
+        body: JSON.stringify({ context_uri: contextUri }),
+        signal: AbortSignal.timeout(5000)
     });
 
     if (!response.ok && response.status !== 204) {
@@ -160,7 +165,8 @@ export async function searchSpotifyPlaylists(accessToken: string, query: string)
     const response = await fetch(`https://api.spotify.com/v1/search?${params.toString()}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
-        }
+        },
+        signal: AbortSignal.timeout(5000)
     });
 
     if (!response.ok) return [];

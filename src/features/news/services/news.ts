@@ -73,13 +73,14 @@ export async function getNews(categoryId?: string): Promise<NewsItem[]> {
                 const description = item.description || "";
                 const cleanDescription = decodeEntities((description.replace(/<[^>]*>/g, "").split(".")[0] + ".").trim().normalize('NFC'));
                 const title = decodeEntities((item.title || "").trim().normalize('NFC'));
-                const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
+                const parsedPubDate = item.pubDate ? new Date(item.pubDate) : null;
+                const pubDate = parsedPubDate && !Number.isNaN(parsedPubDate.getTime()) ? parsedPubDate : new Date();
 
                 return {
                     title: title,
                     link: item.link,
                     excerpt: cleanDescription,
-                    time: pubDate.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' - ' + pubDate.toLocaleDateString('vi-VN'),
+                    time: pubDate.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }),
                     pubDate: pubDate,
                     category: categoryId ? CATEGORIES.find(c => c.id === categoryId)?.name || "" : "Latest",
                     categoryId: categoryId || 'all',

@@ -83,7 +83,7 @@ export default function LiveWidgetPage() {
 
     const { steam, spotify } = data;
     
-    // Nếu không chơi game và không nghe nhạc thì ẩn luôn widget cho gọn màn hình OBS
+    // Hide the OBS widget when neither a game nor music is playing.
     if (!steam?.game && !spotify?.isPlaying) {
         return null;
     }

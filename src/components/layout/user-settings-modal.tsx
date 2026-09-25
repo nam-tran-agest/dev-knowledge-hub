@@ -68,17 +68,17 @@ export function UserSettingsModal({
         setSuccessMessage(null)
 
         if (password && password.length < 6) {
-            setError('Mật khẩu mới phải có tối thiểu 6 ký tự.')
+            setError('New password must be at least 6 characters.')
             return
         }
 
         if (password && password !== confirmPassword) {
-            setError('Mật khẩu xác nhận không khớp.')
+            setError('Passwords do not match.')
             return
         }
 
         if (!displayName.trim() && !password) {
-            setError('Vui lòng nhập tên hiển thị mới hoặc mật khẩu mới.')
+            setError('Enter a display name or a new password.')
             return
         }
 
@@ -97,7 +97,7 @@ export function UserSettingsModal({
                 if (result?.error) {
                     setError(result.error)
                 } else if (result?.success) {
-                    setSuccessMessage('Danh tính người vận hành đã được cập nhật thành công!')
+                    setSuccessMessage('Profile updated successfully!')
                     if (onProfileUpdated && displayName.trim()) {
                         onProfileUpdated(displayName.trim())
                     }
@@ -108,7 +108,7 @@ export function UserSettingsModal({
                     }, 1200)
                 }
             } catch (err: unknown) {
-                const msg = err instanceof Error ? err.message : 'Cập nhật danh tính thất bại.'
+                const msg = err instanceof Error ? err.message : 'Failed to update profile.'
                 setError(msg)
             }
         })
@@ -123,7 +123,7 @@ export function UserSettingsModal({
                         // OPERATOR_IDENTITY_SETTINGS
                     </DialogTitle>
                     <DialogDescription>
-                        Cấu hình thông số hồ sơ người vận hành và mật mã bảo mật.
+                        Update your profile and password.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -161,12 +161,12 @@ export function UserSettingsModal({
                     <div className="space-y-1.5">
                         <Label htmlFor="settings-displayName" className="text-primary/80 font-mono text-xs uppercase tracking-wider flex items-center gap-1.5">
                             <UserIcon className="w-3.5 h-3.5 text-primary" />
-                            Tên Hiển Thị / Call Sign
+                            Display Name / Call Sign
                         </Label>
                         <Input
                             id="settings-displayName"
                             value={displayName}
-                            placeholder="Ví dụ: Neo, Cyber_01"
+                            placeholder="For example: Neo, Cyber_01"
                             onChange={(e) => setDisplayName(e.target.value)}
                             className="bg-[#030712]/90 border-primary/30 focus:border-primary text-white font-mono text-xs"
                         />
@@ -176,13 +176,13 @@ export function UserSettingsModal({
                     <div className="pt-2 border-t border-primary/15 space-y-3">
                         <div className="text-[11px] font-mono text-primary/60 uppercase tracking-widest flex items-center gap-1.5">
                             <KeyRound className="w-3.5 h-3.5 text-primary" />
-                            // ĐỔI MẬT KHẨU (BỎ TRỐNG NẾU KHÔNG ĐỔI)
+                            // CHANGE PASSWORD (LEAVE BLANK TO KEEP CURRENT)
                         </div>
 
                         <div className="space-y-1.5">
                             <Label htmlFor="settings-password" className="text-primary/80 font-mono text-xs uppercase tracking-wider flex items-center gap-1.5">
                                 <Lock className="w-3.5 h-3.5 text-primary" />
-                                Mật Khẩu Mới
+                                New Password
                             </Label>
                             <Input
                                 id="settings-password"
@@ -198,7 +198,7 @@ export function UserSettingsModal({
                             <div className="space-y-1.5">
                                 <Label htmlFor="settings-confirmPassword" className="text-primary/80 font-mono text-xs uppercase tracking-wider flex items-center gap-1.5">
                                     <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-                                    Xác Nhận Mật Khẩu Mới
+                                    Confirm New Password
                                 </Label>
                                 <Input
                                     id="settings-confirmPassword"
@@ -224,7 +224,7 @@ export function UserSettingsModal({
                                     SAVING_IDENTITY...
                                 </>
                             ) : (
-                                '[ CẬP NHẬT DANH TÍNH ]'
+                                '[ UPDATE PROFILE ]'
                             )}
                         </Button>
                     </DialogFooter>

@@ -12,7 +12,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'STEAM_NOT_CONNECTED' }, { status: 400 });
         }
 
-        const player = await getSteamPlayerSummary();
+        const player = await getSteamPlayerSummary(steamId);
         if (!player) {
             return NextResponse.json({ error: 'STEAM_PROFILE_UNAVAILABLE' }, { status: 400 });
         }
@@ -24,19 +24,17 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: 'NOT_PLAYING_GAME', status: 'idle' });
         }
 
-        // 2. Chạy qua Game-Mood Scoring Logic
-        const { playlistUri, matchedTags } = await matchGameToPlaylist(gameId);
-
-        // 3. Đẩy lệnh sang Spotify
+        // 2. Resolve Spotify once and reuse it for playlist matching and playback.
         const spotifyToken = await getSpotifyAuthToken();
         if (!spotifyToken) {
-            return NextResponse.json({ 
+            return NextResponse.json({
                 error: 'SPOTIFY_NOT_CONNECTED',
-                gameName,
-                matchedTags,
-                playlistUri 
+                gameName
             }, { status: 400 });
         }
+
+        // 3. Run game-mood scoring logic using the same token.
+        const { playlistUri, matchedTags } = await matchGameToPlaylist(gameId, spotifyToken);
 
         // Kiểm tra request body xem client có bắt buộc đổi nhạc không
         const body = await request.json().catch(() => ({}));

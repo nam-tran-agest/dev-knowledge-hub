@@ -143,7 +143,7 @@ export function UserMenu() {
                                     setTimeout(() => setIsSettingsOpen(true), 50)
                                 }}
                                 className="p-1.5 cyber-clip-button border border-primary/30 hover:border-primary bg-primary/10 hover:bg-primary/25 text-primary transition-all cursor-pointer shrink-0"
-                                title="Chỉnh sửa hồ sơ"
+                                title="Edit profile"
                             >
                                 <Sliders className="w-3.5 h-3.5" />
                             </button>
@@ -167,7 +167,7 @@ export function UserMenu() {
                         className="cursor-pointer text-slate-200 hover:text-white hover:bg-primary/20 focus:text-white focus:bg-primary/20 text-xs font-mono"
                     >
                         <Sliders className="w-3.5 h-3.5 mr-2 text-primary" />
-                        <span>Hồ Sơ & Cài Đặt Danh Tính</span>
+                        <span>Profile &amp; Identity Settings</span>
                     </DropdownMenuItem>
 
                     <DropdownMenuSeparator />

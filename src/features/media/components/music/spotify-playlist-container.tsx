@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getPlaylist, getPlaylistTracks } from '@/features/media/services/spotify';
+import { getPlaylist, getPlaylistTracks, getSpotifyAuthToken } from '@/features/media/services/spotify';
 import { MusicSidebar } from '@/features/media/components/music/music-sidebar';
 import { Link } from '@/i18n/routing';
 import { ChevronLeft, Music2, Clock, ExternalLink, Loader2 } from 'lucide-react';
@@ -28,9 +28,14 @@ export function SpotifyPlaylistContainer({ playlistId, locale: _locale }: Spotif
         async function loadPlaylistData() {
             try {
                 setIsLoading(true);
+                const token = await getSpotifyAuthToken();
+                if (!token) {
+                    if (isMounted) setPlaylist(null);
+                    return;
+                }
                 const [pData, tData] = await Promise.all([
-                    getPlaylist(playlistId),
-                    getPlaylistTracks(playlistId)
+                    getPlaylist(playlistId, token),
+                    getPlaylistTracks(playlistId, 50, token)
                 ]);
                 if (!isMounted) return;
                 setPlaylist(pData);

@@ -96,7 +96,7 @@ export function TaskItem({
                                 <button 
                                     type="button" 
                                     className="cursor-pointer hover:scale-110 transition-transform focus:outline-none"
-                                    title="Nhấn để đổi loại công việc (Story / Task / Bug / Epic)"
+                                    title="Click to change the task type (Story / Task / Bug / Epic)"
                                 >
                                     <IssueTypeBadge type={task.issue_type || 'task'} size="sm" showLabel={false} />
                                 </button>
@@ -141,7 +141,7 @@ export function TaskItem({
                                 <button 
                                     type="button" 
                                     className="cursor-pointer hover:scale-110 transition-transform focus:outline-none"
-                                    title="Nhấn để đổi mức độ ưu tiên"
+                                    title="Click to change the priority"
                                 >
                                     <PriorityBadge priority={task.priority} showLabel={false} />
                                 </button>
@@ -197,13 +197,13 @@ export function TaskItem({
                                     onClick={() => onEdit?.(task)}
                                     className="gap-2 cursor-pointer text-xs uppercase"
                                 >
-                                    <Edit2 size={12} className="text-primary" /> [ CHỈNH SỬA TASK ]
+                                    <Edit2 size={12} className="text-primary" /> [ EDIT TASK ]
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     onClick={() => onDelete?.(task.id)}
                                     className="gap-2 text-destructive focus:bg-destructive/20 focus:text-destructive cursor-pointer text-xs uppercase"
                                 >
-                                    <Trash2 size={12} /> [ XOÁ TASK ]
+                                    <Trash2 size={12} /> [ DELETE TASK ]
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

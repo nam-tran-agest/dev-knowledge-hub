@@ -57,8 +57,8 @@ export interface SteamRecentGame {
 }
 
 // Steam API Methods
-export async function getSteamPlayerSummary(): Promise<SteamPlayerSummary | null> {
-    const steamId = await getUserSteamId();
+export async function getSteamPlayerSummary(steamId?: string | null): Promise<SteamPlayerSummary | null> {
+    steamId ??= await getUserSteamId();
     const apiKey = process.env.STEAM_WEB_API_KEY;
 
     if (!steamId || !apiKey) return null;
@@ -78,8 +78,8 @@ export async function getSteamPlayerSummary(): Promise<SteamPlayerSummary | null
     }
 }
 
-export async function getSteamRecentlyPlayed(): Promise<SteamRecentGame[]> {
-    const steamId = await getUserSteamId();
+export async function getSteamRecentlyPlayed(steamId?: string | null): Promise<SteamRecentGame[]> {
+    steamId ??= await getUserSteamId();
     const apiKey = process.env.STEAM_WEB_API_KEY;
 
     if (!steamId || !apiKey) return [];
