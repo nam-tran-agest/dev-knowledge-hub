@@ -1,3 +1,4 @@
+// OpenNext 1.16.2 needs Edge middleware; proxy.ts runs on Node.js in Next 16.
 import { type NextRequest, NextResponse } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { createServerClient } from '@supabase/ssr'
@@ -14,7 +15,7 @@ const intlMiddleware = createMiddleware(routing)
 const PROTECTED_ROUTES = ['/planner', '/working', '/media']
 const AUTH_ROUTES = ['/login', '/signup', '/forgot-password']
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname
 
     // 1. Auto-forward email verification / reset code to /callback if landed on any other page
