@@ -14,40 +14,6 @@ const intlMiddleware = createMiddleware(routing)
 const PROTECTED_ROUTES = ['/planner', '/working', '/media']
 const AUTH_ROUTES = ['/login', '/signup', '/forgot-password']
 
-/**
- * Fast client-side JWT check: Extracts token expiry directly from cookies
- * without triggering costly remote HTTPS subrequests to Supabase.
- */
-function isSessionCookieValid(cookies: { name: string; value: string }[]): boolean {
-    const authCookies = cookies
-        .filter(c => c.name.includes('-auth-token'))
-        .sort((a, b) => a.name.localeCompare(b.name))
-    
-    if (authCookies.length === 0) return false
-
-    try {
-        let rawVal = authCookies.map(c => c.value).join('')
-        if (rawVal.startsWith('base64-')) {
-            rawVal = atob(rawVal.slice(7))
-        }
-        const session = JSON.parse(rawVal)
-        const accessToken = session.access_token || (Array.isArray(session) ? session[0] : null)
-        if (!accessToken) return false
-
-        const parts = accessToken.split('.')
-        if (parts.length !== 3) return false
-
-        const decoded = atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'))
-        const payload = JSON.parse(decoded)
-        const now = Math.floor(Date.now() / 1000)
-
-        // Return true if token is valid for at least another 10 seconds
-        return typeof payload.exp === 'number' && payload.exp > now + 10
-    } catch {
-        return false
-    }
-}
-
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname
 
@@ -81,17 +47,10 @@ export async function middleware(request: NextRequest) {
         pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(`${route}/`)
     )
 
-    // 3. Fast-path: Public pages never need Supabase auth subrequests (0ms CPU, 0 subrequests)
+    // Public pages do not need an auth request.
     if (!isProtectedRoute && !isAuthRoute) {
         return response
     }
-
-    // 4. Fast-path: Skip remote subrequests on Next.js prefetch requests (0ms CPU)
-    const isPrefetch =
-        request.headers.get('purpose') === 'prefetch' ||
-        request.headers.get('sec-purpose') === 'prefetch' ||
-        request.headers.get('x-nextjs-data') !== null ||
-        request.headers.get('x-purpose') === 'prefetch'
 
     const allCookies = request.cookies.getAll()
     const hasAuthCookie = allCookies.some(c => c.name.includes('-auth-token'))
@@ -107,32 +66,11 @@ export async function middleware(request: NextRequest) {
         return redirectResponse
     }
 
-    // Fast-path: Valid non-expired JWT cookie -> Authenticated!
-    // Bypasses remote Supabase HTTP call completely on normal page clicks (0ms CPU)
-    const isTokenValid = hasAuthCookie && isSessionCookieValid(allCookies)
-
-    if (isTokenValid) {
-        // Authenticated user on protected route -> allow immediately!
-        if (isProtectedRoute) {
-            return response
-        }
-        // Authenticated user on auth route (/login, /signup) -> redirect to home!
-        if (isAuthRoute) {
-            const homeUrl = new URL(`/${locale}`, request.url)
-            const redirectResponse = NextResponse.redirect(homeUrl)
-            response.cookies.getAll().forEach(cookie => {
-                redirectResponse.cookies.set(cookie.name, cookie.value)
-            })
-            return redirectResponse
-        }
-    }
-
-    // Fast-path: If prefetch and token wasn't definitively verified, don't waste worker CPU
-    if (isPrefetch) {
+    if (isAuthRoute && !hasAuthCookie) {
         return response
     }
 
-    // 5. Fallback: Only call remote Supabase server if token is expired/near-expiry
+    // Cookie contents are untrusted until Supabase verifies the user.
     const supabase = createServerClient(
         url,
         key,

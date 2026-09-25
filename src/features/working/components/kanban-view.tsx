@@ -110,7 +110,9 @@ export function KanbanView({
         return (
             <div className="flex overflow-x-auto xl:overflow-x-visible gap-3.5 pb-6 pt-2 custom-scrollbar min-h-[calc(100vh-280px)] select-none w-full">
                 {COLUMNS.map((column) => {
-                    const columnTasks = tasks.filter(t => t.status === column.id)
+                    const columnTasks = tasks
+                        .filter(task => task.status === column.id)
+                        .sort((left, right) => left.position - right.position)
                     const Icon = column.icon
                     const totalPoints = columnTasks.reduce((sum, task) => sum + (task.story_points || 0), 0)
 
@@ -171,7 +173,9 @@ export function KanbanView({
         <DragDropContext onDragEnd={handleDragEndInternal}>
             <div className="flex overflow-x-auto xl:overflow-x-visible gap-3.5 pb-6 pt-2 custom-scrollbar min-h-[calc(100vh-280px)] select-none w-full">
                 {COLUMNS.map((column) => {
-                    const columnTasks = tasks.filter(t => t.status === column.id)
+                    const columnTasks = tasks
+                        .filter(task => task.status === column.id)
+                        .sort((left, right) => left.position - right.position)
                     const Icon = column.icon
 
                     // Calculate total story points in column

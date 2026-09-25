@@ -135,26 +135,31 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
             return
         }
 
+        const sourceStatus = source.droppableId as TaskStatus
         const destStatus = destination.droppableId as TaskStatus
 
         // Find target task
         const targetTask = tasks.find(t => t.id === draggableId)
         if (!targetTask) return
 
-        const updatedTarget = { 
-            ...targetTask, 
-            status: destStatus, 
-            position: destination.index 
+        const sortByPosition = (left: Task, right: Task) => left.position - right.position
+        const sourceTasks = tasks
+            .filter(task => task.id !== draggableId && task.status === sourceStatus)
+            .sort(sortByPosition)
+        const destTasks = (sourceStatus === destStatus
+            ? sourceTasks
+            : tasks.filter(task => task.id !== draggableId && task.status === destStatus).sort(sortByPosition)
+        )
+
+        const updatedTarget = {
+            ...targetTask,
+            status: destStatus,
         }
 
-        // Get tasks from other columns (unaffected)
-        const otherColumnTasks = tasks.filter(t => t.id !== draggableId && t.status !== destStatus)
-
-        // Get tasks in the destination column (excluding dragged task)
-        const destTasks = tasks.filter(t => t.id !== draggableId && t.status === destStatus)
-
         // Determine precise insertion point (accounting for active filters if any)
-        const filteredDestTasks = filteredTasks.filter(t => t.id !== draggableId && t.status === destStatus)
+        const filteredDestTasks = filteredTasks
+            .filter(task => task.id !== draggableId && task.status === destStatus)
+            .sort(sortByPosition)
         const referenceTask = filteredDestTasks[destination.index]
 
         let insertIdx = destTasks.length
@@ -166,19 +171,31 @@ export function ProjectWorkspace({ project, initialTasks, locale }: ProjectWorks
         }
 
         destTasks.splice(insertIdx, 0, updatedTarget)
-        destTasks.forEach((t, idx) => {
-            t.position = idx
+
+        const changedTasks = new Map<string, Task>()
+        const normalizeColumn = (columnTasks: Task[], status: TaskStatus) => {
+            columnTasks.forEach((task, position) => {
+                changedTasks.set(task.id, { ...task, status, position })
+            })
+        }
+
+        normalizeColumn(destTasks, destStatus)
+        if (sourceStatus !== destStatus) {
+            normalizeColumn(sourceTasks, sourceStatus)
+        }
+
+        const tasksToPersist = [...changedTasks.values()].filter(task => {
+            const previous = tasks.find(current => current.id === task.id)
+            return previous && (previous.status !== task.status || previous.position !== task.position)
         })
 
-        // Combine all tasks and update state optimistically
-        const newTasks = [...otherColumnTasks, ...destTasks]
-        setTasks(newTasks)
+        setTasks(previous => previous.map(task => changedTasks.get(task.id) || task))
 
-        // Sync change to server asynchronously in background without blocking UI
-        updateTask(draggableId, {
-            status: destStatus,
-            position: insertIdx
-        }).catch(err => {
+        // Persist every shifted task so the board order survives a reload.
+        Promise.all(tasksToPersist.map(task => updateTask(task.id, {
+            status: task.status,
+            position: task.position,
+        }))).catch(err => {
             console.error('Failed to persist dragged task state:', err)
         })
     }

@@ -16,9 +16,6 @@ interface CRUDConfig<T> {
   revalidatePaths?: string[]
 }
 
-// Mock "Guest" user for unauthenticated fallback
-const GUEST_ID = '00000000-0000-0000-0000-000000000000'
-
 /**
  * Get authenticated user
  */
@@ -27,15 +24,7 @@ async function getAuthUser() {
   const { data: { user }, error } = await supabase.auth.getUser()
 
   if (error || !user) {
-    return {
-      id: GUEST_ID,
-      email: 'guest@cyberlink.net',
-      aud: 'authenticated',
-      role: 'authenticated',
-      app_metadata: {},
-      user_metadata: {},
-      created_at: new Date().toISOString()
-    } as unknown as { id: string; email: string; aud: string; role: string; app_metadata: Record<string, unknown>; user_metadata: Record<string, unknown>; created_at: string }
+    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để truy cập dữ liệu.')
   }
 
   return user
@@ -111,15 +100,6 @@ export async function getAll<T extends BaseEntity>(
   const { data, error, count } = await query
 
   if (error) {
-    // If table does not have user_id yet, fallback to querying without user_id filter
-    if (error.code === '42703') {
-      const fallbackQuery = supabase
-        .from(config.tableName)
-        .select(selectQuery, { count: 'exact' })
-        .order('created_at', { ascending: false })
-      const { data: fbData, count: fbCount } = await fallbackQuery
-      return { data: (fbData as unknown as T[]) || [], count: fbCount || 0 }
-    }
     throw new Error(error.message)
   }
 
@@ -160,15 +140,7 @@ export async function getById<T extends BaseEntity>(
     .single()
 
   if (error) {
-    // Fallback if user_id column is missing or queried before migration
-    if (error.code === '42703') {
-      const { data: fbData } = await supabase
-        .from(config.tableName)
-        .select(selectQuery)
-        .eq('id', id)
-        .single()
-      return fbData as unknown as T
-    }
+    if (error.code !== 'PGRST116') throw new Error(error.message)
     return null
   }
 
@@ -189,9 +161,6 @@ export async function create<T extends BaseEntity>(
   input: Record<string, unknown>
 ): Promise<T> {
   const user = await getAuthUser()
-  if (!user || user.id === GUEST_ID) {
-    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để tạo dữ liệu.')
-  }
   const supabase = await createClient()
 
   const { tagIds, ...insertData } = input
@@ -244,9 +213,6 @@ export async function update<T extends BaseEntity>(
   input: Record<string, unknown>
 ): Promise<T> {
   const user = await getAuthUser()
-  if (!user || user.id === GUEST_ID) {
-    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để cập nhật dữ liệu.')
-  }
   const supabase = await createClient()
 
   const { tagIds, ...updateFields } = input
@@ -311,9 +277,6 @@ export async function deleteEntity<T extends BaseEntity>(
   id: string
 ): Promise<void> {
   const user = await getAuthUser()
-  if (!user || user.id === GUEST_ID) {
-    throw new Error('AUTH_REQUIRED: Bạn cần đăng nhập để xóa dữ liệu.')
-  }
   const supabase = await createClient()
 
   const { error } = await supabase

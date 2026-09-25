@@ -1,6 +1,6 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "dev-knowledge-hub",
+    "name": "derwind",
     "compatibility_date": "2025-05-05",
     "compatibility_flags": [
         "nodejs_compat",

@@ -30,11 +30,15 @@ export default function LiveWidgetPage() {
     const activeGameRef = useRef<string | null>(null);
 
     useEffect(() => {
+        let cancelled = false;
+        let pollTimeout: ReturnType<typeof setTimeout>;
         const fetchTelemetry = async () => {
+            let nextPollMs = 30000;
             try {
-                const res = await fetch('/api/media/now-playing');
+                const res = await fetch('/api/media/now-playing', { cache: 'no-store' });
                 if (res.ok) {
                     const json: TelemetryData = await res.json();
+                    if (cancelled) return;
                     setData(json);
 
                     // Track session start when a new game is detected
@@ -46,15 +50,22 @@ export default function LiveWidgetPage() {
                         activeGameRef.current = null;
                         setSessionSeconds(0);
                     }
+                } else {
+                    nextPollMs = 300000;
                 }
             } catch (e) {
                 console.error('Telemetry fetch error:', e);
+                nextPollMs = 300000;
+            } finally {
+                if (!cancelled) pollTimeout = setTimeout(fetchTelemetry, nextPollMs);
             }
         };
 
         fetchTelemetry();
-        const pollInterval = setInterval(fetchTelemetry, 10000);
-        return () => clearInterval(pollInterval);
+        return () => {
+            cancelled = true;
+            clearTimeout(pollTimeout);
+        };
     }, []);
 
     // Live session timer increment every 1 second

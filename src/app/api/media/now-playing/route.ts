@@ -3,21 +3,14 @@ import { getUserSteamId, getSteamPlayerSummary, getSteamRecentlyPlayed } from '@
 import { getSpotifyAuthToken } from '@/features/media/services/spotify';
 import { spotifyFetch, type SpotifyCurrentlyPlaying } from '@/features/media/services/spotify-api';
 
-// Short TTL memory cache to prevent hammering external APIs on high frequency polling
-let memoryCache: { data: unknown; timestamp: number } | null = null;
-const CACHE_TTL_MS = 5000; // 5 seconds
+// This endpoint reads the authenticated user's connected accounts. It must never
+// share a response between requests or let an intermediary cache it.
+const PRIVATE_NO_STORE_HEADERS = {
+    'Cache-Control': 'private, no-store'
+};
 
 export async function GET() {
     try {
-        const now = Date.now();
-        if (memoryCache && (now - memoryCache.timestamp < CACHE_TTL_MS)) {
-            return NextResponse.json(memoryCache.data, {
-                headers: {
-                    'Cache-Control': 'public, max-age=5, s-maxage=5, stale-while-revalidate=10'
-                }
-            });
-        }
-
         // Fetch Steam and Spotify concurrently
         const [steamId, spotifyToken] = await Promise.all([
             getUserSteamId(),
@@ -75,19 +68,15 @@ export async function GET() {
             spotify: spotifyData
         };
 
-        memoryCache = {
-            data: payload,
-            timestamp: now
-        };
-
         return NextResponse.json(payload, {
-            headers: {
-                'Cache-Control': 'public, max-age=5, s-maxage=5, stale-while-revalidate=10'
-            }
+            headers: PRIVATE_NO_STORE_HEADERS
         });
 
     } catch (error) {
         console.error('Now Playing API Error:', error);
-        return NextResponse.json({ error: 'Failed to fetch telemetry' }, { status: 500 });
+        return NextResponse.json(
+            { error: 'Failed to fetch telemetry' },
+            { status: 500, headers: PRIVATE_NO_STORE_HEADERS }
+        );
     }
 }

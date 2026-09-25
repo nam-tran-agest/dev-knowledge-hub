@@ -173,6 +173,7 @@ export function ProjectDetailContainer({ projectId, locale }: ProjectDetailConta
     return (
         <PageShell variant="landing" className="bg-[#0a0a0c]">
             <ProjectWorkspace
+                key={project.id}
                 project={project}
                 initialTasks={tasks}
                 locale={locale}
